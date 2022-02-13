@@ -35,6 +35,12 @@ MDQApplicationSettings >> autoResponsiveOn [
 ]
 
 { #category : #accessing }
+MDQApplicationSettings >> colorTheme [
+
+	^ self mdcTheme
+]
+
+{ #category : #accessing }
 MDQApplicationSettings >> denseView [
 
 	^ self mdcDensity density < 0

@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'products'
 	],
-	#category : #'Quasar-Demo'
+	#category : #'Quasar-Demo-Shrine'
 }
 
 { #category : #actions }

@@ -53,6 +53,12 @@ QuasarDrawer >> miniWWidth: anObject [
 ]
 
 { #category : #attributes }
+QuasarDrawer >> modelValue: aBoolean [
+
+	self attributes at: 'model-value' put: aBoolean
+]
+
+{ #category : #attributes }
 QuasarDrawer >> noSwipeBackdrop [
 
 	self attributes at: 'no-swipe-backdrop' put: true
@@ -98,6 +104,12 @@ QuasarDrawer >> side: anObject [
 QuasarDrawer >> tag [
 
 	^ 'q-drawer'
+]
+
+{ #category : #attributes }
+QuasarDrawer >> vModel: anObject [
+
+	self attributes at: 'v-model' put: anObject
 ]
 
 { #category : #attributes }

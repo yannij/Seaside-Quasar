@@ -5,7 +5,7 @@ Class {
 		'loginComponent',
 		'pageComponent'
 	],
-	#category : #'Quasar-Demo'
+	#category : #'Quasar-Demo-Rally'
 }
 
 { #category : #initialization }

@@ -11,7 +11,7 @@ Class {
 		'productComponent',
 		'category'
 	],
-	#category : #'Quasar-Demo'
+	#category : #'Quasar-Demo-Shrine'
 }
 
 { #category : #initialization }

@@ -30,6 +30,6 @@ MDQModel >> descriptionContainer [
 	^ self class descriptionContainerClass new
 		"componentRenderer: MCWCssRenderer;"
 		label: self class label;
-		propertyAt: #cardWidth ifAbsentPut: [ 600 ];
+		"propertyAt: #cardWidth ifAbsentPut: [ 600 ];"
 		yourself
 ]

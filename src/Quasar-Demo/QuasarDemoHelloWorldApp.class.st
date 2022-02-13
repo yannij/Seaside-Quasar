@@ -4,7 +4,7 @@ I am a ""hello world"" application for the Quasar Framework in Seaside.
 Class {
 	#name : #QuasarDemoHelloWorldApp,
 	#superclass : #QuasarApplication,
-	#category : #'Quasar-Demo'
+	#category : #'Quasar-Demo-Basic'
 }
 
 { #category : #initialization }

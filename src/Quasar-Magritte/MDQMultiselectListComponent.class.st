@@ -19,16 +19,19 @@ MDQMultiselectListComponent >> renderFieldOn: html readonly: readonlyFlag [
 
 { #category : #rendering }
 MDQMultiselectListComponent >> renderMultiselectOn: html readonly: aReadonlyFlag [
-	| inputTag inputLabel inputValue |
+	| inputTag inputLabel inputValue app |
 
 	inputTag := html qSelect.
 	inputLabel := self magritteDescription label.
 	inputTag color: 'primary'.
-	"self mdsTextFieldStyleIsFilled
-		ifTrue: [ inputTag filled ]
-		ifFalse: [ inputTag outlined ]."
 
 	inputTag multiple; label: inputLabel.
+
+	app := self mdqApplicationGet.
+	inputTag filledIf: app viewStyleFilled.
+	inputTag outlinedIf: app viewStyleOutlined.
+	inputTag denseIf: app viewStyleDense.
+	inputTag denseIf: app viewStyleDense.
 
 	aReadonlyFlag
 		ifTrue: [

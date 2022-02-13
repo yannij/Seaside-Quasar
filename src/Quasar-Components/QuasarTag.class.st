@@ -4,8 +4,44 @@ Class {
 	#category : #'Quasar-Components'
 }
 
+{ #category : #'accessing - view style' }
+QuasarTag >> dense [
+	"Subclass would override, if supported"
+]
+
+{ #category : #'accessing - view style' }
+QuasarTag >> denseIf: aBoolean [
+
+	self viewStyle: #dense if: aBoolean
+]
+
+{ #category : #'accessing - view style' }
+QuasarTag >> filledIf: aBoolean [
+
+	self viewStyle: #filled if: aBoolean
+]
+
+{ #category : #'accessing - view style' }
+QuasarTag >> outlineIf: aBoolean [
+
+	self viewStyle: #outline if: aBoolean
+]
+
+{ #category : #'accessing - view style' }
+QuasarTag >> outlinedIf: aBoolean [
+
+	self viewStyle: #outlined if: aBoolean
+]
+
 { #category : #attributes }
 QuasarTag >> ref: anObject [
 	
 	self attributes at: 'ref' put: anObject
+]
+
+{ #category : #'accessing - view style' }
+QuasarTag >> viewStyle: aStyle if: aBoolean [
+
+	aBoolean ifTrue: [
+		self perform: aStyle ]
 ]

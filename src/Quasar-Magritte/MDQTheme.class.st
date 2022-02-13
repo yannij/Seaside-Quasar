@@ -99,7 +99,7 @@ MDQTheme >> colors [
 { #category : #accessing }
 MDQTheme >> data [
 
-	^ data
+	^ data ifNil: [ data := Dictionary new ]
 ]
 
 { #category : #accessing }
@@ -121,5 +121,21 @@ MDQTheme >> name [
 ]
 
 { #category : #accessing }
-MDQTheme >> themeItemsSet: ignore [
+MDQTheme >> themeItemsSet: list [
+	| themeData colorData |
+
+	themeData := Dictionary new.
+
+	list ifNil: [ ^ themeData  ].
+
+	colorData := Dictionary new.
+	list do: [ :each |
+		colorData  at: each first put: each second ].
+
+	themeData
+		at: 'name' put: list hash asString;
+		at: 'isDark' put: false;
+		at: 'colors' put: colorData.
+
+	self data: themeData 
 ]

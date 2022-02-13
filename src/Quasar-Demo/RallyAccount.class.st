@@ -6,7 +6,7 @@ Class {
 		'description',
 		'balance'
 	],
-	#category : #'Quasar-Demo'
+	#category : #'Quasar-Demo-Rally'
 }
 
 { #category : #accessing }

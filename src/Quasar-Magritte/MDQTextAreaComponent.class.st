@@ -54,17 +54,18 @@ MDQTextAreaComponent >> renderEditorOn: html [
 
 { #category : #rendering }
 MDQTextAreaComponent >> renderFieldOn: html readonly: aReadonlyFlag [
-	| inputTag inputLabel inputValue |
+	| inputTag inputLabel inputValue app |
 
 	inputLabel := self magritteDescription label.
 	inputValue := self perform: self inputAspect.
 
 	inputTag := html qInput.
-	"self mdsTextFieldStyleIsFilled
-		ifTrue: [ inputTag filled ]
-		ifFalse: [ inputTag outlined ]."
-
 	inputTag type: self inputType; label: inputLabel.
+
+	app := self mdqApplicationGet.
+	inputTag filledIf: app viewStyleFilled.
+	inputTag outlinedIf: app viewStyleOutlined.
+
 	"inputTag inputStyle: 'height: ', (self mdsTextFieldHeightOf: self mdsFieldHeightGet) printString, 'px'."
 	inputTag inputStyle: 'resize: none'.
 	"inputTag attributeAt: 'rows' put: self mdsFieldHeightGet."

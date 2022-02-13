@@ -1,7 +1,7 @@
 Class {
 	#name : #QuasarDemoBrowseApp,
 	#superclass : #QuasarApplication,
-	#category : #'Quasar-Demo'
+	#category : #'Quasar-Demo-Basic'
 }
 
 { #category : #initialization }

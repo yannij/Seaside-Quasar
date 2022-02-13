@@ -285,8 +285,9 @@ MDQReport >> renderBatchPreviousOn: html [
 { #category : #rendering }
 MDQReport >> renderContentOn: html [
 
-	html qTable "dense;"
+	html qTable
 		"title: 'TODO';"
+		denseIf: self mdqApplicationGet viewStyleDense;
 		columns: self refNameCols;
 		rows: self refNameRows;
 		rowKey: 'name'.

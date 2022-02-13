@@ -83,17 +83,17 @@ MDQDateAndTimeComponent >> renderDateTimeOn: html vModel: aName [
 
 { #category : #rendering }
 MDQDateAndTimeComponent >> renderFieldOn: html readonly: aReadonlyFlag [
-	| inputTag inputLabel inputValue |
+	| inputTag inputLabel inputValue app |
 
 	inputLabel := self magritteDescription label.
 	inputValue := self perform: self inputAspect.
 
 	inputTag := html qInput.
-	"self mdsTextFieldStyleIsFilled" false
-		ifTrue: [ inputTag filled ]
-		ifFalse: [ inputTag outlined ].
-
 	inputTag label: inputLabel.
+
+	app := self mdqApplicationGet.
+	inputTag filledIf: app viewStyleFilled.
+	inputTag outlinedIf: app viewStyleOutlined.
 
 	aReadonlyFlag
 		ifTrue: [

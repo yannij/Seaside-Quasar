@@ -5,7 +5,7 @@ Class {
 		'id',
 		'description'
 	],
-	#category : #'Quasar-Demo'
+	#category : #'Quasar-Demo-Rally'
 }
 
 { #category : #rendering }

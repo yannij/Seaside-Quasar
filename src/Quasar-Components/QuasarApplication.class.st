@@ -219,16 +219,16 @@ QuasarApplication >> renderQuasarJsOn: html [
 
 { #category : #rendering }
 QuasarApplication >> renderQuasarSetupOn: html [
+	| jsStream |
 
-	html document addLoadScript: (JSStream on:
-'const { ref } = Vue
-const app = Vue.createApp({
-	setup () {
-		return {}
-	}
-})
-app.use(Quasar)
-app.mount(''q-app'')')
+	jsStream := JSStream on: 'const { ref } = Vue;const app = Vue.createApp({'.
+	jsStream nextPutAll: 'setup() {'.
+	self vueSetupContentOn: jsStream.
+	jsStream nextPutAll: 'return {'.
+	self vueSetupReturnContentOn: jsStream.
+	jsStream nextPutAll: '}}});app.use(Quasar, { config: {} });app.mount(''q-app'')'.
+
+	html document addLoadScript: jsStream
 ]
 
 { #category : #rendering }
@@ -276,6 +276,24 @@ QuasarApplication >> updateRootQuasarCss: anHtmlRoot [
 	anHtmlRoot stylesheet url: self quasarCssUrl
 ]
 
+{ #category : #'accessing - view style' }
+QuasarApplication >> viewStyleDense [
+
+	^ false
+]
+
+{ #category : #'accessing - view style' }
+QuasarApplication >> viewStyleFilled [
+
+	^ false
+]
+
+{ #category : #'accessing - view style' }
+QuasarApplication >> viewStyleOutlined [
+
+	^ false
+]
+
 { #category : #accessing }
 QuasarApplication >> vueJsUrl [
 
@@ -310,4 +328,14 @@ QuasarApplication >> vueRefsClear [
 QuasarApplication >> vueRefsRemove: anObject [
 
 	self vueRefs remove: anObject ifAbsent: [ nil ]
+]
+
+{ #category : #rendering }
+QuasarApplication >> vueSetupContentOn: aJSStream [
+
+	"aJSStream nextPutAll: ''"
+]
+
+{ #category : #rendering }
+QuasarApplication >> vueSetupReturnContentOn: aJSStream [
 ]

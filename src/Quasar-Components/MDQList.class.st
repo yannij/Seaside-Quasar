@@ -58,7 +58,7 @@ MDQList >> renderListOn: html [
 	self subheader notNil ifTrue: [
 		html div class: 'text-subtitle1'; with: self subheader ].
 
-	html qList with: [
+	html qList denseIf: self mdqApplicationGet viewStyleDense; with: [
 		self items do: [ :eachItem | html render: eachItem ] ]
 ]
 
