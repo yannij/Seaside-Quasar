@@ -23,7 +23,7 @@ QuasarDemoBrowseApp class >> initialize [
 { #category : #accessing }
 QuasarDemoBrowseApp >> applicationTitle [
 
-	^ 'QBrowse'
+	^ 'Browse'
 ]
 
 { #category : #rendering }
@@ -81,7 +81,7 @@ QuasarDemoBrowseApp >> renderDemosOn: html [
 { #category : #rendering }
 QuasarDemoBrowseApp >> renderLayoutOn: html [
 
-	html qApp with: [
+	html qApp id: self appId; with: [
 		html qLayout view: 'hHh lpR fFf'; with: [
 			html qHeader heightHint: 98; class: 'bg-primary text-white'; with: [
 				html qToolbar with: [

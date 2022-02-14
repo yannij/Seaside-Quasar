@@ -23,6 +23,22 @@ MDQBooleanRadioComponent >> inputAspect [
 ]
 
 { #category : #rendering }
+MDQBooleanRadioComponent >> renderFieldOn: html readonly: aReadonlyFlag [
+	| inputLabel modelName app |
+
+	inputLabel := self magritteDescription label.
+	modelName := inputLabel asCamelCase uncapitalized.
+	app := self mdqApplicationGet.
+
+	html qField
+		filledIf: app viewStyleFilled;
+		outlinedIf: app viewStyleOutlined;
+		denseIf: app viewStyleDense;
+		vModel: modelName;
+		with: [ super renderFieldOn: html readonly: aReadonlyFlag ]
+]
+
+{ #category : #rendering }
 MDQBooleanRadioComponent >> valForOption: anOption [
 
 	^ self labelForOption: anOption

@@ -11,7 +11,7 @@ Class {
 		'productComponent',
 		'category'
 	],
-	#category : #'Quasar-Demo-Shrine'
+	#category : #'Quasar-Material-Shrine'
 }
 
 { #category : #initialization }
@@ -176,7 +176,7 @@ QShrineApp >> renderLayoutPageOn: html [
 { #category : #rendering }
 QShrineApp >> renderLayoutShrineOn: html [
 
-	html qApp with: [
+	html qApp id: self appId; with: [
 		html qLayout view: 'hHh lpR fFf'; with: [
 		"html qHeader heightHint: 98; class: 'bg-primary'; style: 'color: #442C2E'; with: [
 			html qToolbar with: [

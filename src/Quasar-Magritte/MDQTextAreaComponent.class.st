@@ -65,9 +65,11 @@ MDQTextAreaComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	app := self mdqApplicationGet.
 	inputTag filledIf: app viewStyleFilled.
 	inputTag outlinedIf: app viewStyleOutlined.
+	inputTag denseIf: app viewStyleDense.
 
 	"inputTag inputStyle: 'height: ', (self mdsTextFieldHeightOf: self mdsFieldHeightGet) printString, 'px'."
-	inputTag inputStyle: 'resize: none'.
+	"inputTag inputStyle: 'resize: none'."
+	inputTag attributeAt: 'rows' put: 5.
 	"inputTag attributeAt: 'rows' put: self mdsFieldHeightGet."
 	"inputTag attributeAt: 'autogrow' put: true."
 
@@ -79,9 +81,7 @@ MDQTextAreaComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 			self mdqApplicationGet vueRefsAdd: modelName -> inputValue.
 			inputTag "name: modelName;" vModel: modelName.
 			inputTag on: self inputAspect of: self
-		].
-
-	"self renderTextFieldHelpTextOn: html"
+		]
 ]
 
 { #category : #rendering }

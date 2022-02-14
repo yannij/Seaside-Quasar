@@ -91,6 +91,12 @@ WAHtmlCanvas >> qFabAction [
 ]
 
 { #category : #'*Quasar-Components' }
+WAHtmlCanvas >> qField [
+
+	^ self brush: QuasarField new
+]
+
+{ #category : #'*Quasar-Components' }
 WAHtmlCanvas >> qFooter [
 
 	^ self brush: QuasarFooter new

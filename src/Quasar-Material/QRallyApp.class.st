@@ -1,3 +1,7 @@
+"
+I am a demo application inspired by the Rally Material Design Study (https://material.io/design/material-studies/rally.html). The data model uses Magritte meta-model (https://github.com/magritte-metamodel/magritte).
+
+"
 Class {
 	#name : #QRallyApp,
 	#superclass : #QuasarApplication,
@@ -5,7 +9,7 @@ Class {
 		'loginComponent',
 		'pageComponent'
 	],
-	#category : #'Quasar-Demo-Rally'
+	#category : #'Quasar-Material-Rally'
 }
 
 { #category : #initialization }
@@ -122,7 +126,7 @@ QRallyApp >> renderLayoutPageOn: html [
 { #category : #rendering }
 QRallyApp >> renderLayoutRallyOn: html [
 
-	html qApp with: [
+	html qApp id: self appId; with: [
 		html qLayout view: 'hHh lpR fFf'; with: [
 			"html qHeader heightHint: 98; with: [
 				html qToolbar with: [

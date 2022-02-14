@@ -16,18 +16,20 @@ BaselineOfSeasideQuasar >> baseline: spec [
 			self voyage: spec.
 
 			spec
-				package: 'DockerUtility' with: [ spec requires: #('Seaside3') ];
 				package: 'Quasar-Components' with: [ spec requires: #('Seaside3' 'NeoJSON') ];
+				package: 'Quasar-Demo' with: [ spec requires: #('Quasar-Components') ];
+				package: 'Quasar-Magritte' with: [ spec requires: #('Quasar-Components' 'Magritte') ];
+				package: 'DockerUtility' with: [ spec requires: #('Seaside3') ];
 				package: 'Stripe' with: [ spec requires: #('Quasar-Components') ];
-				package: 'Quasar-Magritte' with: [ spec requires: #('Quasar-Components' 'DockerUtility' 'Magritte') ];
+				package: 'Quasar-Material' with: [ spec requires: #('Quasar-Components' 'Magritte' 'DockerUtility' 'Stripe') ];
 				package: 'Tidbit-ToDo' with: [ spec requires: #('Quasar-Magritte' 'Voyage') ];
-				package: 'Tidbit-Loanex' with: [ spec requires: #('Quasar-Magritte' 'Voyage') ];
-				package: 'Quasar-Demo' with: [ spec requires: #('Quasar-Magritte' 'Stripe') ].
+				package: 'Tidbit-Loanex' with: [ spec requires: #('Quasar-Magritte' 'Voyage') ].
 
 			spec
-				group: 'default' with: #('Quasar-Magritte');
-				group: 'demo' with: #('Quasar-Demo');
-				group: 'all' with: #('Quasar-Demo' 'Tidbit-ToDo' 'Tidbit-Loanex') ]
+				group: 'default' with: #('Quasar-Demo');
+				group: 'quasar' with: #('Quasar-Components');
+				group: 'material' with: #('Quasar-Material');
+				group: 'all' with: #('Quasar-Demo' 'Quasar-Material' 'Tidbit-ToDo' 'Tidbit-Loanex') ]
 ]
 
 { #category : #dependencies }

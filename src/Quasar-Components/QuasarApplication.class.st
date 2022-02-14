@@ -30,6 +30,12 @@ QuasarApplication class >> mdqRegisterDeployment: aName [
 ]
 
 { #category : #accessing }
+QuasarApplication >> appId [
+
+	^ 'qId'
+]
+
+{ #category : #accessing }
 QuasarApplication >> applicationTitle [
 
 	self subclassResponsibility
@@ -226,7 +232,7 @@ QuasarApplication >> renderQuasarSetupOn: html [
 	self vueSetupContentOn: jsStream.
 	jsStream nextPutAll: 'return {'.
 	self vueSetupReturnContentOn: jsStream.
-	jsStream nextPutAll: '}}});app.use(Quasar, { config: {} });app.mount(''q-app'')'.
+	jsStream nextPutAll: '}}});app.use(Quasar, { config: {} });app.mount("#', self appId, '")'.
 
 	html document addLoadScript: jsStream
 ]

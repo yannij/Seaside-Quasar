@@ -17,6 +17,7 @@ MDQColorComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	app := self mdqApplicationGet.
 	inputTag filledIf: app viewStyleFilled.
 	inputTag outlinedIf: app viewStyleOutlined.
+	inputTag denseIf: app viewStyleDense.
 
 	aReadonlyFlag
 		ifTrue: [
@@ -31,7 +32,5 @@ MDQColorComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 					html qIcon name: 'colorize'; class: 'cursor-pointer'; with: [
 						html qPopupProxy cover; transitionShow: 'scale'; transitionHide: 'scale'; with: [
 							html qColor vModel: modelName ] ] ] ]
-		].
-
-	"self renderTextFieldHelpTextOn: html"
+		]
 ]

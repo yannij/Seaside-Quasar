@@ -24,23 +24,23 @@ MDQRadioGroupComponent >> renderEditorOn: html [
 
 { #category : #rendering }
 MDQRadioGroupComponent >> renderFieldOn: html readonly: aReadonlyFlag [
-	| inputLabel inputValue inputTag modelName |
+	| inputLabel inputValue inputTag modelName app |
 
 	inputValue := self perform: self inputAspect.
 	inputLabel := self magritteDescription label.
 	modelName := inputLabel asCamelCase uncapitalized.
-	self mdqApplicationGet vueRefsAdd: modelName -> (self labelForOption: inputValue).
+	app := self mdqApplicationGet.
+	app vueRefsAdd: modelName -> (self labelForOption: inputValue).
 
 	self optionsWithIndexDo: [ :each :index |
 		inputTag := html qRadio.
 		inputTag
-			"name: modelName;" vModel: modelName;
+			denseIf: app viewStyleDense;
+			name: modelName; vModel: modelName;
 			callback: (GRDelayedSend receiver: self selector: self inputAspect asMutator);
 			val: (self valForOption: each);
 			label: (self labelForOption: each) ]
-		separatedBy: [  ].
-
-	"self renderTextFieldHelpTextOn: html"
+		separatedBy: [ html space; space ]
 ]
 
 { #category : #rendering }

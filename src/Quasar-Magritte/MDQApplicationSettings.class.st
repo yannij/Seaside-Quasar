@@ -40,12 +40,6 @@ MDQApplicationSettings >> colorTheme [
 	^ self mdcTheme
 ]
 
-{ #category : #accessing }
-MDQApplicationSettings >> denseView [
-
-	^ self mdcDensity density < 0
-]
-
 { #category : #initialization }
 MDQApplicationSettings >> initialize [
 

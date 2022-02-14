@@ -328,7 +328,7 @@ LoanexApp >> renderLeftDrawerOn: html [
 { #category : #rendering }
 LoanexApp >> renderLoanexOn: html [
 
-	html qApp with: [
+	html qApp id: self appId; with: [
 		html qLayout view: 'hHh lpR fFf'; with: [
 			html qHeader heightHint: 98; with: [
 				html qToolbar with: [

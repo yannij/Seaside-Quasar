@@ -18,27 +18,36 @@ MDQCheckboxComponent >> renderEditorOn: html [
 
 { #category : #rendering }
 MDQCheckboxComponent >> renderFieldOn: html readonly: aReadonlyFlag [
-	| inputTag inputLabel inputValue |
+	| fieldTag inputTag inputLabel inputValue modelName app |
 
 	inputLabel := self magritteDescription label.
 	inputValue := self perform: self inputAspect.
+	modelName := inputLabel asCamelCase uncapitalized.
+	app := self mdqApplicationGet.
 
-	inputTag := html qCheckbox.
-	inputTag
-		trueValue: self magritteDescription trueString;
-		"falseValue: self magritteDescription falseString;"
-		label: inputLabel.
-	aReadonlyFlag
-		ifTrue: [
-			inputTag readonly: true; modelValue: inputValue ]
-		ifFalse: [ | modelName |
-			modelName := inputLabel asCamelCase uncapitalized.
-			self mdqApplicationGet vueRefsAdd: modelName -> inputValue.
-			inputTag "name: modelName;" vModel: modelName.
-			inputTag on: self inputAspect of: self
-		].
+	fieldTag := html qField
+		vModel: modelName;
+		filledIf: app viewStyleFilled;
+		outlinedIf: app viewStyleOutlined;
+		denseIf: app viewStyleDense;
+		yourself.
 
-	"self renderTextFieldHelpTextOn: html"
+	fieldTag with: [
+		inputTag := html qCheckbox.
+		inputTag
+			denseIf: app viewStyleDense;
+			trueValue: self magritteDescription trueString;
+			falseValue: self magritteDescription falseString;
+			label: inputLabel.
+		aReadonlyFlag
+			ifTrue: [
+				inputTag readonly: true; modelValue: inputValue ]
+			ifFalse: [
+				modelName := inputLabel asCamelCase uncapitalized.
+				app vueRefsAdd: modelName -> inputValue.
+				inputTag "name: modelName;" vModel: modelName.
+				inputTag on: self inputAspect of: self
+			] ]
 ]
 
 { #category : #rendering }

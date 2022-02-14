@@ -52,12 +52,6 @@ QuasarSelect >> dark [
 ]
 
 { #category : #attributes }
-QuasarSelect >> dense [
-	
-	self attributes at: 'dense' put: true
-]
-
-{ #category : #attributes }
 QuasarSelect >> disable [
 	
 	self attributes at: 'disable' put: true

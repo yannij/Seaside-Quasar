@@ -94,6 +94,7 @@ MDQDateAndTimeComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	app := self mdqApplicationGet.
 	inputTag filledIf: app viewStyleFilled.
 	inputTag outlinedIf: app viewStyleOutlined.
+	inputTag denseIf: app viewStyleDense.
 
 	aReadonlyFlag
 		ifTrue: [
@@ -105,7 +106,5 @@ MDQDateAndTimeComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 				"name: modelName;" vModel: modelName;
 				on: self inputAspect of: self;
 				with: [ self renderDateTimeOn: html vModel: modelName ]
-		].
-
-	"self renderTextFieldHelpTextOn: html"
+		]
 ]

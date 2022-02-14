@@ -1,7 +1,7 @@
 Class {
 	#name : #RallyData,
 	#superclass : #Object,
-	#category : #'Quasar-Demo-Rally'
+	#category : #'Quasar-Material-Rally'
 }
 
 { #category : #'class initialization' }

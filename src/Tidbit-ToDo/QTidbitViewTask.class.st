@@ -39,12 +39,6 @@ QTidbitViewTask >> dataRows [
 		dataRow ]
 ]
 
-{ #category : #accessing }
-QTidbitViewTask >> denseView [
-
-	^ self mdqApplicationGet denseView
-]
-
 { #category : #rendering }
 QTidbitViewTask >> navTo: aModel [
 

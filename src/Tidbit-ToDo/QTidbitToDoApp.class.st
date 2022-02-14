@@ -1,3 +1,6 @@
+"
+I am an example ToDo app, built using Seaside-Quasar, Magritte, and Voyage/Mongo
+"
 Class {
 	#name : #QTidbitToDoApp,
 	#superclass : #QuasarApplication,
@@ -160,12 +163,6 @@ QTidbitToDoApp >> currentUser [
 QTidbitToDoApp >> currentUser: anObject [
 
 	currentUser := anObject
-]
-
-{ #category : #accessing }
-QTidbitToDoApp >> denseView [
-
-	^ false
 ]
 
 { #category : #'utility - login' }
@@ -390,7 +387,7 @@ QTidbitToDoApp >> renderSideSheetOn: html [
 { #category : #rendering }
 QTidbitToDoApp >> renderTidbitOn: html [
 
-	html qApp with: [
+	html qApp id: self appId; with: [
 		html qLayout view: 'hHh lpR fFf'; with: [
 			html qHeader heightHint: 98; with: [
 				html qToolbar with: [

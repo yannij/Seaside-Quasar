@@ -39,6 +39,12 @@ QuasarTag >> ref: anObject [
 	self attributes at: 'ref' put: anObject
 ]
 
+{ #category : #attributes }
+QuasarTag >> vIf: anObject [
+
+	self attributes at: 'v-if' put: anObject
+]
+
 { #category : #'accessing - view style' }
 QuasarTag >> viewStyle: aStyle if: aBoolean [
 

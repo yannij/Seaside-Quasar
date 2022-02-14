@@ -7,7 +7,7 @@ Class {
 	#classInstVars : [
 		'instanceList'
 	],
-	#category : #'Quasar-Demo-Rally'
+	#category : #'Quasar-Material-Rally'
 }
 
 { #category : #accessing }

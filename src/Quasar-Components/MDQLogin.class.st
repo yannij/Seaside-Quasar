@@ -324,7 +324,7 @@ MDQLogin >> renderCaption: aString on: html [
 { #category : #rendering }
 MDQLogin >> renderContentOn: html [
 
-	html qApp with: [
+	html qApp id: self mdqApplicationGet appId; with: [
 		self renderCurrentStateOn: html ]
 ]
 

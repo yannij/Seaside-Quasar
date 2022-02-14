@@ -17,6 +17,18 @@ QuasarFormComponent >> callbackClass [
 ]
 
 { #category : #attributes }
+QuasarFormComponent >> dense [
+	
+	self attributes at: 'dense' put: true
+]
+
+{ #category : #attributes }
+QuasarFormComponent >> dense: anObject [
+	
+	self attributes at: 'dense' put: anObject
+]
+
+{ #category : #attributes }
 QuasarFormComponent >> label: anObject [
 	
 	self attributes at: 'label' put: anObject

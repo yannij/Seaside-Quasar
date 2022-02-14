@@ -36,6 +36,7 @@ MDQTextInputComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	app := self mdqApplicationGet.
 	inputTag filledIf: app viewStyleFilled.
 	inputTag outlinedIf: app viewStyleOutlined.
+	inputTag denseIf: app viewStyleDense.
 
 	aReadonlyFlag
 		ifTrue: [
@@ -45,9 +46,7 @@ MDQTextInputComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 			self mdqApplicationGet vueRefsAdd: modelName -> inputValue.
 			inputTag "name: modelName;" vModel: modelName.
 			inputTag on: self inputAspect of: self
-		].
-
-	"self renderTextFieldHelpTextOn: html"
+		]
 ]
 
 { #category : #rendering }

@@ -1,7 +1,7 @@
 Class {
 	#name : #QRallyAccountView,
 	#superclass : #QRallyView,
-	#category : #'Quasar-Demo-Rally'
+	#category : #'Quasar-Material-Rally'
 }
 
 { #category : #rendering }

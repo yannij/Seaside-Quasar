@@ -26,7 +26,7 @@ QuasarDemoLayoutApp class >> initialize [
 { #category : #accessing }
 QuasarDemoLayoutApp >> applicationTitle [
 
-	^ 'QLayout'
+	^ 'Layout'
 ]
 
 { #category : #rendering }
@@ -90,7 +90,7 @@ QuasarDemoLayoutApp >> renderLayoutOn: html [
 
 	self renderSetColorTheme: self colorTheme on: html.
 
-	html qApp with: [
+	html qApp id: self appId; with: [
 		self renderExampleOn: html ]
 ]
 

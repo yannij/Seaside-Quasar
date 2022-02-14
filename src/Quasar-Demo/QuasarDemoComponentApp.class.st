@@ -29,7 +29,7 @@ QuasarDemoComponentApp class >> initialize [
 { #category : #accessing }
 QuasarDemoComponentApp >> applicationTitle [
 
-	^ 'QComponents'
+	^ 'Components'
 ]
 
 { #category : #accessing }
@@ -363,7 +363,7 @@ QuasarDemoComponentApp >> renderLayoutOn: html [
 }
 </style>'.
 
-	html qApp with: [
+	html qApp id: self appId; with: [
 		html qLayout view: 'hHh lpR fFf'; with: [
 			html qHeader with: [
 				html qToolbar with: [
@@ -413,8 +413,53 @@ QuasarDemoComponentApp >> renderNavOn: html [
 { #category : #rendering }
 QuasarDemoComponentApp >> vueSetupContentOn: aJSStream [
 
+	self vueSetupDemoDrawerOn: aJSStream.
 	self vueSetupDemoTableOn: aJSStream.
 	self vueSetupDemoSelectOn: aJSStream
+]
+
+{ #category : #'demo - drawer' }
+QuasarDemoComponentApp >> vueSetupDemoDrawerOn: aJSStream [
+
+	aJSStream
+		nextPutAll: 'const menuList = [
+  {
+    icon: "inbox",
+    label: "Inbox",
+    separator: true
+  },
+  {
+    icon: "send",
+    label: "Outbox",
+    separator: false
+  },
+  {
+    icon: "delete",
+    label: "Trash",
+    separator: false
+  },
+  {
+    icon: "error",
+    label: "Spam",
+    separator: true
+  },
+  {
+    icon: "settings",
+    label: "Settings",
+    separator: false
+  },
+  {
+    icon: "feedback",
+    label: "Send Feedback",
+    separator: false
+  },
+  {
+    icon: "help",
+    iconColor: "primary",
+    label: "Help",
+    separator: false
+  }
+];'
 ]
 
 { #category : #'demo - select' }
@@ -559,12 +604,20 @@ QuasarDemoComponentApp >> vueSetupReturnContentOn: aJSStream [
 	aJSStream nextPut: $,.
 	self vueSetupReturnDemoTableOn: aJSStream.
 	aJSStream nextPut: $,.
+	self vueSetupReturnDemoDrawerOn: aJSStream.
+	aJSStream nextPut: $,.
 	
 	aJSStream nextPutAll: '
 date: ref("2019-02-01 12:44"),
 color: ref("#FF00FF"),
 tab: ref(''mails''),
 shape: ref(''line'')'
+]
+
+{ #category : #'demo - drawer' }
+QuasarDemoComponentApp >> vueSetupReturnDemoDrawerOn: aJSStream [
+
+	aJSStream nextPutAll: 'drawer: ref(false), menuList'
 ]
 
 { #category : #'demo - select' }

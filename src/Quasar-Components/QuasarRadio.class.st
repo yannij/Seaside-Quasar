@@ -17,12 +17,6 @@ QuasarRadio >> dark: anObject [
 ]
 
 { #category : #attributes }
-QuasarRadio >> dense: anObject [
-	
-	self attributes at: 'dense' put: anObject
-]
-
-{ #category : #attributes }
 QuasarRadio >> disable [
 	
 	self attributes at: 'disable' put: true

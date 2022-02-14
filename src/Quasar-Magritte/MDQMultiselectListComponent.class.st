@@ -13,8 +13,7 @@ MDQMultiselectListComponent >> renderEditorOn: html [
 { #category : #rendering }
 MDQMultiselectListComponent >> renderFieldOn: html readonly: readonlyFlag [
 
-	self renderMultiselectOn: html readonly: readonlyFlag.
-	"self renderTextFieldHelpTextOn: html"
+	self renderMultiselectOn: html readonly: readonlyFlag
 ]
 
 { #category : #rendering }
@@ -30,7 +29,6 @@ MDQMultiselectListComponent >> renderMultiselectOn: html readonly: aReadonlyFlag
 	app := self mdqApplicationGet.
 	inputTag filledIf: app viewStyleFilled.
 	inputTag outlinedIf: app viewStyleOutlined.
-	inputTag denseIf: app viewStyleDense.
 	inputTag denseIf: app viewStyleDense.
 
 	aReadonlyFlag

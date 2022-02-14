@@ -19,8 +19,7 @@ MDQSelectListComponent >> renderEditorOn: html [
 { #category : #rendering }
 MDQSelectListComponent >> renderFieldOn: html readonly: readonlyFlag [
 
-	self renderSelectOn: html readonly: readonlyFlag.
-	"self renderTextFieldHelpTextOn: html"
+	self renderSelectOn: html readonly: readonlyFlag
 ]
 
 { #category : #rendering }

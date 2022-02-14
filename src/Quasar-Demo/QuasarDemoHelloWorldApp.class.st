@@ -26,7 +26,7 @@ QuasarDemoHelloWorldApp class >> initialize [
 { #category : #accessing }
 QuasarDemoHelloWorldApp >> applicationTitle [
 
-	^ 'QHelloWorld'
+	^ 'HelloWorld'
 ]
 
 { #category : #rendering }
@@ -44,6 +44,6 @@ QuasarDemoHelloWorldApp >> renderAppOn: html [
 { #category : #rendering }
 QuasarDemoHelloWorldApp >> renderLayoutOn: html [
 
-	html qApp with: [
+	html qApp id: self appId; with: [
 		self renderAppOn: html ]
 ]

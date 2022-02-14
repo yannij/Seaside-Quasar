@@ -1,7 +1,7 @@
 Class {
 	#name : #QRallyView,
 	#superclass : #WAComponent,
-	#category : #'Quasar-Demo-Rally'
+	#category : #'Quasar-Material-Rally'
 }
 
 { #category : #rendering }
