@@ -21,7 +21,7 @@ BaselineOfSeasideQuasar >> baseline: spec [
 				package: 'Quasar-Magritte' with: [ spec requires: #('Quasar-Components' 'Magritte') ];
 				package: 'DockerUtility' with: [ spec requires: #('Seaside3') ];
 				package: 'Stripe' with: [ spec requires: #('Quasar-Components') ];
-				package: 'Quasar-Material' with: [ spec requires: #('Quasar-Components' 'Magritte' 'DockerUtility' 'Stripe') ];
+				package: 'Quasar-Material' with: [ spec requires: #('Quasar-Magritte' 'DockerUtility' 'Stripe') ];
 				package: 'Tidbit-ToDo' with: [ spec requires: #('Quasar-Magritte' 'Voyage') ];
 				package: 'Tidbit-Loanex' with: [ spec requires: #('Quasar-Magritte' 'Voyage') ].
 

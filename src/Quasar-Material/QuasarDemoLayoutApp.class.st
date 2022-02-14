@@ -4,7 +4,7 @@ I am a demo application showing how to use the layout features of the Quasar Fra
 Class {
 	#name : #QuasarDemoLayoutApp,
 	#superclass : #QuasarApplication,
-	#category : #'Quasar-Demo-Basic'
+	#category : #'Quasar-Material-Basic'
 }
 
 { #category : #initialization }
