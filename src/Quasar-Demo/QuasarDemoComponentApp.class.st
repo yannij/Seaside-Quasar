@@ -5,7 +5,8 @@ Class {
 	#name : #QuasarDemoComponentApp,
 	#superclass : #QuasarApplication,
 	#instVars : [
-		'demoName'
+		'demoName',
+		'demoObjectA'
 	],
 	#category : #'Quasar-Demo-Basic'
 }
@@ -48,6 +49,7 @@ QuasarDemoComponentApp >> demoName: anObject [
 QuasarDemoComponentApp >> demoNames [
 
 	^ #(
+	Experiment
 	Btn
 	BtnToggle
 	Card
@@ -60,6 +62,42 @@ QuasarDemoComponentApp >> demoNames [
 	TabPanels
 	Table
 	)
+]
+
+{ #category : #accessing }
+QuasarDemoComponentApp >> demoObjectA [
+
+	^ demoObjectA ifNil: [ demoObjectA := QuasarDemoObjectA new ]
+]
+
+{ #category : #accessing }
+QuasarDemoComponentApp >> demoObjectA: anObject [
+
+	demoObjectA := anObject
+]
+
+{ #category : #'demo - experiment' }
+QuasarDemoComponentApp >> json2: json html: html [
+
+	json render: (OrderedCollection new
+		add: {'key' -> 1. 'value' -> Date today printString} asDictionary;
+		add: {'key' -> 2. 'value' -> Time now printString} asDictionary;
+		yourself)
+]
+
+{ #category : #'demo - experiment' }
+QuasarDemoComponentApp >> json3: json html: html [
+	| objectDictionary |
+
+	self demoObjectA string1: DateAndTime now printString.
+	self demoObjectA integer1: Time now asSeconds.
+	self demoObjectA boolean1: false.
+	objectDictionary := Dictionary new
+		at: 'string1' put: self demoObjectA string1;
+		at: 'integer1' put: self demoObjectA integer1;
+		at: 'boolean1' put: self demoObjectA boolean1;
+		yourself.
+	json render: objectDictionary
 ]
 
 { #category : #'demo - btn' }
@@ -271,6 +309,34 @@ QuasarDemoComponentApp >> renderDemoDrawerOn: html [
 </div>'
 ]
 
+{ #category : #'demo - experiment' }
+QuasarDemoComponentApp >> renderDemoExperimentOn: html [
+
+	html div with: [
+		html qBtn
+			label: 'experiment-1';
+			vOnClick: 'onClickExperiment1($event)' ].
+
+	html qSeparator spaced.
+	html div class: 'q-pa-sm'; with: [
+		html div with: 'experiment2: {{ experiment2 }}'.
+		html qChip vFor: 'ex in experiment2'; vBind: 'key' with: 'ex.key'; with: '{{ ex.value }}' ].
+
+	html div with: [
+		html qBtn
+			label: 'experiment-2';
+			vOnClick: 'onClickExperiment2()' ].
+
+	html qSeparator spaced.
+	html div class: 'q-pa-sm'; with: [
+		html div with: 'experiment3: {{ experiment3 }}'.
+		"html qChip vFor: 'ex in experiment3'; vBind: 'key' with: 'ex.key'; with: '{{ ex.value }}'" ].
+	html div with: [
+		html qBtn
+			label: 'experiment-3';
+			vOnClick: 'onClickExperiment3()' ].
+]
+
 { #category : #'demo - radio' }
 QuasarDemoComponentApp >> renderDemoRadioOn: html [
 
@@ -413,6 +479,7 @@ QuasarDemoComponentApp >> renderNavOn: html [
 { #category : #rendering }
 QuasarDemoComponentApp >> vueSetupContentOn: aJSStream [
 
+	self vueSetupDemoExperimentOn: aJSStream.
 	self vueSetupDemoDrawerOn: aJSStream.
 	self vueSetupDemoTableOn: aJSStream.
 	self vueSetupDemoSelectOn: aJSStream
@@ -460,6 +527,14 @@ QuasarDemoComponentApp >> vueSetupDemoDrawerOn: aJSStream [
     separator: false
   }
 ];'
+]
+
+{ #category : #'demo - experiment' }
+QuasarDemoComponentApp >> vueSetupDemoExperimentOn: aJSStream [
+
+	aJSStream
+		nextPutAll: 'const experiment2 = ref([{key: 1, value: ''original value''}]);';
+		nextPutAll: 'const experiment3 = ref(null);'
 ]
 
 { #category : #'demo - select' }
@@ -598,7 +673,10 @@ const rows = [
 ]
 
 { #category : #rendering }
-QuasarDemoComponentApp >> vueSetupReturnContentOn: aJSStream [
+QuasarDemoComponentApp >> vueSetupReturnContentOn: aJSStream html: html [
+
+	self vueSetupReturnDemoExperimentOn: aJSStream html: html.
+	aJSStream nextPut: $,.
 
 	self vueSetupReturnDemoSelectOn: aJSStream.
 	aJSStream nextPut: $,.
@@ -618,6 +696,57 @@ shape: ref(''line'')'
 QuasarDemoComponentApp >> vueSetupReturnDemoDrawerOn: aJSStream [
 
 	aJSStream nextPutAll: 'drawer: ref(false), menuList'
+]
+
+{ #category : #'demo - experiment' }
+QuasarDemoComponentApp >> vueSetupReturnDemoExperiment1On: aJSStream html: html [
+
+	aJSStream
+		nextPutAll: 'onClickExperiment1(evt) {alert("hello");}'
+]
+
+{ #category : #'demo - experiment' }
+QuasarDemoComponentApp >> vueSetupReturnDemoExperiment2On: aJSStream html: html [
+	| js |
+
+	js := (html jQuery getJson
+			json: [ :json | self json2: json html: html ];
+			onSuccess: (html javascript << (JSStream new
+				nextPutAll: 'experiment2.value = ';
+				nextPutAll: 'arguments[0]';
+				nextPutAll: '';
+				yourself));
+			yourself).
+	aJSStream
+		nextPutAll: 'experiment2';
+		nextPutAll: ',onClickExperiment2() {'; nextPutAll: js asJavascript; nextPutAll: '}'.
+]
+
+{ #category : #'demo - experiment' }
+QuasarDemoComponentApp >> vueSetupReturnDemoExperiment3On: aJSStream html: html [
+	| js |
+
+	js := (html jQuery getJson
+			json: [ :json | self json3: json html: html ];
+			onSuccess: (html javascript << (JSStream new
+				nextPutAll: 'experiment3.value = ';
+				nextPutAll: 'arguments[0]';
+				nextPutAll: '';
+				yourself));
+			yourself).
+	aJSStream
+		nextPutAll: 'experiment3';
+		nextPutAll: ',onClickExperiment3() {'; nextPutAll: js asJavascript; nextPutAll: '}'.
+]
+
+{ #category : #'demo - experiment' }
+QuasarDemoComponentApp >> vueSetupReturnDemoExperimentOn: aJSStream html: html [
+
+	self vueSetupReturnDemoExperiment1On: aJSStream html: html.
+	aJSStream nextPut: $,.
+	self vueSetupReturnDemoExperiment2On: aJSStream html: html.
+	aJSStream nextPut: $,.
+	self vueSetupReturnDemoExperiment3On: aJSStream html: html
 ]
 
 { #category : #'demo - select' }

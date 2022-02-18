@@ -6,20 +6,25 @@ Class {
 
 { #category : #rendering }
 MDQFormDecoration >> renderButtonsOn: html [
-	| showDisabled |
+	| showDisabled denseFlag |
 
+	denseFlag := self decoratedComponent mdqApplicationGet viewStyleDense.
 	showDisabled := "self decoratedComponent hasPendingChanges" false.
 
 	html div class: 'row'; class: 'justify-between'; with: [
 		html span class: 'text-h6'; class: 'col-8'; with: self decoratedComponent model mdPrimaryString.
 		html span class: 'text-right'; class: 'col-4'; with: [
-			html qBtn flat; round; type: 'submit';
+			html qBtn
+				denseIf: denseFlag;
+				flat; round; type: 'submit';
 				"onClick: (html jQuery post serializeForm);
 				onClick: ((html jQuery ajax)
 					callback: [ self execute: #save ];
 					onComplete: html javascript refresh);"
 				icon: 'done'.
-			html qBtn flat; round; type: 'reset';
+			html qBtn
+				denseIf: denseFlag;
+				flat; round; type: 'reset';
 				"onClick: ((html jQuery ajax)
 					callback: [ self execute: #cancel ];
 					onComplete: html javascript refresh);"

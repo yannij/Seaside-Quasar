@@ -23,9 +23,7 @@ QuasarApplication class >> mdqRegisterDeployment: aName [
 		WAAdmin applicationDefaults removeParent: WADevelopmentConfiguration instance ].
 
 	app := WAAdmin register: self asApplicationAt: aName.
-	app
-		addLibrary: JQGoogleLibrary;
-		yourself.
+	app addLibrary: JQGoogleLibrary.
 	^ app
 ]
 
@@ -227,11 +225,12 @@ QuasarApplication >> renderQuasarJsOn: html [
 QuasarApplication >> renderQuasarSetupOn: html [
 	| jsStream |
 
-	jsStream := JSStream on: 'const { ref } = Vue;const app = Vue.createApp({'.
+	jsStream := JSStream on: 'const { ref } = Vue;'.
+	jsStream nextPutAll: 'const app = Vue.createApp({'.
 	jsStream nextPutAll: 'setup() {'.
 	self vueSetupContentOn: jsStream.
 	jsStream nextPutAll: 'return {'.
-	self vueSetupReturnContentOn: jsStream.
+	self vueSetupReturnContentOn: jsStream html: html.
 	jsStream nextPutAll: '}}});app.use(Quasar, { config: {} });app.mount("#', self appId, '")'.
 
 	html document addLoadScript: jsStream

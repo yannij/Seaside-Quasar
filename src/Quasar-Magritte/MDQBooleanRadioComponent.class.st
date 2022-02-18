@@ -33,7 +33,8 @@ MDQBooleanRadioComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	html qField
 		filledIf: app viewStyleFilled;
 		outlinedIf: app viewStyleOutlined;
-		denseIf: app viewStyleDense;
+		denseIf: "app viewStyleDense" true;
+		label: inputLabel;
 		vModel: modelName;
 		with: [ super renderFieldOn: html readonly: aReadonlyFlag ]
 ]
