@@ -4,6 +4,7 @@ Class {
 	#instVars : [
 		'quasarVersion',
 		'colorTheme',
+		'reactiveObjects',
 		'quasarData',
 		'vueRefs'
 	],
@@ -64,7 +65,8 @@ QuasarApplication >> initialize [
 	super initialize.
 
 	self vueRefsClear.
-	self quasarDataClear
+	self quasarDataClear.
+	self reactiveObjectsClear
 ]
 
 { #category : #login }
@@ -126,6 +128,19 @@ QuasarApplication >> logout [
 			self redirect ]
 ]
 
+{ #category : #'rendering - quasar hooks' }
+QuasarApplication >> quasarConfigContentOn: aJSStream with: html [
+	"Subclasses may override"
+]
+
+{ #category : #'rendering - quasar' }
+QuasarApplication >> quasarConfigOn: aJSStream with: html [
+
+	aJSStream nextPutAll: 'config: {'.
+	self quasarConfigContentOn: aJSStream with: html.
+	aJSStream nextPutAll: '}'.
+]
+
 { #category : #accessing }
 QuasarApplication >> quasarCssUrl [
 
@@ -168,6 +183,49 @@ QuasarApplication >> quasarJsUrl [
 	^ self jsdelivrUrlFragment, 'quasar.umd.prod.js'
 ]
 
+{ #category : #'rendering - quasar' }
+QuasarApplication >> quasarOnLoadOn: aJSStream with: html [
+
+	aJSStream
+		nextPutAll: 'const { useQuasar } = Quasar;';
+		nextPutAll: 'const { ref } = Vue;';
+		nextPutAll: 'const app = Vue.createApp({'.
+	self quasarSetupOn: aJSStream with: html.
+	aJSStream nextPutAll: '});'.
+	aJSStream nextPutAll: 'app.use(Quasar, {'.
+	self quasarConfigOn: aJSStream with: html.
+	aJSStream nextPutAll: '});'.
+	aJSStream nextPutAll: 'app.mount("#', self appId, '")'
+]
+
+{ #category : #'rendering - quasar hooks' }
+QuasarApplication >> quasarSetupContentOn: aJSStream with: html [
+	"Subclasses may override"
+]
+
+{ #category : #'rendering - quasar' }
+QuasarApplication >> quasarSetupOn: aJSStream with: html [
+
+	aJSStream nextPutAll: 'setup() {'.
+	aJSStream nextPutAll: 'const $q = useQuasar();'.
+	self quasarSetupContentOn: aJSStream with: html.
+	self quasarSetupReturnOn: aJSStream with: html.
+	aJSStream nextPutAll: '}'.
+]
+
+{ #category : #'rendering - quasar hooks' }
+QuasarApplication >> quasarSetupReturnContentOn: aJSStream with: html [
+	"Subclasses may override"
+]
+
+{ #category : #'rendering - quasar' }
+QuasarApplication >> quasarSetupReturnOn: aJSStream with: html [
+
+	aJSStream nextPutAll: 'return {'.
+	self quasarSetupReturnContentOn: aJSStream with: html.
+	aJSStream nextPutAll: '}'
+]
+
 { #category : #accessing }
 QuasarApplication >> quasarVersion [
 
@@ -188,6 +246,36 @@ QuasarApplication >> quasarVersionLazy [
 	^ self quasarVersion
 ]
 
+{ #category : #accessing }
+QuasarApplication >> reactiveObjects [
+
+	^ reactiveObjects
+]
+
+{ #category : #accessing }
+QuasarApplication >> reactiveObjects: anObject [
+
+	reactiveObjects := anObject
+]
+
+{ #category : #accessing }
+QuasarApplication >> reactiveObjectsAdd: anObject [
+
+	self reactiveObjects at: anObject refName put: anObject
+]
+
+{ #category : #accessing }
+QuasarApplication >> reactiveObjectsClear [
+
+	self reactiveObjects: OrderedDictionary new
+]
+
+{ #category : #accessing }
+QuasarApplication >> reactiveObjectsRemove: anObject [
+
+	self reactiveObjects remove: anObject refName ifAbsent: [ nil ]
+]
+
 { #category : #actions }
 QuasarApplication >> redirect [
 	"we need to build the url we redirect to because we just expired the session in this test"
@@ -201,39 +289,22 @@ QuasarApplication >> redirect [
 
 { #category : #rendering }
 QuasarApplication >> renderContentOn: html [
+	| jsStream |
 
 	self renderLayoutOn: html.
 
-	self renderQuasarJsOn: html.
-	self renderQuasarSetupOn: html
+	html script "async;" url: self vueJsUrl.
+	html script "async;" url: self quasarJsUrl.
+
+	jsStream := JSStream new.
+	self quasarOnLoadOn: jsStream with: html.
+	html document addLoadScript: jsStream.
 ]
 
 { #category : #rendering }
 QuasarApplication >> renderLayoutOn: html [
 
 	self subclassResponsibility
-]
-
-{ #category : #rendering }
-QuasarApplication >> renderQuasarJsOn: html [
-
-	html script "async;" url: self vueJsUrl.
-	html script "async;" url: self quasarJsUrl
-]
-
-{ #category : #rendering }
-QuasarApplication >> renderQuasarSetupOn: html [
-	| jsStream |
-
-	jsStream := JSStream on: 'const { ref } = Vue;'.
-	jsStream nextPutAll: 'const app = Vue.createApp({'.
-	jsStream nextPutAll: 'setup() {'.
-	self vueSetupContentOn: jsStream.
-	jsStream nextPutAll: 'return {'.
-	self vueSetupReturnContentOn: jsStream html: html.
-	jsStream nextPutAll: '}}});app.use(Quasar, { config: {} });app.mount("#', self appId, '")'.
-
-	html document addLoadScript: jsStream
 ]
 
 { #category : #rendering }
@@ -333,14 +404,4 @@ QuasarApplication >> vueRefsClear [
 QuasarApplication >> vueRefsRemove: anObject [
 
 	self vueRefs remove: anObject ifAbsent: [ nil ]
-]
-
-{ #category : #rendering }
-QuasarApplication >> vueSetupContentOn: aJSStream [
-
-	"aJSStream nextPutAll: ''"
-]
-
-{ #category : #rendering }
-QuasarApplication >> vueSetupReturnContentOn: aJSStream [
 ]

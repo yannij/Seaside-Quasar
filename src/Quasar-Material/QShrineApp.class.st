@@ -132,6 +132,22 @@ QShrineApp >> productComponentBuild [
 ]
 
 { #category : #rendering }
+QShrineApp >> quasarConfigContentOn: aJSStream with: html [
+
+	aJSStream nextPutAll: '
+brand: {
+	primary: ''#FEDBD0'',
+	secondary: ''#FEEAE6'',
+	accent: ''#9C27B0'',
+	dark: ''#1d1d1d'',
+	positive: ''#21BA45'',
+	negative: ''#C10015'',
+	info: ''#31CCEC'',
+	warning: ''#F2C037''
+}'
+]
+
+{ #category : #rendering }
 QShrineApp >> renderBottomSheetOn: html [
 
 	html qDialog
@@ -221,31 +237,6 @@ QShrineApp >> renderNavOn: html [
 				qTag: 'a'; href: (html urlForAction: [ self category: eachCategory ]);
 				with: [
 					html qItemSection class: 'text-center'; with: eachCategory ] ] ]
-]
-
-{ #category : #rendering }
-QShrineApp >> renderQuasarSetupOn: html [
-
-	html document addLoadScript: (JSStream on: 'const app = Vue.createApp({
-	setup () {
-		return {}
-	}
-})
-app.use(Quasar, {
-  config: {
-    brand: {
-      primary: ''#FEDBD0'',
-      secondary: ''#FEEAE6'',
-      accent: ''#9C27B0'',
-      dark: ''#1d1d1d'',
-      positive: ''#21BA45'',
-      negative: ''#C10015'',
-      info: ''#31CCEC'',
-      warning: ''#F2C037''
-    }
-  }
-})
-app.mount(''q-app'')')
 ]
 
 { #category : #rendering }

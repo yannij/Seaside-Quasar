@@ -273,6 +273,22 @@ QTidbitToDoApp >> pageComponentSet: anObject [
 	self pageComponent: anObject
 ]
 
+{ #category : #rendering }
+QTidbitToDoApp >> quasarSetupContentOn: aJSStream with: html [
+
+	self vueRefs keysAndValuesDo: [ :key :value |
+		aJSStream nextPutAll:  'const ', key, ' = ref(', value asJson, ');' ]
+]
+
+{ #category : #rendering }
+QTidbitToDoApp >> quasarSetupReturnContentOn: aJSStream with: html [
+	| exports |
+
+	exports := ',' join: (self quasarData, (self vueRefs keys)).
+
+	aJSStream nextPutAll: exports
+]
+
 { #category : #'utility - login' }
 QTidbitToDoApp >> registerUsername: aUsername password: aPassword [
 	"Answer a new user instance built from the userId/password,
@@ -350,27 +366,6 @@ QTidbitToDoApp >> renderPageContentOn: html [
 
 	html div class: 'q-pa-md'; with: [
 		html render: self pageComponent ]
-]
-
-{ #category : #rendering }
-QTidbitToDoApp >> renderQuasarSetupOn: html [
-	| exports vueRefsDefine list |
-
-	exports := ',' join: (self quasarData, (self vueRefs keys)).
-
-	list := OrderedCollection new.
-	self vueRefs keysAndValuesDo: [ :key :value | list add: 'const ', key, ' = ref(', value asJson, ')' ].
-	vueRefsDefine := ';' join: list.
-
-	html document addLoadScript: (JSStream on:
-'const { ref } = Vue;
-const app = Vue.createApp({
-	setup () {', vueRefsDefine, ';
-		return {', exports, '}
-	}
-})
-app.use(Quasar)
-app.mount(''q-app'')')
 ]
 
 { #category : #rendering }
