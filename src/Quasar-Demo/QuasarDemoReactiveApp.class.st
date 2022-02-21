@@ -5,7 +5,8 @@ Class {
 		'demoName',
 		'demoObjectA',
 		'experiment4',
-		'reactiveList'
+		'reactiveList',
+		'testCollection'
 	],
 	#category : #'Quasar-Demo-Basic'
 }
@@ -62,6 +63,20 @@ QuasarDemoReactiveApp >> applicationTitle [
 	^ 'Reactive Demo'
 ]
 
+{ #category : #initialize }
+QuasarDemoReactiveApp >> buildTestCollection [
+	| newList |
+
+	newList := OrderedCollection new
+		add: QuasarDemoObjectA newRandom;
+		add: QuasarDemoObjectA newRandom;
+		add: QuasarDemoObjectA newRandom;
+		yourself.
+
+	^ (QuasarReactiveObject name: 'testCollection' value: newList)
+		transformBlock: [ :value | value asOrderedCollection add: QuasarDemoObjectA newRandom; yourself ]; yourself
+]
+
 { #category : #accessing }
 QuasarDemoReactiveApp >> demoName [
 
@@ -80,6 +95,7 @@ QuasarDemoReactiveApp >> demoNames [
 	^ #(
 	Ajax
 	Reactive
+	Collection
 	)
 ]
 
@@ -122,22 +138,25 @@ QuasarDemoReactiveApp >> initialize [
 			transformBlock: [ :value | value, value ]; yourself);
 		add: ((QuasarReactiveObject name: 'reactive7' value: {'k1'->'v1'. 'k2'->'v2'. 'k3'->'v3'} asDictionary)
 			transformBlock: [ :value | value at: 100 atRandom printString put: 1000 atRandom; yourself ]; yourself);
+		add: ((QuasarReactiveObject name: 'reactive8'
+			value: {
+				{'k1'->'v1'. 'k2'->'v2'. 'k3'->'v3'} asDictionary.
+				{'k21'->'v21'. 'k22'->'v22'. 'k23'->'v23'} asDictionary.
+				{'k31'->'v31'. 'k32'->'v32'. 'k33'->'v33'} asDictionary })
+			transformBlock: [ :value | value ]; yourself);
 		yourself).
+
+	self testCollection: self buildTestCollection
 ]
 
 { #category : #rendering }
 QuasarDemoReactiveApp >> quasarSetupContentOn: aJSStream with: html [
 
-	self vueSetupReactiveObjectsOn: aJSStream.
 	self vueSetupDemoExperimentOn: aJSStream
 ]
 
 { #category : #rendering }
 QuasarDemoReactiveApp >> quasarSetupReturnContentOn: aJSStream with: html [
-
-	self reactiveObjects ifNotEmpty: [
-		self vueSetupReturnReactiveObjectsOn: aJSStream html: html.
-		aJSStream nextPut: $, ].
 
 	self vueSetupReturnDemoExperimentOn: aJSStream html: html
 ]
@@ -181,6 +200,34 @@ QuasarDemoReactiveApp >> renderDemoAjaxOn: html [
 		html qInput outlined; style: 'width: 300px'; label: 'experiment4a'; vModel: 'experiment4a'; readonly ].
 	html div with: [
 		html qBtn label: 'experiment-4'; vOnClick: 'onClickExperiment4()' ].
+]
+
+{ #category : #'demo - collection' }
+QuasarDemoReactiveApp >> renderDemoCollectionOn: html [
+	| refName |
+
+	self mdqApplicationGet reactiveObjectsAdd: self testCollection.
+
+	refName := self testCollection refName.
+	html div class: 'q-pa-sm'; with: [
+		html div with: refName, ': {{ ', refName, ' }}' ].
+	html div with: [
+		html qBtn label: refName; vOnClick: refName, 'OnClick()' ].
+
+	html break.
+	html qCard with: [
+		html qScrollArea style: 'height: 220px'; visible; with: [
+			html qList separator; bordered; with: [
+				html qItem vFor: 'v in ', refName; with: [
+					html qItemSection with: '{{ v.string1 }} - {{ v.integer1 }} - {{ v.boolean1 }}' ] ] ] ].
+
+	html break.
+	html qCard with: [
+		html qScrollArea style: 'height: 90px'; visible; with: [
+			html qChip vFor: 'v in ', refName; with: '{{ v.string1 }} - {{ v.integer1 }} - {{ v.boolean1 }}' ] ].
+
+	html div class: 'q-py-md'; with: [
+		html qTable title: 'Test Collection'; "columns: self refNameCols;" rows: refName ]
 ]
 
 { #category : #'demo - reactive' }
@@ -255,6 +302,18 @@ QuasarDemoReactiveApp >> renderNavOn: html [
 					html qItemSection with: eachItem ] ] ]
 ]
 
+{ #category : #accessing }
+QuasarDemoReactiveApp >> testCollection [
+
+	^ testCollection
+]
+
+{ #category : #accessing }
+QuasarDemoReactiveApp >> testCollection: anObject [
+
+	testCollection := anObject
+]
+
 { #category : #'demo - ajax' }
 QuasarDemoReactiveApp >> vueSetupDemoExperimentOn: aJSStream [
 
@@ -262,19 +321,6 @@ QuasarDemoReactiveApp >> vueSetupDemoExperimentOn: aJSStream [
 		nextPutAll: 'const experiment2 = ref([{key: 1, value: ''original value''}]);';
 		nextPutAll: 'const experiment3 = ref(null);';
 		nextPutAll: 'const experiment4 = ref(null); const experiment4a = ref(null);'
-]
-
-{ #category : #'demo - reactive' }
-QuasarDemoReactiveApp >> vueSetupReactiveObjectsOn: aJSStream [
-
-	self reactiveObjects do: [ :eachReactiveObject |
-		aJSStream
-			nextPutAll: 'const ';
-			nextPutAll: eachReactiveObject refName;
-			nextPutAll: ' = ref(';
-			nextPutAll: eachReactiveObject refValue asJson;
-			nextPutAll: ');';
-			yourself ]
 ]
 
 { #category : #'demo - ajax' }
@@ -339,35 +385,4 @@ QuasarDemoReactiveApp >> vueSetupReturnDemoExperimentOn: aJSStream html: html [
 	self vueSetupReturnDemoExperiment3On: aJSStream html: html.
 	aJSStream nextPut: $,.
 	self vueSetupReturnDemoExperiment4On: aJSStream html: html
-]
-
-{ #category : #'demo - reactive' }
-QuasarDemoReactiveApp >> vueSetupReturnReactiveObject: aReactiveObject on: aJSStream html: html [
-	| ajax refName |
-
-	refName := aReactiveObject refName.
-
-	ajax := (html jQuery ajax
-			callback: [ :value | aReactiveObject refValueUpdate: (STONJSON fromString: value) ]
-				value: (JSStream on: 'JSON.stringify(', refName, '.value)');
-			json: [ :json | json render: aReactiveObject refValue ];
-			onSuccess: (html javascript
-				<< (JSStream new nextPutAll: refName; nextPutAll: '.value = arguments[0]'; yourself));
-			yourself).
-
-	aJSStream
-		nextPutAll: refName;
-		nextPut: $,;
-		nextPutAll: refName; nextPutAll: 'OnClick() {';
-		nextPutAll: ajax asJavascript;
-		nextPutAll: '}'.
-]
-
-{ #category : #'demo - reactive' }
-QuasarDemoReactiveApp >> vueSetupReturnReactiveObjectsOn: aJSStream html: html [
-
-	self reactiveObjects
-		do: [ :eachReactiveObject |
-			self vueSetupReturnReactiveObject: eachReactiveObject on: aJSStream html: html ]
-		separatedBy: [ aJSStream nextPut: $, ]
 ]

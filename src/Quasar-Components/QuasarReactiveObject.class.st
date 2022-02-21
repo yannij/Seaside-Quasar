@@ -18,6 +18,37 @@ QuasarReactiveObject class >> name: aString value: anObject [
 		yourself
 ]
 
+{ #category : #'rendering - ajax' }
+QuasarReactiveObject >> quasarSetupOn: aJSStream [
+
+	aJSStream
+		nextPutAll: 'const ';
+		nextPutAll: self refName;
+		nextPutAll: ' = ref(';
+		nextPutAll: self refValue asJson;
+		nextPutAll: ');'
+]
+
+{ #category : #'rendering - ajax' }
+QuasarReactiveObject >> quasarSetupReturnOn: aJSStream html: html [
+	| ajax |
+
+	ajax := (html jQuery ajax
+			callback: [ :value | self refValueUpdate: (STONJSON fromString: value) ]
+				value: (JSStream on: 'JSON.stringify(', refName, '.value)');
+			json: [ :json | json render: self refValue ];
+			onSuccess: (html javascript
+				<< (JSStream new nextPutAll: refName; nextPutAll: '.value = arguments[0]'; yourself));
+			yourself).
+
+	aJSStream
+		nextPutAll: refName;
+		nextPut: $,;
+		nextPutAll: refName; nextPutAll: 'OnClick() {';
+		nextPutAll: ajax asJavascript;
+		nextPutAll: '}'.
+]
+
 { #category : #accessing }
 QuasarReactiveObject >> refName [
 

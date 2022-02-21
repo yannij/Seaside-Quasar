@@ -208,9 +208,16 @@ QuasarApplication >> quasarSetupOn: aJSStream with: html [
 
 	aJSStream nextPutAll: 'setup() {'.
 	aJSStream nextPutAll: 'const $q = useQuasar();'.
+	self quasarSetupReactiveObjectsOn: aJSStream.
 	self quasarSetupContentOn: aJSStream with: html.
 	self quasarSetupReturnOn: aJSStream with: html.
 	aJSStream nextPutAll: '}'.
+]
+
+{ #category : #'rendering - quasar' }
+QuasarApplication >> quasarSetupReactiveObjectsOn: aJSStream [
+
+	self reactiveObjects do: [ :eachReactiveObject | eachReactiveObject quasarSetupOn: aJSStream ]
 ]
 
 { #category : #'rendering - quasar hooks' }
@@ -220,10 +227,24 @@ QuasarApplication >> quasarSetupReturnContentOn: aJSStream with: html [
 
 { #category : #'rendering - quasar' }
 QuasarApplication >> quasarSetupReturnOn: aJSStream with: html [
+	| needsComma |
 
+	needsComma := false.
 	aJSStream nextPutAll: 'return {'.
+	self reactiveObjects ifNotEmpty: [
+		self quasarSetupReturnReactiveObjectsOn: aJSStream html: html.
+		needsComma := true ].
+	needsComma ifTrue: [ aJSStream nextPut: $, ].
 	self quasarSetupReturnContentOn: aJSStream with: html.
 	aJSStream nextPutAll: '}'
+]
+
+{ #category : #'rendering - quasar' }
+QuasarApplication >> quasarSetupReturnReactiveObjectsOn: aJSStream html: html [
+
+	self reactiveObjects
+		do: [ :eachReactiveObject | eachReactiveObject quasarSetupReturnOn: aJSStream html: html ]
+		separatedBy: [ aJSStream nextPut: $, ]
 ]
 
 { #category : #accessing }
