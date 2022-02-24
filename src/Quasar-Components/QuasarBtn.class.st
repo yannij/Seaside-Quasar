@@ -77,6 +77,12 @@ QuasarBtn >> label: aString [
 ]
 
 { #category : #attributes }
+QuasarBtn >> noCaps [
+	
+	self attributes at: 'no-caps' put: true
+]
+
+{ #category : #attributes }
 QuasarBtn >> outline [
 	
 	self attributes at: 'outline' put: true

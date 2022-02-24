@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'refName',
 		'refValue',
-		'transformBlock'
+		'transformBlock',
+		'onSuccessScript'
 	],
 	#category : #'Quasar-Components'
 }
@@ -16,6 +17,59 @@ QuasarReactiveObject class >> name: aString value: anObject [
 		refName: aString;
 		refValue: anObject;
 		yourself
+]
+
+{ #category : #accessing }
+QuasarReactiveObject >> onSuccessScript [
+
+	^ onSuccessScript
+]
+
+{ #category : #accessing }
+QuasarReactiveObject >> onSuccessScript: anObject [
+
+	onSuccessScript := anObject
+]
+
+{ #category : #'rendering - ajax' }
+QuasarReactiveObject >> quasarAjaxOnClickOn: aJSStream html: html [
+	| ajax script |
+
+	script := JSStream new nextPutAll: refName; nextPutAll: '.value = arguments[0]'; yourself.
+	self onSuccessScript ifNotNil: [ :value | script nextPut: $;; nextPutAll: value ].
+
+	ajax := (html jQuery ajax
+			callback: [ :value | self refValueUpdate: (STONJSON fromString: value) ]
+				value: (JSStream on: 'JSON.stringify(', refName, '.value)');
+			json: [ :json | json render: self refValue ];
+			onSuccess: (html javascript << script);
+			yourself).
+
+	aJSStream
+		nextPutAll: refName; nextPutAll: 'OnClick(evt) {';
+		nextPutAll: ajax asJavascript;
+		nextPutAll: '}'.
+]
+
+{ #category : #'rendering - ajax' }
+QuasarReactiveObject >> quasarAjaxRefSetOn: aJSStream html: html [
+	| ajax "script" |
+
+	"script := JSStream new nextPutAll: refName; nextPutAll: '.value = arguments[0]'; yourself.
+	self onSuccessScript ifNotNil: [ :value | script nextPut: $;; nextPutAll: value ]."
+
+	ajax := (html jQuery ajax
+			callback: [ :value | self refValueUpdate: (STONJSON fromString: value) ]
+				value: (JSStream on: 'JSON.stringify(arg1)');
+			json: [ :json | json render: self refValue ];
+			"onSuccess: (html javascript << script);"
+			yourself).
+
+	aJSStream
+		nextPutAll: refName; nextPutAll: 'RefSet(arg1) {';
+		nextPutAll: refName; nextPutAll: '.value = arg1;';
+		nextPutAll: ajax asJavascript;
+		nextPutAll: '}'.
 ]
 
 { #category : #'rendering - ajax' }
@@ -31,22 +85,12 @@ QuasarReactiveObject >> quasarSetupOn: aJSStream [
 
 { #category : #'rendering - ajax' }
 QuasarReactiveObject >> quasarSetupReturnOn: aJSStream html: html [
-	| ajax |
 
-	ajax := (html jQuery ajax
-			callback: [ :value | self refValueUpdate: (STONJSON fromString: value) ]
-				value: (JSStream on: 'JSON.stringify(', refName, '.value)');
-			json: [ :json | json render: self refValue ];
-			onSuccess: (html javascript
-				<< (JSStream new nextPutAll: refName; nextPutAll: '.value = arguments[0]'; yourself));
-			yourself).
-
-	aJSStream
-		nextPutAll: refName;
-		nextPut: $,;
-		nextPutAll: refName; nextPutAll: 'OnClick() {';
-		nextPutAll: ajax asJavascript;
-		nextPutAll: '}'.
+	aJSStream nextPutAll: refName.
+	aJSStream nextPut: $,.
+	self quasarAjaxOnClickOn: aJSStream html: html.
+	aJSStream nextPut: $,.
+	self quasarAjaxRefSetOn: aJSStream html: html
 ]
 
 { #category : #accessing }

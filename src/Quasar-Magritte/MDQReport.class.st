@@ -40,49 +40,6 @@ MDQReport >> initialize [
 ]
 
 { #category : #rendering }
-MDQReport >> javascriptColumnsOLD [
-	"stream nextPutAll: '
-  { name: ''calories'', label: ''Calories'', field: ''calories'', sortable: true, align: ''center'' },
-  { name: ''fat'', label: ''Fat (g)'', field: ''fat'', sortable: true },
-  { name: ''carbs'', label: ''Carbs (g)'', field: ''carbs'' },
-  { name: ''protein'', label: ''Protein (g)'', field: ''protein'' },
-  { name: ''sodium'', label: ''Sodium (mg)'', field: ''sodium'' },
-  { name: ''calcium'', label: ''Calcium (%)'', field: ''calcium'', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-  { name: ''iron'', label: ''Iron (%)'', field: ''iron'', sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) }'."
-	| data lastIndex |
-
-	data := #(
-('name' 'Dessert (100g serving)')
-('calories' 'Calories')
-('fat' 'Fat (g)')
-('carbs' 'Carbs (g)')
-('protein' 'Protein (g)')
-('sodium' 'Sodium (mg)')
-('calcium' 'Calcium (%)')
-('iron' 'Iron (%)')
-).
-	lastIndex := data size.
-	
-	^ String streamContents: [ :stream |
-		stream nextPutAll: 'const columns = ['.
-		data withIndexDo: [ :item :i |
-			stream
-				nextPut: ${;
-				nextPutAll: 'name: '''; nextPutAll: item first; nextPut: $';
-				nextPut: $,;
-				nextPutAll: 'label: '''; nextPutAll: item second; nextPut: $';
-				nextPut: $,;
-				nextPutAll: 'field: '; nextPutAll: (i = 1 ifTrue: [ 'row => row.name' ] ifFalse: [ '''', item first, '''' ]);
-				nextPutAll: (i = 1 ifTrue: [ ',sortable: true' ] ifFalse: [ '' ]);
-				nextPutAll: (i = 1 ifTrue: [ ',align: ''left''' ] ifFalse: [ '' ]);
-				nextPutAll: (i = 1 ifTrue: [ ',required: true' ] ifFalse: [ '' ]);
-				nextPutAll: (i = 1 ifTrue: [ ',format: val => `${val}`' ] ifFalse: [ '' ]);
-				nextPut: $}.
-			i = lastIndex ifFalse: [ stream nextPut: $, ] ].
-		stream nextPut: $] ]
-]
-
-{ #category : #rendering }
 MDQReport >> javascriptColumnsWith: aVariableName [
 	
 	^ String streamContents: [ :stream |
@@ -100,24 +57,6 @@ MDQReport >> javascriptColumnsWith: aVariableName [
 				nextPutAll: (i = 1 ifTrue: [ ',format: val => `${val}`' ] ifFalse: [ '' ]);"
 				nextPut: $} ]
 			separatedBy: [ stream nextPut: $, ].
-		stream nextPut: $] ]
-]
-
-{ #category : #rendering }
-MDQReport >> javascriptRowsOLD [
-
-	^ String streamContents: [ :stream |
-		stream nextPutAll: 'const rows = ['.
-		(OrderedCollection new
-			add: {'name'->'QQFrozen Yogurt'. 'calories'->159. 'fat'->6.0. 'carbs'->24. 'protein'->4.0. 'sodium'->87. 'calcium'->'14%'. 'iron'->'1%'};
-			yourself)
-		do: [ :eachRow |
-			stream nextPut: ${.
-			eachRow
-				do: [ :eachCell | stream nextPutAll: eachCell key; nextPutAll: ': '''; nextPutAll: eachCell value asString; nextPut: $' ]
-				separatedBy: [ stream nextPut: $, ].
-			stream nextPut: $} ]
-		separatedBy: [ stream nextPut: $, ].
 		stream nextPut: $] ]
 ]
 
