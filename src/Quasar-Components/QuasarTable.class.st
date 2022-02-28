@@ -63,3 +63,9 @@ QuasarTable >> title: anObject [
 	
 	self attributes at: 'title' put: anObject
 ]
+
+{ #category : #attributes }
+QuasarTable >> vOnRowClick: anObject [
+
+	self vOn: 'row-click' with: anObject
+]

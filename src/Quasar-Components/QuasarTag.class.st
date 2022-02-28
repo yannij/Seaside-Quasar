@@ -75,6 +75,12 @@ QuasarTag >> vIf: anObject [
 	self attributes at: 'v-if' put: anObject
 ]
 
+{ #category : #'vue directives' }
+QuasarTag >> vOn: anEventName with: anObject [
+
+	self attributes at: '@', anEventName put: anObject
+]
+
 { #category : #'accessing - view style' }
 QuasarTag >> viewStyle: aStyle if: aBoolean [
 
