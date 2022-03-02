@@ -81,6 +81,18 @@ QuasarTag >> vOn: anEventName with: anObject [
 	self attributes at: '@', anEventName put: anObject
 ]
 
+{ #category : #'vue directives' }
+QuasarTag >> vShow: anObject [
+
+	self attributes at: 'v-show' put: anObject
+]
+
+{ #category : #'vue directives' }
+QuasarTag >> vSlot: key with: anObject [
+
+	self attributes at: 'v-slot:', key put: anObject
+]
+
 { #category : #'accessing - view style' }
 QuasarTag >> viewStyle: aStyle if: aBoolean [
 

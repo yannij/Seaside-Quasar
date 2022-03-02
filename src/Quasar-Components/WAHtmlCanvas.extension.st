@@ -271,9 +271,21 @@ WAHtmlCanvas >> qTabs [
 ]
 
 { #category : #'*Quasar-Components' }
+WAHtmlCanvas >> qTd [
+
+	^ self brush: QuasarTd new
+]
+
+{ #category : #'*Quasar-Components' }
 WAHtmlCanvas >> qTemplate [
 
 	^ self brush: QuasarTemplate new
+]
+
+{ #category : #'*Quasar-Components' }
+WAHtmlCanvas >> qTh [
+
+	^ self brush: QuasarTh new
 ]
 
 { #category : #'*Quasar-Components' }
@@ -292,4 +304,10 @@ WAHtmlCanvas >> qToolbar [
 WAHtmlCanvas >> qToolbarTitle [
 
 	^ self brush: QuasarToolbarTitle new
+]
+
+{ #category : #'*Quasar-Components' }
+WAHtmlCanvas >> qTr [
+
+	^ self brush: QuasarTr new
 ]

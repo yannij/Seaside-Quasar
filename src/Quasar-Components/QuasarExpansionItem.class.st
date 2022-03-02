@@ -23,6 +23,12 @@ QuasarExpansionItem >> dense [
 ]
 
 { #category : #attributes }
+QuasarExpansionItem >> denseToggle [
+
+	self attributes at: 'dense-toggle' put: true
+]
+
+{ #category : #attributes }
 QuasarExpansionItem >> expandIcon: anObject [
 
 	self attributes at: 'expand-icon' put: anObject
