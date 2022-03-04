@@ -193,6 +193,14 @@ self mdqApplicationGet logString: cancelUrl printString.
 	^ Array with: successUrl with: cancelUrl
 ]
 
+{ #category : #'rendering - collapsed' }
+MDQStripeCheckout >> imageFor: aModel [
+	| value |
+
+	value := aModel at: 'images'.
+	^ value isCollection ifTrue: [ value first ] ifFalse: [ value ]
+]
+
 { #category : #initialization }
 MDQStripeCheckout >> initialize [
 
@@ -227,13 +235,16 @@ MDQStripeCheckout >> renderCartItemImagesOn: html [
 			style: 'padding-right: 4px';
 			"style: 'max-height: 56px; max-width: 100px';"
 			style: 'max-height: 56px; max-width: 56px';
-			url: (eachItem at: 'images') first ]
+			url: (self imageFor: eachItem) ]
 ]
 
 { #category : #'rendering - shopping' }
 MDQStripeCheckout >> renderCartItemsOn: html [
 
-html qList separator; "bordered;" with: [
+	html qList
+		separator; "bordered;"
+		denseIf: self mdqApplicationGet viewStyleDense;
+		with: [
 	self cartItems
 		do: [ :eachItem |
 			html qItem class: 'q-py-md'; class: 'q-px-none'; "class: 'no-margon';" with: [
@@ -245,7 +256,7 @@ html qList separator; "bordered;" with: [
 				html qItemSection avatar; with: [
 					html image
 						style: 'max-height: 56px; max-width: 56px';
-						url: (eachItem at: 'images') first ].
+						url: (self imageFor: eachItem) ].
 				html qItemSection top; with: [
 					html qItemLabel with: (eachItem at: 'id').
 					html qItemLabel caption with: (eachItem at: 'description') ].
@@ -333,6 +344,7 @@ MDQStripeCheckout >> renderCheckoutButtonOn: html [
 MDQStripeCheckout >> renderCollapsedCartOn: html [
 
 	html qBtn round; "class: 'q-pa-xs';"
+		denseIf: self mdqApplicationGet viewStyleDense;
 		type: 'a';
 		icon: 'shopping_cart';
 		href: (html urlForAction: [ self cartVisible: true ]).
@@ -352,10 +364,12 @@ MDQStripeCheckout >> renderContentOn: html [
 { #category : #'rendering - shopping' }
 MDQStripeCheckout >> renderDismissButtonOn: html [
 
-	html qBtn round; "class: 'q-pa-xs';"
+	html qBtn
+		denseIf: self mdqApplicationGet viewStyleDense;
+		round; "class: 'q-pa-xs';"
 		type: 'a';
-		icon: 'keyboard_arrow_up';
-		href: (html urlForAction: [ self cartVisible: false ])
+		href: (html urlForAction: [ self cartVisible: false ]);
+		icon: 'keyboard_arrow_up'
 ]
 
 { #category : #stripe }

@@ -18,9 +18,3 @@ StripeInterfaceBasic >> shoppingCart: aShoppingCart addProduct: aProduct [
 
 	aShoppingCart cartItemsAdd: aProduct
 ]
-
-{ #category : #adding }
-StripeInterfaceBasic >> shoppingCartNew [
-
-	^ StripeShoppingCart new
-]
