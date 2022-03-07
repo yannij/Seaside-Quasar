@@ -33,19 +33,20 @@ MDQSelectListComponent >> renderSelectOn: html readonly: aReadonlyFlag [
 	inputTag color: 'primary'.
 
 	app := self mdqApplicationGet.
-	inputTag filledIf: app viewStyleFilled.
-	inputTag outlinedIf: app viewStyleOutlined.
-	inputTag denseIf: app viewStyleDense.
+	inputTag
+		filledIf: app viewStyleFilled;
+		outlinedIf: app viewStyleOutlined;
+		denseIf: app viewStyleDense;
+		label: inputLabel.
 
 	aReadonlyFlag
 		ifTrue: [
 			inputTag readonly: true ]
 		ifFalse: [ | modelName modelOptionsName |
 			modelName := inputLabel asCamelCase uncapitalized.
-			self mdqApplicationGet vueRefsAdd: modelName -> inputValue.
 			modelOptionsName := modelName, 'Options'.
-			self mdqApplicationGet quasarDataAdd: modelOptionsName.
-			html document addLoadScript: (JSStream on: (self vueOptionDataNamed: modelOptionsName)).
+			self mdqApplicationGet vueRefsAdd: modelName -> inputValue.
+			self mdqApplicationGet vueRefsAdd: modelOptionsName -> self options.
 
 			inputTag "name: modelName;" vModel: modelName.
 			inputTag options: modelOptionsName.

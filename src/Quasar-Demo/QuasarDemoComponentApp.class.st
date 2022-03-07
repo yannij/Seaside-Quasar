@@ -51,6 +51,7 @@ QuasarDemoComponentApp >> demoName: anObject [
 QuasarDemoComponentApp >> demoNames [
 
 	^ #(
+	Breadcrumbs
 	Btn
 	BtnToggle
 	Card
@@ -88,6 +89,25 @@ date: ref("2019-02-01 12:44"),
 color: ref("#FF00FF"),
 tab: ref(''mails''),
 shape: ref(''line'')'
+]
+
+{ #category : #'demo - breadcrumbs' }
+QuasarDemoComponentApp >> renderDemoBreadcrumbsOn: html [
+
+	html qQuasarBreadcrumbs with: [ 
+		html qQuasarBreadcrumbsEl label: 'Home'.
+		html qQuasarBreadcrumbsEl label: 'Components'.
+		html qQuasarBreadcrumbsEl label: 'Breadcrumbs' ].
+
+	html qQuasarBreadcrumbs with: [ 
+		html qQuasarBreadcrumbsEl label: 'Home'; icon: 'home'.
+		html qQuasarBreadcrumbsEl label: 'Components'; icon: 'widgets'.
+		html qQuasarBreadcrumbsEl label: 'Breadcrumbs' ].
+
+	html qQuasarBreadcrumbs with: [ 
+		html qQuasarBreadcrumbsEl icon: 'home'.
+		html qQuasarBreadcrumbsEl icon: 'widgets'.
+		html qQuasarBreadcrumbsEl icon: 'navigation' ].
 ]
 
 { #category : #'demo - btn' }

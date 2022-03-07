@@ -112,6 +112,12 @@ QuasarSelect >> options: anObject [
 ]
 
 { #category : #attributes }
+QuasarSelect >> optionsDense [
+	
+	self attributes at: 'options-dense' put: true
+]
+
+{ #category : #attributes }
 QuasarSelect >> outlined [
 	
 	self attributes at: 'outlined' put: true

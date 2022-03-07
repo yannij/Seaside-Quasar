@@ -205,6 +205,18 @@ WAHtmlCanvas >> qPopupProxy [
 ]
 
 { #category : #'*Quasar-Components' }
+WAHtmlCanvas >> qQuasarBreadcrumbs [
+
+	^ self brush: QuasarBreadcrumbs new
+]
+
+{ #category : #'*Quasar-Components' }
+WAHtmlCanvas >> qQuasarBreadcrumbsEl [
+
+	^ self brush: QuasarBreadcrumbsEl new
+]
+
+{ #category : #'*Quasar-Components' }
 WAHtmlCanvas >> qRadio [
 
 	^ self brush: QuasarRadio new
@@ -238,6 +250,12 @@ WAHtmlCanvas >> qSelect [
 WAHtmlCanvas >> qSeparator [
 
 	^ self brush: QuasarSeparator new
+]
+
+{ #category : #'*Quasar-Components' }
+WAHtmlCanvas >> qSpace [
+
+	^ self brush: QuasarSpace new
 ]
 
 { #category : #'*Quasar-Components' }

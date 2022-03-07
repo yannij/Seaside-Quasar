@@ -30,22 +30,25 @@ MDQMultiselectListComponent >> renderMultiselectOn: html readonly: aReadonlyFlag
 	inputTag filledIf: app viewStyleFilled.
 	inputTag outlinedIf: app viewStyleOutlined.
 	inputTag denseIf: app viewStyleDense.
+	app viewStyleDense ifTrue: [
+		inputTag optionsDense ].
 
 	aReadonlyFlag
 		ifTrue: [
 			inputTag readonly: true ]
-		ifFalse: [ | modelName modelOptionsName listValues |
+		ifFalse: [ | modelName modelOptionsName listValues optionsList |
 			modelName := inputLabel asCamelCase uncapitalized.
 			modelOptionsName := modelName, 'Options'.
-			self mdqApplicationGet quasarDataAdd: modelOptionsName.
-			html document addLoadScript: (JSStream on: (self vueOptionDataNamed: modelOptionsName)).
 
 			inputTag "name: modelName;" vModel: modelName.
 			inputTag options: modelOptionsName.
 			inputTag on: #value of: self.
 			inputTag multipleCallbackValue: self availableList.
-			listValues := inputTag values. "set by #multipleCallbackValue: above"
+			listValues := inputTag values. "values is set by #multipleCallbackValue:"
 			inputValue := self selectedList collect: [ :each | listValues keyAtValue: each ].
+			optionsList := OrderedCollection new.
+			self availableList withIndexDo: [ :eachOption :index | optionsList add: ({ 'label' -> eachOption. 'value' -> index} asDictionary) ].
+			self mdqApplicationGet vueRefsAdd: modelOptionsName -> optionsList.
 			self mdqApplicationGet vueRefsAdd: modelName -> inputValue.
 		]
 ]
@@ -54,6 +57,12 @@ MDQMultiselectListComponent >> renderMultiselectOn: html readonly: aReadonlyFlag
 MDQMultiselectListComponent >> renderViewerOn: html [
 
 	self renderFieldOn: html readonly: true
+]
+
+{ #category : #accessing }
+MDQMultiselectListComponent >> value: anObject [
+	"for breakpoint"
+	^ super value: anObject
 ]
 
 { #category : #rendering }
