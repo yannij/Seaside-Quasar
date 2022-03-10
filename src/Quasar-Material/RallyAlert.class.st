@@ -34,7 +34,6 @@ RallyAlert >> descriptionDescription [
 		accessor: #description;
 		default: '';
 		label: 'Description';
-		cssClass: 'mcw-textfield';
 		priority: 20;
 		yourself
 ]
@@ -58,7 +57,6 @@ RallyAlert >> idDescription [
 	^ MAStringDescription new
 		accessor: #id;
 		label: 'ID';
-		cssClass: 'mcw-textfield';
 		priority: 10;
 		beRequired;
 		yourself

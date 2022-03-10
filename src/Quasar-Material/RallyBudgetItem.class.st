@@ -30,7 +30,6 @@ RallyBudgetItem >> amountDescription [
 		accessor: #amount;
 		default: 0.0;
 		label: 'Amount';
-		cssClass: 'mcw-textfield';
 		priority: 30;
 		yourself
 ]
@@ -55,7 +54,6 @@ RallyBudgetItem >> amountSpentDescription [
 		accessor: #amountSpent;
 		default: 0.0;
 		label: 'Amount Spent';
-		cssClass: 'mcw-textfield';
 		priority: 40;
 		yourself
 ]
@@ -86,7 +84,6 @@ RallyBudgetItem >> descriptionDescription [
 		accessor: #description;
 		default: '';
 		label: 'Description';
-		cssClass: 'mcw-textfield';
 		priority: 20;
 		yourself
 ]
@@ -110,7 +107,6 @@ RallyBudgetItem >> idDescription [
 	^ MAStringDescription new
 		accessor: #id;
 		label: 'ID';
-		cssClass: 'mcw-textfield';
 		priority: 10;
 		beRequired;
 		yourself
@@ -137,7 +133,6 @@ RallyBudgetItem >> spentRatioDescription [
 	^ MANumberDescription new
 		accessor: #spentRatio;
 		label: 'Spent Ratio';
-		cssClass: 'mcw-textfield';
 		priority: 50;
 		beReadonly;
 		yourself

@@ -38,6 +38,7 @@ QuasarDemoBrowseApp >> demoClasses [
 	#QRallyApp
 	#QTidbitToDoApp
 	#QLoanexApp
+	#CraneApp
 	#ShrineApp
 	#RallyApp
 	#TidbitToDoApp

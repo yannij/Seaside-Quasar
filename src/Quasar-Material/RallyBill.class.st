@@ -30,7 +30,6 @@ RallyBill >> amountDescription [
 		accessor: #amount;
 		default: 0.0;
 		label: 'Amount';
-		cssClass: 'mcw-textfield';
 		priority: 30;
 		yourself
 ]
@@ -61,7 +60,6 @@ RallyBill >> descriptionDescription [
 		accessor: #description;
 		default: '';
 		label: 'Description';
-		cssClass: 'mcw-textfield';
 		priority: 20;
 		yourself
 ]
@@ -85,7 +83,6 @@ RallyBill >> dueDateDescription [
 	^ MADateDescription new
 		accessor: #dueDate;
 		label: 'Due Date';
-		cssClass: 'mcw-textfield';
 		priority: 40;
 		yourself
 ]
@@ -109,7 +106,6 @@ RallyBill >> idDescription [
 	^ MAStringDescription new
 		accessor: #id;
 		label: 'ID';
-		cssClass: 'mcw-textfield';
 		priority: 10;
 		beRequired;
 		yourself

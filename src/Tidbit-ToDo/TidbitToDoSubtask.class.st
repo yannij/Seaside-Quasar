@@ -29,7 +29,6 @@ TidbitToDoSubtask >> descriptionDescription [
 		accessor: #description;
 		default: '';
 		label: 'Description';
-		cssClass: 'mcw-textfield';
 		priority: 20;
 		yourself
 ]
@@ -53,7 +52,6 @@ TidbitToDoSubtask >> doneDescription [
 	^ MABooleanDescription new
 		accessor: #done;
 		label: 'Done';
-		cssClass: 'mcw-textfield';
 		priority: 10;
 		default: false;
 		yourself
@@ -79,7 +77,6 @@ TidbitToDoSubtask >> summaryDescription [
 		accessor: #summary;
 		default: '';
 		label: 'Summary';
-		cssClass: 'mcw-textfield';
 		priority: 15;
 		beRequired;
 		yourself

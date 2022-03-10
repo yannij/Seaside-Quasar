@@ -76,7 +76,6 @@ TidbitUser >> descriptionDateCreated [
 			write: [ :item :value | value ifNotNil: [ :arg | item dateCreated: value ] ]);
 		default: DateAndTime now printString;
 		label: 'Date Created';
-		cssClass: 'mcw-textfield';
 		priority: 17;
 		beReadonly;
 		yourself
@@ -93,7 +92,6 @@ TidbitUser >> descriptionDateInactive [
 			write: [ :item :value | value ifNotNil: [ :arg | item dateInactive: value ] ]);
 		default: DateAndTime now printString;
 		label: 'Date Inactive';
-		cssClass: 'mcw-textfield';
 		priority: 18;
 		yourself
 ]
@@ -106,7 +104,6 @@ TidbitUser >> descriptionEmail [
 		accessor: #email;
 		default: '';
 		label: 'Email';
-		cssClass: 'mcw-textfield';
 		priority: 30;
 		yourself
 ]
@@ -119,7 +116,6 @@ TidbitUser >> descriptionFullName [
 		accessor: #fullName;
 		default: '';
 		label: 'Full Name';
-		cssClass: 'mcw-textfield';
 		priority: 20;
 		yourself
 ]
@@ -132,7 +128,6 @@ TidbitUser >> descriptionPasswordHash [
 		accessor: #passwordHash;
 		default: '';
 		label: 'Password';
-		cssClass: 'mcw-textfield';
 		priority: 15;
 		beHidden;
 		yourself
@@ -147,7 +142,6 @@ TidbitUser >> descriptionToDoItems [
 		classes: (Array with: TidbitToDoItem);
 		default: OrderedCollection new;
 		label: 'ToDo Items';
-		cssClass: 'mcw-textfield';
 		priority: 45;
 		"beOrdered;"
 		yourself
@@ -161,7 +155,6 @@ TidbitUser >> descriptionToDoItemsCount [
 		accessor: #toDoItemsCount;
 		default: 0;
 		label: 'ToDo Count';
-		cssClass: 'mcw-textfield';
 		priority: 40;
 		beInteger;
 		beReadonly;
@@ -176,7 +169,6 @@ TidbitUser >> descriptionUserSettings [
 		accessor: #userSettings;
 		label: 'User Settings';
 		classes: {TidbitUserSettings};
-		cssClass: 'mcw-textfield';
 		priority: 35;
 		beRequired;
 		yourself
@@ -190,7 +182,6 @@ TidbitUser >> descriptionUsername [
 		accessor: #username;
 		default: '';
 		label: 'Username';
-		cssClass: 'mcw-textfield';
 		priority: 10;
 		beReadonly;
 		yourself
@@ -204,7 +195,6 @@ TidbitUser >> descriptionWebSite [
 		accessor: #website;
 		default: '';
 		label: 'Website';
-		cssClass: 'mcw-textfield';
 		priority: 35;
 		yourself
 ]

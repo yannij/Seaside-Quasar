@@ -41,7 +41,6 @@ TidbitUserSettings >> descriptionUser [
 		accessor: #user;
 		label: 'User';
 		classes: {TidbitUser};
-		cssClass: 'mcw-textfield';
 		priority: 10;
 		beRequired;
 		yourself

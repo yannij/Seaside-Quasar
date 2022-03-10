@@ -57,7 +57,6 @@ LoanexToy >> availableDescription [
 	^ MABooleanDescription new
 		accessor: #available;
 		label: 'Available';
-		cssClass: 'mcw-textfield';
 		priority: 10;
 		default: false;
 		yourself
@@ -89,7 +88,6 @@ LoanexToy >> dateAddedDescription [
 		accessor: #dateAdded;
 		default: Date today;
 		label: 'Date Added';
-		cssClass: 'mcw-textfield';
 		priority: 30;
 		yourself
 ]
@@ -112,7 +110,6 @@ LoanexToy >> descriptionDescription [
 		accessor: #description;
 		default: '';
 		label: 'Description';
-		cssClass: 'mcw-textfield';
 		priority: 20;
 		yourself
 ]
@@ -170,7 +167,6 @@ LoanexToy >> ownerDescription [
 		accessor: #owner;
 		label: 'Owner';
 		classes: {LoanexUser};
-		cssClass: 'mcw-textfield';
 		priority: 50;
 		beRequired;
 		yourself
@@ -194,7 +190,6 @@ LoanexToy >> summaryDescription [
 		accessor: #summary;
 		default: '';
 		label: 'Summary';
-		cssClass: 'mcw-textfield';
 		priority: 15;
 		beRequired;
 		yourself

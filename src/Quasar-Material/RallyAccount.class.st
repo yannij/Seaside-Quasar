@@ -29,7 +29,6 @@ RallyAccount >> balanceDescription [
 		accessor: #balance;
 		default: 0.0;
 		label: 'Balance';
-		cssClass: 'mcw-textfield';
 		priority: 30;
 		yourself
 ]
@@ -60,7 +59,6 @@ RallyAccount >> descriptionDescription [
 		accessor: #description;
 		default: '';
 		label: 'Description';
-		cssClass: 'mcw-textfield';
 		priority: 20;
 		yourself
 ]
@@ -84,7 +82,6 @@ RallyAccount >> idDescription [
 	^ MAStringDescription new
 		accessor: #id;
 		label: 'ID';
-		cssClass: 'mcw-textfield';
 		priority: 10;
 		beRequired;
 		yourself

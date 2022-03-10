@@ -53,7 +53,6 @@ LoanexUser >> descriptionDateCreated [
 			write: [ :item :value | value ifNotNil: [ :arg | item dateCreated: value ] ]);
 		default: DateAndTime now printString;
 		label: 'Date Created';
-		cssClass: 'mcw-textfield';
 		priority: 17;
 		yourself
 ]
@@ -66,7 +65,6 @@ LoanexUser >> descriptionEmail [
 		accessor: #email;
 		default: '';
 		label: 'Email';
-		cssClass: 'mcw-textfield';
 		priority: 30;
 		yourself
 ]
@@ -79,7 +77,6 @@ LoanexUser >> descriptionFullName [
 		accessor: #fullName;
 		default: '';
 		label: 'Full Name';
-		cssClass: 'mcw-textfield';
 		priority: 20;
 		yourself
 ]
@@ -92,7 +89,6 @@ LoanexUser >> descriptionPasswordHash [
 		accessor: #passwordHash;
 		default: '';
 		label: 'Password';
-		cssClass: 'mcw-textfield';
 		priority: 15;
 		beHidden;
 		yourself
@@ -106,7 +102,6 @@ LoanexUser >> descriptionUsername [
 		accessor: #username;
 		default: '';
 		label: 'Username';
-		cssClass: 'mcw-textfield';
 		priority: 10;
 		yourself
 ]

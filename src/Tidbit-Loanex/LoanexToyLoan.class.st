@@ -69,7 +69,6 @@ LoanexToyLoan >> borrowerDescription [
 		accessor: #borrower;
 		label: 'Borrower';
 		classes: {LoanexUser};
-		cssClass: 'mcw-textfield';
 		priority: 20;
 		beRequired;
 		yourself
@@ -95,7 +94,6 @@ LoanexToyLoan >> dateBorrowedDescription [
 		accessor: #dateBorrowed;
 		default: Date today;
 		label: 'Date Borrowed';
-		cssClass: 'mcw-textfield';
 		priority: 40;
 		yourself
 ]
@@ -120,7 +118,6 @@ LoanexToyLoan >> dateDueDescription [
 		accessor: #dateDue;
 		"default: Date today;"
 		label: 'Date Due';
-		cssClass: 'mcw-textfield';
 		priority: 30;
 		yourself
 ]
@@ -168,7 +165,6 @@ LoanexToyLoan >> toyDescription [
 		accessor: #toy;
 		label: 'Toy';
 		classes: {LoanexToy};
-		cssClass: 'mcw-textfield';
 		priority: 10;
 		beRequired;
 		yourself

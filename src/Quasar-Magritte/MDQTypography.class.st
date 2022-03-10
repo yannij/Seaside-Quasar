@@ -104,7 +104,6 @@ MDQTypography >> fontFamilyDescription [
 		accessor: #fontFamily;
 		default: '';
 		label: 'FontFamily';
-		cssClass: 'mcw-textfield';
 		options: self class availableFonts;
 		priority: 10;
 		yourself
