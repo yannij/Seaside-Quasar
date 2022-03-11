@@ -6,6 +6,7 @@ Class {
 	#superclass : #QuasarApplication,
 	#instVars : [
 		'tab',
+		'filterShow',
 		'flyFilter',
 		'sleepFilter',
 		'eatFilter'
@@ -30,20 +31,6 @@ CraneApp class >> initialize [
 ]
 
 { #category : #accessing }
-CraneApp class >> shrineSvg: aCssClass [
-
-	^ '<svg class="', aCssClass, '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve" fill="#000000">
-      <g id="XMLID_2_">
-        <g id="XMLID_4_">
-          <path id="XMLID_5_" d="M17,2H7L2,6.62L12,22L22,6.62L17,2z M16.5,3.58l3.16,2.92H16.5V3.58z M7.59,3.5H15v3H4.34L7.59,3.5z     M11.25,18.1L7.94,13h3.31V18.1z M11.25,11.5H6.96L4.69,8h6.56V11.5z M16.5,12.32 M12.75,18.09V8h6.56L12.75,18.09z"/>
-        </g>
-        <rect id="XMLID_1_" fill="none" width="24" height="24"/>
-      </g>
-    </svg>
-'
-]
-
-{ #category : #accessing }
 CraneApp >> applicationTitle [
 
 	^ 'Crane'
@@ -59,6 +46,18 @@ CraneApp >> eatFilter [
 CraneApp >> eatFilter: anObject [
 
 	eatFilter := anObject
+]
+
+{ #category : #accessing }
+CraneApp >> filterShow [
+
+	^ filterShow
+]
+
+{ #category : #accessing }
+CraneApp >> filterShow: anObject [
+
+	filterShow := anObject
 ]
 
 { #category : #accessing }
@@ -80,6 +79,9 @@ CraneApp >> initialize [
 
 	self tab: ((QuasarReactiveObject name: 'tab' value: 'fly') transformBlock: [ :value | value ]; yourself).
 	self reactiveObjectsAdd: self tab.
+
+	self filterShow: ((QuasarReactiveObject name: 'filterShow' value: false) transformBlock: [ :value | value not ]; yourself).
+	self reactiveObjectsAdd: self filterShow.
 
 	self initializeFlyFilter.
 	self initializeSleepFilter.
@@ -227,53 +229,197 @@ CraneApp >> renderEatListOn: html [
 { #category : #'tab - eat' }
 CraneApp >> renderEatSearchOn: html [
 
-	html div class: 'row'; "class: 'q-gutter-sm';" style: 'background: #5d1049'; with: [
-		html qBtn class: 'col-3'; flat; unelevated; noCaps; icon: 'person';
-			style: 'background: #720d5d; color: white';
-			label: self eatFilter dinersDisplay.
-		html qBtn class: 'col-3'; flat; unelevated; noCaps; icon: 'event';
-			style: 'background: #720d5d; color: white';
-			label: self eatFilter diningDate refValue greaseString.
-		html qBtn class: 'col-3'; flat; unelevated; noCaps; icon: 'watch_later';
-			style: 'background: #720d5d; color: white';
-			label: self eatFilter diningTime refValue printMinutes.
-		html qBtn class: 'col-3'; flat; unelevated; noCaps; icon: 'place';
-			style: 'background: #720d5d; color: white';
-			label: self eatFilter location ]
+	html div class: 'xs'; with: [
+		self renderEatSearchOn: html colCount: 'col-12' ].
+
+	html div class: 'sm'; with: [
+		self renderEatSearchOn: html colCount: 'col-6' ].
+
+	html div class: 'md'; with: [
+		self renderEatSearchOn: html colCount: 'col-6' ].
+
+	html div class: 'gt-md'; with: [
+		self renderEatSearchOn: html colCount: 'col-3' ]
+]
+
+{ #category : #'tab - eat' }
+CraneApp >> renderEatSearchOn: html colCount: colCount [
+
+	html div class: 'q-px-xs q-py-sm row q-col-gutter-xs'; class: 'backdrop-bg'; with: [
+		html div class: colCount; with: [
+			html qBtn flat; unelevated; noCaps; icon: 'person'; class: 'full-width';
+				class: 'backdrop-btn';
+				label: self eatFilter dinersDisplay ].
+		html div class: colCount; with: [
+			html qBtn flat; unelevated; noCaps; icon: 'event'; class: 'full-width';
+				class: 'backdrop-btn';
+				label: self eatFilter diningDate refValue greaseString ].
+		html div class: colCount; with: [
+			html qBtn flat; unelevated; noCaps; icon: 'watch_later'; class: 'full-width';
+				class: 'backdrop-btn';
+				label: self eatFilter diningTime refValue printMinutes ].
+		html div class: colCount; with: [
+			html qBtn flat; unelevated; noCaps; icon: 'place'; class: 'full-width';
+				class: 'backdrop-btn';
+				label: self eatFilter location ] ]
+]
+
+{ #category : #'tab - eat' }
+CraneApp >> renderEatTabPanelOn: html [
+
+	html qTabPanel name: 'eat'; class: 'q-pa-none'; with: [
+		self renderEatSearchOn: html.
+		self renderEatListOn: html ]
 ]
 
 { #category : #'tab - fly' }
-CraneApp >> renderFlyListOn: html [
+CraneApp >> renderFlyCard: eachObject on: html [
 
-	html qList style: 'background: white'; with: [
-		"CraneAirTrip" CraneAirport instanceList do: [ :eachObject |
-			html qItem with: [
-				html qItemSection top; avatar; with: [
-					html qAvatar color: 'primary'; textColor: 'white'; icon: 'star' ].
-				html qItemSection with: [
-					html qItemLabel with: eachObject airportName.
-					html qItemLabel caption;
-						with: eachObject airportIATA ].
-				"html qItemSection with: [
-					html qItemLabel style: 'color: red'; with: eachObject price ]" ] ] ]
+	html qCard class: 'q-px-xs'; flat; with: [ | flight |
+		flight := eachObject departFlight.
+		html qCardSection class: 'q-px-none'; with: [
+			html div class: 'row no-wrap items-center'; with: [
+				html div class: 'col';
+					with: 'DEPART'.
+				html div class: 'col-auto row no-wrap items-center';
+					with: flight departureDateTimeUTC asDate greaseString ].
+			html div class: 'row no-wrap items-center'; with: [
+				html div class: 'col text-red text-h3 row no-wrap items-left';
+					with: flight origin airportIATA.
+				html div class: 'col-auto text-red text-h3 row no-wrap items-right';
+					with: flight destination airportIATA ].
+			html div class: 'row no-wrap items-center'; with: [
+				html div class: 'col row no-wrap items-left';
+					with: flight origin airportName.
+				html div class: 'col-auto row no-wrap items-right';
+					with: flight destination airportName ].
+			html div class: 'row no-wrap items-center'; with: [
+				html div class: 'col';
+					with: eachObject departFlight airline.
+				html div class: 'col-auto text-red row no-wrap items-center';
+					with: '$', flight price greaseString ].
+			html div class: 'row no-wrap items-center'; with: [
+				html div class: 'col'; with: flight departureDateTimeUTC asTime printMinutes.
+				html div class: 'col'; with: '---->'.
+				html div class: 'col'; with: flight arrivalDateTimeUTC asTime printMinutes.
+				html div class: 'col-auto'; with: flight flightDuration asHours printString, 'h' "]" ] ].
+		flight := eachObject returnFlight.
+		html qCardSection class: 'q-px-none'; with: [
+			html div class: 'row no-wrap items-center'; with: [
+				html div class: 'col';
+					with: 'DEPART'.
+				html div class: 'col-auto row no-wrap items-center';
+					with: flight departureDateTimeUTC asDate greaseString ].
+			html div class: 'row no-wrap items-center'; with: [
+				html div class: 'col text-red text-h3 row no-wrap items-left';
+					with: flight origin airportIATA.
+				html div class: 'col-auto text-red text-h3 row no-wrap items-right';
+					with: flight destination airportIATA ].
+			html div class: 'row no-wrap items-center'; with: [
+				html div class: 'col row no-wrap items-left';
+					with: flight origin airportName.
+				html div class: 'col-auto row no-wrap items-right';
+					with: flight destination airportName ].
+			html div class: 'row no-wrap items-center'; with: [
+				html div class: 'col';
+					with: eachObject departFlight airline.
+				html div class: 'col-auto text-red row no-wrap items-center';
+					with: '$', flight price greaseString ].
+			html div class: 'row no-wrap items-center'; with: [
+				html div class: 'col'; with: flight departureDateTimeUTC asTime printMinutes.
+				html div class: 'col'; with: '---->'.
+				html div class: 'col'; with: flight arrivalDateTimeUTC asTime printMinutes ] ] ]
+]
+
+{ #category : #'tab - fly' }
+CraneApp >> renderFlyCardDense: eachObject on: html [
+
+	html qCard class: 'q-px-xs'; "style: 'width: 350px';" flat; with: [ | flight |
+		html qCardSection class: 'q-pa-none'; with: [
+			html div class: 'row no-wrap items-center'; with: [
+				html div class: 'col text-h6 ellipsis';
+					with: eachObject departFlight airline.
+				html div class: 'col-auto text-red text-h6 row no-wrap items-center';
+					with: '$', eachObject price greaseString ] ].
+		"html qCardSection with: [ | flight |"
+			flight := eachObject departFlight.
+			html div class: 'row no-wrap items-center'; with: [
+				html div class: 'col'; with: flight departureDateTimeUTC asTime printMinutes.
+				html div class: 'col'; with: flight origin airportIATA.
+				html div class: 'col'; with: '---->'.
+				html div class: 'col'; with: flight arrivalDateTimeUTC asTime printMinutes.
+				html div class: 'col'; with: flight destination airportIATA.
+				html div class: 'col-auto'; with: flight flightDuration asHours printString, 'h' "]" ].
+		"html qCardSection with: [ | flight |"
+			flight := eachObject returnFlight.
+			html div class: 'row no-wrap items-center'; with: [
+				html div class: 'col'; with: flight departureDateTimeUTC asTime printMinutes.
+				html div class: 'col'; with: flight origin airportIATA.
+				html div class: 'col'; with: '<----'.
+				html div class: 'col'; with: flight arrivalDateTimeUTC asTime printMinutes.
+				html div class: 'col'; with: flight destination airportIATA.
+				html div class: 'col-auto'; with: flight flightDuration asHours printString, 'h' "]" ] ]
+]
+
+{ #category : #'tab - fly' }
+CraneApp >> renderFlyResultsOn: html [
+
+	html div
+		class: 'q-pa-xs row q-col-gutter-xs';
+		class: 'front-layer-bg'; "style: 'background: lightGray';"
+		with: [
+			CraneAirTrip instanceList
+				do: [ :eachObject |
+					html div class: 'col-12'; with: [
+						self renderFlyCard: eachObject on: html ] ]
+				separatedBy: [ "html qSpace" ] ]
 ]
 
 { #category : #'tab - fly' }
 CraneApp >> renderFlySearchOn: html [
 
-	html div class: 'row'; "class: 'q-gutter-sm';" style: 'background: #5d1049'; with: [
-		html qBtn class: 'col-3'; flat; unelevated; noCaps; icon: 'person';
-			style: 'background: #720d5d; color: white';
-			label: self flyFilter travellerSummary.
-		html qBtn class: 'col-3'; flat; unelevated; noCaps; icon: 'place';
-			style: 'background: #720d5d; color: white';
-			label: self flyFilter origin refValue greaseString.
-		html qBtn class: 'col-3'; flat; unelevated; noCaps; icon: 'flight';
-			style: 'background: #720d5d; color: white';
-			label: self flyFilter destination refValue greaseString.
-		html qBtn class: 'col-3'; flat; unelevated; noCaps; icon: 'event';
-			style: 'background: #720d5d; color: white';
-			label: 'Select Dates' ]
+	html div class: 'xs'; with: [
+		self renderFlySearchOn: html colCount: 'col-12' ].
+
+	html div class: 'sm'; with: [
+		self renderFlySearchOn: html colCount: 'col-6' ].
+
+	html div class: 'md'; with: [
+		self renderFlySearchOn: html colCount: 'col-6' ].
+
+	html div class: 'gt-md'; with: [
+		self renderFlySearchOn: html colCount: 'col-3' ]
+]
+
+{ #category : #'tab - fly' }
+CraneApp >> renderFlySearchOn: html colCount: colCount [
+
+	html div class: 'q-px-xs q-py-sm row q-col-gutter-xs'; class: 'backdrop-bg'; with: [
+		html div class: colCount; with: [
+			html qBtn flat; unelevated; noCaps; icon: 'person'; class: 'full-width';
+				class: 'backdrop-btn';
+				type: 'a'; href: (html urlForAction: [  ]);
+				label: self flyFilter travellerSummary ].
+		html div class: colCount; with: [
+			html qBtn flat; unelevated; noCaps; icon: 'place'; class: 'full-width';
+				class: 'backdrop-btn';
+				label: self flyFilter origin refValue greaseString ].
+		html div class: colCount; with: [
+			html qBtn flat; unelevated; noCaps; icon: 'flight'; class: 'full-width';
+				class: 'backdrop-btn';
+				label: self flyFilter destination refValue greaseString ].
+		html div class: colCount; with: [
+			html qBtn flat; unelevated; noCaps; icon: 'event'; class: 'full-width';
+				class: 'backdrop-btn';
+				label: 'Select Dates' ] ]
+]
+
+{ #category : #'tab - fly' }
+CraneApp >> renderFlyTabPanelOn: html [
+
+	html qTabPanel name: 'fly'; class: 'q-pa-none'; with: [
+		self renderFlySearchOn: html.
+		self renderFlyResultsOn: html ]
 ]
 
 { #category : #rendering }
@@ -284,13 +430,13 @@ CraneApp >> renderLayoutCraneOn: html [
 		html qHeader heightHint: 98; class: 'bg-primary'; with: [
 			html qToolbar with: [
 				"html qBtn dense; flat; round; icon: 'menu'; vOnClick: 'this.$refs.leftDrawer.toggle($event)'."
-				"html qToolbarTitle with: [ html text: 'Crane' ]."
-				html span class: 'q-pr-md'; with: 'Crane'.
+				html qImg src: (CraneLibrary urlOf: #cranelogoPng); style: 'height: 56px; width: 56px'.
+				"html span class: 'q-pr-md'; with: 'Crane'."
 				self renderTabsOn: html.
 				html qSpace.
-				html qBtn dense; flat; round; icon: 'filter_list'; vOnClick: 'this.$refs.sideSheet.toggle($event)' ] ].
-			self renderLayoutPageOn: html.
+				html qBtn dense; flat; round; icon: 'filter_list'; vOnClick: 'filterShowOnClick($event)' ] ].
 			self renderSideSheetOn: html.
+			self renderLayoutPageOn: html.
 			"self renderBottomSheetOn: html."
 			"self renderSettingsFabOn: html" ] ]
 ]
@@ -333,7 +479,10 @@ CraneApp >> renderSettingsFabOn: html [
 { #category : #rendering }
 CraneApp >> renderSideSheetOn: html [
 
-	html qDrawer ref: 'sideSheet'; showIfAbove; side: 'right'; bordered; "class: 'bg-secondary';"
+	html qDrawer
+		"ref: 'filterSheet';" showIfAbove; side: 'right';
+		vIf: 'filterShow';
+		bordered; "class: 'bg-secondary';"
 		with: [ "self renderShoppingCartOn: html" ].
 
 	"html qPageSticky position: 'top-right'; offset: '[0, 76]'; with: [
@@ -349,7 +498,7 @@ CraneApp >> renderSleepListOn: html [
 		CraneLodging instanceList do: [ :eachObject |
 			html qItem with: [
 				html qItemSection top; avatar; with: [
-					html qAvatar color: 'primary'; textColor: 'white'; icon: 'star' ].
+					html qAvatar color: 'primary'; textColor: 'white'; icon: 'hotel' ].
 				html qItemSection with: [
 					html qItemLabel with: eachObject lodgingName.
 					html qItemLabel caption; "lines: 2;"
@@ -361,40 +510,64 @@ CraneApp >> renderSleepListOn: html [
 { #category : #'tab - sleep' }
 CraneApp >> renderSleepSearchOn: html [
 
-	html div class: 'row'; "class: 'q-gutter-sm';" style: 'background: #5d1049'; with: [
-		html qBtn class: 'col-3'; flat; unelevated; noCaps; icon: 'person';
-			style: 'background: #720d5d; color: white';
-			label: self sleepFilter guestsDisplay .
-		html qBtn class: 'col-3'; flat; unelevated; noCaps; icon: 'event';
-			style: 'background: #720d5d; color: white';
-			label: 'Select Dates'.
-		html qBtn class: 'col-3'; flat; unelevated; noCaps; icon: 'hotel';
-			style: 'background: #720d5d; color: white';
-			label: 'Select Location' ]
+	html div class: 'xs'; with: [
+		self renderSleepSearchOn: html colCount: 'col-12' ].
+
+	html div class: 'sm'; with: [
+		self renderSleepSearchOn: html colCount: 'col-6' ].
+
+	html div class: 'md'; with: [
+		self renderSleepSearchOn: html colCount: 'col-6' ].
+
+	html div class: 'gt-md'; with: [
+		self renderSleepSearchOn: html colCount: 'col-3' ]
+]
+
+{ #category : #'tab - sleep' }
+CraneApp >> renderSleepSearchOn: html colCount: colCount [
+
+	html div class: 'q-px-xs q-py-sm row q-col-gutter-xs'; class: 'backdrop-bg'; with: [
+		html div class: colCount; with: [
+			html qBtn flat; unelevated; noCaps; icon: 'person'; class: 'full-width';
+				class: 'backdrop-btn';
+				label: self sleepFilter guestsDisplay ].
+		html div class: colCount; with: [
+			html qBtn flat; unelevated; noCaps; icon: 'event'; class: 'full-width';
+				class: 'backdrop-btn';
+				label: 'Select Dates' ].
+		html div class: colCount; with: [
+			html qBtn flat; unelevated; noCaps; icon: 'hotel'; class: 'full-width';
+				class: 'backdrop-btn';
+				label: 'Select Location' ] ]
+]
+
+{ #category : #'tab - sleep' }
+CraneApp >> renderSleepTabPanelOn: html [
+
+	html qTabPanel name: 'sleep'; class: 'q-pa-none'; with: [
+		self renderSleepSearchOn: html.
+		self renderSleepListOn: html ]
 ]
 
 { #category : #rendering }
 CraneApp >> renderTabPanelsOn: html [
 
 	html qTabPanels vModel: 'tab'; animated; with: [
-		html qTabPanel name: 'fly'; class: 'q-pa-none'; style: 'background: #5d1049'; with: [
-			self renderFlySearchOn: html.
-			self renderFlyListOn: html ].
-		html qTabPanel name: 'sleep'; class: 'q-pa-none'; style: 'background: #5d1049'; with: [
-			self renderSleepSearchOn: html.
-			self renderSleepListOn: html ].
-		html qTabPanel name: 'eat'; class: 'q-pa-none'; style: 'background: #5d1049'; with: [
-			self renderEatSearchOn: html.
-			self renderEatListOn: html ] ]
+		self renderFlyTabPanelOn: html.
+		self renderSleepTabPanelOn: html.
+		self renderEatTabPanelOn: html ]
 ]
 
 { #category : #rendering }
 CraneApp >> renderTabsOn: html [
 
-	html qTabs vModel: 'tab'; align: 'left'; "dense; class: 'text-grey'; activeColor: 'primary'; indicatorColor: 'primary'; narrowIndicator;" with: [
-		html qTab name: 'fly'; label: 'Fly'.
-		html qTab name: 'sleep'; label: 'Sleep'.
-		html qTab name: 'eat'; label: 'Eat' ]
+	html qTabs
+		vModel: 'tab';
+		align: 'left';
+		with: [
+			html qTab name: 'fly'; label: 'Fly'; vOn: 'click' with: 'tabRefSet("fly")'.
+			html qTab name: 'sleep'; label: 'Sleep'; vOn: 'click' with: 'tabRefSet("sleep")'.
+			html qTab name: 'eat'; label: 'Eat'; vOn: 'click' with: 'tabRefSet("eat")' ]
 ]
 
 { #category : #accessing }
@@ -426,6 +599,7 @@ CraneApp >> updateRoot: anHtmlRoot [
 
 	super updateRoot: anHtmlRoot.
 
+	anHtmlRoot stylesheet url: (CraneLibrary urlOf: #craneCss).
 	anHtmlRoot javascript url: 'https://js.stripe.com/v3/'
 
 ]
@@ -460,28 +634,4 @@ CraneApp >> xrenderEatSearchOn: html [
 		ifNone: [ nil ].
 	attrComponent := filterComponent childAt: attrDescription.
 	html render: attrComponent.
-]
-
-{ #category : #'tab - fly' }
-CraneApp >> xrenderFlySearchOn: html [
-	| filterComponent filterDescription attrComponent attrDescription |
-
-	filterComponent := self flyFilter asComponent.
-	filterDescription := filterComponent magritteDescription.
-
-	attrDescription := filterDescription
-		detect: [ :eachDescription | eachDescription label = 'Cabin' ]
-		ifNone: [ nil ].
-	attrComponent := filterComponent childAt: attrDescription.
-	html render: attrComponent.
-
-	attrDescription := filterDescription
-		detect: [ :eachDescription | eachDescription label = 'Start Date' ]
-		ifNone: [ nil ].
-	attrComponent := filterComponent childAt: attrDescription.
-	html render: attrComponent.
-
-	"html qDate
-		vModel: 'startDate';
-		range"
 ]

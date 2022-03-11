@@ -5,6 +5,65 @@ Class {
 }
 
 { #category : #'class initialization' }
+CraneData class >> createCraneAirTrips [
+	| craneClass |
+
+	craneClass := CraneAirTrip.
+	craneClass instanceList: nil.
+
+	#(
+	('SD100' 'SD101')
+	('FS200' 'FS201')
+	('ZA300' 'ZA301')
+	('PA400' 'PA401')
+	) do: [ :data | | newObject depart return |
+		depart := self findAirlineFlight: data first.
+		return := self findAirlineFlight: data second.
+		newObject := craneClass new
+			departFlight: depart;
+			returnFlight: return;
+			price: depart price + return price;
+			yourself.
+		craneClass instanceListAdd: newObject ]
+]
+
+{ #category : #'class initialization' }
+CraneData class >> createCraneAirlineFlights [
+	| craneClass today |
+
+	craneClass := CraneAirlineFlight.
+	craneClass instanceList: nil.
+
+	today := Date today.
+
+	#(
+	('SD100' 'Sunny Day Air' 'GMP' 'DPS' (0 480) 630 500)
+	('SD101' 'Sunny Day Air' 'DPS' 'GMP' (7 600) 690 550)
+	('FS200' 'Fly Swift' 'GMP' 'YYZ' (3 660) 1200 1500)
+	('FS201' 'Fly Swift' 'YYZ' 'GMP' (10 600) 1260 1600)
+	('ZA300' 'Zip Airline' 'GMP' 'DPS' (7 480) 600 501)
+	('ZA301' 'Zip Airline' 'DPS' 'GMP' (14 600) 660 551)
+	('PA400' 'Pop Air' 'GMP' 'YYZ' (10 660) 1200 1400)
+	('PA401' 'Pop Air' 'YYZ' 'GMP' (17 600) 1260 1400)
+	) do: [ :data | | newObject departureData departureAt arrivalAt |
+		departureData := data at: 5.
+		departureAt := DateAndTime
+			date: (today addDays: departureData first)
+			time: (Time fromSeconds: (Duration minutes: departureData second) asSeconds).
+		arrivalAt := departureAt + (Duration minutes: (data at: 6)).
+		newObject := craneClass new
+			id: data first;
+			airline: data second;
+			origin: (self findAirport: data third);
+			destination: (self findAirport: data fourth);
+			departureDateTimeUTC: departureAt;
+			arrivalDateTimeUTC: arrivalAt;
+			price: (data at: 7);
+			yourself.
+		craneClass instanceListAdd: newObject ]
+]
+
+{ #category : #'class initialization' }
 CraneData class >> createCraneAirports [
 	| craneClass |
 
@@ -114,9 +173,24 @@ CraneData class >> createData [
 	self createCraneLodgings.
 	self createCraneRestaurants.
 	self createCraneAirports.
-	"self createCraneAirlineFlights.
-	self createCraneAirTrips"
+	self createCraneAirlineFlights.
+	self createCraneAirTrips
+]
 
+{ #category : #'class initialization' }
+CraneData class >> findAirlineFlight: aFlightId [
+
+	^ CraneAirlineFlight instanceList
+		detect: [ :eachAirlineFlight | eachAirlineFlight id = aFlightId ]
+		ifNone: [ nil ]
+]
+
+{ #category : #'class initialization' }
+CraneData class >> findAirport: anAirportCode [
+
+	^ CraneAirport instanceList
+		detect: [ :eachAirport | eachAirport airportIATA = anAirportCode ]
+		ifNone: [ nil ]
 ]
 
 { #category : #'class initialization' }

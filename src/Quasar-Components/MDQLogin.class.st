@@ -343,12 +343,10 @@ MDQLogin >> renderCurrentStateOn: html [
 		at: self stateRegistrationStarted put: #renderRegistrationStartedOn:;
 		yourself.
 
-	html div class: 'row'; with: [
-		html tag: 'q-space'.
-		html div "class: 'col-4';" style: 'width: 300px'; with: [
+	html div style: 'display: flex; justify-content: center; height: 100vh; align-items: center;'; with: [
+		html qCard flat; bordered; class: 'q-pa-xs'; with: [
 			(renderMap at: self loginState ifAbsent: [ nil ]) ifNotNil: [ :value |
-				self perform: value with: html ] ].
-		html tag: 'q-space' ]
+				self perform: value with: html ] ] ]
 ]
 
 { #category : #rendering }

@@ -108,6 +108,12 @@ CraneAirlineFlight >> destinationDescription [
 ]
 
 { #category : #accessing }
+CraneAirlineFlight >> flightDuration [
+
+	^ self arrivalDateTimeUTC - self departureDateTimeUTC
+]
+
+{ #category : #accessing }
 CraneAirlineFlight >> id [
 
 	^ id
