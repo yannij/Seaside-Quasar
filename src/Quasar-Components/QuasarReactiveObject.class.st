@@ -5,7 +5,10 @@ Class {
 		'refName',
 		'refValue',
 		'transformBlock',
-		'onSuccessScript'
+		'onSuccessScript',
+		'emitRefSet',
+		'emitOnSuccess',
+		'emitRefSync'
 	],
 	#category : #'Quasar-Components'
 }
@@ -19,40 +22,8 @@ QuasarReactiveObject class >> name: aString value: anObject [
 		yourself
 ]
 
-{ #category : #accessing }
-QuasarReactiveObject >> onSuccessScript [
-
-	^ onSuccessScript
-]
-
-{ #category : #accessing }
-QuasarReactiveObject >> onSuccessScript: anObject [
-
-	onSuccessScript := anObject
-]
-
 { #category : #'rendering - ajax' }
-QuasarReactiveObject >> quasarAjaxOnClickOn: aJSStream html: html [
-	| ajax script |
-
-	script := JSStream new nextPutAll: refName; nextPutAll: '.value = arguments[0]'; yourself.
-	self onSuccessScript ifNotNil: [ :value | script nextPut: $;; nextPutAll: value ].
-
-	ajax := (html jQuery ajax
-			callback: [ :value | self refValueUpdate: (STONJSON fromString: value) ]
-				value: (JSStream on: 'JSON.stringify(', refName, '.value)');
-			json: [ :json | json render: self refValue ];
-			onSuccess: (html javascript << script);
-			yourself).
-
-	aJSStream
-		nextPutAll: refName; nextPutAll: 'OnClick(evt) {';
-		nextPutAll: ajax asJavascript;
-		nextPutAll: '}'.
-]
-
-{ #category : #'rendering - ajax' }
-QuasarReactiveObject >> quasarAjaxRefSetOn: aJSStream html: html [
+QuasarReactiveObject >> ajaxRefSetOn: aJSStream html: html [
 	| ajax "script" |
 
 	"script := JSStream new nextPutAll: refName; nextPutAll: '.value = arguments[0]'; yourself.
@@ -73,6 +44,124 @@ QuasarReactiveObject >> quasarAjaxRefSetOn: aJSStream html: html [
 ]
 
 { #category : #'rendering - ajax' }
+QuasarReactiveObject >> ajaxRefSyncOn: aJSStream html: html [
+	"Answer AJAX callback to pass the browser ref value back to the server,
+	along with client code to set the browser ref value from the server response"
+	| ajax script |
+
+	script := JSStream new nextPutAll: refName; nextPutAll: '.value = arguments[0]'; yourself.
+	self onSuccessScript ifNotNil: [ :value | script nextPut: $;; nextPutAll: value ].
+
+	ajax := html jQuery ajax
+			callback: [ :value | self refValueUpdate: (STONJSON fromString: value) ]
+				value: (JSStream on: 'JSON.stringify(', refName, '.value)');
+			json: [ :json | json render: self refValue ];
+			yourself.
+
+	self emitOnSuccess ifTrue: [
+		ajax onSuccess: (html javascript << script) ].
+
+	aJSStream
+		nextPutAll: self emitRefSyncFunctionName; nextPutAll: '(evt) {';
+		nextPutAll: ajax asJavascript;
+		nextPutAll: '}'.
+]
+
+{ #category : #accessing }
+QuasarReactiveObject >> emitOnSuccess [
+
+	^ emitOnSuccess
+]
+
+{ #category : #accessing }
+QuasarReactiveObject >> emitOnSuccess: anObject [
+
+	emitOnSuccess := anObject
+]
+
+{ #category : #accessing }
+QuasarReactiveObject >> emitRefSet [
+
+	^ emitRefSet
+]
+
+{ #category : #accessing }
+QuasarReactiveObject >> emitRefSet: anObject [
+
+	emitRefSet := anObject
+]
+
+{ #category : #accessing }
+QuasarReactiveObject >> emitRefSetFunctionName [
+
+	^ self refName, 'RefSet'
+]
+
+{ #category : #accessing }
+QuasarReactiveObject >> emitRefSetOff [
+
+	self emitRefSet: false
+]
+
+{ #category : #accessing }
+QuasarReactiveObject >> emitRefSetOn [
+
+	self emitRefSet: true
+]
+
+{ #category : #accessing }
+QuasarReactiveObject >> emitRefSync [
+
+	^ emitRefSync
+]
+
+{ #category : #accessing }
+QuasarReactiveObject >> emitRefSync: anObject [
+
+	emitRefSync := anObject
+]
+
+{ #category : #accessing }
+QuasarReactiveObject >> emitRefSyncFunctionName [
+
+	^ self refName, 'RefSync'
+]
+
+{ #category : #accessing }
+QuasarReactiveObject >> emitRefSyncOff [
+
+	self emitRefSync: false
+]
+
+{ #category : #accessing }
+QuasarReactiveObject >> emitRefSyncOn [
+
+	self emitRefSync: true
+]
+
+{ #category : #initialization }
+QuasarReactiveObject >> initialize [
+
+	super initialize.
+
+	self emitRefSync: true.
+	self emitRefSet: false.
+	self emitOnSuccess: true
+]
+
+{ #category : #accessing }
+QuasarReactiveObject >> onSuccessScript [
+
+	^ onSuccessScript
+]
+
+{ #category : #accessing }
+QuasarReactiveObject >> onSuccessScript: anObject [
+
+	onSuccessScript := anObject
+]
+
+{ #category : #'rendering - ajax' }
 QuasarReactiveObject >> quasarSetupOn: aJSStream [
 
 	aJSStream
@@ -87,10 +176,14 @@ QuasarReactiveObject >> quasarSetupOn: aJSStream [
 QuasarReactiveObject >> quasarSetupReturnOn: aJSStream html: html [
 
 	aJSStream nextPutAll: refName.
-	aJSStream nextPut: $,.
-	self quasarAjaxOnClickOn: aJSStream html: html.
-	aJSStream nextPut: $,.
-	self quasarAjaxRefSetOn: aJSStream html: html
+
+	self emitRefSync ifTrue: [
+		aJSStream nextPut: $,.
+		self ajaxRefSyncOn: aJSStream html: html ].
+
+	self emitRefSet ifTrue: [
+		aJSStream nextPut: $,.
+		self ajaxRefSetOn: aJSStream html: html ]
 ]
 
 { #category : #accessing }
@@ -120,6 +213,10 @@ QuasarReactiveObject >> refValue: anObject [
 { #category : #accessing }
 QuasarReactiveObject >> refValueUpdate: anObject [
 	| newValue |
+
+	"self traceOn"
+	"true ifTrue: [
+		Transcript crShow: 'Reactive::', self refName, ': ', self refValue greaseString, '-->', anObject greaseString ]."
 
 	newValue := self transformBlock ifNil: [ anObject ] ifNotNil: [ :block | block value: anObject ].
 	self refValue: newValue

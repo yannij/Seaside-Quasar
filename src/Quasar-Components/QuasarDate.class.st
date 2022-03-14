@@ -185,12 +185,6 @@ QuasarDate >> todayBtn [
 ]
 
 { #category : #attributes }
-QuasarDate >> vModel: anObject [
-
-	self attributes at: 'v-model' put: anObject
-]
-
-{ #category : #attributes }
 QuasarDate >> yearsInMonthView [
 
 	self attributes at: 'years-in-month-view' put: true

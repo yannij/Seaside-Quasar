@@ -313,6 +313,12 @@ WAHtmlCanvas >> qTime [
 ]
 
 { #category : #'*Quasar-Components' }
+WAHtmlCanvas >> qToggle [
+
+	^ self brush: QuasarToggle new
+]
+
+{ #category : #'*Quasar-Components' }
 WAHtmlCanvas >> qToolbar [
 
 	^ self brush: QuasarToolbar new

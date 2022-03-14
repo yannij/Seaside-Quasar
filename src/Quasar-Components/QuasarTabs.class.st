@@ -125,12 +125,6 @@ QuasarTabs >> tag [
 ]
 
 { #category : #attributes }
-QuasarTabs >> vModel: anObject [
-
-	self attributes at: 'v-model' put: anObject
-]
-
-{ #category : #attributes }
 QuasarTabs >> vertical [
 	
 	self attributes at: 'vertical' put: true

@@ -83,12 +83,6 @@ QuasarTabPanels >> transitionPrev: anObject [
 ]
 
 { #category : #attributes }
-QuasarTabPanels >> vModel: anObject [
-
-	self attributes at: 'v-model' put: anObject
-]
-
-{ #category : #attributes }
 QuasarTabPanels >> vertical [
 	
 	self attributes at: 'vertical' put: true

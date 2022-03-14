@@ -137,12 +137,6 @@ QuasarTime >> textColor: anObject [
 ]
 
 { #category : #attributes }
-QuasarTime >> vModel: anObject [
-
-	self attributes at: 'v-model' put: anObject
-]
-
-{ #category : #attributes }
 QuasarTime >> withSeconds: anObject [
 
 	self attributes at: 'with-seconds' put: anObject

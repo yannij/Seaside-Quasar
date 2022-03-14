@@ -57,9 +57,3 @@ QuasarExpansionItem >> tag [
 
 	^ 'q-expansion-item'
 ]
-
-{ #category : #attributes }
-QuasarExpansionItem >> vModel: anObject [
-
-	self attributes at: 'v-model' put: anObject
-]

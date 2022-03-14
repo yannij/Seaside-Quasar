@@ -99,9 +99,3 @@ QuasarColor >> tag [
 
 	^ 'q-color'
 ]
-
-{ #category : #attributes }
-QuasarColor >> vModel: anObject [
-
-	self attributes at: 'v-model' put: anObject
-]

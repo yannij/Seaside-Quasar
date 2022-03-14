@@ -111,9 +111,3 @@ QuasarFabAction >> unelevated [
 	
 	self attributes at: 'unelevated' put: true
 ]
-
-{ #category : #attributes }
-QuasarFabAction >> vOnClick: aString [
-	
-	self attributes at: '@click' put: aString
-]

@@ -54,9 +54,3 @@ QuasarFormComponent >> on: aSelector of: anObject [
 			receiver: anObject
 			selector: aSelector asMutator)
 ]
-
-{ #category : #attributes }
-QuasarFormComponent >> vModel: anObject [
-	
-	self attributes at: 'v-model' put: anObject
-]

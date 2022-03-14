@@ -212,7 +212,7 @@ QuasarDemoReactiveApp >> renderDemoCollectionOn: html [
 	html div class: 'q-pa-sm'; with: [
 		html div with: refName, ': {{ ', refName, ' }}' ].
 	html div with: [
-		html qBtn label: refName; vOnClick: refName, 'OnClick()' ].
+		html qBtn label: refName; vOnClick: refName, 'RefSync()' ].
 
 	html break.
 	html qCard with: [
@@ -241,7 +241,7 @@ QuasarDemoReactiveApp >> renderDemoReactiveOn: html [
 			html div class: 'q-pa-sm'; with: [
 				html div with: refName, ': {{ ', refName, ' }}' ].
 			html div with: [
-				html qBtn label: refName; vOnClick: refName, 'OnClick()' ] ]
+				html qBtn label: refName; vOnClick: refName, 'RefSync()' ] ]
 		separatedBy: [ html qSeparator spaced ]
 ]
 

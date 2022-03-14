@@ -141,15 +141,3 @@ QuasarBtn >> unelevated [
 	
 	self attributes at: 'unelevated' put: true
 ]
-
-{ #category : #attributes }
-QuasarBtn >> vClosePopUp [
-
-	self attributeAt: 'v-close-popup' put: true
-]
-
-{ #category : #attributes }
-QuasarBtn >> vOnClick: aString [
-	
-	self attributes at: '@click' put: aString
-]

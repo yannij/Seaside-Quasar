@@ -77,7 +77,7 @@ CraneApp >> initialize [
 
 	super initialize.
 
-	self tab: ((QuasarReactiveObject name: 'tab' value: 'fly') transformBlock: [ :value | value ]; yourself).
+	self tab: ((QuasarReactiveObject name: 'tab' value: 'fly') transformBlock: [ :value | value ]; emitRefSetOn; yourself).
 	self reactiveObjectsAdd: self tab.
 
 	self filterShow: ((QuasarReactiveObject name: 'filterShow' value: false) transformBlock: [ :value | value not ]; yourself).
@@ -119,6 +119,13 @@ CraneApp >> initializeEatFilter [
 CraneApp >> initializeFlyFilter [
 	| newReactive |
 
+	self reactiveObjectsAdd: ((QuasarReactiveObject name: 'flyOriginDialog' value: false) "transformBlock: [ :value | value not ];" emitRefSyncOff; emitRefSetOff; yourself).
+	self reactiveObjectsAdd: ((QuasarReactiveObject name: 'flyDestinationDialog' value: false) "transformBlock: [ :value | value not ];" emitRefSyncOff; emitRefSetOff; yourself).
+	"self vueRefsAdd: 'flyOriginDialog' -> false.
+	self vueRefsAdd: 'flyDestinationDialog' -> false."
+	"self quasarDataAdd: 'flyOriginDialog'.
+	self quasarDataAdd: 'flyDestinationDialog'."
+
 	self flyFilter: CraneFlySearch new.
 
 	newReactive := (QuasarReactiveObject name: 'adultCount' value: 2) transformBlock: [ :value | value ]; yourself.
@@ -135,11 +142,11 @@ CraneApp >> initializeFlyFilter [
 	newReactive := (QuasarReactiveObject name: 'cabinOptions' value: #('Economy' 'Business' 'First Class')) yourself.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := (QuasarReactiveObject name: 'origin' value: nil) "transformBlock: [ :value | value ];" yourself.
+	newReactive := (QuasarReactiveObject name: 'origin' value: nil) "transformBlock: [ :value | value ];" emitRefSetOn; yourself.
 	self flyFilter origin: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := (QuasarReactiveObject name: 'destination' value: nil) "transformBlock: [ :value | value ];" yourself.
+	newReactive := (QuasarReactiveObject name: 'destination' value: nil) "transformBlock: [ :value | value ];" emitRefSetOn; yourself.
 	self flyFilter destination: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
@@ -181,6 +188,38 @@ brand: {
 	info: ''#31CCEC'',
 	warning: ''#F2C037''
 }'
+]
+
+{ #category : #rendering }
+CraneApp >> quasarOnLoadOn: aJSStream with: html [
+
+	aJSStream
+		nextPutAll: 'const { useQuasar } = Quasar;';
+		nextPutAll: 'const { ref } = Vue;';
+		"nextPutAll: 'const flyOriginDialog = ref(false);';
+		nextPutAll: 'const flyDestinationDialog = ref(false);';"
+		nextPutAll: 'const app = Vue.createApp({'.
+	self quasarSetupOn: aJSStream with: html.
+	aJSStream nextPutAll: '});'.
+	aJSStream nextPutAll: 'app.use(Quasar, {'.
+	self quasarConfigOn: aJSStream with: html.
+	aJSStream nextPutAll: '});'.
+	aJSStream nextPutAll: 'app.mount("#', self appId, '")'
+]
+
+{ #category : #'tab - fly' }
+CraneApp >> renderAirportListOn: html header: headerString ref: aRefObject [
+
+	html qList style: 'background: white'; with: [
+		html qItemLabel header; with: headerString.
+		CraneAirport instanceList do: [ :eachObject |
+			html qItem clickable; vClosePopUp; vOnClick: aRefObject emitRefSetFunctionName, '("', eachObject airportIATA, '")'; with: [
+				html qItemSection top; avatar; with: [
+					html qAvatar color: 'primary'; textColor: 'white'; icon: 'connecting_airports' ].
+				html qItemSection with: [
+					html qItemLabel with: eachObject airportIATA, ' - ', eachObject airportName.
+					html qItemLabel caption; "lines: 2;"
+						with: eachObject city cityName, ', ', eachObject city countryName ] ] ] ]
 ]
 
 { #category : #rendering }
@@ -307,7 +346,7 @@ CraneApp >> renderFlyCard: eachObject on: html [
 		html qCardSection class: 'q-px-none'; with: [
 			html div class: 'row no-wrap items-center'; with: [
 				html div class: 'col';
-					with: 'DEPART'.
+					with: 'RETURN'.
 				html div class: 'col-auto row no-wrap items-center';
 					with: flight departureDateTimeUTC asDate greaseString ].
 			html div class: 'row no-wrap items-center'; with: [
@@ -362,6 +401,28 @@ CraneApp >> renderFlyCardDense: eachObject on: html [
 ]
 
 { #category : #'tab - fly' }
+CraneApp >> renderFlyDialogDestinationOn: html [
+
+	html div class: 'q-pa-md'; with: [
+		html qDialog vModel: 'flyDestinationDialog'; "persistent;" with: [
+			html qCard with: [
+				self renderAirportListOn: html header: 'Choose destination' ref: self flyFilter destination.
+				html qCardActions align: 'right'; with: [
+					html qBtn flat; label: 'Cancel'; color: 'primary'; vClosePopUp ] ] ] ]
+]
+
+{ #category : #'tab - fly' }
+CraneApp >> renderFlyDialogOriginOn: html [
+
+	html div class: 'q-pa-md'; with: [
+		html qDialog vModel: 'flyOriginDialog'; "persistent;" with: [
+			html qCard with: [
+				self renderAirportListOn: html header: 'Choose origin' ref: self flyFilter origin.
+				html qCardActions align: 'right'; with: [
+					html qBtn flat; label: 'Cancel'; color: 'primary'; vClosePopUp ] ] ] ]
+]
+
+{ #category : #'tab - fly' }
 CraneApp >> renderFlyResultsOn: html [
 
 	html div
@@ -379,36 +440,45 @@ CraneApp >> renderFlyResultsOn: html [
 CraneApp >> renderFlySearchOn: html [
 
 	html div class: 'xs'; with: [
-		self renderFlySearchOn: html colCount: 'col-12' ].
+		self renderFlySearchOn: html colWidth: 'col-12' ].
 
 	html div class: 'sm'; with: [
-		self renderFlySearchOn: html colCount: 'col-6' ].
+		self renderFlySearchOn: html colWidth: 'col-6' ].
 
 	html div class: 'md'; with: [
-		self renderFlySearchOn: html colCount: 'col-6' ].
+		self renderFlySearchOn: html colWidth: 'col-6' ].
 
 	html div class: 'gt-md'; with: [
-		self renderFlySearchOn: html colCount: 'col-3' ]
+		self renderFlySearchOn: html colWidth: 'col-3' ].
+
+	self renderFlyDialogOriginOn: html.
+	self renderFlyDialogDestinationOn: html
 ]
 
 { #category : #'tab - fly' }
-CraneApp >> renderFlySearchOn: html colCount: colCount [
+CraneApp >> renderFlySearchOn: html colWidth: colWidth [
 
 	html div class: 'q-px-xs q-py-sm row q-col-gutter-xs'; class: 'backdrop-bg'; with: [
-		html div class: colCount; with: [
+		html div class: colWidth; with: [
 			html qBtn flat; unelevated; noCaps; icon: 'person'; class: 'full-width';
 				class: 'backdrop-btn';
 				type: 'a'; href: (html urlForAction: [  ]);
 				label: self flyFilter travellerSummary ].
-		html div class: colCount; with: [
+		html div class: colWidth; with: [
 			html qBtn flat; unelevated; noCaps; icon: 'place'; class: 'full-width';
 				class: 'backdrop-btn';
-				label: self flyFilter origin refValue greaseString ].
-		html div class: colCount; with: [
+				vOnClick: 'flyOriginDialog = true';
+				"vOnClick: 'flyOriginDialogOnClick($event)';"
+				"label: (self flyFilter origin refValue ifNil: [ 'Choose origin' ] ifNotNil: [ :value | value displayString ]) ]."
+				vBind: 'label' with: self flyFilter origin refName ].
+		html div class: colWidth; with: [
 			html qBtn flat; unelevated; noCaps; icon: 'flight'; class: 'full-width';
 				class: 'backdrop-btn';
-				label: self flyFilter destination refValue greaseString ].
-		html div class: colCount; with: [
+				vOnClick: 'flyDestinationDialog = true';
+				"vOnClick: 'flyDestinationDialogOnClick($event)';"
+				"label: (self flyFilter destination refValue ifNil: [ 'Choose destination' ] ifNotNil: [ :value | value displayString ]) ]."
+				vBind: 'label' with: self flyFilter destination refName ].
+		html div class: colWidth; with: [
 			html qBtn flat; unelevated; noCaps; icon: 'event'; class: 'full-width';
 				class: 'backdrop-btn';
 				label: 'Select Dates' ] ]
@@ -562,12 +632,12 @@ CraneApp >> renderTabPanelsOn: html [
 CraneApp >> renderTabsOn: html [
 
 	html qTabs
-		vModel: 'tab';
+		vModel: self tab refName;
 		align: 'left';
 		with: [
-			html qTab name: 'fly'; label: 'Fly'; vOn: 'click' with: 'tabRefSet("fly")'.
-			html qTab name: 'sleep'; label: 'Sleep'; vOn: 'click' with: 'tabRefSet("sleep")'.
-			html qTab name: 'eat'; label: 'Eat'; vOn: 'click' with: 'tabRefSet("eat")' ]
+			html qTab name: 'fly'; label: 'Fly'; vOn: 'click' with: self tab emitRefSetFunctionName, '("fly")'.
+			html qTab name: 'sleep'; label: 'Sleep'; vOn: 'click' with: self tab emitRefSetFunctionName, '("sleep")'.
+			html qTab name: 'eat'; label: 'Eat'; vOn: 'click' with: self tab emitRefSetFunctionName, '("eat")' ]
 ]
 
 { #category : #accessing }
@@ -604,7 +674,7 @@ CraneApp >> updateRoot: anHtmlRoot [
 
 ]
 
-{ #category : #'tab - eat' }
+{ #category : #'tab - fly' }
 CraneApp >> xrenderEatSearchOn: html [
 	| filterComponent filterDescription attrComponent attrDescription |
 

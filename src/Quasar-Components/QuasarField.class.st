@@ -156,9 +156,3 @@ QuasarField >> tag [
 
 	^ 'q-field'
 ]
-
-{ #category : #attributes }
-QuasarField >> vModel: anObject [
-
-	self attributes at: 'v-model' put: anObject
-]

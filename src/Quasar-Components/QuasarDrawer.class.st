@@ -107,12 +107,6 @@ QuasarDrawer >> tag [
 ]
 
 { #category : #attributes }
-QuasarDrawer >> vModel: anObject [
-
-	self attributes at: 'v-model' put: anObject
-]
-
-{ #category : #attributes }
 QuasarDrawer >> width: anObject [
 
 	self attributes at: 'width' put: anObject

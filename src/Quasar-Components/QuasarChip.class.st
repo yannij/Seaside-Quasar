@@ -123,9 +123,3 @@ QuasarChip >> textColor: anObject [
 	
 	self attributes at: 'text-color' put: anObject
 ]
-
-{ #category : #attributes }
-QuasarChip >> vOnClick: anObject [
-	
-	self attributes at: '@click' put: anObject
-]

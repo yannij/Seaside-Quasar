@@ -200,7 +200,17 @@ QuasarApplication >> quasarOnLoadOn: aJSStream with: html [
 
 { #category : #'rendering - quasar hooks' }
 QuasarApplication >> quasarSetupContentOn: aJSStream with: html [
-	"Subclasses may override"
+	| exports vueRefsDefine list |
+
+	exports := ',' join: (self quasarData, (self vueRefs keys)).
+
+	list := OrderedCollection new.
+	self vueRefs keysAndValuesDo: [ :key :value | list add: 'const ', key, ' = ref(', value asJson, ')' ].
+	vueRefsDefine := ';' join: list.
+
+	aJSStream
+		nextPutAll: vueRefsDefine, ';';
+		yourself
 ]
 
 { #category : #'rendering - quasar' }
@@ -262,7 +272,7 @@ QuasarApplication >> quasarVersion: anObject [
 { #category : #accessing }
 QuasarApplication >> quasarVersionLazy [
 
-	self quasarVersion ifNil: [ self quasarVersion: '2.4.9' ].
+	self quasarVersion ifNil: [ self quasarVersion: '2.6.0' ].
 
 	^ self quasarVersion
 ]

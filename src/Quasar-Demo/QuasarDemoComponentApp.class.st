@@ -85,6 +85,8 @@ QuasarDemoComponentApp >> quasarSetupReturnContentOn: aJSStream with: html [
 	aJSStream nextPut: $,.
 	
 	aJSStream nextPutAll: '
+dialog: ref(false),
+cancelEnabled: ref(false),
 date: ref("2019-02-01 12:44"),
 color: ref("#FF00FF"),
 tab: ref(''mails''),
@@ -227,44 +229,18 @@ QuasarDemoComponentApp >> renderDemoDateTimeOn: html [
 { #category : #'demo - dialog' }
 QuasarDemoComponentApp >> renderDemoDialogOn: html [
 
-"
-<script>
-import { ref } from 'vue'
-
-export default {
-  setup () {
-    return {
-      dialog: ref(false),
-      cancelEnabled: ref(false)
-    }
-  }
-}
-</script>
-"
-
 	html div class: 'q-pa-md'; with: [
-		html html: '
-    <q-btn label="Open Dialog" color="primary" @click="dialog = true" />
-
-    <q-dialog v-model="dialog" persistent>
-      <q-card>
-        <q-card-section class="row items-center">
-          <q-avatar icon="signal_wifi_off" color="primary" text-color="white" />
-          <span class="q-ml-sm">You are currently not connected to any network.</span>
-        </q-card-section>
-
-        <q-card-section class="row items-center">
-          <q-toggle v-model="cancelEnabled" label="Cancel button enabled" />
-        </q-card-section>
-
-        <!-- Notice v-close-popup -->
-        <q-card-actions align="right">
-          <q-btn flat label="Cancel" color="primary" v-close-popup="cancelEnabled" :disable="!cancelEnabled" />
-          <q-btn flat label="Turn on Wifi" color="primary" v-close-popup />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
-' ]
+		html qBtn label: 'Open Dialog'; color: 'primary'; vOnClick: 'dialog = true'.
+		html qDialog vModel: 'dialog'; persistent; with: [
+			html qCard with: [
+				html qCardSection class: 'row items-center'; with: [
+					html qAvatar icon: 'signal_wifi_off'; color: 'primary'; textColor: 'white'.
+					html span class: 'q-ml-sm'; with: 'You are currently not connected to any network.' ].
+				html qCardSection class: 'row items-center'; with: [
+					html qToggle vModel: 'cancelEnabled'; label: 'Cancel button enabled' ].
+				html qCardActions align: 'right'; with: [
+					html qBtn flat; label: 'Cancel'; color: 'primary'; vClosePopUp: 'cancelEnabled'; vBind: 'disable' with: '!cancelEnabled'.
+					html qBtn flat; label: 'Turn on Wifi'; color: 'primary'; vClosePopUp ] ] ] ]
 ]
 
 { #category : #'demo - drawer' }

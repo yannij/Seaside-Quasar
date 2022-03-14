@@ -52,6 +52,18 @@ QuasarTag >> vBind: key with: anObject [
 ]
 
 { #category : #'vue directives' }
+QuasarTag >> vClosePopUp [
+
+	self attributeAt: 'v-close-popup' put: true
+]
+
+{ #category : #'vue directives' }
+QuasarTag >> vClosePopUp: anObject [
+
+	self attributeAt: 'v-close-popup' put: anObject
+]
+
+{ #category : #'vue directives' }
 QuasarTag >> vElse: anObject [
 
 	self attributes at: 'v-else' put: anObject
@@ -76,9 +88,21 @@ QuasarTag >> vIf: anObject [
 ]
 
 { #category : #'vue directives' }
+QuasarTag >> vModel: anObject [
+
+	self attributes at: 'v-model' put: anObject
+]
+
+{ #category : #'vue directives' }
 QuasarTag >> vOn: anEventName with: anObject [
 
 	self attributes at: '@', anEventName put: anObject
+]
+
+{ #category : #'vue directives' }
+QuasarTag >> vOnClick: aString [
+	
+	self attributes at: '@click' put: aString
 ]
 
 { #category : #'vue directives' }

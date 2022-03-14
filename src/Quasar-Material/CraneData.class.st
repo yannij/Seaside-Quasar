@@ -121,12 +121,12 @@ CraneData class >> createCraneLodgings [
 	craneClass instanceList: nil.
 
 	#(
-	('Sandlewig Suites' 'Hotel' '1000 Hotel Alley' ('Bali' 'Indonesia') 988)
-	('Cozy Bali Apartment' 'Apartment' '77 Beach Front' ('Bali' 'Indonesia') 205)
-	('Bay Side Bungalows' 'Hotel' '19 Hotel Alley' ('Bali' 'Indonesia') 345)
-	('Ever Hotels' 'Hotel' '40 Far Away' ('Bali' 'Indonesia') 285)
-	('The General' 'Hotel' '10 Okay Place' ('Bali' 'Indonesia') 488)
-	('Hotel Turquoise' 'Hotel' '80 Far Away' ('Bali' 'Indonesia') 198)
+	('Sandlewig Suites' 'Hotel' '1000 Hotel Alley' ('Bali' 'Indonesia'))
+	('Cozy Bali Apartment' 'Apartment' '77 Beach Front' ('Bali' 'Indonesia'))
+	('Bay Side Bungalows' 'Hotel' '19 Hotel Alley' ('Bali' 'Indonesia'))
+	('Ever Hotels' 'Hotel' '40 Far Away' ('Bali' 'Indonesia'))
+	('The General' 'Hotel' '10 Okay Place' ('Bali' 'Indonesia'))
+	('Hotel Turquoise' 'Hotel' '80 Far Away' ('Bali' 'Indonesia'))
 	) do: [ :data | | newObject cityData |
 		cityData := data fourth.
 		newObject := craneClass new
