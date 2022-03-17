@@ -52,6 +52,12 @@ QuasarTag >> vBind: key with: anObject [
 ]
 
 { #category : #'vue directives' }
+QuasarTag >> vCloak [
+
+	self attributeAt: 'v-cloak' put: true
+]
+
+{ #category : #'vue directives' }
 QuasarTag >> vClosePopUp [
 
 	self attributeAt: 'v-close-popup' put: true

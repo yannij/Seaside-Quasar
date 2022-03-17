@@ -61,7 +61,7 @@ QuasarDemoLayoutApp >> renderColorThemeOn: html [
 { #category : #rendering }
 QuasarDemoLayoutApp >> renderExampleOn: html [
 
-	html qLayout view: 'hHh lpR fFf'; with: [
+	html qLayout view: 'hHh lpR fFf'; vCloak; with: [
 		html qHeader elevated; heightHint: 98; class: 'bg-primary text-white'; with: [
 			html qToolbar with: [
 				html qBtn dense; flat; round; icon: 'menu'; vOnClick: 'this.$refs.leftDrawer.toggle($event)'.

@@ -9,5 +9,10 @@ QuasarApplicationLibrary >> qAppCss [
 
 	^ '
 :root {
-}'
+}
+
+[v-cloak] {
+  display: none;
+}
+'
 ]

@@ -72,6 +72,29 @@ CraneApp >> flyFilter: anObject [
 	flyFilter := anObject
 ]
 
+{ #category : #'tab - fly' }
+CraneApp >> flySearchResult [
+	| fromDate toDate |
+
+	fromDate := self flyFilter startDate refValue at: 'from'.
+	toDate := self flyFilter startDate refValue at: 'to'.
+	"fromDate := Date fromString: (self flyFilter startDate refValue at: 'from').
+	toDate := Date fromString: (self flyFilter startDate refValue at: 'to')."
+
+	^ CraneAirTrip instanceList select: [ :eachTrip |
+		| matchedOriginDestination matchedFromToDates |
+
+		matchedOriginDestination := eachTrip departFlight origin airportIATA = self flyFilter origin refValue
+			and: [ eachTrip departFlight destination airportIATA = self flyFilter destination refValue ].
+
+		matchedFromToDates := eachTrip departFlight departureDateTimeUTC asDate yyyymmdd >= fromDate
+			and: [ eachTrip returnFlight arrivalDateTimeUTC asDate yyyymmdd <= toDate ].
+		"matchedFromToDates := (eachTrip departFlight departureDateTimeUTC asDate equals: fromDate)
+			and: [ eachTrip returnFlight arrivalDateTimeUTC asDate equals: toDate ]."
+		
+		matchedOriginDestination and: [ matchedFromToDates ] ]
+]
+
 { #category : #initialization }
 CraneApp >> initialize [
 
@@ -117,14 +140,14 @@ CraneApp >> initializeEatFilter [
 
 { #category : #'tab - fly' }
 CraneApp >> initializeFlyFilter [
-	| newReactive |
+	| newReactive dateRange |
 
-	self reactiveObjectsAdd: ((QuasarReactiveObject name: 'flyOriginDialog' value: false) "transformBlock: [ :value | value not ];" emitRefSyncOff; emitRefSetOff; yourself).
-	self reactiveObjectsAdd: ((QuasarReactiveObject name: 'flyDestinationDialog' value: false) "transformBlock: [ :value | value not ];" emitRefSyncOff; emitRefSetOff; yourself).
-	"self vueRefsAdd: 'flyOriginDialog' -> false.
-	self vueRefsAdd: 'flyDestinationDialog' -> false."
-	"self quasarDataAdd: 'flyOriginDialog'.
-	self quasarDataAdd: 'flyDestinationDialog'."
+	self reactiveObjectsAdd: ((QuasarReactiveObject name: 'flyOriginDialog' value: false)
+		emitRefSyncOff; emitRefSetOff; yourself).
+	self reactiveObjectsAdd: ((QuasarReactiveObject name: 'flyDestinationDialog' value: false)
+		emitRefSyncOff; emitRefSetOff; yourself).
+	self reactiveObjectsAdd: ((QuasarReactiveObject name: 'flyDateRangeDialog' value: false)
+		emitRefSyncOff; emitRefSetOff; yourself).
 
 	self flyFilter: CraneFlySearch new.
 
@@ -142,16 +165,19 @@ CraneApp >> initializeFlyFilter [
 	newReactive := (QuasarReactiveObject name: 'cabinOptions' value: #('Economy' 'Business' 'First Class')) yourself.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := (QuasarReactiveObject name: 'origin' value: nil) "transformBlock: [ :value | value ];" emitRefSetOn; yourself.
+	newReactive := (QuasarReactiveObject name: 'origin' value: nil)
+		emitRefSetOn; emitRefresh: true; yourself.
 	self flyFilter origin: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := (QuasarReactiveObject name: 'destination' value: nil) "transformBlock: [ :value | value ];" emitRefSetOn; yourself.
+	newReactive := (QuasarReactiveObject name: 'destination' value: nil)
+		emitRefSetOn; emitRefresh: true; yourself.
 	self flyFilter destination: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := (QuasarReactiveObject name: 'startDate' value: Date today) "transformBlock: [ :value | value ];" yourself.
-	self flyFilter startDate: newReactive refValue.
+	dateRange := { 'from' -> Date today yyyymmdd. 'to' -> (Date today addDays: 6) yyyymmdd } asDictionary.
+	newReactive := (QuasarReactiveObject name: 'flyDateRange' value: dateRange) emitRefSetOn; emitRefresh: true; yourself.
+	self flyFilter startDate: newReactive.
 	self reactiveObjectsAdd: newReactive.
 ]
 
@@ -172,6 +198,12 @@ CraneApp >> initializeSleepFilter [
 	"newReactive := (QuasarReactiveObject name: 'startDate' value: Date today) ""transformBlock: [ :value | value ];"" yourself.
 	self sleepFilter startDate: newReactive refValue.
 	self reactiveObjectsAdd: newReactive."
+]
+
+{ #category : #'tab - fly' }
+CraneApp >> printFlightDateTime: aDateTime [
+
+	^ aDateTime asLocalStringYMDHM, ' ', aDateTime timeZoneAbbreviation
 ]
 
 { #category : #rendering }
@@ -338,9 +370,9 @@ CraneApp >> renderFlyCard: eachObject on: html [
 				html div class: 'col-auto text-red row no-wrap items-center';
 					with: '$', flight price greaseString ].
 			html div class: 'row no-wrap items-center'; with: [
-				html div class: 'col'; with: flight departureDateTimeUTC asTime printMinutes.
+				html div class: 'col'; with: (self printFlightDateTime: flight departureDateTimeUTC).
 				html div class: 'col'; with: '---->'.
-				html div class: 'col'; with: flight arrivalDateTimeUTC asTime printMinutes.
+				html div class: 'col'; with: (self printFlightDateTime: flight arrivalDateTimeUTC).
 				html div class: 'col-auto'; with: flight flightDuration asHours printString, 'h' "]" ] ].
 		flight := eachObject returnFlight.
 		html qCardSection class: 'q-px-none'; with: [
@@ -348,7 +380,7 @@ CraneApp >> renderFlyCard: eachObject on: html [
 				html div class: 'col';
 					with: 'RETURN'.
 				html div class: 'col-auto row no-wrap items-center';
-					with: flight departureDateTimeUTC asDate greaseString ].
+					with: flight arrivalDateTimeUTC asDate greaseString ].
 			html div class: 'row no-wrap items-center'; with: [
 				html div class: 'col text-red text-h3 row no-wrap items-left';
 					with: flight origin airportIATA.
@@ -365,9 +397,9 @@ CraneApp >> renderFlyCard: eachObject on: html [
 				html div class: 'col-auto text-red row no-wrap items-center';
 					with: '$', flight price greaseString ].
 			html div class: 'row no-wrap items-center'; with: [
-				html div class: 'col'; with: flight departureDateTimeUTC asTime printMinutes.
+				html div class: 'col'; with: (self printFlightDateTime: flight departureDateTimeUTC).
 				html div class: 'col'; with: '---->'.
-				html div class: 'col'; with: flight arrivalDateTimeUTC asTime printMinutes ] ] ]
+				html div class: 'col'; with: (self printFlightDateTime: flight arrivalDateTimeUTC) ] ] ]
 ]
 
 { #category : #'tab - fly' }
@@ -401,6 +433,21 @@ CraneApp >> renderFlyCardDense: eachObject on: html [
 ]
 
 { #category : #'tab - fly' }
+CraneApp >> renderFlyDialogDateRangeOn: html [
+
+	html div class: 'q-pa-md'; with: [
+		html qDialog vModel: 'flyDateRangeDialog'; "persistent;" with: [
+			html qCard with: [
+				html qDate range; mask: 'YYYY-MM-DD'; vModel: 'flyDateRange'.
+				html qCardActions align: 'right'; with: [
+					html qBtn flat; label: 'Cancel'; color: 'primary'; vClosePopUp.
+					html qBtn flat; label: 'OK'; color: 'primary';
+						vOnClick: self flyFilter startDate emitRefSetFunctionName, '(flyDateRange)';
+						"vOnClick: self flyFilter startDate emitRefSyncFunctionName, '($event)';"
+						vClosePopUp ] ] ] ]
+]
+
+{ #category : #'tab - fly' }
 CraneApp >> renderFlyDialogDestinationOn: html [
 
 	html div class: 'q-pa-md'; with: [
@@ -429,7 +476,7 @@ CraneApp >> renderFlyResultsOn: html [
 		class: 'q-pa-xs row q-col-gutter-xs';
 		class: 'front-layer-bg'; "style: 'background: lightGray';"
 		with: [
-			CraneAirTrip instanceList
+			self flySearchResult
 				do: [ :eachObject |
 					html div class: 'col-12'; with: [
 						self renderFlyCard: eachObject on: html ] ]
@@ -449,10 +496,7 @@ CraneApp >> renderFlySearchOn: html [
 		self renderFlySearchOn: html colWidth: 'col-6' ].
 
 	html div class: 'gt-md'; with: [
-		self renderFlySearchOn: html colWidth: 'col-3' ].
-
-	self renderFlyDialogOriginOn: html.
-	self renderFlyDialogDestinationOn: html
+		self renderFlySearchOn: html colWidth: 'col-3' ]
 ]
 
 { #category : #'tab - fly' }
@@ -469,18 +513,17 @@ CraneApp >> renderFlySearchOn: html colWidth: colWidth [
 				class: 'backdrop-btn';
 				vOnClick: 'flyOriginDialog = true';
 				"vOnClick: 'flyOriginDialogOnClick($event)';"
-				"label: (self flyFilter origin refValue ifNil: [ 'Choose origin' ] ifNotNil: [ :value | value displayString ]) ]."
 				vBind: 'label' with: self flyFilter origin refName ].
 		html div class: colWidth; with: [
 			html qBtn flat; unelevated; noCaps; icon: 'flight'; class: 'full-width';
 				class: 'backdrop-btn';
 				vOnClick: 'flyDestinationDialog = true';
 				"vOnClick: 'flyDestinationDialogOnClick($event)';"
-				"label: (self flyFilter destination refValue ifNil: [ 'Choose destination' ] ifNotNil: [ :value | value displayString ]) ]."
 				vBind: 'label' with: self flyFilter destination refName ].
 		html div class: colWidth; with: [
 			html qBtn flat; unelevated; noCaps; icon: 'event'; class: 'full-width';
 				class: 'backdrop-btn';
+				vOnClick: 'flyDateRangeDialog = true';
 				label: 'Select Dates' ] ]
 ]
 
@@ -489,14 +532,18 @@ CraneApp >> renderFlyTabPanelOn: html [
 
 	html qTabPanel name: 'fly'; class: 'q-pa-none'; with: [
 		self renderFlySearchOn: html.
-		self renderFlyResultsOn: html ]
+		self renderFlyResultsOn: html.
+
+		self renderFlyDialogOriginOn: html.
+		self renderFlyDialogDestinationOn: html.
+		self renderFlyDialogDateRangeOn: html ]
 ]
 
 { #category : #rendering }
 CraneApp >> renderLayoutCraneOn: html [
 
 	html qApp id: self appId; with: [
-		html qLayout view: 'hHh lpR fFf'; with: [
+		html qLayout view: 'hHh lpR fFf'; vCloak; with: [
 		html qHeader heightHint: 98; class: 'bg-primary'; with: [
 			html qToolbar with: [
 				"html qBtn dense; flat; round; icon: 'menu'; vOnClick: 'this.$refs.leftDrawer.toggle($event)'."

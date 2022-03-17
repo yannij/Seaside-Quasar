@@ -345,7 +345,7 @@ LoanexApp >> renderLeftDrawerOn: html [
 LoanexApp >> renderLoanexOn: html [
 
 	html qApp id: self appId; with: [
-		html qLayout view: 'hHh lpR fFf'; with: [
+		html qLayout view: 'hHh lpR fFf'; vCloak; with: [
 			html qHeader heightHint: 98; with: [
 				html qToolbar with: [
 					html qBtn dense; flat; round; icon: 'menu'; vOnClick: 'this.$refs.leftDrawer.toggle($event)'.

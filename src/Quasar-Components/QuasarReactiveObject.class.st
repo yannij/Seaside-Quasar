@@ -7,8 +7,9 @@ Class {
 		'transformBlock',
 		'onSuccessScript',
 		'emitRefSet',
+		'emitRefSync',
 		'emitOnSuccess',
-		'emitRefSync'
+		'emitRefresh'
 	],
 	#category : #'Quasar-Components'
 }
@@ -35,6 +36,9 @@ QuasarReactiveObject >> ajaxRefSetOn: aJSStream html: html [
 			json: [ :json | json render: self refValue ];
 			"onSuccess: (html javascript << script);"
 			yourself).
+
+	self emitRefresh ifTrue: [
+		ajax onSuccess: html javascript refresh ].
 
 	aJSStream
 		nextPutAll: refName; nextPutAll: 'RefSet(arg1) {';
@@ -91,7 +95,7 @@ QuasarReactiveObject >> emitRefSet: anObject [
 	emitRefSet := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #'rendering - ajax' }
 QuasarReactiveObject >> emitRefSetFunctionName [
 
 	^ self refName, 'RefSet'
@@ -121,7 +125,7 @@ QuasarReactiveObject >> emitRefSync: anObject [
 	emitRefSync := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #'rendering - ajax' }
 QuasarReactiveObject >> emitRefSyncFunctionName [
 
 	^ self refName, 'RefSync'
@@ -139,6 +143,18 @@ QuasarReactiveObject >> emitRefSyncOn [
 	self emitRefSync: true
 ]
 
+{ #category : #accessing }
+QuasarReactiveObject >> emitRefresh [
+
+	^ emitRefresh
+]
+
+{ #category : #accessing }
+QuasarReactiveObject >> emitRefresh: anObject [
+
+	emitRefresh := anObject
+]
+
 { #category : #initialization }
 QuasarReactiveObject >> initialize [
 
@@ -146,7 +162,8 @@ QuasarReactiveObject >> initialize [
 
 	self emitRefSync: true.
 	self emitRefSet: false.
-	self emitOnSuccess: true
+	self emitOnSuccess: true.
+	self emitRefresh: false
 ]
 
 { #category : #accessing }
@@ -215,8 +232,8 @@ QuasarReactiveObject >> refValueUpdate: anObject [
 	| newValue |
 
 	"self traceOn"
-	"true ifTrue: [
-		Transcript crShow: 'Reactive::', self refName, ': ', self refValue greaseString, '-->', anObject greaseString ]."
+	true ifTrue: [
+		Transcript crShow: 'Reactive::', self refName, ': ', self refValue greaseString, '-->', anObject greaseString ].
 
 	newValue := self transformBlock ifNil: [ anObject ] ifNotNil: [ :block | block value: anObject ].
 	self refValue: newValue
