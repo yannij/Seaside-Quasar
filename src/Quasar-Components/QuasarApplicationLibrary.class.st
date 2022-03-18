@@ -12,7 +12,7 @@ QuasarApplicationLibrary >> qAppCss [
 }
 
 [v-cloak] {
-  display: none;
+	display: none;
 }
 '
 ]

@@ -531,12 +531,13 @@ CraneApp >> renderFlySearchOn: html colWidth: colWidth [
 CraneApp >> renderFlyTabPanelOn: html [
 
 	html qTabPanel name: 'fly'; class: 'q-pa-none'; with: [
-		self renderFlySearchOn: html.
-		self renderFlyResultsOn: html.
+		html div class: 'hidden'; with: [
+			self renderFlyDialogOriginOn: html.
+			self renderFlyDialogDestinationOn: html.
+			self renderFlyDialogDateRangeOn: html ].
 
-		self renderFlyDialogOriginOn: html.
-		self renderFlyDialogDestinationOn: html.
-		self renderFlyDialogDateRangeOn: html ]
+		self renderFlySearchOn: html.
+		self renderFlyResultsOn: html ]
 ]
 
 { #category : #rendering }
