@@ -362,6 +362,9 @@ QuasarApplication >> updateRoot: anHtmlRoot [
 	self updateRootFonts: anHtmlRoot.
 	self updateRootQuasarCss: anHtmlRoot.
 
+	anHtmlRoot meta
+		name: 'viewport';
+		content: 'width=device-width, initial-scale=1.0, shrink-to-fit=no'.
 	anHtmlRoot stylesheet url: (QuasarApplicationLibrary urlOf: #qAppCss).
 	anHtmlRoot link beShortcutIcon; url: self faviconUrl.
 	anHtmlRoot title: self applicationTitle.
