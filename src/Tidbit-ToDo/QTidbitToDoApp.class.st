@@ -8,6 +8,11 @@ Class {
 		'loginComponent',
 		'pageComponent',
 		'currentUser',
+		'viewStyleDark',
+		'viewStyleDense',
+		'viewStyleTextField',
+		'sideSheetOpen',
+		'sideNavOpen',
 		'settingsView',
 		'viewMap',
 		'viewUser',
@@ -47,6 +52,18 @@ QTidbitToDoApp class >> initialize [
 	"
 
 	^ self mdqRegisterDeployment: self applicationPath
+]
+
+{ #category : #accessing }
+QTidbitToDoApp class >> viewStyleTextFieldFilled [
+
+	^ #filled
+]
+
+{ #category : #accessing }
+QTidbitToDoApp class >> viewStyleTextFieldOutlined [
+
+	^ #outlined
 ]
 
 { #category : #testing }
@@ -181,6 +198,19 @@ QTidbitToDoApp >> initialize [
 
 	self colorTheme: self buildColorTheme.
 
+	self sideNavOpen: ((QuasarReactiveObject name: 'sideNavOpen' value: true) transformBlock: [ :value | value not ]; yourself).
+	self sideSheetOpen: ((QuasarReactiveObject name: 'sideSheetOpen' value: false) transformBlock: [ :value | value not ]; yourself).
+	self viewStyleDark: ((QuasarReactiveObject name: 'viewStyleDark' value: false)
+			transformBlock: [ :value | value not ];
+			onSuccessScript: '$q.dark.set(viewStyleDark.value)';
+			yourself).
+	self viewStyleTextField: #filled.
+	self viewStyleDense: false.
+
+	self reactiveObjectsAdd: self sideNavOpen.
+	self reactiveObjectsAdd: self sideSheetOpen.
+	self reactiveObjectsAdd: self viewStyleDark.
+
 	self initializeLayout
 ]
 
@@ -274,13 +304,6 @@ QTidbitToDoApp >> pageComponentSet: anObject [
 ]
 
 { #category : #rendering }
-QTidbitToDoApp >> quasarSetupContentOn: aJSStream with: html [
-
-	self vueRefs keysAndValuesDo: [ :key :value |
-		aJSStream nextPutAll:  'const ', key, ' = ref(', value asJson, ');' ]
-]
-
-{ #category : #rendering }
 QTidbitToDoApp >> quasarSetupReturnContentOn: aJSStream with: html [
 	| exports |
 
@@ -297,6 +320,33 @@ QTidbitToDoApp >> registerUsername: aUsername password: aPassword [
 	^ (self findUser: aUsername)
 		ifNil: [ self newUsername: aUsername password: aPassword ]
 		ifNotNil: [ :value | "User already exists" nil ]
+]
+
+{ #category : #rendering }
+QTidbitToDoApp >> renderBtnLabel: aLabel icon: iconName dense: denseFlag callback: actionBlock on: html [
+
+	html qBtn
+		flat; round; denseIf: denseFlag; icon: iconName;
+		type: 'a'; href: (html urlForAction: actionBlock)
+]
+
+{ #category : #rendering }
+QTidbitToDoApp >> renderHeaderOn: html [
+	| denseFlag |
+
+	denseFlag := self viewStyleDense.
+
+	html qHeader heightHint: 98; with: [
+		html qToolbar with: [
+			html qBtn dense; flat; round; icon: 'menu'; vOnClick: 'sideNavOpenRefSync($event)'.
+			html qToolbarTitle with: [ html text: 'Tidbit' ].
+			true
+				ifTrue: [ self renderBtnLabel: 'Logout' icon: 'logout' dense: denseFlag callback: [ self logout ] on: html ]
+				ifFalse: [ self renderBtnLabel: 'Login' icon: 'login' dense: denseFlag callback: [ "self login" ] on: html ].
+			html qBtn flat; round; denseIf: denseFlag; icon: 'dark_mode'; vOnClick: 'viewStyleDarkRefSync($event)'.
+			self renderBtnLabel: 'Dense' icon: 'view_compact_alt' dense: denseFlag callback: [ self viewStyleDenseToggle ] on: html.
+			self renderBtnLabel: 'Fields' icon: 'credit_card' dense: denseFlag callback: [ self viewStyleTextFieldToggle ] on: html.
+			html qBtn dense; flat; round; icon: 'filter'; vOnClick: 'sideSheetOpenRefSync($event)' ] ]
 ]
 
 { #category : #rendering }
@@ -323,15 +373,16 @@ QTidbitToDoApp >> renderLayoutOn: html [
 QTidbitToDoApp >> renderLayoutPageOn: html [
 
 	html qPageContainer with: [
-		html qPage with: [
-			"self renderSettingsFabOn: html."
-			self renderPageContentOn: html ] ]
+		html qPage padding; with: [
+			html render: self pageComponent ] ]
 ]
 
 { #category : #rendering }
 QTidbitToDoApp >> renderLeftDrawerOn: html [
 
-	html qDrawer ref: 'leftDrawer'; showIfAbove; side: 'left';
+	html qDrawer
+		ref: 'sideNav'; showIfAbove; side: 'left';
+		vIf: 'sideNavOpen';
 		"class: 'bg-secondary'; style: 'color: white';"
 		style: 'background: blue-2';
 		with: [
@@ -351,27 +402,24 @@ QTidbitToDoApp >> renderNavOn: html [
 		add: #('Tools' 'build_circle') -> [ self viewToolsGo ];
 		yourself.
 
-	html qList with: [
-		navList do: [ :eachItem |
-			html qItem
-				qTag: 'a'; href: (html urlForAction: eachItem value);
-				with: [
-					html qItemSection avatar; with: [
-						html qIcon name: eachItem key second ].
-					html qItemSection with: eachItem key first ] ] ]
-]
-
-{ #category : #rendering }
-QTidbitToDoApp >> renderPageContentOn: html [
-
-	html div class: 'q-pa-md'; with: [
-		html render: self pageComponent ]
+	html qList
+		denseIf: self viewStyleDense;
+		with: [
+			navList do: [ :eachItem |
+				html qItem
+					qTag: 'a'; href: (html urlForAction: eachItem value);
+					with: [
+						html qItemSection avatar; with: [
+							html qIcon name: eachItem key second ].
+						html qItemSection with: eachItem key first ] ] ]
 ]
 
 { #category : #rendering }
 QTidbitToDoApp >> renderSideSheetOn: html [
 
-	html qDrawer ref: 'sideSheet'; showIfAbove; side: 'right';
+	html qDrawer
+		ref: 'sideSheet'; showIfAbove; side: 'right';
+		vIf: 'sideSheetOpen';
 		class: 'q-pa-md';
 		"class: 'bg-secondary';" style: 'background: #E0F2F1';
 		with: [
@@ -384,11 +432,7 @@ QTidbitToDoApp >> renderTidbitOn: html [
 
 	html qApp id: self appId; with: [
 		html qLayout view: 'hHh lpR fFf'; vCloak; with: [
-			html qHeader heightHint: 98; with: [
-				html qToolbar with: [
-					html qBtn dense; flat; round; icon: 'menu'; vOnClick: 'this.$refs.leftDrawer.toggle($event)'.
-					html qToolbarTitle with: [ html text: 'Tidbit' ].
-					html qBtn dense; flat; round; icon: 'filter'; vOnClick: 'this.$refs.sideSheet.toggle($event)'. ] ].
+			self renderHeaderOn: html.
 			self renderLeftDrawerOn: html.
 			self renderLayoutPageOn: html.
 			self renderSideSheetOn: html.
@@ -432,9 +476,33 @@ QTidbitToDoApp >> settingsView: anObject [
 	settingsView := anObject
 ]
 
+{ #category : #accessing }
+QTidbitToDoApp >> sideNavOpen [
+
+	^ sideNavOpen
+]
+
+{ #category : #accessing }
+QTidbitToDoApp >> sideNavOpen: anObject [
+
+	sideNavOpen := anObject
+]
+
 { #category : #actions }
 QTidbitToDoApp >> sideSheetHide [
 	"Todo"
+]
+
+{ #category : #accessing }
+QTidbitToDoApp >> sideSheetOpen [
+
+	^ sideSheetOpen
+]
+
+{ #category : #accessing }
+QTidbitToDoApp >> sideSheetOpen: anObject [
+
+	sideSheetOpen := anObject
 ]
 
 { #category : #rendering }
@@ -499,6 +567,86 @@ QTidbitToDoApp >> viewMapAt: aKey ifAbsent: aBlock [
 QTidbitToDoApp >> viewMapAt: aKey put: aContentArea [
 
 	self viewMap at: aKey put: aContentArea
+]
+
+{ #category : #accessing }
+QTidbitToDoApp >> viewStyleDark [
+
+	^ viewStyleDark
+]
+
+{ #category : #accessing }
+QTidbitToDoApp >> viewStyleDark: anObject [
+
+	viewStyleDark := anObject
+]
+
+{ #category : #accessing }
+QTidbitToDoApp >> viewStyleDarkToggle [
+
+	self viewStyleDark: self viewStyleDark not
+]
+
+{ #category : #accessing }
+QTidbitToDoApp >> viewStyleDense [
+
+	^ viewStyleDense
+]
+
+{ #category : #accessing }
+QTidbitToDoApp >> viewStyleDense: anObject [
+
+	viewStyleDense := anObject
+]
+
+{ #category : #accessing }
+QTidbitToDoApp >> viewStyleDenseToggle [
+
+	self viewStyleDense: self viewStyleDense not
+]
+
+{ #category : #accessing }
+QTidbitToDoApp >> viewStyleFilled [
+
+	^ self "session" viewStyleTextFieldIsFilled
+]
+
+{ #category : #accessing }
+QTidbitToDoApp >> viewStyleOutlined [
+
+	^ self "session" viewStyleTextFieldIsOutlined
+]
+
+{ #category : #accessing }
+QTidbitToDoApp >> viewStyleTextField [
+
+	^ viewStyleTextField
+]
+
+{ #category : #accessing }
+QTidbitToDoApp >> viewStyleTextField: anObject [
+
+	viewStyleTextField := anObject
+]
+
+{ #category : #accessing }
+QTidbitToDoApp >> viewStyleTextFieldIsFilled [
+
+	^ self viewStyleTextField = self class viewStyleTextFieldFilled
+]
+
+{ #category : #accessing }
+QTidbitToDoApp >> viewStyleTextFieldIsOutlined [
+
+	^ self viewStyleTextFieldIsFilled not
+]
+
+{ #category : #accessing }
+QTidbitToDoApp >> viewStyleTextFieldToggle [
+
+	^ self viewStyleTextFieldIsFilled
+		ifTrue: [ self viewStyleTextField: self class viewStyleTextFieldOutlined ]
+		ifFalse: [ self viewStyleTextField: self class viewStyleTextFieldFilled ]
 ]
 
 { #category : #accessing }

@@ -124,7 +124,7 @@ QTidbitViewTask >> renderCardsTabsOn: html [
 
 { #category : #'rendering - styles' }
 QTidbitViewTask >> renderChips: aUser on: html [
-	| iconMap |
+	| iconMap denseFlag |
 
 	iconMap := Dictionary new
 		at: TidbitToDoItem importanceValueHigh put: 'star';
@@ -132,11 +132,14 @@ QTidbitViewTask >> renderChips: aUser on: html [
 		at: TidbitToDoItem importanceValueLow put: 'star_outline';
 		yourself.
 
+	denseFlag := self mdqApplicationGet viewStyleDense.
+
 	html div class: 'q-pa-none';
 		with: [
 			self tasksFiltered
 				do: [ :eachItem |
 					html qChip
+						denseIf: denseFlag;
 						clickable;
 						onClick: ((html jQuery ajax)
 							callback: [ self navToView: eachItem ];
@@ -172,7 +175,7 @@ QTidbitViewTask >> renderContentOn: html [
 { #category : #'rendering - styles' }
 QTidbitViewTask >> renderListSingleLine: aUser on: html [
 
-	html qList with: [
+	html qList denseIf: self mdqApplicationGet viewStyleDense; with: [
 		self tasksFiltered do: [ :eachItem |
 			html qItem
 				qTag: 'a'; href: (html urlForAction: [ self navToView: eachItem ]);
@@ -184,9 +187,10 @@ QTidbitViewTask >> renderListSingleLine: aUser on: html [
 
 { #category : #'rendering - styles' }
 QTidbitViewTask >> renderListTwoLine: aUser on: html [
-	| filteredList listHigh listMedium listLow |
+	| filteredList listHigh listMedium listLow denseFlag |
 
 	filteredList := self tasksFiltered.
+	denseFlag := self mdqApplicationGet viewStyleDense.
 
 	listHigh := filteredList select: [ :each | each importanceIsHigh ].
 	listMedium := filteredList select: [ :each | each importanceIsMedium ].
@@ -194,17 +198,17 @@ QTidbitViewTask >> renderListTwoLine: aUser on: html [
 
 	html div with: [
 		html div class: 'text-subtitle1'; with: 'High'.
-		html qList with: [
+		html qList denseIf: denseFlag; with: [
 			self renderListTwoLineItems: listHigh on: html ] ].
 
 	html div with: [
 		html div class: 'text-subtitle1'; with: 'Medium'.
-		html qList with: [
+		html qList denseIf: denseFlag; with: [
 			self renderListTwoLineItems: listMedium on: html ] ].
 
 	html div with: [
 		html div class: 'text-subtitle1'; with: 'Low'.
-		html qList with: [
+		html qList denseIf: denseFlag; with: [
 			self renderListTwoLineItems: listLow on: html ] ]
 ]
 
