@@ -1,6 +1,12 @@
 Extension { #name : #WAComponent }
 
 { #category : #'*Quasar-Components' }
+WAComponent >> mdqPublicServerUrl [
+
+	^ self class mdqPublicServerUrl
+]
+
+{ #category : #'*Quasar-Components' }
 WAComponent class >> mdqPublicServerUrl [
 	"Answer URL based on Seaside configuration of:
 		serverProtocol
@@ -17,12 +23,6 @@ WAComponent class >> mdqPublicServerUrl [
 	^ serverUrl host
 		ifNil: [ nil ]
 		ifNotNil: [ :value | serverUrl ]
-]
-
-{ #category : #'*Quasar-Components' }
-WAComponent >> mdqPublicServerUrl [
-
-	^ self class mdqPublicServerUrl
 ]
 
 { #category : #'*Quasar-Components' }
