@@ -198,9 +198,9 @@ QTidbitToDoApp >> initialize [
 
 	self colorTheme: self buildColorTheme.
 
-	self sideNavOpen: ((QuasarReactiveObject name: 'sideNavOpen' value: true) transformBlock: [ :value | value not ]; yourself).
-	self sideSheetOpen: ((QuasarReactiveObject name: 'sideSheetOpen' value: false) transformBlock: [ :value | value not ]; yourself).
-	self viewStyleDark: ((QuasarReactiveObject name: 'viewStyleDark' value: false)
+	self sideNavOpen: ((QuasarReactiveRefSync name: 'sideNavOpen' value: true) transformBlock: [ :value | value not ]; yourself).
+	self sideSheetOpen: ((QuasarReactiveRefSync name: 'sideSheetOpen' value: false) transformBlock: [ :value | value not ]; yourself).
+	self viewStyleDark: ((QuasarReactiveRefSync name: 'viewStyleDark' value: false)
 			transformBlock: [ :value | value not ];
 			onSuccessScript: '$q.dark.set(viewStyleDark.value)';
 			yourself).

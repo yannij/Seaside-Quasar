@@ -51,7 +51,8 @@ QuasarDemoUtilsApp >> demoName: anObject [
 QuasarDemoUtilsApp >> demoNames [
 
 	^ #(
-	UID
+	DOM
+	Other
 	)
 ]
 
@@ -59,17 +60,39 @@ QuasarDemoUtilsApp >> demoNames [
 QuasarDemoUtilsApp >> quasarSetupContentOn: aJSStream with: html [
 
 	aJSStream nextPutAll: '
-const uid1 = ref("zzz");'
+const uid1 = ref("uid1 initial valye");
+const dom1 = ref("dom1 initial value");
+'
 ]
 
 { #category : #rendering }
 QuasarDemoUtilsApp >> quasarSetupReturnContentOn: aJSStream with: html [
 
-	aJSStream nextPutAll: 'uid1, utilUid(){ uid1.value = Quasar.uid() }'
+	aJSStream
+		nextPutAll: 'uid1, utilUid(){ uid1.value = Quasar.uid() }';
+		"nextPutAll: ', dom1, utilDomOffset(){ dom1.value = Quasar.dom.offset(this.$refs.dom1Chip) }'"
+		nextPutAll: ', dom1, utilDomOffset(){ console.log(this.$refs.dom1Chip) }'
 ]
 
-{ #category : #'demo - uuid' }
-QuasarDemoUtilsApp >> renderDemoUIDOn: html [
+{ #category : #'as yet unclassified' }
+QuasarDemoUtilsApp >> renderDemoDOMOn: html [
+
+	html text: 'Click to generate UID: '.
+	html qChip
+		clickable;
+		vOnClick: 'utilUid($event)';
+		vBind: 'label' with: 'uid1'
+		"label: 'foobar'"
+]
+
+{ #category : #'demo - other' }
+QuasarDemoUtilsApp >> renderDemoOtherOn: html [
+
+	self renderDemoOtherUIDOn: html
+]
+
+{ #category : #'demo - other' }
+QuasarDemoUtilsApp >> renderDemoOtherUIDOn: html [
 
 	html text: 'Click to generate UID: '.
 	html qChip

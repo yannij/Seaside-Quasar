@@ -73,7 +73,7 @@ QuasarDemoReactiveApp >> buildTestCollection [
 		add: QuasarDemoObjectA newRandom;
 		yourself.
 
-	^ (QuasarReactiveObject name: 'testCollection' value: newList)
+	^ (QuasarReactiveRefSync name: 'testCollection' value: newList)
 		transformBlock: [ :value | value asOrderedCollection add: QuasarDemoObjectA newRandom; yourself ]; yourself
 ]
 
@@ -129,16 +129,16 @@ QuasarDemoReactiveApp >> initialize [
 	super initialize.
 
 	self reactiveList: (OrderedCollection new
-		add: ((QuasarReactiveObject name: 'reactive1' value: true) transformBlock: [ :value | value not ]; yourself);
-		add: ((QuasarReactiveObject name: 'reactive2' value: 0) transformBlock: [ :value | value + 1 ]; yourself);
-		add: ((QuasarReactiveObject name: 'reactive3' value: 1.2) transformBlock: [ :value | value + 1 ]; yourself);
-		add: ((QuasarReactiveObject name: 'reactive4' value: 'abc') transformBlock: [ :value | value, value ]; yourself);
-		add: ((QuasarReactiveObject name: 'reactive5' value: DateAndTime now) transformBlock: [ :value | DateAndTime now ]; yourself);
-		add: ((QuasarReactiveObject name: 'reactive6' value: {true. 123. 3.456. 'abc'. DateAndTime now})
+		add: ((QuasarReactiveRefSync name: 'reactive1' value: true) transformBlock: [ :value | value not ]; yourself);
+		add: ((QuasarReactiveRefSync name: 'reactive2' value: 0) transformBlock: [ :value | value + 1 ]; yourself);
+		add: ((QuasarReactiveRefSync name: 'reactive3' value: 1.2) transformBlock: [ :value | value + 1 ]; yourself);
+		add: ((QuasarReactiveRefSync name: 'reactive4' value: 'abc') transformBlock: [ :value | value, value ]; yourself);
+		add: ((QuasarReactiveRefSync name: 'reactive5' value: DateAndTime now) transformBlock: [ :value | DateAndTime now ]; yourself);
+		add: ((QuasarReactiveRefSync name: 'reactive6' value: {true. 123. 3.456. 'abc'. DateAndTime now})
 			transformBlock: [ :value | value, value ]; yourself);
-		add: ((QuasarReactiveObject name: 'reactive7' value: {'k1'->'v1'. 'k2'->'v2'. 'k3'->'v3'} asDictionary)
+		add: ((QuasarReactiveRefSync name: 'reactive7' value: {'k1'->'v1'. 'k2'->'v2'. 'k3'->'v3'} asDictionary)
 			transformBlock: [ :value | value at: 100 atRandom printString put: 1000 atRandom; yourself ]; yourself);
-		add: ((QuasarReactiveObject name: 'reactive8'
+		add: ((QuasarReactiveRefSync name: 'reactive8'
 			value: {
 				{'k1'->'v1'. 'k2'->'v2'. 'k3'->'v3'} asDictionary.
 				{'k21'->'v21'. 'k22'->'v22'. 'k23'->'v23'} asDictionary.
