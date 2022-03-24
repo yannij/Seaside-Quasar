@@ -36,6 +36,7 @@ MDQRadioGroupComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 		inputTag := html qRadio.
 		inputTag
 			denseIf: app viewStyleDense;
+			disable: aReadonlyFlag;
 			name: modelName; vModel: modelName;
 			callback: (GRDelayedSend receiver: self selector: self inputAspect asMutator);
 			val: (self valForOption: each);

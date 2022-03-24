@@ -23,6 +23,12 @@ QuasarRadio >> disable [
 ]
 
 { #category : #attributes }
+QuasarRadio >> disable: aBoolean [
+	
+	self attributes at: 'disable' put: aBoolean
+]
+
+{ #category : #attributes }
 QuasarRadio >> keepColor [
 	
 	self attributes at: 'keep-color' put: true

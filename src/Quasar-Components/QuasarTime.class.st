@@ -137,6 +137,12 @@ QuasarTime >> textColor: anObject [
 ]
 
 { #category : #attributes }
+QuasarTime >> withSeconds [
+
+	self attributes at: 'with-seconds' put: true
+]
+
+{ #category : #attributes }
 QuasarTime >> withSeconds: anObject [
 
 	self attributes at: 'with-seconds' put: anObject

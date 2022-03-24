@@ -240,7 +240,7 @@ CraneApp >> renderAirportListOn: html header: headerString ref: aRefObject [
 	html qList style: 'background: white'; with: [
 		html qItemLabel header; with: headerString.
 		CraneAirport instanceList do: [ :eachObject |
-			html qItem clickable; vClosePopUp; vOnClick: aRefObject emitRefSetFunctionName, '("', eachObject airportIATA, '")'; with: [
+			html qItem clickable; vClosePopUp; vOnClick: aRefObject functionName, '("', eachObject airportIATA, '")'; with: [
 				html qItemSection top; avatar; with: [
 					html qAvatar color: 'primary'; textColor: 'white'; icon: 'connecting_airports' ].
 				html qItemSection with: [
@@ -437,7 +437,7 @@ CraneApp >> renderFlyDialogDateRangeOn: html [
 				html qCardActions align: 'right'; with: [
 					html qBtn flat; label: 'Cancel'; color: 'primary'; vClosePopUp.
 					html qBtn flat; label: 'OK'; color: 'primary';
-						vOnClick: self flyFilter startDate emitRefSetFunctionName, '(flyDateRange)';
+						vOnClick: self flyFilter startDate functionName, '(flyDateRange)';
 						"vOnClick: self flyFilter startDate emitRefSyncFunctionName, '($event)';"
 						vClosePopUp ] ] ] ]
 ]
@@ -678,9 +678,9 @@ CraneApp >> renderTabsOn: html [
 		vModel: self tab refName;
 		align: 'left';
 		with: [
-			html qTab name: 'fly'; label: 'Fly'; vOn: 'click' with: self tab emitRefSetFunctionName, '("fly")'.
-			html qTab name: 'sleep'; label: 'Sleep'; vOn: 'click' with: self tab emitRefSetFunctionName, '("sleep")'.
-			html qTab name: 'eat'; label: 'Eat'; vOn: 'click' with: self tab emitRefSetFunctionName, '("eat")' ]
+			html qTab name: 'fly'; label: 'Fly'; vOn: 'click' with: self tab functionName, '("fly")'.
+			html qTab name: 'sleep'; label: 'Sleep'; vOn: 'click' with: self tab functionName, '("sleep")'.
+			html qTab name: 'eat'; label: 'Eat'; vOn: 'click' with: self tab functionName, '("eat")' ]
 ]
 
 { #category : #accessing }

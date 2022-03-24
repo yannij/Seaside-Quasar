@@ -9,7 +9,7 @@ Class {
 }
 
 { #category : #'rendering - ajax' }
-QuasarReactiveRefSync >> ajaxRefSyncOn: aJSStream html: html [
+QuasarReactiveRefSync >> ajaxFunctionOn: aJSStream html: html [
 	"Answer AJAX callback to pass the browser ref value back to the server,
 	along with client code to set the browser ref value from the server response"
 	| ajax script |
@@ -27,7 +27,7 @@ QuasarReactiveRefSync >> ajaxRefSyncOn: aJSStream html: html [
 		ajax onSuccess: (html javascript << script) ].
 
 	aJSStream
-		nextPutAll: self emitRefSyncFunctionName; nextPutAll: '(evt) {';
+		nextPutAll: self functionName; nextPutAll: '(evt) {';
 		nextPutAll: ajax asJavascript;
 		nextPutAll: '}'.
 ]
@@ -45,7 +45,7 @@ QuasarReactiveRefSync >> emitOnSuccess: anObject [
 ]
 
 { #category : #'rendering - ajax' }
-QuasarReactiveRefSync >> emitRefSyncFunctionName [
+QuasarReactiveRefSync >> functionName [
 
 	^ self refName, 'RefSync'
 ]
@@ -76,5 +76,5 @@ QuasarReactiveRefSync >> quasarSetupReturnOn: aJSStream html: html [
 	super quasarSetupReturnOn: aJSStream html: html.
 
 	aJSStream nextPut: $,.
-	self ajaxRefSyncOn: aJSStream html: html
+	self ajaxFunctionOn: aJSStream html: html
 ]

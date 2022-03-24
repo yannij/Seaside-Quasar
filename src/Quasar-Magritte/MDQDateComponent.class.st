@@ -31,3 +31,14 @@ MDQDateComponent >> inputType [
 
 	^ 'date'
 ]
+
+{ #category : #rendering }
+MDQDateComponent >> renderTemplateOn: html vModel: aName [
+
+	html qTemplate vSlot: 'append'; with: [
+		html qIcon name: 'event'; class: 'cursor-pointer'; with: [
+			html qPopupProxy cover; transitionShow: 'scale'; transitionHide: 'scale'; with: [
+				html qDate vModel: aName; mask: 'YYYY-MM-DD'; with: [
+					html div class: 'row items-center justify-end'; with: [
+						html qBtn vClosePopUp; label: 'Close'; color: 'primary'; flat ] ] ] ] ]
+]

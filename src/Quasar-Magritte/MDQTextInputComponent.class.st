@@ -30,8 +30,7 @@ MDQTextInputComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	inputValue := self perform: self inputAspect.
 
 	inputTag := html qInput.
-
-	inputTag type: self inputType; label: inputLabel.
+	inputTag label: inputLabel.
 
 	app := self mdqApplicationGet.
 	inputTag filledIf: app viewStyleFilled.
@@ -44,9 +43,16 @@ MDQTextInputComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 		ifFalse: [ | modelName |
 			modelName := inputLabel asCamelCase uncapitalized.
 			self mdqApplicationGet vueRefsAdd: modelName -> inputValue.
-			inputTag "name: modelName;" vModel: modelName.
-			inputTag on: self inputAspect of: self
+			inputTag
+				"name: modelName;" vModel: modelName;
+				on: self inputAspect of: self;
+				with: [ self renderTemplateOn: html vModel: modelName ]
 		]
+]
+
+{ #category : #rendering }
+MDQTextInputComponent >> renderTemplateOn: html vModel: aName [
+	"Subclasses may enhance"
 ]
 
 { #category : #rendering }

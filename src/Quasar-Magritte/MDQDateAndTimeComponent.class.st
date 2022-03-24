@@ -54,6 +54,7 @@ MDQDateAndTimeComponent >> iso8601WithoutTZ [
 		ifNil: [ DateAndTime now printString ]
 		ifNotNil: [ :t | t isString ifTrue: [ (DateAndTime fromString: t) printString ] ifFalse: [ t printString ] ].
 
+	isoString at: 11 put: $ .
 	^ isoString copyFrom: 1 to: 19
 ]
 
@@ -65,7 +66,7 @@ MDQDateAndTimeComponent >> iso8601WithoutTZ: aString [
 ]
 
 { #category : #rendering }
-MDQDateAndTimeComponent >> renderDateTimeOn: html vModel: aName [
+MDQDateAndTimeComponent >> renderTemplateOn: html vModel: aName [
 
 	html qTemplate vSlot: 'prepend'; with: [
 		html qIcon name: 'event'; class: 'cursor-pointer'; with: [
@@ -76,35 +77,7 @@ MDQDateAndTimeComponent >> renderDateTimeOn: html vModel: aName [
 	html qTemplate vSlot: 'append'; with: [
 		html qIcon name: 'access_time'; class: 'cursor-pointer'; with: [
 			html qPopupProxy cover; transitionShow: 'scale'; transitionHide: 'scale'; with: [
-				html qTime vModel: aName; mask: 'YYYY-MM-DD HH:mm:ss'; format24h; with: [
+				html qTime vModel: aName; mask: 'YYYY-MM-DD HH:mm:ss'; format24h; withSeconds; with: [
 					html div class: 'row items-center justify-end'; with: [
 						html qBtn vClosePopUp; label: 'Close'; color: 'primary'; flat ] ] ] ] ] 
-]
-
-{ #category : #rendering }
-MDQDateAndTimeComponent >> renderFieldOn: html readonly: aReadonlyFlag [
-	| inputTag inputLabel inputValue app |
-
-	inputLabel := self magritteDescription label.
-	inputValue := self perform: self inputAspect.
-
-	inputTag := html qInput.
-	inputTag label: inputLabel.
-
-	app := self mdqApplicationGet.
-	inputTag filledIf: app viewStyleFilled.
-	inputTag outlinedIf: app viewStyleOutlined.
-	inputTag denseIf: app viewStyleDense.
-
-	aReadonlyFlag
-		ifTrue: [
-			inputTag readonly: true; modelValue: inputValue ]
-		ifFalse: [ | modelName |
-			modelName := inputLabel asCamelCase uncapitalized.
-			self mdqApplicationGet vueRefsAdd: modelName -> inputValue.
-			inputTag
-				"name: modelName;" vModel: modelName;
-				on: self inputAspect of: self;
-				with: [ self renderDateTimeOn: html vModel: modelName ]
-		]
 ]

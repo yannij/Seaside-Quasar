@@ -16,6 +16,17 @@ MDQTimeComponent >> inputType [
 	^ 'time'
 ]
 
+{ #category : #rendering }
+MDQTimeComponent >> renderTemplateOn: html vModel: aName [
+
+	html qTemplate vSlot: 'append'; with: [
+		html qIcon name: 'access_time'; class: 'cursor-pointer'; with: [
+			html qPopupProxy cover; transitionShow: 'scale'; transitionHide: 'scale'; with: [
+				html qTime vModel: aName; mask: 'HH:mm:ss'; format24h; withSeconds; with: [
+					html div class: 'row items-center justify-end'; with: [
+						html qBtn vClosePopUp; label: 'Close'; color: 'primary'; flat ] ] ] ] ] 
+]
+
 { #category : #accessing }
 MDQTimeComponent >> time24 [
 

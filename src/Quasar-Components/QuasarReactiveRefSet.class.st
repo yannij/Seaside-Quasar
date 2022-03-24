@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #'rendering - ajax' }
-QuasarReactiveRefSet >> ajaxRefSetOn: aJSStream html: html [
+QuasarReactiveRefSet >> ajaxFunctionOn: aJSStream html: html [
 	| ajax "script" |
 
 	"script := JSStream new nextPutAll: refName; nextPutAll: '.value = arguments[0]'; yourself.
@@ -22,14 +22,14 @@ QuasarReactiveRefSet >> ajaxRefSetOn: aJSStream html: html [
 		ajax onSuccess: html javascript refresh ].
 
 	aJSStream
-		nextPutAll: refName; nextPutAll: 'RefSet(arg1) {';
+		nextPutAll: self functionName; nextPutAll: '(arg1) {';
 		nextPutAll: refName; nextPutAll: '.value = arg1;';
 		nextPutAll: ajax asJavascript;
 		nextPutAll: '}'.
 ]
 
 { #category : #'rendering - ajax' }
-QuasarReactiveRefSet >> emitRefSetFunctionName [
+QuasarReactiveRefSet >> functionName [
 
 	^ self refName, 'RefSet'
 ]
@@ -40,5 +40,5 @@ QuasarReactiveRefSet >> quasarSetupReturnOn: aJSStream html: html [
 	super quasarSetupReturnOn: aJSStream html: html.
 
 	aJSStream nextPut: $,.
-	self ajaxRefSetOn: aJSStream html: html
+	self ajaxFunctionOn: aJSStream html: html
 ]
