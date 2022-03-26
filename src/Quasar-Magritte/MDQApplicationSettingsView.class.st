@@ -2,9 +2,9 @@ Class {
 	#name : #MDQApplicationSettingsView,
 	#superclass : #QuasarComponent,
 	#instVars : [
-		'mdcDensityComponent',
-		'mdcTypographyComponent',
-		'mdcThemeComponent'
+		'mdqDensityComponent',
+		'mdqThemeComponent',
+		'mdqTypographyComponent'
 	],
 	#category : #'Quasar-Magritte'
 }
@@ -18,91 +18,80 @@ MDQApplicationSettingsView >> initialize [
 ]
 
 { #category : #accessing }
-MDQApplicationSettingsView >> mdcDensityComponent [
-	^ mdcDensityComponent
+MDQApplicationSettingsView >> mdqDensityComponent [
+	^ mdqDensityComponent
 ]
 
 { #category : #accessing }
-MDQApplicationSettingsView >> mdcDensityComponent: anObject [
-	mdcDensityComponent := anObject
+MDQApplicationSettingsView >> mdqDensityComponent: anObject [
+	mdqDensityComponent := anObject
 ]
 
 { #category : #accessing }
-MDQApplicationSettingsView >> mdcDensityComponentLazy [
+MDQApplicationSettingsView >> mdqDensityComponentLazy [
 
-	self mdcDensityComponent ifNil: [
-		self mdcDensityComponent: self mdqApplicationGet appSettings mdcDensity asComponent addValidatedForm ].
+	self mdqDensityComponent ifNil: [
+		self mdqDensityComponent: self mdqApplicationGet appSettings mdqDensity asComponent addValidatedForm ].
 
-	^ self mdcDensityComponent
+	^ self mdqDensityComponent
 ]
 
 { #category : #accessing }
-MDQApplicationSettingsView >> mdcThemeComponent [
-	^ mdcThemeComponent
+MDQApplicationSettingsView >> mdqThemeComponent [
+	^ mdqThemeComponent
 ]
 
 { #category : #accessing }
-MDQApplicationSettingsView >> mdcThemeComponent: anObject [
-	mdcThemeComponent := anObject
+MDQApplicationSettingsView >> mdqThemeComponent: anObject [
+	mdqThemeComponent := anObject
 ]
 
 { #category : #accessing }
-MDQApplicationSettingsView >> mdcThemeComponentLazy [
+MDQApplicationSettingsView >> mdqThemeComponentLazy [
 
-	self mdcThemeComponent ifNil: [
-		self mdcThemeComponent: self mdqApplicationGet appSettings mdcTheme asComponent addValidatedForm ].
+	self mdqThemeComponent ifNil: [
+		self mdqThemeComponent: self mdqApplicationGet appSettings mdqTheme asComponent addValidatedForm ].
 
-	^ self mdcThemeComponent
+	^ self mdqThemeComponent
 ]
 
 { #category : #accessing }
-MDQApplicationSettingsView >> mdcTypographyComponent [
-	^ mdcTypographyComponent
+MDQApplicationSettingsView >> mdqTypographyComponent [
+	^ mdqTypographyComponent
 ]
 
 { #category : #accessing }
-MDQApplicationSettingsView >> mdcTypographyComponent: anObject [
-	mdcTypographyComponent := anObject
+MDQApplicationSettingsView >> mdqTypographyComponent: anObject [
+	mdqTypographyComponent := anObject
 ]
 
 { #category : #accessing }
-MDQApplicationSettingsView >> mdcTypographyComponentLazy [
+MDQApplicationSettingsView >> mdqTypographyComponentLazy [
 
-	self mdcTypographyComponent ifNil: [
-		self mdcTypographyComponent: self mdqApplicationGet appSettings mdcTypography asComponent addValidatedForm ].
+	self mdqTypographyComponent ifNil: [
+		self mdqTypographyComponent: self mdqApplicationGet appSettings mdqTypography asComponent addValidatedForm ].
 
-	^ self mdcTypographyComponent
+	^ self mdqTypographyComponent
 ]
 
 { #category : #rendering }
 MDQApplicationSettingsView >> renderContentOn: html [
 
-	html div style: 'padding: 8px'; with: [
-		self renderDismissButtonOn: html ].
+	"html div style: 'padding: 8px'; with: [
+		self renderDismissButtonOn: html ]."
 
 	html div style: 'padding: 8px'; with: [
 		html div
 			style: 'width: 320px';
-			with: self mdcDensityComponentLazy  ].
+			with: self mdqDensityComponentLazy  ].
 
 	html div style: 'padding: 8px'; with: [
 		html div
 			style: 'width: 320px';
-			with: self mdcTypographyComponentLazy  ].
+			with: self mdqTypographyComponentLazy  ].
 
 	html div style: 'padding: 8px'; with: [
 		html div
 			style: 'width: 320px';
-			with: self mdcThemeComponentLazy ]
-]
-
-{ #category : #rendering }
-MDQApplicationSettingsView >> renderDismissButtonOn: html [
-
-	html anchor
-		mdcIconButton;
-		mdcButton_raised;
-		callback: [ self mdqApplicationGet configureStyle ];
-		with: [
-			html span mdcMaterialIcons; with: 'expand_less' ]
+			with: self mdqThemeComponentLazy ]
 ]

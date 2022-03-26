@@ -511,7 +511,7 @@ QTidbitToDoApp >> themeColors [
 
 	result := OrderedDictionary new.
 
-	self appSettings mdcTheme themeItems keysAndValuesDo: [ :eachKey :eachValue |
+	self appSettings mdqTheme themeItems keysAndValuesDo: [ :eachKey :eachValue |
 		result at: eachKey put: eachValue asHexString ].
 
 	^ result
@@ -520,25 +520,20 @@ QTidbitToDoApp >> themeColors [
 { #category : #rendering }
 QTidbitToDoApp >> themeFontFamily [
 
-	^ self appSettings mdcTypography fontFamily
+	^ self appSettings mdqTypography fontFamily
 ]
 
 { #category : #updating }
 QTidbitToDoApp >> updateRootFonts: anHtmlRoot [
-	| bugString |
 
 	super updateRootFonts: anHtmlRoot.
 
 	"fontNames := 'Roboto|Roboto+Condensed|Bree+Serif|Fontdiner+Swanky|Open+Sans|Oxygen+Mono|Pacifico'."
 	"fontNames := '|' join: (self fonts collect: [:eachChoice | eachChoice googleFontsFamily])."
 
-	"Patch for: https://github.com/material-components/material-components-web/issues/7264
-	[MDC-Data-Table] thead > tr > th values are not bold as shown in the example"
-	bugString := ':ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap'.
-
-	anHtmlRoot stylesheet url: (WAUrl absolute: 'https://fonts.googleapis.com/css?family=', self appSettings mdcTypography fontFamily, bugString).
-	self appSettings mdcTypography fontFamilies do: [ :eachFontFamily |
-		anHtmlRoot stylesheet url: (WAUrl absolute: 'https://fonts.googleapis.com/css?family=', eachFontFamily, bugString) ]
+	anHtmlRoot stylesheet url: (WAUrl absolute: 'https://fonts.googleapis.com/css?family=', self appSettings mdqTypography fontFamily).
+	self appSettings mdqTypography fontFamilies do: [ :eachFontFamily |
+		anHtmlRoot stylesheet url: (WAUrl absolute: 'https://fonts.googleapis.com/css?family=', eachFontFamily) ]
 ]
 
 { #category : #accessing }

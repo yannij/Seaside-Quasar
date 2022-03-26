@@ -35,6 +35,7 @@ MDQRadioGroupComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	self optionsWithIndexDo: [ :each :index |
 		inputTag := html qRadio.
 		inputTag
+			size: 'xs';
 			denseIf: app viewStyleDense;
 			disable: aReadonlyFlag;
 			name: modelName; vModel: modelName;

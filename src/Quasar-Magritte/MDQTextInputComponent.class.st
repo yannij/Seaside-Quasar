@@ -30,6 +30,7 @@ MDQTextInputComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	inputValue := self perform: self inputAspect.
 
 	inputTag := html qInput.
+	inputTag stackLabel.
 	inputTag label: inputLabel.
 
 	app := self mdqApplicationGet.

@@ -52,6 +52,12 @@ QuasarInput >> readonly: aBoolean [
 	self attributes at: 'readonly' put: aBoolean
 ]
 
+{ #category : #attributes }
+QuasarInput >> stackLabel [
+	
+	self attributes at: 'stack-label' put: true
+]
+
 { #category : #accessing }
 QuasarInput >> tag [
 

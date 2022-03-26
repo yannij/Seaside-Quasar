@@ -12,6 +12,7 @@ MDQColorComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	inputValue := self perform: self inputAspect.
 
 	inputTag := html qInput.
+	inputTag stackLabel.
 	inputTag "type: self inputType;" label: inputLabel.
 
 	app := self mdqApplicationGet.

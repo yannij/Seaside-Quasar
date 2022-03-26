@@ -140,6 +140,12 @@ QuasarField >> square [
 ]
 
 { #category : #attributes }
+QuasarField >> stackLabel [
+	
+	self attributes at: 'stack-label' put: true
+]
+
+{ #category : #attributes }
 QuasarField >> standout [
 
 	self attributes at: 'standout' put: true

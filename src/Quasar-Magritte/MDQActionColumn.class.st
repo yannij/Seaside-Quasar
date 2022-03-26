@@ -32,9 +32,9 @@ MDQActionColumn >> renderCellLinkContent: anObject on: html [
 		callback: [ self commandBlock value: anObject ];
 		with: '>'"
 
-	html button "mdcButton; mdcButton_unelevated;"
+	html qBtn
 		onClick: ((html jQuery ajax)
 			callback: [ self commandBlock value: anObject ];
 			onComplete: html javascript refresh);
-		with: [ html span "mdcMaterialIcons; mdcIconButton__icon;" with: 'chevron_right' ]
+		icon: 'chevron_right'
 ]

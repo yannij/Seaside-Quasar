@@ -22,13 +22,13 @@ TidbitOneToManyComponent >> buildReport [
 { #category : #rendering }
 TidbitOneToManyComponent >> renderAddButtonOn: html [
 
-	html anchor
-		mdcMaterialIcons; mdcIconButton;
+	html qBtn
+		type: 'a'; href: (html urlForAction: [ self add ]);
 		tabIndex: 0;
-		onClick: ((html jQuery ajax)
+		"onClick: ((html jQuery ajax)
 			callback: [ self add ];
-			onComplete: html javascript refresh);
-		with: [ html div mdcButton__ripple; with: 'add' ]
+			onComplete: html javascript refresh);"
+		icon: 'add'
 ]
 
 { #category : #'rendering-buttons' }

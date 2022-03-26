@@ -132,9 +132,5 @@ MDQListItem >> renderListItemOn: html [
 		"callback: self callbackBlock if: self callbackBlock notNil;"
 		with: [
 			self icon ifNotNil: [ :value | itemTag icon: value ].
-			html qItemSection with: self label ].
-
-	"self active ifTrue: [
-		html script: (html jQuery script: [ :s | s
-			<< ((s jQuery id: itemTag id) call: 'addClass' with: 'mdc-deprecated-list-item--selected') ]) ]"
+			html qItemSection with: self label ]
 ]

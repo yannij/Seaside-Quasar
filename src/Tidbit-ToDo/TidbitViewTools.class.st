@@ -7,18 +7,18 @@ Class {
 { #category : #rendering }
 TidbitViewTools >> renderButton: aButtonText caption: aCaptionText callback: aBlock on: html [
 
-	html anchor "mdcButton; mdcButton_raised; mdcAutoInit: 'MDCRipple';"
-		callback: aBlock;
+	html qBtn
+		type: 'a'; href: (html urlForAction: [ aBlock value ]);
 		with: aButtonText.
 	html space; space.
-	html span "mdcTypography_caption;" with: aCaptionText
+	html span class: 'text_caption'; with: aCaptionText
 ]
 
 { #category : #rendering }
 TidbitViewTools >> renderContentOn: html [
 
 	html div style: 'padding: 8px'; with: [
-		html heading level3; "mdcTypography_subtitle1;" with: 'Tools'.
+		html div class: 'text_subtitle1'; with: 'Tools'.
 		self
 			renderButton: 'Reset connection'
 			caption: 'Reset the repository connection which is cached in a class variable'
@@ -31,7 +31,7 @@ TidbitViewTools >> renderContentOn: html [
 			callback: [ self mdqApplicationGet repositoryRecreateTestData; logout ]
 			on: html.
 		html break; break.
-		html span "mdcTypography_subtitle1;" with: 'Mongo config'.
+		html span class: 'text_subtitle1'; with: 'Mongo config'.
 		html preformatted: 'mongo-host: ', TidbitExampleDatabase mongoHost printString.
 		html preformatted: 'mongo-port: ', TidbitExampleDatabase mongoPort printString.
 		html preformatted: 'mongo-database: ', TidbitExampleDatabase mongoDatabase printString ]

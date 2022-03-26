@@ -425,7 +425,7 @@ LoanexApp >> themeColors [
 
 	result := OrderedDictionary new.
 
-	self appSettings mdcTheme themeItems keysAndValuesDo: [ :eachKey :eachValue |
+	self appSettings mdqTheme themeItems keysAndValuesDo: [ :eachKey :eachValue |
 		result at: eachKey put: eachValue asHexString ].
 
 	^ result
@@ -434,7 +434,7 @@ LoanexApp >> themeColors [
 { #category : #rendering }
 LoanexApp >> themeFontFamily [
 
-	^ self appSettings mdcTypography fontFamily
+	^ self appSettings mdqTypography fontFamily
 ]
 
 { #category : #updating }

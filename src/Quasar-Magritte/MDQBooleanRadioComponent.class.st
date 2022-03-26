@@ -31,9 +31,11 @@ MDQBooleanRadioComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	app := self mdqApplicationGet.
 
 	html qField
+		stackLabel;
 		filledIf: app viewStyleFilled;
 		outlinedIf: app viewStyleOutlined;
-		denseIf: "app viewStyleDense" true;
+		denseIf: app viewStyleDense;
+		"denseIf: true;"
 		label: inputLabel;
 		vModel: modelName;
 		with: [ super renderFieldOn: html readonly: aReadonlyFlag ]

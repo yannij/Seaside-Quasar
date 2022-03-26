@@ -21,24 +21,6 @@ QTidbitViewTask >> buildReport [
 		yourself
 ]
 
-{ #category : #accessing }
-QTidbitViewTask >> dataRows [
-
-	^ self tasksFiltered asOrderedCollection collect: [ :eachTask |
-		| dataRow |
-		dataRow := OrderedCollection new.
-		dataRow add: (eachTask done ifTrue: [ [ :html | html span mdcMaterialIcons; with: 'check' ] ] ifFalse: [ '' ]).
-		dataRow add: (eachTask summary ifNotNil: [ :value | value ] ifNil: [ '' ]).
-		dataRow add: eachTask completeBy.
-		dataRow add: eachTask estimatedDuration humanReadablePrintString.
-		dataRow add: eachTask importance greaseString.
-		dataRow add: eachTask priority greaseString.
-		"dataRow add: eachTask colorCode shortPrintString."
-		dataRow add: [ :html | html textInput type: 'color'; disabled; value: eachTask colorCode asHTMLColor ].
-		dataRow add: (eachTask description ifNotNil: [ :value | value truncateWithElipsisTo: 25 ] ifNil: [ '' ]).
-		dataRow ]
-]
-
 { #category : #rendering }
 QTidbitViewTask >> navTo: aModel [
 
@@ -114,12 +96,7 @@ QTidbitViewTask >> renderCardsTabsOn: html [
 				html qTab name: eachValue; label: eachValue;
 					onClick: ((html jQuery ajax)
 						callback: [ self sideSheet tabImportance: eachValue ];
-						onComplete: html javascript refresh).
-				"| tagTab |
-				(tagTab := html anchor) mdcTab;
-					id: html nextId;
-					callback: [ self sideSheet tabImportance: eachValue ];
-					with: [ html span with: eachValue ]" ] ]
+						onComplete: html javascript refresh) ] ]
 ]
 
 { #category : #'rendering - styles' }

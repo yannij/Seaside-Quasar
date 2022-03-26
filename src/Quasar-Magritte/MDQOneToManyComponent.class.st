@@ -105,30 +105,9 @@ MDQOneToManyComponent >> renderAssociateManyButtonOn: html [
 ]
 
 { #category : #rendering }
-MDQOneToManyComponent >> renderExpandIconOnListId: listId on: html [
-
-	html span
-		onClick: ((html jQuery ajax)
-			callback: [ self expanded: self expanded not ];
-			onComplete: ((html jQuery id: listId) load html: [ :renderer | self renderListAjaxOn: renderer ]));
-		with: [
-			html div mdcButton__ripple;
-				with: (self expanded ifTrue: [ 'expand_less' ] ifFalse: [ 'expand_more' ]) ]
-
-]
-
-{ #category : #rendering }
 MDQOneToManyComponent >> renderLabelOn: html [
 
 	html text: self magritteDescription label
-	"self magritteDescription mcwNavPriority ifNil: [
-		^ html text: self magritteDescription label ].
-
-	html div mdcChip; mdcRippleUpgraded; tabIndex: 0;
-		onClick: ((html jQuery ajax)
-			callback: [ self mdqApplicationGet navTo: self memento model aspect: self magritteDescription label ];
-			onComplete: html javascript refresh);
-		with: self magritteDescription label"
 ]
 
 { #category : #rendering }

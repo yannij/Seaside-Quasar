@@ -2,42 +2,17 @@ Class {
 	#name : #MDQApplicationSettings,
 	#superclass : #MDQModel,
 	#instVars : [
-		'mdcDensity',
-		'mdcTheme',
-		'mdcTypography',
-		'autoResponsive'
+		'mdqDensity',
+		'mdqTheme',
+		'mdqTypography'
 	],
 	#category : #'Quasar-Magritte'
 }
 
 { #category : #accessing }
-MDQApplicationSettings >> autoResponsive [
-
-	^ autoResponsive
-]
-
-{ #category : #accessing }
-MDQApplicationSettings >> autoResponsive: anObject [
-
-	autoResponsive := anObject
-]
-
-{ #category : #accessing }
-MDQApplicationSettings >> autoResponsiveOff [
-
-	self autoResponsive: false
-]
-
-{ #category : #accessing }
-MDQApplicationSettings >> autoResponsiveOn [
-
-	self autoResponsive: true
-]
-
-{ #category : #accessing }
 MDQApplicationSettings >> colorTheme [
 
-	^ self mdcTheme
+	^ self mdqTheme
 ]
 
 { #category : #initialization }
@@ -45,52 +20,45 @@ MDQApplicationSettings >> initialize [
 
 	super initialize.
 
-	self autoResponsive: true.
-	self mdcDensity: MDQDensity new.
-	self mdcTheme: MDQTheme new.
-	self mdcTypography: MDQTypography new
+	self mdqDensity: MDQDensity new.
+	self mdqTheme: MDQTheme new.
+	self mdqTypography: MDQTypography new
 ]
 
 { #category : #accessing }
-MDQApplicationSettings >> mdcDensity [
-	^ mdcDensity
+MDQApplicationSettings >> mdqDensity [
+	^ mdqDensity
 ]
 
 { #category : #accessing }
-MDQApplicationSettings >> mdcDensity: anObject [
-	mdcDensity := anObject
+MDQApplicationSettings >> mdqDensity: anObject [
+	mdqDensity := anObject
 ]
 
 { #category : #accessing }
-MDQApplicationSettings >> mdcTheme [
-	^ mdcTheme
+MDQApplicationSettings >> mdqTheme [
+	^ mdqTheme
 ]
 
 { #category : #accessing }
-MDQApplicationSettings >> mdcTheme: anObject [
-	mdcTheme := anObject
+MDQApplicationSettings >> mdqTheme: anObject [
+	mdqTheme := anObject
 ]
 
 { #category : #accessing }
-MDQApplicationSettings >> mdcTypography [
-	^ mdcTypography
+MDQApplicationSettings >> mdqTypography [
+	^ mdqTypography
 ]
 
 { #category : #accessing }
-MDQApplicationSettings >> mdcTypography: anObject [
-	mdcTypography := anObject
-]
-
-{ #category : #accessing }
-MDQApplicationSettings >> toggleAutoResponsive [
-
-	self autoResponsive: self autoResponsive not
+MDQApplicationSettings >> mdqTypography: anObject [
+	mdqTypography := anObject
 ]
 
 { #category : #accessing }
 MDQApplicationSettings >> toggleDenseView [
 
-	self mdcDensity density < 0
-		ifTrue: [ self mdcDensity density: 0 ]
-		ifFalse: [ self mdcDensity density: -1 ]
+	self mdqDensity density < 0
+		ifTrue: [ self mdqDensity density: 0 ]
+		ifFalse: [ self mdqDensity density: -1 ]
 ]
