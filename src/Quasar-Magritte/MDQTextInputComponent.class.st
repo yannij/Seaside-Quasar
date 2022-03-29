@@ -5,6 +5,18 @@ Class {
 }
 
 { #category : #rendering }
+MDQTextInputComponent >> fieldPrefix [
+
+	^ nil
+]
+
+{ #category : #rendering }
+MDQTextInputComponent >> fieldSuffix [
+
+	^ nil
+]
+
+{ #category : #rendering }
 MDQTextInputComponent >> inputAspect [
 
 	^ #string
@@ -26,24 +38,23 @@ MDQTextInputComponent >> renderEditorOn: html [
 MDQTextInputComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	| inputTag inputLabel inputValue app |
 
+	app := self mdqApplicationGet.
 	inputLabel := self magritteDescription label.
 	inputValue := self perform: self inputAspect.
 
 	inputTag := html qInput.
-	inputTag stackLabel.
+	self setFieldStyleOf: inputTag.
+	self setExtraOf: inputTag.
 	inputTag label: inputLabel.
-
-	app := self mdqApplicationGet.
-	inputTag filledIf: app viewStyleFilled.
-	inputTag outlinedIf: app viewStyleOutlined.
-	inputTag denseIf: app viewStyleDense.
+	self fieldPrefix ifNotNil: [ :prefixValue | inputTag prefix: prefixValue ].
+	self fieldSuffix ifNotNil: [ :suffixValue | inputTag suffix: suffixValue ].
 
 	aReadonlyFlag
 		ifTrue: [
 			inputTag readonly: true; modelValue: inputValue ]
 		ifFalse: [ | modelName |
 			modelName := inputLabel asCamelCase uncapitalized.
-			self mdqApplicationGet vueRefsAdd: modelName -> inputValue.
+			app vueRefsAdd: modelName -> inputValue.
 			inputTag
 				"name: modelName;" vModel: modelName;
 				on: self inputAspect of: self;
@@ -60,4 +71,9 @@ MDQTextInputComponent >> renderTemplateOn: html vModel: aName [
 MDQTextInputComponent >> renderViewerOn: html [
 
 	self renderFieldOn: html readonly: true
+]
+
+{ #category : #rendering }
+MDQTextInputComponent >> setExtraOf: inputTag [
+	"Subclasses may enhance"
 ]

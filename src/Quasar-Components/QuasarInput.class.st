@@ -5,24 +5,6 @@ Class {
 }
 
 { #category : #attributes }
-QuasarInput >> disable [
-	
-	self attributes at: 'disable' put: true
-]
-
-{ #category : #attributes }
-QuasarInput >> disable: aBoolean [
-	
-	self attributes at: 'disable' put: aBoolean
-]
-
-{ #category : #attributes }
-QuasarInput >> filled [
-	
-	self attributes at: 'filled' put: true
-]
-
-{ #category : #attributes }
 QuasarInput >> inputClass: anObject [
 	
 	self attributes at: 'input-class' put: anObject
@@ -35,27 +17,15 @@ QuasarInput >> inputStyle: anObject [
 ]
 
 { #category : #attributes }
-QuasarInput >> outlined [
+QuasarInput >> prefix: anObject [
 	
-	self attributes at: 'outlined' put: true
+	self attributes at: 'prefix' put: anObject
 ]
 
 { #category : #attributes }
-QuasarInput >> readonly [
+QuasarInput >> suffix: anObject [
 	
-	self attributes at: 'readonly' put: true
-]
-
-{ #category : #attributes }
-QuasarInput >> readonly: aBoolean [
-	
-	self attributes at: 'readonly' put: aBoolean
-]
-
-{ #category : #attributes }
-QuasarInput >> stackLabel [
-	
-	self attributes at: 'stack-label' put: true
+	self attributes at: 'suffix' put: anObject
 ]
 
 { #category : #accessing }

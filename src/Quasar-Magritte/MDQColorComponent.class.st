@@ -8,24 +8,20 @@ Class {
 MDQColorComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	| inputTag inputLabel inputValue app |
 
+	app := self mdqApplicationGet.
 	inputLabel := self magritteDescription label.
 	inputValue := self perform: self inputAspect.
 
 	inputTag := html qInput.
-	inputTag stackLabel.
+	self setFieldStyleOf: inputTag.
 	inputTag "type: self inputType;" label: inputLabel.
-
-	app := self mdqApplicationGet.
-	inputTag filledIf: app viewStyleFilled.
-	inputTag outlinedIf: app viewStyleOutlined.
-	inputTag denseIf: app viewStyleDense.
 
 	aReadonlyFlag
 		ifTrue: [
 			inputTag readonly: true; modelValue: inputValue ]
 		ifFalse: [ | modelName |
 			modelName := inputLabel asCamelCase uncapitalized.
-			self mdqApplicationGet vueRefsAdd: modelName -> inputValue.
+			app vueRefsAdd: modelName -> inputValue.
 			inputTag "name: modelName;" vModel: modelName.
 			inputTag on: self inputAspect of: self.
 			inputTag with: [

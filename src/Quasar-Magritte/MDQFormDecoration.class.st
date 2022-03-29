@@ -8,7 +8,6 @@ Class {
 MDQFormDecoration >> renderButtonsOn: html [
 	| showDisabled denseFlag |
 
-
 	denseFlag := self decoratedComponent mdqApplicationGet viewStyleDense.
 	showDisabled := "self decoratedComponent hasPendingChanges" false.
 

@@ -8,7 +8,7 @@ Class {
 MDQDateAndTimeComponent >> datetimeHtml5 [
 
 	^ self value
-		ifNil: [ DateAndTime now printHtml5 ]
+		ifNil: [ nil ]
 		ifNotNil: [ :t | t isString ifTrue: [ (DateAndTime fromString: t) printHtml5 ] ifFalse: [ t printHtml5 ] ]
 ]
 
@@ -22,7 +22,8 @@ MDQDateAndTimeComponent >> datetimeHtml5: aString [
 { #category : #rendering }
 MDQDateAndTimeComponent >> inputAspect [
 
-	^ true "self isChrome" ifTrue: [ #iso8601WithoutTZ ] ifFalse: [ #datetimeHtml5 ]
+	"^ true ""self isChrome"" ifTrue: [ #iso8601WithoutTZ ] ifFalse: [ #datetimeHtml5 ]"
+	^ #iso8601WithoutTZ
 ]
 
 { #category : #rendering }
@@ -35,7 +36,7 @@ MDQDateAndTimeComponent >> inputType [
 MDQDateAndTimeComponent >> iso8601 [
 
 	^ self value
-		ifNil: [ DateAndTime now printString ]
+		ifNil: [ nil ]
 		ifNotNil: [ :t | t isString ifTrue: [ (DateAndTime fromString: t) printString ] ifFalse: [ t printString ] ]
 ]
 
@@ -51,7 +52,7 @@ MDQDateAndTimeComponent >> iso8601WithoutTZ [
 	| isoString |
 
 	isoString := self value
-		ifNil: [ DateAndTime now printString ]
+		ifNil: [ ^ nil ]
 		ifNotNil: [ :t | t isString ifTrue: [ (DateAndTime fromString: t) printString ] ifFalse: [ t printString ] ].
 
 	isoString at: 11 put: $ .

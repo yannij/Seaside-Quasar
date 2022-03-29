@@ -8,7 +8,7 @@ Class {
 MDQDateComponent >> dateHtml5 [
 
 	^ self value
-		ifNil: [ Date today yyyymmdd ]
+		ifNil: [ nil ]
 		ifNotNil: [ :t | t isString ifTrue: [ t asDate ] ifFalse: [ t asDate yyyymmdd ] ]
 
 ]

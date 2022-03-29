@@ -20,16 +20,14 @@ MDQMultiselectListComponent >> renderFieldOn: html readonly: readonlyFlag [
 MDQMultiselectListComponent >> renderMultiselectOn: html readonly: aReadonlyFlag [
 	| inputTag inputLabel inputValue app |
 
-	inputTag := html qSelect.
+	app := self mdqApplicationGet.
 	inputLabel := self magritteDescription label.
-	inputTag color: 'primary'.
 
+	inputTag := html qSelect.
+	self setFieldStyleOf: inputTag.
+	inputTag color: 'primary'.
 	inputTag multiple; label: inputLabel.
 
-	app := self mdqApplicationGet.
-	inputTag filledIf: app viewStyleFilled.
-	inputTag outlinedIf: app viewStyleOutlined.
-	inputTag denseIf: app viewStyleDense.
 	app viewStyleDense ifTrue: [
 		inputTag optionsDense ].
 
@@ -48,8 +46,8 @@ MDQMultiselectListComponent >> renderMultiselectOn: html readonly: aReadonlyFlag
 			inputValue := self selectedList collect: [ :each | listValues keyAtValue: each ].
 			optionsList := OrderedCollection new.
 			self availableList withIndexDo: [ :eachOption :index | optionsList add: ({ 'label' -> eachOption. 'value' -> index} asDictionary) ].
-			self mdqApplicationGet vueRefsAdd: modelOptionsName -> optionsList.
-			self mdqApplicationGet vueRefsAdd: modelName -> inputValue.
+			app vueRefsAdd: modelOptionsName -> optionsList.
+			app vueRefsAdd: modelName -> inputValue.
 		]
 ]
 

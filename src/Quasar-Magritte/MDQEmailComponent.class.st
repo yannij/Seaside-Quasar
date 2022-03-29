@@ -1,17 +1,17 @@
 Class {
-	#name : #MDQUrlComponent,
+	#name : #MDQEmailComponent,
 	#superclass : #MDQTextInputComponent,
 	#category : #'Quasar-Magritte'
 }
 
 { #category : #rendering }
-MDQUrlComponent >> inputType [
+MDQEmailComponent >> inputType [
 
-	^ 'url'
+	^ 'email'
 ]
 
 { #category : #initialization }
-MDQUrlComponent >> setExtraOf: inputTag [
+MDQEmailComponent >> setExtraOf: inputTag [
 
 	inputTag type: self inputType
 ]

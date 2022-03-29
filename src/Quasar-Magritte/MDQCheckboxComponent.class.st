@@ -25,12 +25,9 @@ MDQCheckboxComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	modelName := inputLabel asCamelCase uncapitalized.
 	app := self mdqApplicationGet.
 
-	fieldTag := html qField
-		vModel: modelName;
-		filledIf: app viewStyleFilled;
-		outlinedIf: app viewStyleOutlined;
-		denseIf: app viewStyleDense;
-		yourself.
+	fieldTag := html qField.
+	self setFieldStyleOf: inputTag.
+	fieldTag vModel: modelName.
 
 	fieldTag with: [
 		inputTag := html qCheckbox.

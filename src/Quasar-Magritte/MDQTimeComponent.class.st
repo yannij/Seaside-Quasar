@@ -31,7 +31,7 @@ MDQTimeComponent >> renderTemplateOn: html vModel: aName [
 MDQTimeComponent >> time24 [
 
 	^ self value
-		ifNil: [ Time now print24 ]
+		ifNil: [ nil ]
 		ifNotNil: [ :t | t print24 ]
 ]
 
@@ -46,7 +46,7 @@ MDQTimeComponent >> time24: aString [
 MDQTimeComponent >> timeHtml5 [
 
 	^ self value
-		ifNil: [ Time now printHtml5 ]
+		ifNil: [ nil ]
 		ifNotNil: [ :t | t printHtml5 ]
 ]
 

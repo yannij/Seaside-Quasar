@@ -103,6 +103,12 @@ WAHtmlCanvas >> qField [
 ]
 
 { #category : #'*Quasar-Components' }
+WAHtmlCanvas >> qFile [
+
+	^ self brush: QuasarFile new
+]
+
+{ #category : #'*Quasar-Components' }
 WAHtmlCanvas >> qFooter [
 
 	^ self brush: QuasarFooter new

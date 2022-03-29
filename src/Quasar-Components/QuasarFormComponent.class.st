@@ -29,6 +29,24 @@ QuasarFormComponent >> dense: anObject [
 ]
 
 { #category : #attributes }
+QuasarFormComponent >> disable [
+	
+	self attributes at: 'disable' put: true
+]
+
+{ #category : #attributes }
+QuasarFormComponent >> disable: aBoolean [
+	
+	self attributes at: 'disable' put: aBoolean
+]
+
+{ #category : #attributes }
+QuasarFormComponent >> filled [
+	
+	self attributes at: 'filled' put: true
+]
+
+{ #category : #attributes }
 QuasarFormComponent >> label: anObject [
 	
 	self attributes at: 'label' put: anObject
@@ -53,4 +71,28 @@ QuasarFormComponent >> on: aSelector of: anObject [
 	self callback: (GRDelayedSend 
 			receiver: anObject
 			selector: aSelector asMutator)
+]
+
+{ #category : #attributes }
+QuasarFormComponent >> outlined [
+	
+	self attributes at: 'outlined' put: true
+]
+
+{ #category : #attributes }
+QuasarFormComponent >> readonly [
+	
+	self attributes at: 'readonly' put: true
+]
+
+{ #category : #attributes }
+QuasarFormComponent >> readonly: aBoolean [
+	
+	self attributes at: 'readonly' put: aBoolean
+]
+
+{ #category : #attributes }
+QuasarFormComponent >> stackLabel [
+	
+	self attributes at: 'stack-label' put: true
 ]

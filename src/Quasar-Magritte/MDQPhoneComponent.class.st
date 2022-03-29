@@ -1,17 +1,17 @@
 Class {
-	#name : #MDQUrlComponent,
+	#name : #MDQPhoneComponent,
 	#superclass : #MDQTextInputComponent,
 	#category : #'Quasar-Magritte'
 }
 
 { #category : #rendering }
-MDQUrlComponent >> inputType [
+MDQPhoneComponent >> inputType [
 
-	^ 'url'
+	^ 'tel'
 ]
 
 { #category : #initialization }
-MDQUrlComponent >> setExtraOf: inputTag [
+MDQPhoneComponent >> setExtraOf: inputTag [
 
 	inputTag type: self inputType
 ]
