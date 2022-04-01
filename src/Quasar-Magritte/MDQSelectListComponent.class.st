@@ -30,7 +30,7 @@ MDQSelectListComponent >> renderSelectOn: html readonly: aReadonlyFlag [
 	inputLabel := self magritteDescription label.
 	inputValue := self perform: self inputAspect.
 
-	inputTag := html qSelect.
+	inputTag := html qSelect emitValue; mapOptions.
 	self setFieldStyleOf: inputTag.
 	inputTag label: inputLabel.
 	inputTag color: 'primary'.

@@ -313,10 +313,12 @@ QuasarDemoComponentApp >> renderDemoSelectOn: html [
 
 	html qForm vOnSubmit: 'onSubmit'; class: 'q-gutter-md'; with: [
 		html qSelect
+			emitValue; mapOptions;
 			name: 'preferred_genre'; label: 'Preferred genre';
 			vModel: 'preferred'; options: 'options';
 			color: 'primary'; filled; clearable.
 		html qSelect
+			emitValue; mapOptions;
 			name: 'accepted_genres'; label: 'Accepted genre';
 			vModel: 'accepted'; options: 'options';
 			color: 'primary'; multiple; filled; clearable.
@@ -623,21 +625,21 @@ QuasarDemoComponentApp >> vueSetupReturnDemoDrawerOn: aJSStream [
 QuasarDemoComponentApp >> vueSetupReturnDemoSelectOn: aJSStream [
 
 	aJSStream nextPutAll: '
-      preferred: ref("rock"),
-      accepted: ref([]),
+      preferred: ref(1),
+      accepted: ref([1,2]),
 
       options: [
         {
           label: "Rock",
-          value: "rock"
+          value: 1
         },
         {
           label: "Funk",
-          value: "funk"
+          value: 2
         },
         {
           label: "Pop",
-          value: "pop"
+          value: 3
         }
       ],
 

@@ -64,6 +64,12 @@ QuasarSelect >> disable: aBoolean [
 ]
 
 { #category : #attributes }
+QuasarSelect >> emitValue [
+	
+	self attributes at: 'emit-value' put: true
+]
+
+{ #category : #attributes }
 QuasarSelect >> filled [
 	
 	self attributes at: 'filled' put: true
@@ -85,6 +91,12 @@ QuasarSelect >> inputStyle: anObject [
 QuasarSelect >> isMultiple [
 
 	^ self attributes includesKey: 'multiple'
+]
+
+{ #category : #attributes }
+QuasarSelect >> mapOptions [
+	
+	self attributes at: 'map-options' put: true
 ]
 
 { #category : #attributes }

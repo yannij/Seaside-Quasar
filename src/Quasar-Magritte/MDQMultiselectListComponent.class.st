@@ -23,7 +23,7 @@ MDQMultiselectListComponent >> renderMultiselectOn: html readonly: aReadonlyFlag
 	app := self mdqApplicationGet.
 	inputLabel := self magritteDescription label.
 
-	inputTag := html qSelect.
+	inputTag := html qSelect emitValue; mapOptions.
 	self setFieldStyleOf: inputTag.
 	inputTag color: 'primary'.
 	inputTag multiple; label: inputLabel.
