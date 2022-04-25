@@ -11,8 +11,7 @@ Class {
 		'authenticationBlock',
 		'recoverBlock',
 		'registerBlock',
-		'sendTokenBlock',
-		'responsePanel'
+		'sendTokenBlock'
 	],
 	#category : #'Quasar-Components'
 }

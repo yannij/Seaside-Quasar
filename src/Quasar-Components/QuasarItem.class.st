@@ -17,6 +17,12 @@ QuasarItem >> href: aString [
 ]
 
 { #category : #attributes }
+QuasarItem >> label: aString [
+	
+	self attributes at: 'label' put: aString
+]
+
+{ #category : #attributes }
 QuasarItem >> qTag: aString [
 	
 	self attributes at: 'tag' put: aString
@@ -26,6 +32,12 @@ QuasarItem >> qTag: aString [
 QuasarItem >> tag [
 
 	^ 'q-item'
+]
+
+{ #category : #attributes }
+QuasarItem >> to: aStringOrJsonObject [
+	
+	self attributes at: 'to' put: aStringOrJsonObject
 ]
 
 { #category : #attributes }

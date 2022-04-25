@@ -136,7 +136,7 @@ DockerDeploy >> loadAllConfigs [
 { #category : #'api - configs' }
 DockerDeploy >> loadConfigNamed: aString [
 	"
-	DockerDeploy current loadConfigNamed: DockerDeploy configNameDefault
+	DockerDeploy current loadConfigNamed: DockerDeploy defaultConfigName
 	"
 	| configFileName configFile json |
 
@@ -178,7 +178,7 @@ DockerDeploy >> mongoPortDefault [
 DockerDeploy >> runAppMethodsWithPragmaNamed: aPragmaName [
 	| appRootClass |
 
-	appRootClass := #MDSApplication asClassInEnvironment: Smalltalk globals ifAbsent: [ nil ].
+	appRootClass := #QuasarApplication asClassInEnvironment: Smalltalk globals ifAbsent: [ nil ].
 	appRootClass ifNil: [ ^ self ].
 
 	appRootClass allSubclasses do: [ :eachClass | | pragmas appMetaClass |

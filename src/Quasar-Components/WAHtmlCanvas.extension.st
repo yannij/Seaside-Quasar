@@ -235,6 +235,12 @@ WAHtmlCanvas >> qRouteTab [
 ]
 
 { #category : #'*Quasar-Components' }
+WAHtmlCanvas >> qRouterTemplate [
+
+	^ self brush: QuasarRouterTemplate new
+]
+
+{ #category : #'*Quasar-Components' }
 WAHtmlCanvas >> qRouterView [
 
 	^ self brush: QuasarRouterView new

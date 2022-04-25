@@ -131,6 +131,12 @@ QuasarBtn >> textColor: aString [
 ]
 
 { #category : #attributes }
+QuasarBtn >> to: aStringOrJsonObject [
+	
+	self attributes at: 'to' put: aStringOrJsonObject
+]
+
+{ #category : #attributes }
 QuasarBtn >> type: aString [
 	
 	self attributes at: 'type' put: aString

@@ -43,7 +43,11 @@ QuasarDemoBrowseApp >> demoClasses [
 	#RallyApp
 	#TidbitToDoApp
 	#LoanexApp
+	#KeycloakHelloApp
+	#KeycloakHelloBootstrapApp
 	#QuasarDemoScaffoldApp
+	#QuasarDemoVueRouterApp
+	#QuasarCodePenVueRouterApp
 	)
 	collect: [ :eachApp | eachApp asClassInEnvironment: Smalltalk globals ifAbsent: [ nil ] ]
 ]
