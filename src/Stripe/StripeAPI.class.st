@@ -31,8 +31,8 @@ StripeAPI class >> dockerSecretsName [
 { #category : #accessing }
 StripeAPI class >> stripePublishableKey [
 	"
-	DockerDeploy current loadSecretNamed: ShrineApp dockerSecretsName.
-	ShrineApp stripePublishableKey.
+	DockerDeploy current loadSecretNamed: StripeAPI dockerSecretsName.
+	StripeAPI stripePublishableKey.
 	"
 
 	^ DockerDeploy current

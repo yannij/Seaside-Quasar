@@ -177,11 +177,11 @@ MDQStripeCheckout >> getRedirectUrls: html [
 
 	serverString := DockerDeploy current configsAt: DockerDeploy defaultConfigName atKey: 'publicServerUrl'.
 	serverString ifNil: [
-		serverString := 'http://localhost:8080/'
-		"self error: 'publicServerUrl not defned'" ].
+		"serverString := 'http://localhost:8080/'"
+		self error: 'publicServerUrl not configured' ].
 	publicServerUrl := WAUrl absolute: serverString.
-	successUrl := html urlForAction: [ self actionSuccess ] absolute: (WAUrl absolute: 'http://localhost:8080/').
-	cancelUrl := html urlForAction: [ self actionCancel ] absolute: (WAUrl absolute: 'http://localhost:8080/').
+	successUrl := html urlForAction: [ self actionSuccess ] absolute: publicServerUrl.
+	cancelUrl := html urlForAction: [ self actionCancel ] absolute: publicServerUrl.
 
 	newToken ifNotNil: [
 		successUrl addField: WATokenFallbackProtectionFilter tokenQueryFieldName value: newToken.
