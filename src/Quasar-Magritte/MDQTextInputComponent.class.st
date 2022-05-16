@@ -1,8 +1,17 @@
 Class {
 	#name : #MDQTextInputComponent,
 	#superclass : #MATextInputComponent,
+	#instVars : [
+		'readonlyForced'
+	],
 	#category : #'Quasar-Magritte'
 }
+
+{ #category : #accessing }
+MDQTextInputComponent >> beReadonlyForced [
+
+	self readonlyForced: true
+]
 
 { #category : #rendering }
 MDQTextInputComponent >> fieldPrefix [
@@ -28,6 +37,24 @@ MDQTextInputComponent >> inputType [
 	^ 'text'
 ]
 
+{ #category : #testing }
+MDQTextInputComponent >> isReadonlyForced [
+
+	^ readonlyForced = true
+]
+
+{ #category : #accessing }
+MDQTextInputComponent >> readonlyForced [
+
+	^ readonlyForced
+]
+
+{ #category : #accessing }
+MDQTextInputComponent >> readonlyForced: anObject [
+
+	readonlyForced := anObject
+]
+
 { #category : #rendering }
 MDQTextInputComponent >> renderEditorOn: html [
 
@@ -49,7 +76,7 @@ MDQTextInputComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	self fieldPrefix ifNotNil: [ :prefixValue | inputTag prefix: prefixValue ].
 	self fieldSuffix ifNotNil: [ :suffixValue | inputTag suffix: suffixValue ].
 
-	aReadonlyFlag
+	(aReadonlyFlag or: [ self isReadonlyForced ])
 		ifTrue: [
 			inputTag readonly: true; modelValue: inputValue ]
 		ifFalse: [ | modelName |
