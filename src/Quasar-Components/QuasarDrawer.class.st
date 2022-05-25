@@ -37,17 +37,29 @@ QuasarDrawer >> elevated [
 { #category : #attributes }
 QuasarDrawer >> mini [
 
-	self attributes at: 'mini' put: true
+	self mini: true
+]
+
+{ #category : #attributes }
+QuasarDrawer >> mini: aBoolean [
+
+	self attributes at: 'mini' put: aBoolean
 ]
 
 { #category : #attributes }
 QuasarDrawer >> miniToOverlay [
 
-	self attributes at: 'mini-to-overlay' put: true
+	self miniToOverlay: true
 ]
 
 { #category : #attributes }
-QuasarDrawer >> miniWWidth: anObject [
+QuasarDrawer >> miniToOverlay: aBoolean [
+
+	self attributes at: 'mini-to-overlay' put: aBoolean
+]
+
+{ #category : #attributes }
+QuasarDrawer >> miniWidth: anObject [
 
 	self attributes at: 'mini-width' put: anObject
 ]
@@ -77,6 +89,12 @@ QuasarDrawer >> noSwipeOpen [
 ]
 
 { #category : #attributes }
+QuasarDrawer >> overlay [
+
+	self overlay: true
+]
+
+{ #category : #attributes }
 QuasarDrawer >> overlay: anObject [
 
 	self attributes at: 'overlay' put: anObject
@@ -85,7 +103,13 @@ QuasarDrawer >> overlay: anObject [
 { #category : #attributes }
 QuasarDrawer >> persistent [
 
-	self attributes at: 'persistent' put: true
+	self persistent: true
+]
+
+{ #category : #attributes }
+QuasarDrawer >> persistent: aBoolean [
+
+	self attributes at: 'persistent' put: aBoolean
 ]
 
 { #category : #attributes }

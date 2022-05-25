@@ -4,15 +4,50 @@ Class {
 	#instVars : [
 		'mdqDensity',
 		'mdqTheme',
-		'mdqTypography'
+		'mdqTypography',
+		'fontFamily'
 	],
 	#category : #'Quasar-Magritte'
 }
 
-{ #category : #accessing }
-MDQApplicationSettings >> colorTheme [
+{ #category : #'accessing - magritte' }
+MDQApplicationSettings >> densityDescription [
+	<magritteDescription>
 
-	^ self mdqTheme
+	^ MANumberDescription new
+		accessor: #mdqDensity;
+		default: 0;
+		label: 'Density';
+		priority: 10;
+		beInteger;
+		min: -3 max: 0;
+		"mcwComponentClass: MARangeComponent;"
+		yourself
+]
+
+{ #category : #accessing }
+MDQApplicationSettings >> fontFamily [
+
+	^ fontFamily
+]
+
+{ #category : #accessing }
+MDQApplicationSettings >> fontFamily: anObject [
+
+	fontFamily := anObject
+]
+
+{ #category : #'accessing - magritte' }
+MDQApplicationSettings >> fontFamilyDescription [
+	<magritteDescription>
+
+	^ MASingleOptionDescription new
+		accessor: #fontFamily;
+		default: '';
+		label: 'FontFamily';
+		options: MDQTypography availableFonts;
+		priority: 10;
+		yourself
 ]
 
 { #category : #initialization }
@@ -20,8 +55,10 @@ MDQApplicationSettings >> initialize [
 
 	super initialize.
 
-	self mdqDensity: MDQDensity new.
 	self mdqTheme: MDQTheme new.
+	self mdqDensity: -1.
+	self fontFamily: MDQTypography fontFamilyDefault.
+	"self mdqDensity: MDQDensity new."
 	self mdqTypography: MDQTypography new
 ]
 

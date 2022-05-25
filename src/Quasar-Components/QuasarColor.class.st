@@ -49,7 +49,7 @@ QuasarColor >> formatValue: anObject [
 { #category : #attributes }
 QuasarColor >> modelValue: anObject [
 
-	self attributes at: 'model-value' put: anObject
+	self attributes at: ':model-value' put: anObject
 ]
 
 { #category : #attributes }

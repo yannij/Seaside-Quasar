@@ -350,6 +350,7 @@ QuasarApplication >> renderSetColorTheme: aColorTheme on: html [
 			stream
 				nextPutAll: 'bodyStyle.setProperty("--q-', eachKey, '", "', eachValue "asHexString", '");';
 				yourself ].
+		stream nextPutAll: 'document.getElementsByTagName("body")[0].style.fontFamily = "Dancing Script";'.
 
 		html script: stream contents ]
 ]

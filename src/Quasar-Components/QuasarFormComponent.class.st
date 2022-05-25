@@ -55,7 +55,7 @@ QuasarFormComponent >> label: anObject [
 { #category : #attributes }
 QuasarFormComponent >> modelValue: anObject [
 	
-	self attributes at: 'model-value' put: anObject
+	self attributes at: ':model-value' put: anObject
 ]
 
 { #category : #attributes }

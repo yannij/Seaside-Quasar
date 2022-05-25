@@ -85,7 +85,7 @@ QuasarTime >> minuteOptions: anObject [
 { #category : #attributes }
 QuasarTime >> modelValue: anObject [
 
-	self attributes at: 'model-value' put: anObject
+	self attributes at: ':model-value' put: anObject
 ]
 
 { #category : #attributes }

@@ -41,6 +41,7 @@ MDQTypography class >> defaultGoogleFontsJson [
 	["Dancing Script", "handwriting" ],
 	["Karma", "serif" ],
 	["Newsreader", "serif" ],
+	["Noto Emoji", "sans-serif" ],
 	["Noto Sans", "sans-serif" ],
 	["Noto Serif", "serif" ],
 	["Noto Sans JP", "sans-serif" ],
@@ -51,9 +52,13 @@ MDQTypography class >> defaultGoogleFontsJson [
 	["Noto Serif SC", "serif" ],
 	["Noto Sans TC", "sans-serif" ],
 	["Noto Serif TC", "serif" ],
+	["Noto Sans Devanagari", "sans-serif" ],
+	["Noto Serif Devanagari", "serif" ],
 	["Roboto", "sans-serif" ],
 	["Roboto Condensed", "sans-serif" ],
+	["Roboto Flex", "sans-serif" ],
 	["Roboto Mono", "monospace" ],
+	["Roboto Serif", "serif" ],
 	["Roboto Slab", "serif" ],
 	["Sansita", "sans-serif" ],
 	["Sansita Swashed", "display" ],
@@ -67,7 +72,7 @@ MDQTypography class >> defaultGoogleFontsJson [
 { #category : #accessing }
 MDQTypography class >> fontFamilyDefault [
 
-	^ 'Roboto'
+	^ 'Roboto Flex'
 ]
 
 { #category : #accessing }
