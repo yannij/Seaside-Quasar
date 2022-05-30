@@ -73,7 +73,7 @@ QuasarTabs >> mobileArrows: anObject [
 { #category : #attributes }
 QuasarTabs >> modelValue: anObject [
 
-	self attributes at: ':model-value' put: anObject
+	self attributes at: 'model-value' put: anObject
 ]
 
 { #category : #attributes }

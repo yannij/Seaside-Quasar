@@ -67,7 +67,7 @@ QuasarDrawer >> miniWidth: anObject [
 { #category : #attributes }
 QuasarDrawer >> modelValue: aBoolean [
 
-	self attributes at: ':model-value' put: aBoolean
+	self attributes at: 'model-value' put: aBoolean
 ]
 
 { #category : #attributes }

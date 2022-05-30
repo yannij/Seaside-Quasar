@@ -67,7 +67,7 @@ QuasarChip >> label: anObject [
 { #category : #attributes }
 QuasarChip >> modelValue: anObject [
 	
-	self attributes at: ':model-value' put: anObject
+	self attributes at: 'model-value' put: anObject
 ]
 
 { #category : #attributes }

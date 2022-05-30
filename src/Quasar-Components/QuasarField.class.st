@@ -105,7 +105,7 @@ QuasarField >> maxlength: anObject [
 { #category : #attributes }
 QuasarField >> modelValue: anObject [
 
-	self attributes at: ':model-value' put: anObject
+	self attributes at: 'model-value' put: anObject
 ]
 
 { #category : #attributes }
