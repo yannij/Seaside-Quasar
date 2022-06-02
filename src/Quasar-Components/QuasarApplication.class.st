@@ -187,7 +187,6 @@ QuasarApplication >> quasarJsUrl [
 QuasarApplication >> quasarOnLoadOn: aJSStream with: html [
 
 	aJSStream
-		nextPutAll: 'const { useQuasar } = Quasar;';
 		nextPutAll: 'const { ref } = Vue;';
 		nextPutAll: 'const app = Vue.createApp({'.
 	self quasarSetupOn: aJSStream with: html.
@@ -196,6 +195,8 @@ QuasarApplication >> quasarOnLoadOn: aJSStream with: html [
 	self quasarConfigOn: aJSStream with: html.
 	aJSStream nextPutAll: '});'.
 	aJSStream nextPutAll: 'app.mount("#', self appId, '")'
+	
+	". aJSStream nextPutAll:  '; Quasar.Notify.create(''A notify message...'')'."
 ]
 
 { #category : #'rendering - quasar hooks' }
@@ -217,7 +218,7 @@ QuasarApplication >> quasarSetupContentOn: aJSStream with: html [
 QuasarApplication >> quasarSetupOn: aJSStream with: html [
 
 	aJSStream nextPutAll: 'setup() {'.
-	aJSStream nextPutAll: 'const $q = useQuasar();'.
+	"aJSStream nextPutAll: 'const $q = useQuasar();'."
 	self quasarSetupReactiveObjectsOn: aJSStream.
 	self quasarSetupContentOn: aJSStream with: html.
 	self quasarSetupReturnOn: aJSStream with: html.

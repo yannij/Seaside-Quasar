@@ -221,7 +221,6 @@ brand: {
 CraneApp >> quasarOnLoadOn: aJSStream with: html [
 
 	aJSStream
-		nextPutAll: 'const { useQuasar } = Quasar;';
 		nextPutAll: 'const { ref } = Vue;';
 		"nextPutAll: 'const flyOriginDialog = ref(false);';
 		nextPutAll: 'const flyDestinationDialog = ref(false);';"
