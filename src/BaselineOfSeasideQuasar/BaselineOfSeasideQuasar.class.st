@@ -37,7 +37,7 @@ BaselineOfSeasideQuasar >> magritte: spec [
 
 	spec
 		baseline: 'Magritte'
-		with: [ spec repository: 'github://magritte-metamodel/magritte:v3.8/source';
+		with: [ spec repository: 'github://yannij/magritte:v3.8/source';
 			loads: #( 'Magritte-Pharo-Seaside') ]
 ]
 
