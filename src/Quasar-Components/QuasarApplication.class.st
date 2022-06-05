@@ -195,8 +195,6 @@ QuasarApplication >> quasarOnLoadOn: aJSStream with: html [
 	self quasarConfigOn: aJSStream with: html.
 	aJSStream nextPutAll: '});'.
 	aJSStream nextPutAll: 'app.mount("#', self appId, '")'
-	
-	". aJSStream nextPutAll:  '; Quasar.Notify.create(''A notify message...'')'."
 ]
 
 { #category : #'rendering - quasar hooks' }

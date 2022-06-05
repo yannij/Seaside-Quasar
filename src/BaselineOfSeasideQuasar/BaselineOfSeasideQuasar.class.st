@@ -37,7 +37,7 @@ BaselineOfSeasideQuasar >> magritte: spec [
 
 	spec
 		baseline: 'Magritte'
-		with: [ spec repository: 'github://magritte-metamodel/magritte:v3.7/source';
+		with: [ spec repository: 'github://magritte-metamodel/magritte:v3.8/source';
 			loads: #( 'Magritte-Pharo-Seaside') ]
 ]
 
@@ -54,7 +54,7 @@ BaselineOfSeasideQuasar >> seaside: spec [
 
 	spec
 		baseline: 'Seaside3'
-		with: [ spec repository: 'github://SeasideSt/Seaside:v3.4.5/repository';
+		with: [ spec repository: 'github://SeasideSt/Seaside:v3.4.7/repository';
 			loads: #('Core' 'JSON' 'Email' 'Javascript' 'JQuery' 'Zinc' 'Seaside-Welcome') ]
 ]
 
@@ -63,6 +63,6 @@ BaselineOfSeasideQuasar >> voyage: spec [
 
 	spec
 		baseline: 'Voyage'
-		with: [ spec repository: 'github://pharo-nosql/voyage:1.7.1/mc';
-			loads: #( 'core' 'memory' 'mongo' ) ]
+		with: [ spec repository: 'github://pharo-nosql/voyage:pharo10-ready/mc';
+			loads: #( 'core' 'memory' "'mongo'" ) ]
 ]
