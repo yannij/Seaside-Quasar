@@ -271,7 +271,7 @@ QuasarApplication >> quasarVersion: anObject [
 { #category : #accessing }
 QuasarApplication >> quasarVersionLazy [
 
-	self quasarVersion ifNil: [ self quasarVersion: '2.6.0' ].
+	self quasarVersion ifNil: [ self quasarVersion: '2.7.0' ].
 
 	^ self quasarVersion
 ]
@@ -376,8 +376,7 @@ QuasarApplication >> updateRoot: anHtmlRoot [
 QuasarApplication >> updateRootFonts: anHtmlRoot [
 
 	anHtmlRoot stylesheet
-		url: 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons|Material+Icons+Outlined'.
-
+		url: 'https://fonts.googleapis.com/css?family=Roboto+Flex|Material+Icons|Material+Icons+Outlined'
 ]
 
 { #category : #updating }

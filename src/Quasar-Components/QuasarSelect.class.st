@@ -111,10 +111,22 @@ QuasarSelect >> multipleCallbackValue: aList [
 	aList do: [ :each | self valueFor: each ]
 ]
 
+{ #category : #attributes }
+QuasarSelect >> newValueMode [
+	
+	self attributes at: 'new-value-mode' put: true
+]
+
 { #category : #multiselect }
 QuasarSelect >> nextKey [
 
 	^ values size + 1
+]
+
+{ #category : #attributes }
+QuasarSelect >> optionDisable [
+	
+	self attributes at: 'option-disable' put: true
 ]
 
 { #category : #attributes }
@@ -172,6 +184,12 @@ QuasarSelect >> storeCallback: aCallback [
 QuasarSelect >> tag [
 
 	^ 'q-select'
+]
+
+{ #category : #attributes }
+QuasarSelect >> useInput [
+	
+	self attributes at: 'use-input' put: true
 ]
 
 { #category : #multiselect }

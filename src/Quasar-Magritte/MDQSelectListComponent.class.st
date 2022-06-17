@@ -32,8 +32,11 @@ MDQSelectListComponent >> renderSelectOn: html readonly: aReadonlyFlag [
 
 	inputTag := html qSelect emitValue; mapOptions.
 	self setFieldStyleOf: inputTag.
+	app viewStyleDense ifTrue: [ inputTag optionsDense ].
+	aReadonlyFlag ifTrue: [ inputTag optionDisable ].
 	inputTag label: inputLabel.
 	inputTag color: 'primary'.
+	inputTag useInput; newValueMode.
 
 	aReadonlyFlag
 		ifTrue: [
