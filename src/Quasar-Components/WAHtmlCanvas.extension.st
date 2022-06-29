@@ -79,6 +79,12 @@ WAHtmlCanvas >> qDrawer [
 ]
 
 { #category : #'*Quasar-Components' }
+WAHtmlCanvas >> qEditor [
+
+	^ self brush: QuasarEditor new
+]
+
+{ #category : #'*Quasar-Components' }
 WAHtmlCanvas >> qExpansionItem [
 
 	^ self brush: QuasarExpansionItem new
