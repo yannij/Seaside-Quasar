@@ -55,6 +55,12 @@ WATagBrush >> vModel: anObject [
 ]
 
 { #category : #'*Quasar-Components' }
+WATagBrush >> vModel: anObject colon: propertyName [
+
+	self attributes at: 'v-model:', propertyName asString put: anObject
+]
+
+{ #category : #'*Quasar-Components' }
 WATagBrush >> vOn: anEventName with: anObject [
 
 	self attributes at: '@', anEventName put: anObject

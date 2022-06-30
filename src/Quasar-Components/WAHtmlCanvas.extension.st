@@ -181,6 +181,12 @@ WAHtmlCanvas >> qList [
 ]
 
 { #category : #'*Quasar-Components' }
+WAHtmlCanvas >> qMarkdown [
+
+	^ self brush: QuasarMarkdown new
+]
+
+{ #category : #'*Quasar-Components' }
 WAHtmlCanvas >> qMarkupTable [
 
 	^ self brush: QuasarMarkupTable new
@@ -274,6 +280,12 @@ WAHtmlCanvas >> qSeparator [
 WAHtmlCanvas >> qSpace [
 
 	^ self brush: QuasarSpace new
+]
+
+{ #category : #'*Quasar-Components' }
+WAHtmlCanvas >> qSplitter [
+
+	^ self brush: QuasarSplitter new
 ]
 
 { #category : #'*Quasar-Components' }

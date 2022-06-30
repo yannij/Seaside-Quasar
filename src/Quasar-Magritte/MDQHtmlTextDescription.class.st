@@ -19,5 +19,5 @@ MDQHtmlTextDescription class >> mdqDefaultComponentClasses [
 { #category : #visiting }
 MDQHtmlTextDescription >> acceptMagritte: aVisitor [
 
-	aVisitor visitStringDescription: self
+	aVisitor visitHtmlTextDescription: self
 ]

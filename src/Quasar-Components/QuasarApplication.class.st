@@ -128,6 +128,12 @@ QuasarApplication >> logout [
 			self redirect ]
 ]
 
+{ #category : #testing }
+QuasarApplication >> needsMarkdown [
+
+	^ true
+]
+
 { #category : #'rendering - quasar hooks' }
 QuasarApplication >> quasarConfigContentOn: aJSStream with: html [
 	"Subclasses may override"
@@ -183,6 +189,24 @@ QuasarApplication >> quasarJsUrl [
 	^ self jsdelivrUrlFragment, 'quasar.umd.prod.js'
 ]
 
+{ #category : #accessing }
+QuasarApplication >> quasarMarkdownCssUrl [
+
+	^ self quasarMarkdownUrlFragment, 'index.css'
+]
+
+{ #category : #accessing }
+QuasarApplication >> quasarMarkdownJsUrl [
+
+	^ self quasarMarkdownUrlFragment, 'index.umd.js'
+]
+
+{ #category : #accessing }
+QuasarApplication >> quasarMarkdownUrlFragment [
+
+	^ 'https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmarkdown@next/dist/'
+]
+
 { #category : #'rendering - quasar' }
 QuasarApplication >> quasarOnLoadOn: aJSStream with: html [
 
@@ -194,6 +218,8 @@ QuasarApplication >> quasarOnLoadOn: aJSStream with: html [
 	aJSStream nextPutAll: 'app.use(Quasar, {'.
 	self quasarConfigOn: aJSStream with: html.
 	aJSStream nextPutAll: '});'.
+	self needsMarkdown ifTrue: [
+		aJSStream nextPutAll: 'app.component("QMarkdown", QMarkdown.QMarkdown);' ].
 	aJSStream nextPutAll: 'app.mount("#', self appId, '")'
 ]
 
@@ -325,6 +351,8 @@ QuasarApplication >> renderContentOn: html [
 
 	html script "async;" url: self vueJsUrl.
 	html script "async;" url: self quasarJsUrl.
+	self needsMarkdown ifTrue: [
+		html script url: self quasarMarkdownJsUrl ].
 
 	jsStream := JSStream new.
 	self quasarOnLoadOn: jsStream with: html.
@@ -382,7 +410,9 @@ QuasarApplication >> updateRootFonts: anHtmlRoot [
 { #category : #updating }
 QuasarApplication >> updateRootQuasarCss: anHtmlRoot [
 
-	anHtmlRoot stylesheet url: self quasarCssUrl
+	anHtmlRoot stylesheet url: self quasarCssUrl.
+	self needsMarkdown ifTrue: [
+		anHtmlRoot stylesheet url: self quasarMarkdownCssUrl ]
 ]
 
 { #category : #'accessing - view style' }
