@@ -13,7 +13,7 @@ MDQHexColorDescription class >> mdqDefaultComponentClasses [
 { #category : #accessing }
 MDQHexColorDescription class >> mdqDefaultValue [
 
-	^ Color gray
+	^ Color gray asHexString
 ]
 
 { #category : #visiting }
