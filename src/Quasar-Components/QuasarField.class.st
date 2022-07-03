@@ -103,9 +103,9 @@ QuasarField >> maxlength: anObject [
 ]
 
 { #category : #attributes }
-QuasarField >> modelValue: anObject [
+QuasarField >> modelValue: aBoolean [
 
-	self attributes at: 'model-value' put: anObject
+	self vBind: 'model-value' with: aBoolean
 ]
 
 { #category : #attributes }

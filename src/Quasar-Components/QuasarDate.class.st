@@ -95,9 +95,9 @@ QuasarDate >> minimal [
 ]
 
 { #category : #attributes }
-QuasarDate >> modelValue: anObject [
+QuasarDate >> modelValue: aBoolean [
 
-	self attributes at: 'model-value' put: anObject
+	self vBind: 'model-value' with: aBoolean
 ]
 
 { #category : #attributes }

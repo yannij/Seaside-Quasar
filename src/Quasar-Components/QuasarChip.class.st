@@ -65,9 +65,9 @@ QuasarChip >> label: anObject [
 ]
 
 { #category : #attributes }
-QuasarChip >> modelValue: anObject [
-	
-	self attributes at: 'model-value' put: anObject
+QuasarChip >> modelValue: aBoolean [
+
+	self vBind: 'model-value' with: aBoolean
 ]
 
 { #category : #attributes }

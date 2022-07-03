@@ -6,7 +6,8 @@ Class {
 		'refValue',
 		'callbackBlock',
 		'transformBlock',
-		'emitRefresh'
+		'emitRefresh',
+		'traceLevel'
 	],
 	#category : #'Quasar-Components'
 }
@@ -58,6 +59,12 @@ QuasarReactiveObject >> initialize [
 	self emitRefresh: false
 ]
 
+{ #category : #logging }
+QuasarReactiveObject >> logString: aString [
+
+	Transcript crShow: aString
+]
+
 { #category : #'rendering - ajax' }
 QuasarReactiveObject >> quasarSetupOn: aJSStream [
 
@@ -96,10 +103,13 @@ QuasarReactiveObject >> refValue [
 { #category : #accessing }
 QuasarReactiveObject >> refValue: anObject [
 
+	self traceIsOn ifTrue: [
+		self logString: 'Reactive::', self refName, ': ', refValue greaseString, ' --> ', anObject greaseString ].
+
 	refValue := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #actions }
 QuasarReactiveObject >> refValueUpdate: anObject [
 	| newValue |
 
@@ -107,16 +117,36 @@ QuasarReactiveObject >> refValueUpdate: anObject [
 	self refValue: newValue
 ]
 
-{ #category : #accessing }
+{ #category : #actions }
 QuasarReactiveObject >> runCallbackWith: anObject [
-
-	"self traceOn"
-	true ifTrue: [
-		Transcript crShow: 'Reactive::', self refName, ': ', self refValue greaseString, ' --> runCallbackWith: ', anObject greaseString ].
 
 	self callbackBlock
 		ifNil: [ self refValueUpdate: anObject ]
 		ifNotNil: [ :block | block value: anObject ]
+]
+
+{ #category : #testing }
+QuasarReactiveObject >> traceIsOn [
+
+	^ self traceLevel notNil
+]
+
+{ #category : #accessing }
+QuasarReactiveObject >> traceLevel [
+
+	^ traceLevel
+]
+
+{ #category : #accessing }
+QuasarReactiveObject >> traceLevel: anObject [
+
+	traceLevel := anObject
+]
+
+{ #category : #accessing }
+QuasarReactiveObject >> traceOn [
+
+	self traceLevel: 1
 ]
 
 { #category : #accessing }

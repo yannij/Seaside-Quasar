@@ -47,9 +47,9 @@ QuasarTabPanels >> keepAliveMax: anObject [
 ]
 
 { #category : #attributes }
-QuasarTabPanels >> modelValue: anObject [
+QuasarTabPanels >> modelValue: aBoolean [
 
-	self attributes at: 'model-value' put: anObject
+	self vBind: 'model-value' with: aBoolean
 ]
 
 { #category : #attributes }

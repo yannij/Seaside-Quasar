@@ -67,7 +67,7 @@ QuasarDrawer >> miniWidth: anObject [
 { #category : #attributes }
 QuasarDrawer >> modelValue: aBoolean [
 
-	self attributes at: 'model-value' put: aBoolean
+	self vBind: 'model-value' with: aBoolean
 ]
 
 { #category : #attributes }
@@ -128,6 +128,12 @@ QuasarDrawer >> side: anObject [
 QuasarDrawer >> tag [
 
 	^ 'q-drawer'
+]
+
+{ #category : #attributes }
+QuasarDrawer >> vOnUpdateModelValue: aString [
+	
+	self attributes at: '@update:model-value' put: aString
 ]
 
 { #category : #attributes }

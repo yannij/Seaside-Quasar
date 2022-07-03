@@ -71,9 +71,9 @@ QuasarTabs >> mobileArrows: anObject [
 ]
 
 { #category : #attributes }
-QuasarTabs >> modelValue: anObject [
+QuasarTabs >> modelValue: aBoolean [
 
-	self attributes at: 'model-value' put: anObject
+	self vBind: 'model-value' with: aBoolean
 ]
 
 { #category : #attributes }

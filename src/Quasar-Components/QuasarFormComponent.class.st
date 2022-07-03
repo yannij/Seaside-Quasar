@@ -53,9 +53,9 @@ QuasarFormComponent >> label: anObject [
 ]
 
 { #category : #attributes }
-QuasarFormComponent >> modelValue: anObject [
-	
-	self attributes at: 'model-value' put: anObject
+QuasarFormComponent >> modelValue: aBoolean [
+
+	self vBind: 'model-value' with: aBoolean
 ]
 
 { #category : #attributes }

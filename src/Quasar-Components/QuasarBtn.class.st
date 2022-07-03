@@ -71,6 +71,12 @@ QuasarBtn >> icon: aString [
 ]
 
 { #category : #attributes }
+QuasarBtn >> iconRight: aString [
+	
+	self attributes at: 'icon-right' put: aString
+]
+
+{ #category : #attributes }
 QuasarBtn >> label: aString [
 	
 	self attributes at: 'label' put: aString
