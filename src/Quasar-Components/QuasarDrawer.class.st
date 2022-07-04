@@ -65,12 +65,6 @@ QuasarDrawer >> miniWidth: anObject [
 ]
 
 { #category : #attributes }
-QuasarDrawer >> modelValue: aBoolean [
-
-	self vBind: 'model-value' with: aBoolean
-]
-
-{ #category : #attributes }
 QuasarDrawer >> noSwipeBackdrop [
 
 	self attributes at: 'no-swipe-backdrop' put: true

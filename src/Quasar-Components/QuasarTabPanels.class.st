@@ -47,12 +47,6 @@ QuasarTabPanels >> keepAliveMax: anObject [
 ]
 
 { #category : #attributes }
-QuasarTabPanels >> modelValue: aBoolean [
-
-	self vBind: 'model-value' with: aBoolean
-]
-
-{ #category : #attributes }
 QuasarTabPanels >> swipeable [
 	
 	self attributes at: 'swipeable' put: true

@@ -71,12 +71,6 @@ QuasarTabs >> mobileArrows: anObject [
 ]
 
 { #category : #attributes }
-QuasarTabs >> modelValue: aBoolean [
-
-	self vBind: 'model-value' with: aBoolean
-]
-
-{ #category : #attributes }
 QuasarTabs >> narrowIndicator [
 	
 	self attributes at: 'narrow-indicator' put: true

@@ -65,12 +65,6 @@ QuasarChip >> label: anObject [
 ]
 
 { #category : #attributes }
-QuasarChip >> modelValue: aBoolean [
-
-	self vBind: 'model-value' with: aBoolean
-]
-
-{ #category : #attributes }
 QuasarChip >> outline [
 	
 	self attributes at: 'outline' put: true

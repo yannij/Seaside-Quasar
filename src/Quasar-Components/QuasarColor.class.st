@@ -47,12 +47,6 @@ QuasarColor >> formatValue: anObject [
 ]
 
 { #category : #attributes }
-QuasarColor >> modelValue: aBoolean [
-
-	self vBind: 'model-value' with: aBoolean
-]
-
-{ #category : #attributes }
 QuasarColor >> name: anObject [
 
 	self attributes at: 'name' put: anObject

@@ -83,12 +83,6 @@ QuasarTime >> minuteOptions: anObject [
 ]
 
 { #category : #attributes }
-QuasarTime >> modelValue: aBoolean [
-
-	self vBind: 'model-value' with: aBoolean
-]
-
-{ #category : #attributes }
 QuasarTime >> name: anObject [
 
 	self attributes at: 'name' put: anObject
