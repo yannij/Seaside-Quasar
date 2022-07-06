@@ -11,6 +11,12 @@ QuasarRouteTab >> align: anObject [
 ]
 
 { #category : #attributes }
+QuasarRouteTab >> href: anObject [
+	
+	self attributes at: 'href' put: anObject
+]
+
+{ #category : #attributes }
 QuasarRouteTab >> label: anObject [
 	
 	self attributes at: 'label' put: anObject

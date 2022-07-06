@@ -36,6 +36,7 @@ QuasarDemoBrowseApp >> demoClasses [
 	#QuasarDemoReactiveApp
 	#QuasarDemoHtmlTextApp
 	#QuasarDemoMarkdownApp
+	#QuasarDemoAccountingApp
 	#QShrineApp
 	#QRallyApp
 	#QTidbitToDoApp
