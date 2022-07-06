@@ -23,9 +23,11 @@ QuasarDemoAccountingData class >> createDemoAccounts [
 	modelClass instanceList: nil.
 
 	#(
-	('1' 'regular' 'Test Account-1' '220001-001' 'CDN' 1000.00 'TD Bank')
-	('2' 'regular' 'Test Account-2' '220002-001' 'USD' 2000.00 'CIBC')
-	('3' 'non-profit' 'Test Account-3' '220003-001' 'CDN' 3000.00 'Royal Bank')
+	('1' 'regular' 'Test Account-1' '22C-001' 'CDN' 1000.00 'TD Bank')
+	('1' 'regular' 'Test Account-1' '22C-002' 'CDN' 1100.00 'TD Bank')
+	('1' 'regular' 'Test Account-1' '22U-001' 'USD' 1200.00 'TD Bank')
+	('2' 'regular' 'Test Account-2' '5555-001' 'USD' 2000.00 'CIBC')
+	('3' 'non-profit' 'Test Account-3' 'RB-1234-001' 'CDN' 3000.00 'Royal Bank')
 	) do: [ :data | | newObject |
 		newObject := modelClass new
 			companyId: (data at: 1);
@@ -47,9 +49,10 @@ QuasarDemoAccountingData class >> createDemoCompanies [
 	modelClass instanceList: nil.
 
 	#(
-	('1' 'Test Company-1' 'company1.biz' '' 'BIZ-0001' 'CA' 'CAD')
-	('2' 'Test Company-2' 'company2.biz' '' 'BIZ-0001' 'CA' 'USD')
-	('3' 'Test Company-3' 'company3.biz' '' 'ORG-0001' 'CA' 'CAD')
+	('1' 'Test Company-1' 'www.company1.biz' '' 'BIZ-0001' 'CA' 'CAD')
+	('2' 'Test Company-2' 'www.company2.biz' '' 'BIZ-0002' 'CA' 'USD')
+	('3' 'Test Company-3' 'www.company3.org' '' 'ORG-0001' 'CA' 'CAD')
+	('4' 'Test Company-4' 'www.company4.org' '' 'ORG-0002' 'CA' 'CAD')
 	) do: [ :data | | newObject |
 		newObject := modelClass new
 			id: (data at: 1);

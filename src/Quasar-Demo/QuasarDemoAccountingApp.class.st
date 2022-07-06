@@ -2,7 +2,10 @@ Class {
 	#name : #QuasarDemoAccountingApp,
 	#superclass : #QuasarApplication,
 	#instVars : [
-		'tab'
+		'model',
+		'tab',
+		'sideSheet',
+		'sideSheetOpen'
 	],
 	#category : #'Quasar-Demo-Accounting'
 }
@@ -34,7 +37,22 @@ QuasarDemoAccountingApp >> initialize [
 
 	super initialize.
 
+	self sideSheetOpen: ((QuasarReactiveRefSet name: 'sideSheetOpen' value: false) transformBlock: [ :value | value ]; traceOn; yourself).
+	self reactiveObjectsAdd: self sideSheetOpen.
+	self sideSheet: QuasarDemoSideSheet new.
 	self tab: 'tab1'
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingApp >> model [
+
+	^ model
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingApp >> model: anObject [
+
+	model := anObject
 ]
 
 { #category : #rendering }
@@ -58,8 +76,6 @@ QuasarDemoAccountingApp >> quasarOnLoadOn: aJSStream with: html [
 
 	aJSStream
 		nextPutAll: 'const { ref } = Vue;';
-		"nextPutAll: 'const flyOriginDialog = ref(false);';
-		nextPutAll: 'const flyDestinationDialog = ref(false);';"
 		nextPutAll: 'const app = Vue.createApp({'.
 	self quasarSetupOn: aJSStream with: html.
 	aJSStream nextPutAll: '});'.
@@ -70,27 +86,11 @@ QuasarDemoAccountingApp >> quasarOnLoadOn: aJSStream with: html [
 ]
 
 { #category : #rendering }
-QuasarDemoAccountingApp >> renderAccountListOn: html [
-
-	html qList style: 'background: white'; with: [
-		QuasarDemoAccountingAccount instanceList do: [ :eachObject |
-			html qItem with: [
-				html qItemSection top; avatar; with: [
-					html qAvatar color: 'primary'; textColor: 'white'; icon: 'star' ].
-				html qItemSection with: [
-					html qItemLabel with: eachObject name.
-					html qItemLabel caption; "lines: 2;"
-						with: eachObject summaryString ].
-				"html qItemSection with: [
-					html qItemLabel style: 'color: red'; with: eachObject price ]" ] ] ]
-]
-
-{ #category : #rendering }
 QuasarDemoAccountingApp >> renderAccountsOn: html [
 
 	self tab = 'accounts' ifFalse: [ ^ self ].
 
-	self renderAccountListOn: html
+	self renderModelList: QuasarDemoAccountingAccount instanceList on: html
 ]
 
 { #category : #rendering }
@@ -98,15 +98,47 @@ QuasarDemoAccountingApp >> renderCompaniesOn: html [
 
 	self tab = 'companies' ifFalse: [ ^ self ].
 
-	self renderCompanyListOn: html
+	self renderModelList: QuasarDemoAccountingCompany instanceList on: html
 ]
 
 { #category : #rendering }
-QuasarDemoAccountingApp >> renderCompanyListOn: html [
+QuasarDemoAccountingApp >> renderLayoutOn: html [
+
+	html qApp id: self appId; with: [
+		html qLayout view: 'hHh lpR fFf'; vCloak; with: [
+			html qHeader heightHint: 98; class: 'bg-primary'; with: [
+				html qToolbar with: [
+					"html qBtn dense; flat; round; icon: 'menu'; vOnClick: 'this.$refs.leftDrawer.toggle($event)'."
+					html qImg src: (QuasarDemoAccountinglLibrary urlOf: #cranelogoPng); style: 'height: 56px; width: 56px'.
+					self renderTabsOn: html.
+					html qSpace.
+					html qBtn flat; round; icon: 'view_sidebar'; vOnClick: 'this.$refs.sideSheet.toggle($event)' ] ].
+			self renderLayoutPageOn: html.
+			html render: self sideSheet ] ]
+]
+
+{ #category : #rendering }
+QuasarDemoAccountingApp >> renderLayoutPageOn: html [
+
+	html qPageContainer with: [
+		html qPage with: [
+			self renderModel: self model on: html ] ]
+]
+
+{ #category : #rendering }
+QuasarDemoAccountingApp >> renderModel: aModel on: html [
+
+	aModel isNil ifTrue: [ ^ html heading level2; with: 'No model selected' ].
+
+	html heading level4; with: aModel summaryString
+]
+
+{ #category : #rendering }
+QuasarDemoAccountingApp >> renderModelList: aList on: html [
 
 	html qList style: 'background: white'; with: [
-		QuasarDemoAccountingCompany instanceList do: [ :eachObject |
-			html qItem with: [
+		aList do: [ :eachObject |
+			html qItem qTag: 'a'; href: (html urlForAction: [ self model: eachObject ]); with: [
 				html qItemSection top; avatar; with: [
 					html qAvatar color: 'primary'; textColor: 'white'; icon: 'star' ].
 				html qItemSection with: [
@@ -115,29 +147,6 @@ QuasarDemoAccountingApp >> renderCompanyListOn: html [
 						with: eachObject summaryString ].
 				"html qItemSection with: [
 					html qItemLabel style: 'color: red'; with: eachObject price ]" ] ] ]
-]
-
-{ #category : #rendering }
-QuasarDemoAccountingApp >> renderLayoutOn: html [
-
-	html qApp id: self appId; with: [
-		html qLayout view: 'hHh lpR fFf'; vCloak; with: [
-		html qHeader heightHint: 98; class: 'bg-primary'; with: [
-			html qToolbar with: [
-				"html qBtn dense; flat; round; icon: 'menu'; vOnClick: 'this.$refs.leftDrawer.toggle($event)'."
-				html qImg src: (QuasarDemoAccountinglLibrary urlOf: #cranelogoPng); style: 'height: 56px; width: 56px'.
-				self renderTabsOn: html.
-				html qSpace.
-				html qBtn dense; flat; round; icon: 'star'; vOnClick: '' ] ].
-			self renderLayoutPageOn: html ] ]
-]
-
-{ #category : #rendering }
-QuasarDemoAccountingApp >> renderLayoutPageOn: html [
-
-	html qPageContainer with: [
-		html qPage with: [
-			self renderTabPanelsOn: html ] ]
 ]
 
 { #category : #rendering }
@@ -155,25 +164,9 @@ QuasarDemoAccountingApp >> renderTabsOn: html [
 	html qTabs
 		vModel: self tab;
 		with: [
-			html qRouteTab label: 'Companies'; href: (html urlForAction: [ self tab: 'companies' ]).
-			html qRouteTab label: 'Accounts'; href: (html urlForAction: [ self tab: 'accounts' ]).
-			html qRouteTab label: 'Users'; href: (html urlForAction: [ self tab: 'users' ]) ]
-]
-
-{ #category : #rendering }
-QuasarDemoAccountingApp >> renderUserListOn: html [
-
-	html qList style: 'background: white'; with: [
-		QuasarDemoAccountingUser instanceList do: [ :eachObject |
-			html qItem with: [
-				html qItemSection top; avatar; with: [
-					html qAvatar color: 'primary'; textColor: 'white'; icon: 'star' ].
-				html qItemSection with: [
-					html qItemLabel with: eachObject name.
-					html qItemLabel caption; "lines: 2;"
-						with: eachObject summaryString ].
-				"html qItemSection with: [
-					html qItemLabel style: 'color: red'; with: eachObject price ]" ] ] ]
+			html qRouteTab label: 'Companies'; href: (html urlForAction: [ self tabSet: 'companies' ]).
+			html qRouteTab label: 'Accounts'; href: (html urlForAction: [ self tabSet: 'accounts' ]).
+			html qRouteTab label: 'Users'; href: (html urlForAction: [ self tabSet: 'users' ]) ]
 ]
 
 { #category : #rendering }
@@ -181,7 +174,31 @@ QuasarDemoAccountingApp >> renderUsersOn: html [
 
 	self tab = 'users' ifFalse: [ ^ self ].
 
-	self renderUserListOn: html
+	self renderModelList: QuasarDemoAccountingUser instanceList on: html
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingApp >> sideSheet [
+
+	^ sideSheet
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingApp >> sideSheet: anObject [
+
+	sideSheet := anObject
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingApp >> sideSheetOpen [
+
+	^ sideSheetOpen
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingApp >> sideSheetOpen: anObject [
+
+	sideSheetOpen := anObject
 ]
 
 { #category : #accessing }
@@ -194,6 +211,13 @@ QuasarDemoAccountingApp >> tab [
 QuasarDemoAccountingApp >> tab: anObject [
 
 	tab := anObject
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingApp >> tabSet: anObject [
+
+	self tab: anObject.
+	self model: nil
 ]
 
 { #category : #updating }
