@@ -2,10 +2,11 @@ Class {
 	#name : #QuasarDemoAccountingApp,
 	#superclass : #QuasarApplication,
 	#instVars : [
-		'model',
 		'tab',
 		'sideSheet',
-		'sideSheetOpen'
+		'sideSheetOpen',
+		'model',
+		'modelView'
 	],
 	#category : #'Quasar-Demo-Accounting'
 }
@@ -37,10 +38,10 @@ QuasarDemoAccountingApp >> initialize [
 
 	super initialize.
 
-	self sideSheetOpen: ((QuasarReactiveRefSet name: 'sideSheetOpen' value: false) transformBlock: [ :value | value ]; traceOn; yourself).
+	self sideSheetOpen: ((QuasarReactiveRefSet name: 'sideSheetOpen' value: true) transformBlock: [ :value | value ]; traceOn; yourself).
 	self reactiveObjectsAdd: self sideSheetOpen.
 	self sideSheet: QuasarDemoSideSheet new.
-	self tab: 'tab1'
+	self tab: 'users'
 ]
 
 { #category : #accessing }
@@ -53,6 +54,27 @@ QuasarDemoAccountingApp >> model [
 QuasarDemoAccountingApp >> model: anObject [
 
 	model := anObject
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingApp >> modelSet: anObject [
+
+	self model: anObject.
+	anObject
+		ifNil: [ self modelView: nil ]
+		ifNotNil: [ self modelView: (anObject viewClass on: anObject) ]
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingApp >> modelView [
+
+	^ modelView
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingApp >> modelView: anObject [
+
+	modelView := anObject
 ]
 
 { #category : #rendering }
@@ -83,6 +105,15 @@ QuasarDemoAccountingApp >> quasarOnLoadOn: aJSStream with: html [
 	self quasarConfigOn: aJSStream with: html.
 	aJSStream nextPutAll: '});'.
 	aJSStream nextPutAll: 'app.mount("#', self appId, '")'
+]
+
+{ #category : #rendering }
+QuasarDemoAccountingApp >> quasarSetupReturnContentOn: aJSStream with: html [
+	| exports |
+
+	exports := ',' join: (self quasarData, (self vueRefs keys)).
+	exports ifNotEmpty: [
+		aJSStream nextPutAll: exports ]
 ]
 
 { #category : #rendering }
@@ -122,15 +153,7 @@ QuasarDemoAccountingApp >> renderLayoutPageOn: html [
 
 	html qPageContainer with: [
 		html qPage with: [
-			self renderModel: self model on: html ] ]
-]
-
-{ #category : #rendering }
-QuasarDemoAccountingApp >> renderModel: aModel on: html [
-
-	aModel isNil ifTrue: [ ^ html heading level2; with: 'No model selected' ].
-
-	html heading level4; with: aModel summaryString
+			self renderModelOn: html ] ]
 ]
 
 { #category : #rendering }
@@ -138,7 +161,7 @@ QuasarDemoAccountingApp >> renderModelList: aList on: html [
 
 	html qList style: 'background: white'; with: [
 		aList do: [ :eachObject |
-			html qItem qTag: 'a'; href: (html urlForAction: [ self model: eachObject ]); with: [
+			html qItem qTag: 'a'; href: (html urlForAction: [ self modelSet: eachObject ]); with: [
 				html qItemSection top; avatar; with: [
 					html qAvatar color: 'primary'; textColor: 'white'; icon: 'star' ].
 				html qItemSection with: [
@@ -147,6 +170,15 @@ QuasarDemoAccountingApp >> renderModelList: aList on: html [
 						with: eachObject summaryString ].
 				"html qItemSection with: [
 					html qItemLabel style: 'color: red'; with: eachObject price ]" ] ] ]
+]
+
+{ #category : #rendering }
+QuasarDemoAccountingApp >> renderModelOn: html [
+
+	self modelView isNil ifTrue: [
+		^ html heading level2; with: 'No model selected' ].
+
+	html render: self modelView
 ]
 
 { #category : #rendering }
@@ -217,7 +249,7 @@ QuasarDemoAccountingApp >> tab: anObject [
 QuasarDemoAccountingApp >> tabSet: anObject [
 
 	self tab: anObject.
-	self model: nil
+	self modelSet: nil
 ]
 
 { #category : #updating }

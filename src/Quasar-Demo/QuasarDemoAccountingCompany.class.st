@@ -13,6 +13,12 @@ Class {
 	#category : #'Quasar-Demo-Accounting'
 }
 
+{ #category : #printing }
+QuasarDemoAccountingCompany >> attributeData [
+
+	^ #(id name website email taxNumber country currency)
+]
+
 { #category : #accessing }
 QuasarDemoAccountingCompany >> country [
 
@@ -73,12 +79,6 @@ QuasarDemoAccountingCompany >> name: anObject [
 	name := anObject
 ]
 
-{ #category : #printing }
-QuasarDemoAccountingCompany >> summaryAttributes [
-
-	^ #(id name website email taxNumber country currency)
-]
-
 { #category : #accessing }
 QuasarDemoAccountingCompany >> taxNumber [
 
@@ -89,6 +89,12 @@ QuasarDemoAccountingCompany >> taxNumber [
 QuasarDemoAccountingCompany >> taxNumber: anObject [
 
 	taxNumber := anObject
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingCompany >> viewClass [
+
+	^ QuasarDemoAccountingCompanyView
 ]
 
 { #category : #accessing }

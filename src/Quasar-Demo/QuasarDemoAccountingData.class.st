@@ -23,9 +23,9 @@ QuasarDemoAccountingData class >> createDemoAccounts [
 	modelClass instanceList: nil.
 
 	#(
-	('1' 'regular' 'Test Account-1' '22C-001' 'CDN' 1000.00 'TD Bank')
-	('1' 'regular' 'Test Account-1' '22C-002' 'CDN' 1100.00 'TD Bank')
-	('1' 'regular' 'Test Account-1' '22U-001' 'USD' 1200.00 'TD Bank')
+	('1' 'regular' 'Test Account-1-1' '22C-001' 'CDN' 1000.00 'TD Bank')
+	('1' 'regular' 'Test Account-1-2' '22C-002' 'CDN' 1100.00 'TD Bank')
+	('1' 'regular' 'Test Account-1-3' '22U-001' 'USD' 1200.00 'TD Bank')
 	('2' 'regular' 'Test Account-2' '5555-001' 'USD' 2000.00 'CIBC')
 	('3' 'non-profit' 'Test Account-3' 'RB-1234-001' 'CDN' 3000.00 'Royal Bank')
 	) do: [ :data | | newObject |

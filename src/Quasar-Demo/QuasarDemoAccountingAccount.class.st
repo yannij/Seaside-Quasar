@@ -15,6 +15,12 @@ Class {
 	#category : #'Quasar-Demo-Accounting'
 }
 
+{ #category : #printing }
+QuasarDemoAccountingAccount >> attributeData [
+
+	^ #(companyId type name number currencyCode openingBalance bankName bankPhone bankAddress)
+]
+
 { #category : #accessing }
 QuasarDemoAccountingAccount >> bankAddress [
 
@@ -111,12 +117,6 @@ QuasarDemoAccountingAccount >> openingBalance: anObject [
 	openingBalance := anObject
 ]
 
-{ #category : #printing }
-QuasarDemoAccountingAccount >> summaryAttributes [
-
-	^ #(companyId type name number currencyCode openingBalance bankName bankPhone bankAddress)
-]
-
 { #category : #accessing }
 QuasarDemoAccountingAccount >> type [
 
@@ -127,4 +127,10 @@ QuasarDemoAccountingAccount >> type [
 QuasarDemoAccountingAccount >> type: anObject [
 
 	type := anObject
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingAccount >> viewClass [
+
+	^ QuasarDemoAccountingAccountView
 ]

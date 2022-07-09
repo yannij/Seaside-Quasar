@@ -26,7 +26,7 @@ QuasarDemoAccountingObject class >> instanceListAdd: anObject [
 ]
 
 { #category : #printing }
-QuasarDemoAccountingObject >> summaryAttributes [
+QuasarDemoAccountingObject >> attributeData [
 
 	^ #()
 ]
@@ -34,5 +34,11 @@ QuasarDemoAccountingObject >> summaryAttributes [
 { #category : #printing }
 QuasarDemoAccountingObject >> summaryString [
 
-	^ '/' join: (self summaryAttributes collect: [ :each | self perform: each ])
+	^ '/' join: (self attributeData collect: [ :each | self perform: each ])
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingObject >> viewClass [
+
+	self subclassResponsibility
 ]

@@ -10,6 +10,12 @@ Class {
 	#category : #'Quasar-Demo-Accounting'
 }
 
+{ #category : #printing }
+QuasarDemoAccountingUser >> attributeData [
+
+	^ #(id name email locale)
+]
+
 { #category : #accessing }
 QuasarDemoAccountingUser >> email [
 
@@ -58,8 +64,8 @@ QuasarDemoAccountingUser >> name: anObject [
 	name := anObject
 ]
 
-{ #category : #printing }
-QuasarDemoAccountingUser >> summaryAttributes [
+{ #category : #accessing }
+QuasarDemoAccountingUser >> viewClass [
 
-	^ #(id name email locale)
+	^ QuasarDemoAccountingUserView
 ]
