@@ -16,9 +16,21 @@ Class {
 }
 
 { #category : #printing }
-QuasarDemoAccountingAccount >> attributeData [
+QuasarDemoAccountingAccount class >> attributeData [
 
 	^ #(companyId type name number currencyCode openingBalance bankName bankPhone bankAddress)
+]
+
+{ #category : #printing }
+QuasarDemoAccountingAccount class >> modelName [
+
+	^ 'Account'
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingAccount class >> viewClass [
+
+	^ QuasarDemoAccountingAccountView
 ]
 
 { #category : #accessing }
@@ -55,6 +67,14 @@ QuasarDemoAccountingAccount >> bankPhone [
 QuasarDemoAccountingAccount >> bankPhone: anObject [
 
 	bankPhone := anObject
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingAccount >> company [
+
+	^ QuasarDemoAccountingCompany instanceList
+		detect: [ :each | each id = self companyId ]
+		ifNone: [ nil ]
 ]
 
 { #category : #accessing }
@@ -127,10 +147,4 @@ QuasarDemoAccountingAccount >> type [
 QuasarDemoAccountingAccount >> type: anObject [
 
 	type := anObject
-]
-
-{ #category : #accessing }
-QuasarDemoAccountingAccount >> viewClass [
-
-	^ QuasarDemoAccountingAccountView
 ]

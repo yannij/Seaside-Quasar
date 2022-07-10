@@ -11,9 +11,30 @@ Class {
 }
 
 { #category : #printing }
-QuasarDemoAccountingUser >> attributeData [
+QuasarDemoAccountingUser class >> attributeData [
 
 	^ #(id name email locale)
+]
+
+{ #category : #printing }
+QuasarDemoAccountingUser class >> modelName [
+
+	^ 'User'
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingUser class >> viewClass [
+
+	^ QuasarDemoAccountingUserView
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingUser >> companies [
+	| userCompanyList companyIdList |
+
+	userCompanyList := QuasarDemoAccountingUserCompany instanceList select: [ :each | each userId = self id ].
+	companyIdList := (userCompanyList collect: [ :each | each companyId ]) asSet.
+	^ QuasarDemoAccountingCompany instanceList select: [ :each | companyIdList includes: each id ]
 ]
 
 { #category : #accessing }
@@ -62,10 +83,4 @@ QuasarDemoAccountingUser >> name [
 QuasarDemoAccountingUser >> name: anObject [
 
 	name := anObject
-]
-
-{ #category : #accessing }
-QuasarDemoAccountingUser >> viewClass [
-
-	^ QuasarDemoAccountingUserView
 ]

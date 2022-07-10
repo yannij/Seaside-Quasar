@@ -14,9 +14,27 @@ Class {
 }
 
 { #category : #printing }
-QuasarDemoAccountingCompany >> attributeData [
+QuasarDemoAccountingCompany class >> attributeData [
 
 	^ #(id name website email taxNumber country currency)
+]
+
+{ #category : #printing }
+QuasarDemoAccountingCompany class >> modelName [
+
+	^ 'Company'
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingCompany class >> viewClass [
+
+	^ QuasarDemoAccountingCompanyView
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingCompany >> accounts [
+
+	^ QuasarDemoAccountingAccount instanceList select: [ :each | each companyId = self id ]
 ]
 
 { #category : #accessing }
@@ -92,9 +110,12 @@ QuasarDemoAccountingCompany >> taxNumber: anObject [
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingCompany >> viewClass [
+QuasarDemoAccountingCompany >> users [
+	| userCompanyList userIdList |
 
-	^ QuasarDemoAccountingCompanyView
+	userCompanyList := QuasarDemoAccountingUserCompany instanceList select: [ :each | each companyId = self id ].
+	userIdList := (userCompanyList collect: [ :each | each userId ]) asSet.
+	^ QuasarDemoAccountingUser instanceList select: [ :each | userIdList includes: each id ]
 ]
 
 { #category : #accessing }

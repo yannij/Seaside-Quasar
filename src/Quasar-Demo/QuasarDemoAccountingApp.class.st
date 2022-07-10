@@ -27,6 +27,52 @@ QuasarDemoAccountingApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
+{ #category : #'rendering-table' }
+QuasarDemoAccountingApp >> addCols: aList modelClass: aClass [
+	| refName data |
+
+	refName := aClass modelName, 'Cols'.
+	data := OrderedCollection new.
+	data add: (Dictionary new
+				at: 'name' put: 'actions';
+				at: 'label' put: 'Actions';
+				at: 'field' put: (JSStream on: 'row => row.actions');
+				at: 'align' put: 'left';
+				yourself).
+
+	aClass attributeData do: [ :each | | columnData |
+		columnData := Dictionary new
+				at: 'name' put: each;
+				at: 'label' put: each capitalized;
+				at: 'field' put: each;
+				"at: 'sortable' put: true;"
+				at: 'align' put: 'left';
+				yourself.
+		data add: columnData ].
+
+	self qdemoApp vueRefsAdd: refName -> data.
+	^ refName
+]
+
+{ #category : #'rendering-table' }
+QuasarDemoAccountingApp >> addRows: aList modelClass: aClass on: html [
+	| refName data |
+
+	refName := aClass modelName, 'Rows'.
+	data := OrderedCollection new.
+	aList do: [ :eachItem | | map actions |
+		map := eachItem asMap.
+
+		actions := OrderedCollection new.
+		actions add: ({'id' -> 'nav'. 'icon' -> 'arrow_forward'. 'href' -> (html urlForAction: [ self modelSet: eachItem ]) } asDictionary).
+		map at: 'actions' put: actions.
+
+		data add: map ].
+
+	self qdemoApp vueRefsAdd: refName -> data.
+	^ refName
+]
+
 { #category : #accessing }
 QuasarDemoAccountingApp >> applicationTitle [
 
@@ -179,6 +225,26 @@ QuasarDemoAccountingApp >> renderModelOn: html [
 		^ html heading level2; with: 'No model selected' ].
 
 	html render: self modelView
+]
+
+{ #category : #'rendering-table' }
+QuasarDemoAccountingApp >> renderModelTable: aList modelClass: aClass on: html [
+
+	html qTable "title: 'a-title';"
+		flat; bordered;
+		columns: (self addCols: aList modelClass: aClass);
+		rows: (self addRows: aList modelClass: aClass on: html);
+		vBind: 'pagination' with: '{rowsPerPage: 10}';
+		rowKey: 'name';
+		with: [
+			html qTemplate vSlot: 'body-cell-actions' with: 'props'; with: [
+				html qTd vBind: 'props' with: 'props'; with: [
+					html qBtn
+						round; outline; color: 'primary';
+						vFor: 'actions in props.value';
+						vBind: 'key' with: 'actions.id';
+						vBind: 'icon' with: 'actions.icon';
+						vBind: 'href' with: 'actions.href' ] ] ]
 ]
 
 { #category : #rendering }
