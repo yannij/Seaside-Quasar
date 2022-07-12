@@ -131,6 +131,6 @@ MDQListItem >> renderListItemOn: html [
 		id: html nextId;
 		"callback: self callbackBlock if: self callbackBlock notNil;"
 		with: [
-			self icon ifNotNil: [ :value | itemTag icon: value ].
+			self icon ifNotNil: [ :value | html qItemSection avatar; with: [ html qIcon name: value ] ].
 			html qItemSection with: self label ]
 ]

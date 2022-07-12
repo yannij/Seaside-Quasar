@@ -351,6 +351,10 @@ QuasarApplication >> renderContentOn: html [
 
 	html script "async;" url: self vueJsUrl.
 	html script "async;" url: self quasarJsUrl.
+	"html script url: 'https://cdn.jsdelivr.net/npm/quasar@v2/dist/icon-set/fontawesome-v6.umd.prod.js'.
+	html script with: 'Quasar.iconSet.set(Quasar.iconSet.fontawesomeV6)'."
+	"html script url: 'https://cdn.jsdelivr.net/npm/quasar@v2/dist/icon-set/material-symbols-sharp.umd.prod.js'.
+	html script with: 'Quasar.iconSet.set(Quasar.iconSet.materialSymbolsSharp)'."
 	self needsMarkdown ifTrue: [
 		html script url: self quasarMarkdownJsUrl ].
 
