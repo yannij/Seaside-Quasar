@@ -1,6 +1,6 @@
 Class {
 	#name : #QuasarDemoSideSheet,
-	#superclass : #QuasarSubComponent,
+	#superclass : #QuasarComponent,
 	#instVars : [
 		'content'
 	],
