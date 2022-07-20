@@ -282,7 +282,7 @@ LoanexApp >> quasarSetupContentOn: aJSStream with: html [
 		aJSStream nextPutAll:  'const ', key, ' = ref(', value asJson, ');' ]
 ]
 
-{ #category : #rendering }
+{ #category : #'rendering - quasar hooks' }
 LoanexApp >> quasarSetupReturnContentOn: aJSStream with: html [
 	| exports |
 

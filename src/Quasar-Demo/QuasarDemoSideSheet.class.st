@@ -29,7 +29,7 @@ QuasarDemoSideSheet >> renderContentOn: html [
 		"vIf: 'sideSheetOpen';"
 		"vModel: 'sideSheetOpen';"
 		vModelValue: 'sideSheetOpen';
-		vOnUpdateModelValue: 'sideSheetOpenRefSet($event)';
+		vOnUpdateModelValue: 'sideSheetOpenRefCallback($event)';
 		"When show-if-above is set, then initial open/close state is overwritten"
 		"showIfAbove;"
 		width: 400;

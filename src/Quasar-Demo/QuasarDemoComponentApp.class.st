@@ -74,7 +74,7 @@ QuasarDemoComponentApp >> quasarSetupContentOn: aJSStream with: html [
 	self vueSetupDemoSelectOn: aJSStream
 ]
 
-{ #category : #rendering }
+{ #category : #'rendering - quasar hooks' }
 QuasarDemoComponentApp >> quasarSetupReturnContentOn: aJSStream with: html [
 
 	self vueSetupReturnDemoSelectOn: aJSStream.

@@ -65,7 +65,7 @@ const dom1 = ref("dom1 initial value");
 '
 ]
 
-{ #category : #rendering }
+{ #category : #'rendering - quasar hooks' }
 QuasarDemoUtilsApp >> quasarSetupReturnContentOn: aJSStream with: html [
 
 	aJSStream

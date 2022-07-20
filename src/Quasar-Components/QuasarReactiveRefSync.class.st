@@ -3,7 +3,8 @@ Class {
 	#superclass : #QuasarReactiveObject,
 	#instVars : [
 		'onSuccessScript',
-		'emitOnSuccess'
+		'emitOnSuccess',
+		'transformBlock'
 	],
 	#category : #'Quasar-Components'
 }
@@ -77,4 +78,24 @@ QuasarReactiveRefSync >> quasarSetupReturnOn: aJSStream html: html [
 
 	aJSStream nextPut: $,.
 	self ajaxFunctionOn: aJSStream html: html
+]
+
+{ #category : #actions }
+QuasarReactiveRefSync >> refValueUpdate: anObject [
+	| newValue |
+
+	newValue := self transformBlock ifNil: [ anObject ] ifNotNil: [ :block | block value: anObject ].
+	self refValue: newValue
+]
+
+{ #category : #accessing }
+QuasarReactiveRefSync >> transformBlock [
+
+	^ transformBlock
+]
+
+{ #category : #accessing }
+QuasarReactiveRefSync >> transformBlock: anObject [
+
+	transformBlock := anObject
 ]

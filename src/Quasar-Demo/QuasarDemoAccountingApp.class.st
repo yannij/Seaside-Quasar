@@ -84,7 +84,7 @@ QuasarDemoAccountingApp >> initialize [
 
 	super initialize.
 
-	self sideSheetOpen: ((QuasarReactiveRefSet name: 'sideSheetOpen' value: true) transformBlock: [ :value | value ]; traceOn; yourself).
+	self sideSheetOpen: ((QuasarReactiveRefCallback name: 'sideSheetOpen' value: true) traceOn; yourself).
 	self reactiveObjectsAdd: self sideSheetOpen.
 	self sideSheet: QuasarDemoSideSheet new.
 	self tab: 'users'
@@ -123,7 +123,7 @@ QuasarDemoAccountingApp >> modelView: anObject [
 	modelView := anObject
 ]
 
-{ #category : #rendering }
+{ #category : #'rendering - quasar hooks' }
 QuasarDemoAccountingApp >> quasarConfigContentOn: aJSStream with: html [
 
 	aJSStream nextPutAll: '
@@ -139,21 +139,7 @@ brand: {
 }'
 ]
 
-{ #category : #rendering }
-QuasarDemoAccountingApp >> quasarOnLoadOn: aJSStream with: html [
-
-	aJSStream
-		nextPutAll: 'const { ref } = Vue;';
-		nextPutAll: 'const app = Vue.createApp({'.
-	self quasarSetupOn: aJSStream with: html.
-	aJSStream nextPutAll: '});'.
-	aJSStream nextPutAll: 'app.use(Quasar, {'.
-	self quasarConfigOn: aJSStream with: html.
-	aJSStream nextPutAll: '});'.
-	aJSStream nextPutAll: 'app.mount("#', self appId, '")'
-]
-
-{ #category : #rendering }
+{ #category : #'rendering - quasar hooks' }
 QuasarDemoAccountingApp >> quasarSetupReturnContentOn: aJSStream with: html [
 	| exports |
 

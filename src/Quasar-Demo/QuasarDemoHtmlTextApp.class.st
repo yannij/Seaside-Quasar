@@ -52,11 +52,11 @@ QuasarDemoHtmlTextApp >> initialize [
 
 	super initialize.
 
-	self htmlText1: ((QuasarReactiveRefSet name: 'htmlText1' value: self htmlText1Default) transformBlock: [ :value | value ]; yourself).
+	self htmlText1: (QuasarReactiveRefCallback name: 'htmlText1' value: self htmlText1Default).
 	self reactiveObjectsAdd: self htmlText1
 ]
 
-{ #category : #rendering }
+{ #category : #'rendering - quasar hooks' }
 QuasarDemoHtmlTextApp >> quasarSetupReturnContentOn: aJSStream with: html [
 	| exports |
 

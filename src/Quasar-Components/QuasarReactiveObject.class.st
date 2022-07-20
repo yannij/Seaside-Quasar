@@ -5,7 +5,6 @@ Class {
 		'refName',
 		'refValue',
 		'callbackBlock',
-		'transformBlock',
 		'emitRefresh',
 		'traceLevel'
 	],
@@ -111,10 +110,8 @@ QuasarReactiveObject >> refValue: anObject [
 
 { #category : #actions }
 QuasarReactiveObject >> refValueUpdate: anObject [
-	| newValue |
 
-	newValue := self transformBlock ifNil: [ anObject ] ifNotNil: [ :block | block value: anObject ].
-	self refValue: newValue
+	self subclassResponsibility
 ]
 
 { #category : #actions }
@@ -147,16 +144,4 @@ QuasarReactiveObject >> traceLevel: anObject [
 QuasarReactiveObject >> traceOn [
 
 	self traceLevel: 1
-]
-
-{ #category : #accessing }
-QuasarReactiveObject >> transformBlock [
-
-	^ transformBlock
-]
-
-{ #category : #accessing }
-QuasarReactiveObject >> transformBlock: anObject [
-
-	transformBlock := anObject
 ]

@@ -100,7 +100,7 @@ CraneApp >> initialize [
 
 	super initialize.
 
-	self tab: ((QuasarReactiveRefSet name: 'tab' value: 'fly') transformBlock: [ :value | value ]; yourself).
+	self tab: (QuasarReactiveRefCallback name: 'tab' value: 'fly').
 	self reactiveObjectsAdd: self tab.
 
 	self filterShow: ((QuasarReactiveRefSync name: 'filterShow' value: false) transformBlock: [ :value | value not ]; yourself).
@@ -142,9 +142,9 @@ CraneApp >> initializeEatFilter [
 CraneApp >> initializeFlyFilter [
 	| newReactive dateRange |
 
-	self reactiveObjectsAdd: (QuasarReactiveRefSet name: 'flyOriginDialog' value: false).
-	self reactiveObjectsAdd: (QuasarReactiveRefSet name: 'flyDestinationDialog' value: false).
-	self reactiveObjectsAdd: (QuasarReactiveRefSet name: 'flyDateRangeDialog' value: false).
+	self reactiveObjectsAdd: (QuasarReactiveRefCallback name: 'flyOriginDialog' value: false).
+	self reactiveObjectsAdd: (QuasarReactiveRefCallback name: 'flyDestinationDialog' value: false).
+	self reactiveObjectsAdd: (QuasarReactiveRefCallback name: 'flyDateRangeDialog' value: false).
 
 	self flyFilter: CraneFlySearch new.
 
@@ -162,16 +162,16 @@ CraneApp >> initializeFlyFilter [
 	newReactive := (QuasarReactiveRefSync name: 'cabinOptions' value: #('Economy' 'Business' 'First Class')) yourself.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := (QuasarReactiveRefSet  name: 'origin' value: nil) emitRefreshOn; yourself.
+	newReactive := (QuasarReactiveRefCallback  name: 'origin' value: nil) emitRefreshOn; yourself.
 	self flyFilter origin: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := (QuasarReactiveRefSet name: 'destination' value: nil) emitRefreshOn; yourself.
+	newReactive := (QuasarReactiveRefCallback name: 'destination' value: nil) emitRefreshOn; yourself.
 	self flyFilter destination: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
 	dateRange := { 'from' -> Date today yyyymmdd. 'to' -> (Date today addDays: 6) yyyymmdd } asDictionary.
-	newReactive := (QuasarReactiveRefSet name: 'flyDateRange' value: dateRange) emitRefreshOn; yourself.
+	newReactive := (QuasarReactiveRefCallback name: 'flyDateRange' value: dateRange) emitRefreshOn; yourself.
 	self flyFilter startDate: newReactive.
 	self reactiveObjectsAdd: newReactive.
 ]
@@ -201,7 +201,7 @@ CraneApp >> printFlightDateTime: aDateTime [
 	^ aDateTime asLocalStringYMDHM, ' ', aDateTime timeZoneAbbreviation
 ]
 
-{ #category : #rendering }
+{ #category : #'rendering - quasar hooks' }
 CraneApp >> quasarConfigContentOn: aJSStream with: html [
 
 	aJSStream nextPutAll: '
@@ -215,22 +215,6 @@ brand: {
 	info: ''#31CCEC'',
 	warning: ''#F2C037''
 }'
-]
-
-{ #category : #rendering }
-CraneApp >> quasarOnLoadOn: aJSStream with: html [
-
-	aJSStream
-		nextPutAll: 'const { ref } = Vue;';
-		"nextPutAll: 'const flyOriginDialog = ref(false);';
-		nextPutAll: 'const flyDestinationDialog = ref(false);';"
-		nextPutAll: 'const app = Vue.createApp({'.
-	self quasarSetupOn: aJSStream with: html.
-	aJSStream nextPutAll: '});'.
-	aJSStream nextPutAll: 'app.use(Quasar, {'.
-	self quasarConfigOn: aJSStream with: html.
-	aJSStream nextPutAll: '});'.
-	aJSStream nextPutAll: 'app.mount("#', self appId, '")'
 ]
 
 { #category : #'tab - fly' }

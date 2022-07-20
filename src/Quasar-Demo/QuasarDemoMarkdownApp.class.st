@@ -34,7 +34,7 @@ QuasarDemoMarkdownApp >> initialize [
 
 	super initialize.
 
-	self markdown1: ((QuasarReactiveRefSet name: 'markdown1' value: self markdown1Default) transformBlock: [ :value | value ]; yourself).
+	self markdown1: (QuasarReactiveRefCallback name: 'markdown1' value: self markdown1Default).
 	self reactiveObjectsAdd: self markdown1
 ]
 
@@ -69,7 +69,7 @@ ___This is bold italic text, second way___
 '
 ]
 
-{ #category : #rendering }
+{ #category : #'rendering - quasar hooks' }
 QuasarDemoMarkdownApp >> quasarSetupReturnContentOn: aJSStream with: html [
 	| exports |
 

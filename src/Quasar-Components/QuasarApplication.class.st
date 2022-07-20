@@ -211,6 +211,7 @@ QuasarApplication >> quasarMarkdownUrlFragment [
 QuasarApplication >> quasarOnLoadOn: aJSStream with: html [
 
 	aJSStream
+		nextPutAll: 'const { useQuasar } = Quasar;';
 		nextPutAll: 'const { ref } = Vue;';
 		nextPutAll: 'const app = Vue.createApp({'.
 	self quasarSetupOn: aJSStream with: html.
@@ -242,17 +243,18 @@ QuasarApplication >> quasarSetupContentOn: aJSStream with: html [
 QuasarApplication >> quasarSetupOn: aJSStream with: html [
 
 	aJSStream nextPutAll: 'setup() {'.
-	"aJSStream nextPutAll: 'const $q = useQuasar();'."
-	self quasarSetupReactiveObjectsOn: aJSStream.
+	aJSStream nextPutAll: 'const $q = useQuasar();'.
+	self quasarSetupReactiveObjectsOn: aJSStream with: html.
 	self quasarSetupContentOn: aJSStream with: html.
 	self quasarSetupReturnOn: aJSStream with: html.
 	aJSStream nextPutAll: '}'.
 ]
 
 { #category : #'rendering - quasar' }
-QuasarApplication >> quasarSetupReactiveObjectsOn: aJSStream [
+QuasarApplication >> quasarSetupReactiveObjectsOn: aJSStream with: html [
 
-	self reactiveObjects do: [ :eachReactiveObject | eachReactiveObject quasarSetupOn: aJSStream ]
+	self reactiveObjects do: [ :eachReactiveObject |
+		eachReactiveObject quasarSetupOn: aJSStream ]
 ]
 
 { #category : #'rendering - quasar hooks' }
@@ -360,7 +362,7 @@ QuasarApplication >> renderContentOn: html [
 
 	jsStream := JSStream new.
 	self quasarOnLoadOn: jsStream with: html.
-	html document addLoadScript: jsStream.
+	html document addLoadScript: jsStream
 ]
 
 { #category : #rendering }

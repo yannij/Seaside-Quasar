@@ -131,7 +131,7 @@ QShrineApp >> productComponentBuild [
 	^ QShrineCanvas new
 ]
 
-{ #category : #rendering }
+{ #category : #'rendering - quasar hooks' }
 QShrineApp >> quasarConfigContentOn: aJSStream with: html [
 
 	aJSStream nextPutAll: '

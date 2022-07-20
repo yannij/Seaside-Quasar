@@ -303,7 +303,7 @@ QTidbitToDoApp >> pageComponentSet: anObject [
 	self pageComponent: anObject
 ]
 
-{ #category : #rendering }
+{ #category : #'rendering - quasar hooks' }
 QTidbitToDoApp >> quasarSetupReturnContentOn: aJSStream with: html [
 	| exports |
 
