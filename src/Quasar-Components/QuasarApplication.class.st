@@ -226,17 +226,11 @@ QuasarApplication >> quasarOnLoadOn: aJSStream with: html [
 
 { #category : #'rendering - quasar hooks' }
 QuasarApplication >> quasarSetupContentOn: aJSStream with: html [
-	| exports vueRefsDefine list |
 
-	exports := ',' join: (self quasarData, (self vueRefs keys)).
-
-	list := OrderedCollection new.
-	self vueRefs keysAndValuesDo: [ :key :value | list add: 'const ', key, ' = ref(', value asJson, ')' ].
-	vueRefsDefine := ';' join: list.
-
-	aJSStream
-		nextPutAll: vueRefsDefine, ';';
-		yourself
+	self vueRefs keysAndValuesDo: [ :key :value |
+		aJSStream
+			nextPutAll: key;
+			nextPutAll: '=ref('; nextPutAll: value asJson; nextPutAll: ');' ]
 ]
 
 { #category : #'rendering - quasar' }
@@ -244,17 +238,10 @@ QuasarApplication >> quasarSetupOn: aJSStream with: html [
 
 	aJSStream nextPutAll: 'setup() {'.
 	aJSStream nextPutAll: 'const $q = useQuasar();'.
-	self quasarSetupReactiveObjectsOn: aJSStream with: html.
+	self reactiveObjects do: [ :eachObject | eachObject quasarSetupOn: aJSStream ].
 	self quasarSetupContentOn: aJSStream with: html.
 	self quasarSetupReturnOn: aJSStream with: html.
 	aJSStream nextPutAll: '}'.
-]
-
-{ #category : #'rendering - quasar' }
-QuasarApplication >> quasarSetupReactiveObjectsOn: aJSStream with: html [
-
-	self reactiveObjects do: [ :eachReactiveObject |
-		eachReactiveObject quasarSetupOn: aJSStream ]
 ]
 
 { #category : #'rendering - quasar hooks' }
@@ -264,24 +251,13 @@ QuasarApplication >> quasarSetupReturnContentOn: aJSStream with: html [
 
 { #category : #'rendering - quasar' }
 QuasarApplication >> quasarSetupReturnOn: aJSStream with: html [
-	| needsComma |
 
-	needsComma := false.
 	aJSStream nextPutAll: 'return {'.
-	self reactiveObjects ifNotEmpty: [
-		self quasarSetupReturnReactiveObjectsOn: aJSStream html: html.
-		needsComma := true ].
-	needsComma ifTrue: [ aJSStream nextPut: $, ].
+	self reactiveObjects do: [ :eachObject |
+		eachObject quasarSetupReturnOn: aJSStream html: html.
+		aJSStream nextPut: $, ].
 	self quasarSetupReturnContentOn: aJSStream with: html.
 	aJSStream nextPutAll: '}'
-]
-
-{ #category : #'rendering - quasar' }
-QuasarApplication >> quasarSetupReturnReactiveObjectsOn: aJSStream html: html [
-
-	self reactiveObjects
-		do: [ :eachReactiveObject | eachReactiveObject quasarSetupReturnOn: aJSStream html: html ]
-		separatedBy: [ aJSStream nextPut: $, ]
 ]
 
 { #category : #accessing }
