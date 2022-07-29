@@ -5,7 +5,8 @@ Class {
 		'label',
 		'icon',
 		'callbackBlock',
-		'active'
+		'active',
+		'insetLevel'
 	],
 	#category : #'Quasar-Components'
 }
@@ -101,6 +102,18 @@ MDQListItem >> initialize [
 ]
 
 { #category : #accessing }
+MDQListItem >> insetLevel [
+
+	^ insetLevel
+]
+
+{ #category : #accessing }
+MDQListItem >> insetLevel: anObject [
+
+	insetLevel := anObject
+]
+
+{ #category : #accessing }
 MDQListItem >> label [
 
 	^ label
@@ -126,6 +139,9 @@ MDQListItem >> renderListItemOn: html [
 
 	self callbackBlock ifNotNil: [ :aBlock |
 		itemTag qTag: 'a'; href: (html urlForAction: aBlock) ].
+
+	self insetLevel ifNotNil: [ :aBlock |
+		itemTag insetLevel: self insetLevel ].
 
 	itemTag
 		id: html nextId;

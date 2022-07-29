@@ -63,6 +63,12 @@ QuasarTag >> vModelValue: anObject [
 	self vBind: 'model-value' with: anObject
 ]
 
+{ #category : #attributes }
+QuasarTag >> vOnUpdateModelValue: aString [
+	
+	self attributes at: '@update:model-value' put: aString
+]
+
 { #category : #'accessing - view style' }
 QuasarTag >> viewStyle: aStyle if: aBoolean [
 

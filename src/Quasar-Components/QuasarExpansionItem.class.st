@@ -11,6 +11,12 @@ QuasarExpansionItem >> caption: anObject [
 ]
 
 { #category : #attributes }
+QuasarExpansionItem >> contentInsetLevel: anObject [
+
+	self attributes at: 'content-inset-level' put: anObject
+]
+
+{ #category : #attributes }
 QuasarExpansionItem >> dark [
 
 	self attributes at: 'dark' put: true
@@ -71,9 +77,21 @@ QuasarExpansionItem >> headerClass: anObject [
 ]
 
 { #category : #attributes }
+QuasarExpansionItem >> headerInsetLevel: anObject [
+
+	self attributes at: 'header-inset-level' put: anObject
+]
+
+{ #category : #attributes }
 QuasarExpansionItem >> headerStyle: anObject [
 
 	self attributes at: 'header-style' put: anObject
+]
+
+{ #category : #attributes }
+QuasarExpansionItem >> href: anObject [
+
+	self attributes at: 'href' put: anObject
 ]
 
 { #category : #attributes }

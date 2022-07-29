@@ -125,12 +125,6 @@ QuasarDrawer >> tag [
 ]
 
 { #category : #attributes }
-QuasarDrawer >> vOnUpdateModelValue: aString [
-	
-	self attributes at: '@update:model-value' put: aString
-]
-
-{ #category : #attributes }
 QuasarDrawer >> width: anObject [
 
 	self attributes at: 'width' put: anObject

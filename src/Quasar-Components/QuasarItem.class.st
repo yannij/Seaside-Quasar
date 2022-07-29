@@ -17,6 +17,12 @@ QuasarItem >> href: aString [
 ]
 
 { #category : #attributes }
+QuasarItem >> insetLevel: aString [
+	
+	self attributes at: 'inset-level' put: aString
+]
+
+{ #category : #attributes }
 QuasarItem >> label: aString [
 	
 	self attributes at: 'label' put: aString

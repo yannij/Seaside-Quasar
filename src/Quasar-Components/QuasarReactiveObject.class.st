@@ -68,6 +68,7 @@ QuasarReactiveObject >> logString: aString [
 QuasarReactiveObject >> quasarSetupOn: aJSStream [
 
 	aJSStream
+		nextPut: Character cr;
 		nextPutAll: 'const ';
 		nextPutAll: self refName;
 		nextPutAll: ' = ref(';
@@ -78,7 +79,7 @@ QuasarReactiveObject >> quasarSetupOn: aJSStream [
 { #category : #'rendering - ajax' }
 QuasarReactiveObject >> quasarSetupReturnOn: aJSStream html: html [
 
-	aJSStream nextPutAll: refName
+	aJSStream nextPut: Character cr; nextPutAll: refName
 ]
 
 { #category : #accessing }
