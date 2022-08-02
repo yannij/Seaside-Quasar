@@ -48,6 +48,12 @@ MDQListItem class >> label: aString callback: aBlock [
 ]
 
 { #category : #'instance creation' }
+MDQListItem class >> label: aString icon: anIconName [
+
+	^ self label: aString icon: anIconName callback: nil
+]
+
+{ #category : #'instance creation' }
 MDQListItem class >> label: aString icon: anIconName callback: aBlock [
 
 	^ self new

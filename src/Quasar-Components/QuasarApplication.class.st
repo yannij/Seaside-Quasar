@@ -305,6 +305,12 @@ QuasarApplication >> reactiveObjectsClear [
 ]
 
 { #category : #accessing }
+QuasarApplication >> reactiveObjectsNamed: aRefName [
+
+	^ self reactiveObjects at: aRefName ifAbsent: [ nil ]
+]
+
+{ #category : #accessing }
 QuasarApplication >> reactiveObjectsRemove: anObject [
 
 	self reactiveObjects remove: anObject refName ifAbsent: [ nil ]
