@@ -299,6 +299,12 @@ QuasarApplication >> reactiveObjectsAdd: anObject [
 ]
 
 { #category : #accessing }
+QuasarApplication >> reactiveObjectsAt: aRefName ifAbsentPut: aBlock [
+
+	^ self reactiveObjects at: aRefName ifAbsentPut: aBlock
+]
+
+{ #category : #accessing }
 QuasarApplication >> reactiveObjectsClear [
 
 	self reactiveObjects: OrderedDictionary new
