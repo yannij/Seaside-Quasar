@@ -55,11 +55,11 @@ MDQMarkdownComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 		on: self inputAspect of: self;
 		with: [
 			html qTemplate vSlot: 'default'; with: [
-				self renderMarkdown: modelName splitter: splitterName on: html ] ]
+				self renderMarkdown: modelName splitter: splitterName readonly: flag on: html ] ]
 ]
 
 { #category : #rendering }
-MDQMarkdownComponent >> renderMarkdown: modelName splitter: splitterName on: html [
+MDQMarkdownComponent >> renderMarkdown: modelName splitter: splitterName readonly: flag on: html [
 
 	html div class: 'q-py-sm fit'; with: [
 		html qSplitter vModel: splitterName; with: [
@@ -71,6 +71,7 @@ MDQMarkdownComponent >> renderMarkdown: modelName splitter: splitterName on: htm
 					textareaTag attributes removeKey: 'rows' ifAbsent: [  ].
 					textareaTag attributes removeKey: 'coloumns' ifAbsent: [  ].
 					textareaTag
+						readonly: flag;
 						vModel: modelName;
 						vBind: 'rows' with: 20;
 						class: 'fit q-pa-sm' ] ].

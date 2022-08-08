@@ -134,5 +134,5 @@ QuasarDemoMarkdownApp >> renderMarkdownOn: html [
 		vModel: modelName; name: 'foobar';
 		with: [
 			html qTemplate vSlot: 'default'; with: [
-				self renderMarkdown: modelName splitter: splitterName on: html ] ]
+				self renderMarkdown: modelName splitter: splitterName readonly: false on: html ] ]
 ]
