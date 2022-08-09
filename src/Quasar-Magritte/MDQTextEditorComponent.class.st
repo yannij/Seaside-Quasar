@@ -6,10 +6,11 @@ Class {
 
 { #category : #rendering }
 MDQTextEditorComponent >> renderFieldOn: html readonly: aReadonlyFlag [
-	| inputTag inputLabel inputValue app flag toolbarItems modelName |
+	| theDescription inputTag inputLabel inputValue app flag toolbarItems modelName |
 
 	app := self mdqApplicationGet.
-	inputLabel := self magritteDescription label.
+	theDescription := self magritteDescription.
+	inputLabel := theDescription label.
 	inputValue := self perform: self inputAspect.
 
 	inputTag := html qInput.
@@ -29,6 +30,9 @@ MDQTextEditorComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 			html qTemplate vSlot: 'default'; with: [
 				html div class: 'q-py-sm fit'; with: [
 					html qEditor
+						height: theDescription height;
+						minHeight: theDescription minHeight;
+						maxHeight: theDescription maxHeight;
 						vBind: 'toolbar' with: toolbarItems;
 						readonly: flag; "disable: flag;" name: modelName; vModel: modelName ] ] ]
 ]
