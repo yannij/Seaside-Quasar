@@ -35,7 +35,7 @@ MDQMultiselectListComponent >> renderMultiselectOn: html readonly: aReadonlyFlag
 		ifTrue: [
 			inputTag readonly: true ]
 		ifFalse: [ | modelName modelOptionsName listValues optionsList |
-			modelName := inputLabel asCamelCase uncapitalized.
+			modelName := self magritteDescription mdqLabelAsSafeIdentifier.
 			modelOptionsName := modelName, 'Options'.
 
 			inputTag "name: modelName;" vModel: modelName.

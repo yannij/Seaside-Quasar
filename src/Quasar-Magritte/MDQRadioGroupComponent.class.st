@@ -28,7 +28,7 @@ MDQRadioGroupComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 
 	inputValue := self perform: self inputAspect.
 	inputLabel := self magritteDescription label.
-	modelName := inputLabel asCamelCase uncapitalized.
+	modelName := self magritteDescription mdqLabelAsSafeIdentifier.
 	app := self mdqApplicationGet.
 	app vueRefsAdd: modelName -> (self labelForOption: inputValue).
 

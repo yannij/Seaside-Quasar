@@ -45,7 +45,7 @@ MDQMarkdownComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	inputTag label: inputLabel.
 
 	flag := aReadonlyFlag or: [ self isReadonlyForced ].
-	modelName := inputLabel asCamelCase uncapitalized.
+	modelName := self magritteDescription mdqLabelAsSafeIdentifier.
 	splitterName := modelName, 'Splitter'.
 	app vueRefsAdd: modelName -> inputValue.
 	app vueRefsAdd: splitterName -> 50.

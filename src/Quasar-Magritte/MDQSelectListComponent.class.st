@@ -42,7 +42,7 @@ MDQSelectListComponent >> renderSelectOn: html readonly: aReadonlyFlag [
 		ifTrue: [
 			inputTag readonly: true ]
 		ifFalse: [ | modelName modelOptionsName |
-			modelName := inputLabel asCamelCase uncapitalized.
+			modelName := self magritteDescription mdqLabelAsSafeIdentifier.
 			modelOptionsName := modelName, 'Options'.
 			app vueRefsAdd: modelName -> inputValue.
 			app vueRefsAdd: modelOptionsName -> self options.

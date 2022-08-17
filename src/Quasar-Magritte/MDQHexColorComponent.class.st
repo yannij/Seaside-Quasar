@@ -20,7 +20,7 @@ MDQHexColorComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 		ifTrue: [
 			inputTag readonly: true; modelValue: inputValue ]
 		ifFalse: [ | modelName |
-			modelName := inputLabel asCamelCase uncapitalized.
+			modelName := self magritteDescription mdqLabelAsSafeIdentifier.
 			app vueRefsAdd: modelName -> inputValue.
 			inputTag "name: modelName;" vModel: modelName.
 			inputTag on: self inputAspect of: self.

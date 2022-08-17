@@ -40,6 +40,12 @@ MADescription >> mdqIsReference [
 ]
 
 { #category : #'*Quasar-Magritte' }
+MADescription >> mdqLabelAsSafeIdentifier [
+
+	^ 'x', self label asCamelCase
+]
+
+{ #category : #'*Quasar-Magritte' }
 MADescription >> mdqOptionsClass [
 
 	^ self propertyAt: #mdqOptionsClass ifAbsent: [ nil ]

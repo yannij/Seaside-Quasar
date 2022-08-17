@@ -22,7 +22,7 @@ MDQCheckboxComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 
 	inputLabel := self magritteDescription label.
 	inputValue := self perform: self inputAspect.
-	modelName := inputLabel asCamelCase uncapitalized.
+	modelName := self magritteDescription mdqLabelAsSafeIdentifier.
 	app := self mdqApplicationGet.
 
 	fieldTag := html qField.
@@ -40,7 +40,6 @@ MDQCheckboxComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 			ifTrue: [
 				inputTag readonly: true; modelValue: inputValue ]
 			ifFalse: [
-				modelName := inputLabel asCamelCase uncapitalized.
 				app vueRefsAdd: modelName -> inputValue.
 				inputTag "name: modelName;" vModel: modelName.
 				inputTag on: self inputAspect of: self
