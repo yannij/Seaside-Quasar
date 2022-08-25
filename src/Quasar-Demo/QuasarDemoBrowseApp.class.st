@@ -51,6 +51,7 @@ QuasarDemoBrowseApp >> demoClasses [
 	#QuasarDemoScaffoldApp
 	#QuasarDemoVueRouterApp
 	#QuasarCodePenVueRouterApp
+	#QuasarDemoServerSideTablePaginationApp
 	)
 	collect: [ :eachApp | eachApp asClassInEnvironment: Smalltalk globals ifAbsent: [ nil ] ]
 ]

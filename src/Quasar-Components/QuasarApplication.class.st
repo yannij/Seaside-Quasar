@@ -212,7 +212,7 @@ QuasarApplication >> quasarOnLoadOn: aJSStream with: html [
 
 	aJSStream
 		nextPutAll: 'const { useQuasar } = Quasar;';
-		nextPutAll: 'const { ref } = Vue;';
+		nextPutAll: 'const { ref, onMounted } = Vue;';
 		nextPutAll: 'const app = Vue.createApp({'.
 	self quasarSetupOn: aJSStream with: html.
 	aJSStream nextPutAll: '});'.
@@ -239,6 +239,7 @@ QuasarApplication >> quasarSetupOn: aJSStream with: html [
 	aJSStream nextPutAll: 'setup() {'.
 	aJSStream nextPutAll: 'const $q = useQuasar();'.
 	self reactiveObjects do: [ :eachObject | eachObject quasarSetupOn: aJSStream ].
+	self reactiveObjects do: [ :eachObject | eachObject ajaxFunctionOn: aJSStream html: html. aJSStream nextPutAll: ';' ].
 	self quasarSetupContentOn: aJSStream with: html.
 	self quasarSetupReturnOn: aJSStream with: html.
 	aJSStream nextPutAll: '}'.

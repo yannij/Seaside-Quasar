@@ -25,7 +25,7 @@ QuasarReactiveRefCallback >> ajaxFunctionOn: aJSStream html: html [
 		ajax onSuccess: html javascript refresh ].
 
 	aJSStream
-		nextPutAll: self functionName; nextPutAll: '(arg1) {';
+		nextPutAll: 'async function '; nextPutAll: self functionName; nextPutAll: '(arg1) {';
 		nextPutAll: refName; nextPutAll: '.value = arg1;';
 		nextPutAll: code;
 		nextPutAll: ajax asJavascript;
@@ -56,7 +56,7 @@ QuasarReactiveRefCallback >> quasarSetupReturnOn: aJSStream html: html [
 	super quasarSetupReturnOn: aJSStream html: html.
 
 	aJSStream nextPut: $,.
-	self ajaxFunctionOn: aJSStream html: html
+	aJSStream nextPutAll: self functionName
 ]
 
 { #category : #actions }
