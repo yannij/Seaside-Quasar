@@ -5,6 +5,18 @@ Class {
 }
 
 { #category : #attributes }
+QuasarInput >> borderless [
+
+	self attributes at: 'borderless' put: true
+]
+
+{ #category : #attributes }
+QuasarInput >> debounce: anObject [
+	
+	self attributes at: 'debounce' put: anObject
+]
+
+{ #category : #attributes }
 QuasarInput >> inputClass: anObject [
 	
 	self attributes at: 'input-class' put: anObject
@@ -14,6 +26,12 @@ QuasarInput >> inputClass: anObject [
 QuasarInput >> inputStyle: anObject [
 	
 	self attributes at: 'input-style' put: anObject
+]
+
+{ #category : #api }
+QuasarInput >> placeholder: aString [
+	
+	self attributes at: 'placeholder' put: aString
 ]
 
 { #category : #attributes }

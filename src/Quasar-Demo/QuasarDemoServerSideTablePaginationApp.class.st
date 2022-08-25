@@ -343,29 +343,24 @@ QuasarDemoServerSideTablePaginationApp >> renderTableExampleOn: html [
 	"html qBtn label: 'Row Count'; vOnClick: self rowCountRef functionName, '()'.
 	html qBtn label: 'Rows'; vOnClick: self rowsRef functionName, '()'."
 
-	html html: '
-  <div class="q-pa-md">
-    <q-table
-      title="Treats"
-      :rows="rowsRemote"
-      :columns="columns"
-      row-key="id"
-      v-model:pagination="pagination"
-      :loading="loading"
-      :filter="filter"
-      @request="onRequest"
-      binary-state-sort
-    >
-      <template v-slot:top-right>
-        <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
-          <template v-slot:append>
-            <q-icon name="search"></q-icon>
-          </template>
-        </q-input>
-      </template>
-
-    </q-table>
-  </div>'
+	html div class: 'q-pa-md'; with: [
+		html qTable
+			title: 'Treats';
+			vBind: 'rows' with: 'rowsRemote';
+			vBind: 'columns' with: 'columns';
+			rowKey: 'id';
+			vModel: 'pagination' colon: 'pagination';
+			vBind: 'loading' with: 'loading';
+			vBind: 'filter' with: 'filter';
+			vOn: 'request' with: 'onRequest';
+			binaryStateSort;
+			with: [
+				html qTemplate vSlot: 'top-right'; with: [
+					html qInput
+						borderless; dense; debounce: '300'; vModel: 'filter'; placeholder: 'Search';
+						with: [
+							html qTemplate vSlot: 'append'; with: [
+								html qIcon name: 'search' ] ] ] ] ]
 ]
 
 { #category : #accessing }

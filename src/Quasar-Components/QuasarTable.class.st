@@ -5,6 +5,12 @@ Class {
 }
 
 { #category : #attributes }
+QuasarTable >> binaryStateSort [
+	
+	self attributes at: 'binary-state-sort' put: true
+]
+
+{ #category : #attributes }
 QuasarTable >> bordered [
 	
 	self attributes at: 'bordered' put: true
