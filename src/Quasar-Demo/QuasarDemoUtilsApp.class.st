@@ -66,7 +66,7 @@ const dom1 = ref("dom1 initial value");
 ]
 
 { #category : #'rendering - quasar hooks' }
-QuasarDemoUtilsApp >> quasarSetupReturnContentOn: aJSStream with: html [
+QuasarDemoUtilsApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
 
 	aJSStream
 		nextPutAll: 'uid1, utilUid(){ uid1.value = Quasar.uid() }';

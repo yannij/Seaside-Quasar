@@ -198,9 +198,9 @@ QTidbitToDoApp >> initialize [
 
 	self colorTheme: self buildColorTheme.
 
-	self sideNavOpen: ((QuasarReactiveRefSync name: 'sideNavOpen' value: true) transformBlock: [ :value | value not ]; yourself).
-	self sideSheetOpen: ((QuasarReactiveRefSync name: 'sideSheetOpen' value: false) transformBlock: [ :value | value not ]; yourself).
-	self viewStyleDark: ((QuasarReactiveRefSync name: 'viewStyleDark' value: false)
+	self sideNavOpen: ((QuasarRefSyncClientToServer name: 'sideNavOpen' value: true) transformBlock: [ :value | value not ]; yourself).
+	self sideSheetOpen: ((QuasarRefSyncClientToServer name: 'sideSheetOpen' value: false) transformBlock: [ :value | value not ]; yourself).
+	self viewStyleDark: ((QuasarRefSyncClientToServer name: 'viewStyleDark' value: false)
 			transformBlock: [ :value | value not ];
 			onSuccessScript: '$q.dark.set(viewStyleDark.value)';
 			yourself).
@@ -304,7 +304,7 @@ QTidbitToDoApp >> pageComponentSet: anObject [
 ]
 
 { #category : #'rendering - quasar hooks' }
-QTidbitToDoApp >> quasarSetupReturnContentOn: aJSStream with: html [
+QTidbitToDoApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
 	| exports |
 
 	exports := ',' join: (self quasarData, (self vueRefs keys)).

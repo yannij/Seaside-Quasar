@@ -34,7 +34,7 @@ QuasarDemoMarkdownApp >> initialize [
 
 	super initialize.
 
-	self markdown1: (QuasarReactiveRefCallback name: 'markdown1' value: self markdown1Default).
+	self markdown1: (QuasarRefCallback name: 'markdown1' value: self markdown1Default).
 	self reactiveObjectsAdd: self markdown1
 ]
 
@@ -70,7 +70,7 @@ ___This is bold italic text, second way___
 ]
 
 { #category : #'rendering - quasar hooks' }
-QuasarDemoMarkdownApp >> quasarSetupReturnContentOn: aJSStream with: html [
+QuasarDemoMarkdownApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
 	| exports |
 
 	exports := ',' join: (self quasarData, (self vueRefs keys)).

@@ -52,12 +52,12 @@ QuasarDemoHtmlTextApp >> initialize [
 
 	super initialize.
 
-	self htmlText1: (QuasarReactiveRefCallback name: 'htmlText1' value: self htmlText1Default).
+	self htmlText1: (QuasarRefCallback name: 'htmlText1' value: self htmlText1Default).
 	self reactiveObjectsAdd: self htmlText1
 ]
 
 { #category : #'rendering - quasar hooks' }
-QuasarDemoHtmlTextApp >> quasarSetupReturnContentOn: aJSStream with: html [
+QuasarDemoHtmlTextApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
 	| exports |
 
 	exports := ',' join: (self quasarData, (self vueRefs keys)).

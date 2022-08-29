@@ -28,7 +28,7 @@ QuasarDemoReactiveApp class >> initialize [
 ]
 
 { #category : #'demo - ajax' }
-QuasarDemoReactiveApp >> ajax2: json html: html [
+QuasarDemoReactiveApp >> ajax2: json with: anAjaxFactory [
 
 	json render: (OrderedCollection new
 		add: {'key' -> 1. 'value' -> Date today printString} asDictionary;
@@ -37,7 +37,7 @@ QuasarDemoReactiveApp >> ajax2: json html: html [
 ]
 
 { #category : #'demo - ajax' }
-QuasarDemoReactiveApp >> ajax3: json html: html [
+QuasarDemoReactiveApp >> ajax3: json with: anAjaxFactory [
 	| objectDictionary |
 
 	self demoObjectA string1: DateAndTime now printString.
@@ -52,7 +52,7 @@ QuasarDemoReactiveApp >> ajax3: json html: html [
 ]
 
 { #category : #'demo - ajax' }
-QuasarDemoReactiveApp >> ajax4: json html: html [
+QuasarDemoReactiveApp >> ajax4: json with: anAjaxFactory [
 
 	json render: self experiment4
 ]
@@ -73,7 +73,7 @@ QuasarDemoReactiveApp >> buildTestCollection [
 		add: QuasarDemoObjectA newRandom;
 		yourself.
 
-	^ (QuasarReactiveRefSync name: 'testCollection' value: newList)
+	^ (QuasarRefSyncClientToServer name: 'testCollection' value: newList)
 		transformBlock: [ :value | value asOrderedCollection add: QuasarDemoObjectA newRandom; yourself ]; yourself
 ]
 
@@ -129,16 +129,16 @@ QuasarDemoReactiveApp >> initialize [
 	super initialize.
 
 	self reactiveList: (OrderedCollection new
-		add: ((QuasarReactiveRefSync name: 'reactive1' value: true) transformBlock: [ :value | value not ]; yourself);
-		add: ((QuasarReactiveRefSync name: 'reactive2' value: 0) transformBlock: [ :value | value + 1 ]; yourself);
-		add: ((QuasarReactiveRefSync name: 'reactive3' value: 1.2) transformBlock: [ :value | value + 1 ]; yourself);
-		add: ((QuasarReactiveRefSync name: 'reactive4' value: 'abc') transformBlock: [ :value | value, value ]; yourself);
-		add: ((QuasarReactiveRefSync name: 'reactive5' value: DateAndTime now) transformBlock: [ :value | DateAndTime now ]; yourself);
-		add: ((QuasarReactiveRefSync name: 'reactive6' value: {true. 123. 3.456. 'abc'. DateAndTime now})
+		add: ((QuasarRefSyncClientToServer name: 'reactive1' value: true) transformBlock: [ :value | value not ]; yourself);
+		add: ((QuasarRefSyncClientToServer name: 'reactive2' value: 0) transformBlock: [ :value | value + 1 ]; yourself);
+		add: ((QuasarRefSyncClientToServer name: 'reactive3' value: 1.2) transformBlock: [ :value | value + 1 ]; yourself);
+		add: ((QuasarRefSyncClientToServer name: 'reactive4' value: 'abc') transformBlock: [ :value | value, value ]; yourself);
+		add: ((QuasarRefSyncClientToServer name: 'reactive5' value: DateAndTime now) transformBlock: [ :value | DateAndTime now ]; yourself);
+		add: ((QuasarRefSyncClientToServer name: 'reactive6' value: {true. 123. 3.456. 'abc'. DateAndTime now})
 			transformBlock: [ :value | value, value ]; yourself);
-		add: ((QuasarReactiveRefSync name: 'reactive7' value: {'k1'->'v1'. 'k2'->'v2'. 'k3'->'v3'} asDictionary)
+		add: ((QuasarRefSyncClientToServer name: 'reactive7' value: {'k1'->'v1'. 'k2'->'v2'. 'k3'->'v3'} asDictionary)
 			transformBlock: [ :value | value at: 100 atRandom printString put: 1000 atRandom; yourself ]; yourself);
-		add: ((QuasarReactiveRefSync name: 'reactive8'
+		add: ((QuasarRefSyncClientToServer name: 'reactive8'
 			value: {
 				{'k1'->'v1'. 'k2'->'v2'. 'k3'->'v3'} asDictionary.
 				{'k21'->'v21'. 'k22'->'v22'. 'k23'->'v23'} asDictionary.
@@ -150,15 +150,24 @@ QuasarDemoReactiveApp >> initialize [
 ]
 
 { #category : #rendering }
+QuasarDemoReactiveApp >> makeJSSriptWith: anAjaxFactory [
+	"Temporary solution to workaround not passing the html renderer in the API"
+
+	^ (JSScript context: anAjaxFactory renderContext)
+		rendererClass: anAjaxFactory rendererClass;
+		yourself
+]
+
+{ #category : #rendering }
 QuasarDemoReactiveApp >> quasarSetupContentOn: aJSStream with: html [
 
 	self vueSetupDemoExperimentOn: aJSStream
 ]
 
 { #category : #'rendering - quasar hooks' }
-QuasarDemoReactiveApp >> quasarSetupReturnContentOn: aJSStream with: html [
+QuasarDemoReactiveApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
 
-	self vueSetupReturnDemoExperimentOn: aJSStream html: html
+	self vueSetupReturnDemoExperimentOn: aJSStream with: anAjaxFactory
 ]
 
 { #category : #accessing }
@@ -324,19 +333,19 @@ QuasarDemoReactiveApp >> vueSetupDemoExperimentOn: aJSStream [
 ]
 
 { #category : #'demo - ajax' }
-QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment1On: aJSStream html: html [
+QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment1On: aJSStream with: anAjaxFactory [
 
 	aJSStream
 		nextPutAll: 'onClickExperiment1(evt) {alert("hello");}'
 ]
 
 { #category : #'demo - ajax' }
-QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment2On: aJSStream html: html [
+QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment2On: aJSStream with: anAjaxFactory [
 	| ajax |
 
-	ajax := (html jQuery getJson
-			json: [ :json | self ajax2: json html: html ];
-			onSuccess: (html javascript << (JSStream new nextPutAll: 'experiment2.value = arguments[0]'; yourself));
+	ajax := (anAjaxFactory getJson
+			json: [ :json | self ajax2: json with: anAjaxFactory ];
+			onSuccess: ((self makeJSSriptWith: anAjaxFactory) << (JSStream new nextPutAll: 'experiment2.value = arguments[0]'; yourself));
 			yourself).
 
 	aJSStream
@@ -345,12 +354,12 @@ QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment2On: aJSStream html: html [
 ]
 
 { #category : #'demo - ajax' }
-QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment3On: aJSStream html: html [
+QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment3On: aJSStream with: anAjaxFactory [
 	| ajax |
 
-	ajax := (html jQuery getJson
-			json: [ :json | self ajax3: json html: html ];
-			onSuccess: (html javascript
+	ajax := (anAjaxFactory getJson
+			json: [ :json | self ajax3: json with: anAjaxFactory ];
+			onSuccess: ((self makeJSSriptWith: anAjaxFactory)
 				<< (JSStream new nextPutAll: 'experiment3.value = arguments[0]'; yourself));
 			yourself).
 
@@ -360,13 +369,13 @@ QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment3On: aJSStream html: html [
 ]
 
 { #category : #'demo - ajax' }
-QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment4On: aJSStream html: html [
+QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment4On: aJSStream with: anAjaxFactory [
 	| ajax |
 
-	ajax := (html jQuery ajax
+	ajax := (anAjaxFactory ajax
 			callback: [ :value | self experiment4: value ] value: (JSStream on: 'experiment4.value');
-			json: [ :json | self ajax4: json html: html ];
-			onSuccess: (html javascript
+			json: [ :json | self ajax4: json with: anAjaxFactory ];
+			onSuccess: ((self makeJSSriptWith: anAjaxFactory)
 				<< (JSStream new nextPutAll: 'experiment4a.value = arguments[0]'; yourself));
 			yourself).
 
@@ -376,13 +385,13 @@ QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment4On: aJSStream html: html [
 ]
 
 { #category : #'demo - ajax' }
-QuasarDemoReactiveApp >> vueSetupReturnDemoExperimentOn: aJSStream html: html [
+QuasarDemoReactiveApp >> vueSetupReturnDemoExperimentOn: aJSStream with: anAjaxFactory [
 
-	self vueSetupReturnDemoExperiment1On: aJSStream html: html.
+	self vueSetupReturnDemoExperiment1On: aJSStream with: anAjaxFactory.
 	aJSStream nextPut: $,.
-	self vueSetupReturnDemoExperiment2On: aJSStream html: html.
+	self vueSetupReturnDemoExperiment2On: aJSStream with: anAjaxFactory.
 	aJSStream nextPut: $,.
-	self vueSetupReturnDemoExperiment3On: aJSStream html: html.
+	self vueSetupReturnDemoExperiment3On: aJSStream with: anAjaxFactory.
 	aJSStream nextPut: $,.
-	self vueSetupReturnDemoExperiment4On: aJSStream html: html
+	self vueSetupReturnDemoExperiment4On: aJSStream with: anAjaxFactory
 ]

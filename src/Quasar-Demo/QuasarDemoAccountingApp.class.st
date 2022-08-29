@@ -84,7 +84,7 @@ QuasarDemoAccountingApp >> initialize [
 
 	super initialize.
 
-	self sideSheetOpen: ((QuasarReactiveRefCallback name: 'sideSheetOpen' value: true) traceOn; yourself).
+	self sideSheetOpen: ((QuasarRefCallback name: 'sideSheetOpen' value: true) traceOn; yourself).
 	self reactiveObjectsAdd: self sideSheetOpen.
 	self sideSheet: QuasarDemoSideSheet new.
 	self tab: 'users'
@@ -140,7 +140,7 @@ brand: {
 ]
 
 { #category : #'rendering - quasar hooks' }
-QuasarDemoAccountingApp >> quasarSetupReturnContentOn: aJSStream with: html [
+QuasarDemoAccountingApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
 	| exports |
 
 	exports := ',' join: (self quasarData, (self vueRefs keys)).

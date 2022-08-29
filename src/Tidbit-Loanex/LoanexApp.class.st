@@ -283,7 +283,7 @@ LoanexApp >> quasarSetupContentOn: aJSStream with: html [
 ]
 
 { #category : #'rendering - quasar hooks' }
-LoanexApp >> quasarSetupReturnContentOn: aJSStream with: html [
+LoanexApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
 	| exports |
 
 	exports := ',' join: (self quasarData, (self vueRefs keys)).

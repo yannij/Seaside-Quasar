@@ -1,18 +1,17 @@
 Class {
-	#name : #QuasarReactiveObject,
-	#superclass : #Object,
+	#name : #QuasarRefObject,
+	#superclass : #QuasarSetupObject,
 	#instVars : [
 		'refName',
 		'refValue',
 		'callbackBlock',
-		'emitRefresh',
-		'traceLevel'
+		'emitRefresh'
 	],
 	#category : #'Quasar-Components'
 }
 
 { #category : #'instance creation' }
-QuasarReactiveObject class >> name: aString value: anObject [
+QuasarRefObject class >> name: aString value: anObject [
 
 	^ self new
 		refName: aString;
@@ -21,51 +20,54 @@ QuasarReactiveObject class >> name: aString value: anObject [
 ]
 
 { #category : #accessing }
-QuasarReactiveObject >> callbackBlock [
+QuasarRefObject >> callbackBlock [
 
 	^ callbackBlock
 ]
 
 { #category : #accessing }
-QuasarReactiveObject >> callbackBlock: anObject [
+QuasarRefObject >> callbackBlock: anObject [
 
 	callbackBlock := anObject
 ]
 
 { #category : #accessing }
-QuasarReactiveObject >> emitRefresh [
+QuasarRefObject >> emitRefresh [
 
 	^ emitRefresh
 ]
 
 { #category : #accessing }
-QuasarReactiveObject >> emitRefresh: anObject [
+QuasarRefObject >> emitRefresh: anObject [
 
 	emitRefresh := anObject
 ]
 
 { #category : #accessing }
-QuasarReactiveObject >> emitRefreshOn [
+QuasarRefObject >> emitRefreshOn [
 
 	self emitRefresh: true
 ]
 
 { #category : #initialization }
-QuasarReactiveObject >> initialize [
+QuasarRefObject >> initialize [
 
 	super initialize.
 
 	self emitRefresh: false
 ]
 
-{ #category : #logging }
-QuasarReactiveObject >> logString: aString [
+{ #category : #initialization }
+QuasarRefObject >> makeJSSriptWith: anAjaxFactory [
+	"Temporary solution to workaround not passing the html renderer in the API"
 
-	Transcript crShow: aString
+	^ (JSScript context: anAjaxFactory renderContext)
+		rendererClass: anAjaxFactory rendererClass;
+		yourself
 ]
 
 { #category : #'rendering - ajax' }
-QuasarReactiveObject >> quasarSetupOn: aJSStream [
+QuasarRefObject >> quasarSetupOn: aJSStream [
 
 	aJSStream
 		nextPut: Character cr;
@@ -77,31 +79,31 @@ QuasarReactiveObject >> quasarSetupOn: aJSStream [
 ]
 
 { #category : #'rendering - ajax' }
-QuasarReactiveObject >> quasarSetupReturnOn: aJSStream html: html [
+QuasarRefObject >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPut: Character cr; nextPutAll: refName
 ]
 
 { #category : #accessing }
-QuasarReactiveObject >> refName [
+QuasarRefObject >> refName [
 
 	^ refName
 ]
 
 { #category : #accessing }
-QuasarReactiveObject >> refName: anObject [
+QuasarRefObject >> refName: anObject [
 
 	refName := anObject
 ]
 
 { #category : #accessing }
-QuasarReactiveObject >> refValue [
+QuasarRefObject >> refValue [
 
 	^ refValue
 ]
 
 { #category : #accessing }
-QuasarReactiveObject >> refValue: anObject [
+QuasarRefObject >> refValue: anObject [
 
 	self traceIsOn ifTrue: [
 		self logString: 'Reactive::', self refName, ': ', refValue greaseString, ' --> ', anObject greaseString ].
@@ -110,39 +112,15 @@ QuasarReactiveObject >> refValue: anObject [
 ]
 
 { #category : #actions }
-QuasarReactiveObject >> refValueUpdate: anObject [
+QuasarRefObject >> refValueUpdate: anObject [
 
 	self subclassResponsibility
 ]
 
 { #category : #actions }
-QuasarReactiveObject >> runCallbackWith: anObject [
+QuasarRefObject >> runCallbackWith: anObject [
 
 	self callbackBlock
 		ifNil: [ self refValueUpdate: anObject ]
 		ifNotNil: [ :block | block value: anObject ]
-]
-
-{ #category : #testing }
-QuasarReactiveObject >> traceIsOn [
-
-	^ self traceLevel notNil
-]
-
-{ #category : #accessing }
-QuasarReactiveObject >> traceLevel [
-
-	^ traceLevel
-]
-
-{ #category : #accessing }
-QuasarReactiveObject >> traceLevel: anObject [
-
-	traceLevel := anObject
-]
-
-{ #category : #accessing }
-QuasarReactiveObject >> traceOn [
-
-	self traceLevel: 1
 ]

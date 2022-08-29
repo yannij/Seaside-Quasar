@@ -5,6 +5,7 @@ Class {
 		'quasarVersion',
 		'colorTheme',
 		'reactiveObjects',
+		'onMountedObjects',
 		'quasarData',
 		'vueRefs'
 	],
@@ -66,6 +67,7 @@ QuasarApplication >> initialize [
 
 	self vueRefsClear.
 	self quasarDataClear.
+	self onMountedObjectsClear.
 	self reactiveObjectsClear
 ]
 
@@ -134,16 +136,40 @@ QuasarApplication >> needsMarkdown [
 	^ true
 ]
 
+{ #category : #accessing }
+QuasarApplication >> onMountedObjects [
+
+	^ onMountedObjects
+]
+
+{ #category : #accessing }
+QuasarApplication >> onMountedObjects: anObject [
+
+	onMountedObjects := anObject
+]
+
+{ #category : #accessing }
+QuasarApplication >> onMountedObjectsAdd: anObject [
+
+	self onMountedObjects at: anObject refName put: anObject
+]
+
+{ #category : #accessing }
+QuasarApplication >> onMountedObjectsClear [
+
+	self onMountedObjects: OrderedDictionary new
+]
+
 { #category : #'rendering - quasar hooks' }
 QuasarApplication >> quasarConfigContentOn: aJSStream with: html [
 	"Subclasses may override"
 ]
 
 { #category : #'rendering - quasar' }
-QuasarApplication >> quasarConfigOn: aJSStream with: html [
+QuasarApplication >> quasarConfigOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPutAll: 'config: {'.
-	self quasarConfigContentOn: aJSStream with: html.
+	self quasarConfigContentOn: aJSStream with: anAjaxFactory.
 	aJSStream nextPutAll: '}'.
 ]
 
@@ -208,16 +234,16 @@ QuasarApplication >> quasarMarkdownUrlFragment [
 ]
 
 { #category : #'rendering - quasar' }
-QuasarApplication >> quasarOnLoadOn: aJSStream with: html [
+QuasarApplication >> quasarOnLoadOn: aJSStream with: anAjaxFactory [
 
 	aJSStream
 		nextPutAll: 'const { useQuasar } = Quasar;';
 		nextPutAll: 'const { ref, onMounted } = Vue;';
 		nextPutAll: 'const app = Vue.createApp({'.
-	self quasarSetupOn: aJSStream with: html.
+	self quasarSetupOn: aJSStream with: anAjaxFactory.
 	aJSStream nextPutAll: '});'.
 	aJSStream nextPutAll: 'app.use(Quasar, {'.
-	self quasarConfigOn: aJSStream with: html.
+	self quasarConfigOn: aJSStream with: anAjaxFactory.
 	aJSStream nextPutAll: '});'.
 	self needsMarkdown ifTrue: [
 		aJSStream nextPutAll: 'app.component("QMarkdown", QMarkdown.QMarkdown);' ].
@@ -234,30 +260,41 @@ QuasarApplication >> quasarSetupContentOn: aJSStream with: html [
 ]
 
 { #category : #'rendering - quasar' }
-QuasarApplication >> quasarSetupOn: aJSStream with: html [
+QuasarApplication >> quasarSetupOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPutAll: 'setup() {'.
 	aJSStream nextPutAll: 'const $q = useQuasar();'.
 	self reactiveObjects do: [ :eachObject | eachObject quasarSetupOn: aJSStream ].
-	self reactiveObjects do: [ :eachObject | eachObject ajaxFunctionOn: aJSStream html: html. aJSStream nextPutAll: ';' ].
-	self quasarSetupContentOn: aJSStream with: html.
-	self quasarSetupReturnOn: aJSStream with: html.
+	self reactiveObjects do: [ :eachObject | eachObject writeCodeOn: aJSStream with: anAjaxFactory. aJSStream nextPutAll: ';' ].
+	self quasarSetupContentOn: aJSStream with: anAjaxFactory.
+	self quasarSetupOnMountedOn: aJSStream with: anAjaxFactory.
+	self quasarSetupReturnOn: aJSStream with: anAjaxFactory.
 	aJSStream nextPutAll: '}'.
 ]
 
+{ #category : #'rendering - quasar' }
+QuasarApplication >> quasarSetupOnMountedOn: aJSStream with: anAjaxFactory [
+
+	self onMountedObjects ifNotEmpty: [ :list |
+		aJSStream nextPutAll: '
+onMounted(() => {'.
+		list do: [ :eachObject | eachObject writeCodeOn: aJSStream with: anAjaxFactory ].
+		aJSStream nextPutAll: '});' ]
+]
+
 { #category : #'rendering - quasar hooks' }
-QuasarApplication >> quasarSetupReturnContentOn: aJSStream with: html [
+QuasarApplication >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
 	"Subclasses may override"
 ]
 
 { #category : #'rendering - quasar' }
-QuasarApplication >> quasarSetupReturnOn: aJSStream with: html [
+QuasarApplication >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPutAll: 'return {'.
 	self reactiveObjects do: [ :eachObject |
-		eachObject quasarSetupReturnOn: aJSStream html: html.
+		eachObject quasarSetupReturnOn: aJSStream with: anAjaxFactory.
 		aJSStream nextPut: $, ].
-	self quasarSetupReturnContentOn: aJSStream with: html.
+	self quasarSetupReturnContentOn: aJSStream with: anAjaxFactory.
 	aJSStream nextPutAll: '}'
 ]
 
@@ -350,7 +387,7 @@ QuasarApplication >> renderContentOn: html [
 		html script url: self quasarMarkdownJsUrl ].
 
 	jsStream := JSStream new.
-	self quasarOnLoadOn: jsStream with: html.
+	self quasarOnLoadOn: jsStream with: html jQuery.
 	html document addLoadScript: jsStream
 ]
 

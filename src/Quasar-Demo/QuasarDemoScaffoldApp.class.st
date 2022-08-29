@@ -83,7 +83,7 @@ app.mount("#q-app");'
 ]
 
 { #category : #'rendering - quasar' }
-QuasarDemoScaffoldApp >> quasarOnLoadOn: aJSStream with: html [
+QuasarDemoScaffoldApp >> quasarOnLoadOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPutAll: '
 const { useQuasar } = Quasar;

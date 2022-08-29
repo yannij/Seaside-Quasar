@@ -4,7 +4,9 @@ Class {
 	#instVars : [
 		'originalRows',
 		'rowCountRef',
-		'rowsRef'
+		'rowsRef',
+		'onRequest',
+		'onMountedCode'
 	],
 	#category : #'Quasar-Demo-Basic'
 }
@@ -75,7 +77,7 @@ const columns = [
 '
 ]
 
-{ #category : #'js-setup' }
+{ #category : #'js-not-used' }
 QuasarDemoServerSideTablePaginationApp >> constOriginalRowsJs [
 
 	^ '
@@ -100,7 +102,7 @@ QuasarDemoServerSideTablePaginationApp >> constSetupJs [
 '
 ]
 
-{ #category : #'js-setup' }
+{ #category : #'js-not-used' }
 QuasarDemoServerSideTablePaginationApp >> fetchFromServerJs [
 
 	^ '
@@ -129,7 +131,7 @@ QuasarDemoServerSideTablePaginationApp >> fetchFromServerJs [
 '
 ]
 
-{ #category : #'js-setup' }
+{ #category : #'js-not-used' }
 QuasarDemoServerSideTablePaginationApp >> getRowsNumberCountJs [
 
 	^ '
@@ -156,20 +158,63 @@ QuasarDemoServerSideTablePaginationApp >> initialize [
 
 	self originalRows: (WAJsonParser parse: self originalRowsJson).
 
-	self rowsRef: ((QuasarReactiveSyncToServer name: 'rowsRemote' value: Array new)
+	self onRequest: ((QuasarCallback name: 'onRequest')
+			codeBlock: self onRequestCodeBlock;
+			yourself).
+	self reactiveObjectsAdd: self onRequest.
+
+	self onMountedCode: ((QuasarOnMounted name: 'onMountedCode')
+			codeBlock: self onMountedCodeBlock;
+			yourself).
+	self onMountedObjectsAdd: self onMountedCode.
+
+	self rowsRef: ((QuasarRefSyncServerToClient name: 'rowsRemote' value: Array new)
+			"traceOn;"
 			"onSuccessScript: 'console.log(rowsRemote.value)';"
 			callbackBlock: [ :ajaxArg | self rowsRefUpdate: ajaxArg ];
 			yourself).
 	self reactiveObjectsAdd: self rowsRef.
 
-	self rowCountRef: ((QuasarReactiveSyncToServer name: 'rowCount' value: self originalRows size)
+	self rowCountRef: ((QuasarRefSyncServerToClient name: 'rowCount' value: 10)
+			traceOn;
 			"onSuccessScript: 'console.log(rowCount.value)';"
+			callbackBlock: [ :ajaxArg | self rowCountRefUpdate: ajaxArg ];
 			yourself).
 	self reactiveObjectsAdd: self rowCountRef
 ]
 
+{ #category : #accessing }
+QuasarDemoServerSideTablePaginationApp >> onMountedCode [
+
+	^ onMountedCode
+]
+
+{ #category : #accessing }
+QuasarDemoServerSideTablePaginationApp >> onMountedCode: anObject [
+
+	onMountedCode := anObject
+]
+
+{ #category : #'js-setup' }
+QuasarDemoServerSideTablePaginationApp >> onMountedCodeBlock [
+
+	^ [ :stream :ajaxFactory | stream nextPutAll: self onMountedJs ]
+]
+
 { #category : #'js-setup' }
 QuasarDemoServerSideTablePaginationApp >> onMountedJs [
+
+	^ '
+// get initial data from server (1st page)
+onRequest({
+	pagination: pagination.value,
+	filter: undefined
+});
+'
+]
+
+{ #category : #'js-setup' }
+QuasarDemoServerSideTablePaginationApp >> onMountedJsOriginal [
 
 	^ '
     onMounted(() => {
@@ -180,6 +225,24 @@ QuasarDemoServerSideTablePaginationApp >> onMountedJs [
       });
     });
 '
+]
+
+{ #category : #accessing }
+QuasarDemoServerSideTablePaginationApp >> onRequest [
+
+	^ onRequest
+]
+
+{ #category : #accessing }
+QuasarDemoServerSideTablePaginationApp >> onRequest: anObject [
+
+	onRequest := anObject
+]
+
+{ #category : #'js-setup' }
+QuasarDemoServerSideTablePaginationApp >> onRequestCodeBlock [
+
+	^ [ :stream :ajaxFactory | stream nextPutAll: self onRequestJs ]
 ]
 
 { #category : #'js-setup' }
@@ -195,8 +258,9 @@ QuasarDemoServerSideTablePaginationApp >> onRequestJs [
        //setTimeout(() => {
         // update rowsCount with appropriate value
         //pagination.value.rowsNumber = await getRowsNumberCount(filter);
-        pagination.value.rowsNumber = await rowCountRefGet(1);
-//console.log(pagination.value.rowsNumber);
+        const result = await rowCountRefGet(1);
+setTimeout(() => {pagination.value.rowsNumber = rowCount.value;}, 500);
+//console.log(pagination.value);
 
         // get all rows if "All" (0) is selected
         const fetchCount = rowsPerPage === 0 ? pagination.value.rowsNumber : rowsPerPage;
@@ -285,12 +349,12 @@ QuasarDemoServerSideTablePaginationApp >> originalRowsJson [
 ]
 
 { #category : #'rendering - quasar hooks' }
-QuasarDemoServerSideTablePaginationApp >> quasarOnLoadOn: aJSStream with: html [
+QuasarDemoServerSideTablePaginationApp >> quasarOnLoadOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPutAll: self constColumnsJs.
 	"aJSStream nextPutAll: self constOriginalRowsJs."
 
-	super quasarOnLoadOn: aJSStream with: html
+	super quasarOnLoadOn: aJSStream with: anAjaxFactory
 ]
 
 { #category : #'rendering - quasar hooks' }
@@ -298,22 +362,20 @@ QuasarDemoServerSideTablePaginationApp >> quasarSetupContentOn: aJSStream with: 
 
 	aJSStream nextPutAll: self constSetupJs.
 	"aJSStream nextPutAll: self fetchFromServerJs.
-	aJSStream nextPutAll: self getRowsNumberCountAjaxJs."
-	aJSStream nextPutAll: self onRequestJs.
-	aJSStream nextPutAll: self onMountedJs.
+	aJSStream nextPutAll: self getRowsNumberCountAjaxJs.
+	aJSStream nextPutAll: self onRequestJs."
+	"aJSStream nextPutAll: self onMountedJsOriginal."
 ]
 
 { #category : #'rendering - quasar hooks' }
-QuasarDemoServerSideTablePaginationApp >> quasarSetupReturnContentOn: aJSStream with: html [
+QuasarDemoServerSideTablePaginationApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPutAll: '
       filter,
       loading,
       pagination,
       columns,
-      rows,
-
-      onRequest
+      rows
 '
 ]
 
@@ -340,8 +402,8 @@ QuasarDemoServerSideTablePaginationApp >> renderLayoutOn: html [
 QuasarDemoServerSideTablePaginationApp >> renderTableExampleOn: html [
 	"From: https://quasar.dev/vue-components/table#example--synchronizing-with-server"
 
-	"html qBtn label: 'Row Count'; vOnClick: self rowCountRef functionName, '()'.
-	html qBtn label: 'Rows'; vOnClick: self rowsRef functionName, '()'."
+	"html qBtn label: 'Row Count'; vOnClick: self rowCountRef functionName, '(1)'.
+	html qBtn label: 'Rows'; vOnClick: self rowsRef functionName, '({sortBy: ""desc"", rowsNumber: 3, descending: false, rowsPerPage: 0, page: 1})'."
 
 	html div class: 'q-pa-md'; with: [
 		html qTable
@@ -376,6 +438,12 @@ QuasarDemoServerSideTablePaginationApp >> rowCountRef: anObject [
 ]
 
 { #category : #accessing }
+QuasarDemoServerSideTablePaginationApp >> rowCountRefUpdate: ignored [
+
+	self rowCountRef refValue: self originalRows size
+]
+
+{ #category : #accessing }
 QuasarDemoServerSideTablePaginationApp >> rowsRef [
 
 	^ rowsRef
@@ -398,6 +466,6 @@ QuasarDemoServerSideTablePaginationApp >> rowsRefUpdate: props [
 	"Adjust from 0-based to 1-based indexing"
 	startRow := startRow + 1.
 	newRows := self originalRows copyFrom: startRow to: ((startRow + fetchCount - 1) min: self originalRows size).
-"Transcript crShow: newRows printString."
+Transcript crShow: 'slice size: ', newRows size printString.
 	self rowsRef refValue: newRows
 ]
