@@ -122,7 +122,7 @@ MDQOneToManyComponent >> renderListAjaxOn: html [
 		ifNotEmpty: [ : anItemList |
 			anItemList do: [ :eachItem |
 				html qItem
-					qTag: 'a'; href: (html urlForAction: [ :value | self mdqApplicationGet navTo: eachItem aspect: nil ]);
+					qTag: 'a'; href: (html urlForAction: [ :value | self mdqApplicationGet navTo: eachItem ]);
 					with: [
 						html qItemSection with: [
 							html qItemLabel with: eachItem mdPrimaryString.

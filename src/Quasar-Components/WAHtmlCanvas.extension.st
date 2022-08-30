@@ -217,6 +217,12 @@ WAHtmlCanvas >> qPageSticky [
 ]
 
 { #category : #'*Quasar-Components' }
+WAHtmlCanvas >> qPagination [
+
+	^ self brush: QuasarPagination new
+]
+
+{ #category : #'*Quasar-Components' }
 WAHtmlCanvas >> qPopupProxy [
 
 	^ self brush: QuasarPopupProxy new

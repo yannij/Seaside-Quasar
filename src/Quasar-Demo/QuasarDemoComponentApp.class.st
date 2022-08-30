@@ -59,6 +59,7 @@ QuasarDemoComponentApp >> demoNames [
 	DateTime
 	Dialog
 	Drawer
+	Pagination
 	Radio
 	Select
 	TabPanels
@@ -85,6 +86,7 @@ QuasarDemoComponentApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFact
 	aJSStream nextPut: $,.
 	
 	aJSStream nextPutAll: '
+currentPagination: ref(3),
 dialog: ref(false),
 cancelEnabled: ref(false),
 date: ref("2019-02-01 12:44"),
@@ -293,6 +295,33 @@ QuasarDemoComponentApp >> renderDemoDrawerOn: html [
     </q-layout>
   </div>
 </div>'
+]
+
+{ #category : #'demo - pagination' }
+QuasarDemoComponentApp >> renderDemoPaginationOn: html [
+
+	html div class: 'q-pa-md flex flex-center'; with: [
+		html qPagination vModel: 'currentPagination'; vBind: 'max' with: 5 ].
+
+	html div class: 'q-pa-md flex flex-center'; with: [
+		html qPagination vModel: 'currentPagination'; vBind: 'max' with: 5; input ].
+
+	html div class: 'q-pa-md flex flex-center'; with: [
+		html qPagination
+			vModel: 'currentPagination';
+			color: 'black';
+			vBind: 'max' with: 10;
+			vBind: 'max-pages' with: 6;
+			boundaryNumbers: false ].
+
+	html div class: 'q-pa-md flex flex-center'; with: [
+		html qPagination vModel: 'currentPagination'; vBind: 'max' with: 5; boundaryLinks ].
+
+	html div class: 'q-pa-md flex flex-center'; with: [
+		html qPagination vModel: 'currentPagination'; vBind: 'max' with: 5; directionLinks ].
+
+	html div class: 'q-pa-md flex flex-center'; with: [
+		html qPagination vModel: 'currentPagination'; vBind: 'max' with: 5; directionLinks; boundaryLinks ].
 ]
 
 { #category : #'demo - radio' }

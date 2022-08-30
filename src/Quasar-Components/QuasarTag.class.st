@@ -10,6 +10,13 @@ QuasarTag >> dense [
 ]
 
 { #category : #'accessing - view style' }
+QuasarTag >> dense: aBoolean [
+	"Not supported by all subclasses. See #dense and #denseIf:"
+	
+	self attributes at: 'dense' put: aBoolean
+]
+
+{ #category : #'accessing - view style' }
 QuasarTag >> denseIf: aBoolean [
 
 	self viewStyle: #dense if: aBoolean
