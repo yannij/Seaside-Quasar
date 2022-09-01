@@ -176,7 +176,7 @@ QuasarDemoServerSideTablePaginationApp >> initialize [
 	self reactiveObjectsAdd: self rowsRef.
 
 	self rowCountRef: ((QuasarRefSyncServerToClient name: 'rowCount' value: 10)
-			traceOn;
+			"traceOn;"
 			"onSuccessScript: 'console.log(rowCount.value)';"
 			callbackBlock: [ :ajaxArg | self rowCountRefUpdate: ajaxArg ];
 			yourself).
@@ -208,7 +208,7 @@ QuasarDemoServerSideTablePaginationApp >> onMountedJs [
 // get initial data from server (1st page)
 onRequest({
 	pagination: pagination.value,
-	filter: undefined
+	filter: null
 });
 '
 ]
@@ -249,43 +249,49 @@ QuasarDemoServerSideTablePaginationApp >> onRequestCodeBlock [
 QuasarDemoServerSideTablePaginationApp >> onRequestJs [
 
 	^ '
-	async function onRequest(props) {
-      const { page, rowsPerPage, sortBy, descending } = props.pagination;
-      const filter = props.filter;
+async function onRequest(props) {
+	const { page, rowsPerPage, sortBy, descending } = props.pagination;
+	const filter = props.filter;
 
-      loading.value = true;
+	loading.value = true;
 
-       //setTimeout(() => {
-        // update rowsCount with appropriate value
-        //pagination.value.rowsNumber = await getRowsNumberCount(filter);
-        await rowCountRefGet(1);
-        pagination.value.rowsNumber = rowCount.value;
+	//setTimeout(() => {
+	// update rowsCount with appropriate value
+	//pagination.value.rowsNumber = await getRowsNumberCount(filter);
+	await rowCountRefGet(filter);
+	pagination.value.rowsNumber = rowCount.value;
 //console.log(pagination.value);
 
-        // get all rows if "All" (0) is selected
-        const fetchCount = rowsPerPage === 0 ? pagination.value.rowsNumber : rowsPerPage;
+	// get all rows if "All" (0) is selected
+	const fetchCount = rowsPerPage === 0 ? pagination.value.rowsNumber : rowsPerPage;
 
-        // calculate starting row of data
-        const startRow = (page - 1) * rowsPerPage;
+	// calculate starting row of data
+	const startRow = (page - 1) * rowsPerPage;
 
-        // fetch data from "server"
-        //const returnedData = await fetchFromServer(startRow, fetchCount, filter, sortBy, descending);
-        const returnedData = await rowsRemoteRefGet({"startRow": startRow, "fetchCount": fetchCount});
+	// fetch data from "server"
+	//const returnedData = await fetchFromServer(startRow, fetchCount, filter, sortBy, descending);
+	const returnedData = await rowsRemoteRefGet({
+"startRow": startRow,
+"fetchCount": fetchCount,
+"filter": filter,
+"sortBy": sortBy,
+"descending": descending
+});
 //console.log(returnedData);
 
-        // clear out existing data and add new
-        //rows.value.splice(0, rows.value.length, ...returnedData);
+	// clear out existing data and add new
+	//rows.value.splice(0, rows.value.length, ...returnedData);
 
-        // don''t forget to update local pagination object
-        pagination.value.page = page;
-        pagination.value.rowsPerPage = rowsPerPage;
-        pagination.value.sortBy = sortBy;
-        pagination.value.descending = descending;
+	// don''t forget to update local pagination object
+	pagination.value.page = page;
+	pagination.value.rowsPerPage = rowsPerPage;
+	pagination.value.sortBy = sortBy;
+	pagination.value.descending = descending;
 
-        // ...and turn off loading indicator
-        loading.value = false;
-      //}, 500);
-    }
+	// ...and turn off loading indicator
+	loading.value = false;
+	//}, 500);
+}
 '
 ]
 
@@ -299,6 +305,19 @@ QuasarDemoServerSideTablePaginationApp >> originalRows [
 QuasarDemoServerSideTablePaginationApp >> originalRows: anObject [
 
 	originalRows := anObject
+]
+
+{ #category : #accessing }
+QuasarDemoServerSideTablePaginationApp >> originalRowsFiltered: filter [
+	| result |
+
+	filter ifNil: [ ^ self originalRows ].
+	filter ifEmpty: [ ^ self originalRows ].
+
+	result := self originalRows select: [ :eachRow |
+		((eachRow at: 'name' ifAbsent: [ '' ]) findString: filter) > 0 ].
+
+	 ^ result
 ]
 
 { #category : #'js-setup' }
@@ -438,9 +457,11 @@ QuasarDemoServerSideTablePaginationApp >> rowCountRef: anObject [
 ]
 
 { #category : #accessing }
-QuasarDemoServerSideTablePaginationApp >> rowCountRefUpdate: ignored [
+QuasarDemoServerSideTablePaginationApp >> rowCountRefUpdate: filter [
+	| filteredRows |
 
-	self rowCountRef refValue: self originalRows size
+	filteredRows := self originalRowsFiltered: filter.
+	self rowCountRef refValue: filteredRows size
 ]
 
 { #category : #accessing }
@@ -457,15 +478,29 @@ QuasarDemoServerSideTablePaginationApp >> rowsRef: anObject [
 
 { #category : #accessing }
 QuasarDemoServerSideTablePaginationApp >> rowsRefUpdate: props [
-	| startRow fetchCount newRows |
+	| startRow fetchCount filter sortBy descending filteredRows slice sortedSlice sortBlock fieldBlock |
 
 "Transcript crShow: props printString."
 	startRow := [ (props at: 'startRow' ifAbsent: [ '0' ]) asInteger ] onErrorDo: [ 0 ].
 	fetchCount := [ (props at: 'fetchCount' ifAbsent: [ '3' ]) asInteger ] onErrorDo: [ 3 ].
+	filter := props at: 'filter' ifAbsent: [ nil ].
+	sortBy := props at: 'sortBy' ifAbsent: [ 'desc' ].
+	descending := props at: 'descending' ifAbsent: [ false ].
+
+	filteredRows := self originalRowsFiltered: filter.
 
 	"Adjust from 0-based to 1-based indexing"
 	startRow := startRow + 1.
-	newRows := self originalRows copyFrom: startRow to: ((startRow + fetchCount - 1) min: self originalRows size).
-Transcript crShow: 'slice size: ', newRows size printString.
-	self rowsRef refValue: newRows
+	slice := filteredRows copyFrom: startRow to: ((startRow + fetchCount - 1) min: filteredRows size).
+"Transcript crShow: 'slice size: ', slice size printString."
+"Transcript crShow: 'slice ', slice printString."
+
+	sortBy = 'desc' ifTrue: [ sortBy := 'name' ].
+	fieldBlock := [ :object :fieldName | object at: fieldName ifAbsent: [ '' ] ].
+	sortBlock := descending
+		ifTrue: [ [ :a :b | (fieldBlock value: a value: sortBy) < (fieldBlock value: b value: sortBy) ] ]
+		ifFalse: [ [ :a :b | (fieldBlock value: a value: sortBy) > (fieldBlock value: b value: sortBy) ] ].
+	sortedSlice := (SortedCollection sortBlock: sortBlock) addAll: slice; yourself.
+
+	self rowsRef refValue: sortedSlice
 ]

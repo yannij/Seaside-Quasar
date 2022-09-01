@@ -341,7 +341,7 @@ QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment2On: aJSStream with: anAjax
 
 	aJSStream
 		nextPutAll: 'experiment2';
-		nextPutAll: ',onClickExperiment2() {'; nextPutAll: ajax asJavascript; nextPutAll: '}'.
+		nextPutAll: ',async onClickExperiment2() {'; nextPutAll: ajax asJavascript; nextPutAll: '}'.
 ]
 
 { #category : #'demo - ajax' }
@@ -356,7 +356,7 @@ QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment3On: aJSStream with: anAjax
 
 	aJSStream
 		nextPutAll: 'experiment3';
-		nextPutAll: ',onClickExperiment3() {'; nextPutAll: ajax asJavascript; nextPutAll: '}'
+		nextPutAll: ',async onClickExperiment3() {'; nextPutAll: ajax asJavascript; nextPutAll: '}'
 ]
 
 { #category : #'demo - ajax' }
@@ -372,7 +372,7 @@ QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment4On: aJSStream with: anAjax
 
 	aJSStream
 		nextPutAll: 'experiment4,experiment4a';
-		nextPutAll: ',onClickExperiment4() {'; nextPutAll: ajax asJavascript; nextPutAll: '}'.
+		nextPutAll: ',async onClickExperiment4() {'; nextPutAll: ajax asJavascript; nextPutAll: '}'.
 ]
 
 { #category : #'demo - ajax' }
