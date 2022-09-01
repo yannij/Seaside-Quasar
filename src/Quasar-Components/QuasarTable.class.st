@@ -41,6 +41,12 @@ QuasarTable >> flat [
 ]
 
 { #category : #attributes }
+QuasarTable >> hidePagination [
+	
+	self attributes at: 'hide-pagination' put: true
+]
+
+{ #category : #attributes }
 QuasarTable >> rowKey: anObject [
 	
 	self attributes at: 'row-key' put: anObject

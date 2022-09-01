@@ -238,7 +238,7 @@ QuasarApplication >> quasarOnLoadOn: aJSStream with: anAjaxFactory [
 
 	aJSStream
 		nextPutAll: 'const { useQuasar } = Quasar;';
-		nextPutAll: 'const { ref, onMounted } = Vue;';
+		nextPutAll: 'const { ref, onMounted, computed } = Vue;';
 		nextPutAll: 'const app = Vue.createApp({'.
 	self quasarSetupOn: aJSStream with: anAjaxFactory.
 	aJSStream nextPutAll: '});'.

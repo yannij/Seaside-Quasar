@@ -204,7 +204,7 @@ JSFetch >> javascriptContentOn: aStream [
 	fetchOptions := '{method: ''GET''}'.
 
 	aStream
-		nextPutAll: 'fetch(', self javascriptUrl contents, ',', fetchOptions, ')';
+		nextPutAll: 'await fetch(', self javascriptUrl contents, ',', fetchOptions, ')';
 		nextPutAll: '.then((response) => {
 	if (!response.ok) {
 		throw new Error(''Network response was not OK'');

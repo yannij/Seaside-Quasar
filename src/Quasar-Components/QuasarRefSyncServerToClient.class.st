@@ -67,7 +67,12 @@ QuasarRefSyncServerToClient >> writeCodeOn: aJSStream with: anAjaxFactory [
 	to recalculate a reactive value"
 	| ajax script |
 
-	script := JSStream new nextPutAll: refName; nextPutAll: '.value = data'; yourself.
+	script := JSStream new
+		nextPutAll: refName; nextPutAll: '.value = data;';
+		"nextPutAll: 'console.log('''; nextPutAll: refName; nextPutAll: ' is: '');';
+		nextPutAll: 'console.log(data);';"
+		nextPutAll: 'return data;';
+		yourself.
 	self onSuccessScript ifNotNil: [ :value | script nextPut: $;; nextPutAll: value ].
 
 	ajax := anAjaxFactory fetch
@@ -82,6 +87,6 @@ QuasarRefSyncServerToClient >> writeCodeOn: aJSStream with: anAjaxFactory [
 	aJSStream
 		nextPutAll: 'async function '; nextPutAll: self functionName; nextPutAll: '(arg1) {';
 		nextPutAll: ajax asJavascript; nextPut: $;;
-		nextPutAll: 'return ', self refName, '.value';
+		"nextPutAll: 'return ', self refName, '.value';"
 		nextPutAll: '}'.
 ]

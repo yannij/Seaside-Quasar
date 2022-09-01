@@ -258,8 +258,8 @@ QuasarDemoServerSideTablePaginationApp >> onRequestJs [
        //setTimeout(() => {
         // update rowsCount with appropriate value
         //pagination.value.rowsNumber = await getRowsNumberCount(filter);
-        const result = await rowCountRefGet(1);
-setTimeout(() => {pagination.value.rowsNumber = rowCount.value;}, 500);
+        await rowCountRefGet(1);
+        pagination.value.rowsNumber = rowCount.value;
 //console.log(pagination.value);
 
         // get all rows if "All" (0) is selected
