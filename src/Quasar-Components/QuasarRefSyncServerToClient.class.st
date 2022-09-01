@@ -67,17 +67,17 @@ QuasarRefSyncServerToClient >> writeCodeOn: aJSStream with: anAjaxFactory [
 	to recalculate a reactive value"
 	| ajax script |
 
-	script := JSStream new nextPutAll: refName; nextPutAll: '.value = arguments[0]'; yourself.
+	script := JSStream new nextPutAll: refName; nextPutAll: '.value = data'; yourself.
 	self onSuccessScript ifNotNil: [ :value | script nextPut: $;; nextPutAll: value ].
 
-	ajax := anAjaxFactory ajax
-			callback: [ :value | self runCallbackWith: (STONJSON fromString: value) ]
+	ajax := anAjaxFactory fetch
+			callback: [ :value | self runCallbackWith: (WAJsonParser parse: value) ]
 				value: (JSStream on: 'JSON.stringify(arg1)');
 			json: [ :json | json render: self refValue ];
 			yourself.
 
 	self emitOnSuccess ifTrue: [
-		ajax onSuccess: "(html javascript << script)" (self makeJSSriptWith: anAjaxFactory) << script ].
+		ajax onSuccess: anAjaxFactory javascript << script ].
 
 	aJSStream
 		nextPutAll: 'async function '; nextPutAll: self functionName; nextPutAll: '(arg1) {';

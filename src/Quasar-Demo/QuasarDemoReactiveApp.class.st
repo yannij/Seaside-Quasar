@@ -150,15 +150,6 @@ QuasarDemoReactiveApp >> initialize [
 ]
 
 { #category : #rendering }
-QuasarDemoReactiveApp >> makeJSSriptWith: anAjaxFactory [
-	"Temporary solution to workaround not passing the html renderer in the API"
-
-	^ (JSScript context: anAjaxFactory renderContext)
-		rendererClass: anAjaxFactory rendererClass;
-		yourself
-]
-
-{ #category : #rendering }
 QuasarDemoReactiveApp >> quasarSetupContentOn: aJSStream with: html [
 
 	self vueSetupDemoExperimentOn: aJSStream
@@ -343,9 +334,9 @@ QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment1On: aJSStream with: anAjax
 QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment2On: aJSStream with: anAjaxFactory [
 	| ajax |
 
-	ajax := (anAjaxFactory getJson
+	ajax := (anAjaxFactory fetch
 			json: [ :json | self ajax2: json with: anAjaxFactory ];
-			onSuccess: ((self makeJSSriptWith: anAjaxFactory) << (JSStream new nextPutAll: 'experiment2.value = arguments[0]'; yourself));
+			onSuccess: (anAjaxFactory javascript << (JSStream new nextPutAll: 'experiment2.value = arguments[0]'; yourself));
 			yourself).
 
 	aJSStream
@@ -357,9 +348,9 @@ QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment2On: aJSStream with: anAjax
 QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment3On: aJSStream with: anAjaxFactory [
 	| ajax |
 
-	ajax := (anAjaxFactory getJson
+	ajax := (anAjaxFactory fetch
 			json: [ :json | self ajax3: json with: anAjaxFactory ];
-			onSuccess: ((self makeJSSriptWith: anAjaxFactory)
+			onSuccess: (anAjaxFactory javascript
 				<< (JSStream new nextPutAll: 'experiment3.value = arguments[0]'; yourself));
 			yourself).
 
@@ -372,10 +363,10 @@ QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment3On: aJSStream with: anAjax
 QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment4On: aJSStream with: anAjaxFactory [
 	| ajax |
 
-	ajax := (anAjaxFactory ajax
+	ajax := (anAjaxFactory fetch
 			callback: [ :value | self experiment4: value ] value: (JSStream on: 'experiment4.value');
 			json: [ :json | self ajax4: json with: anAjaxFactory ];
-			onSuccess: ((self makeJSSriptWith: anAjaxFactory)
+			onSuccess: (anAjaxFactory javascript
 				<< (JSStream new nextPutAll: 'experiment4a.value = arguments[0]'; yourself));
 			yourself).
 

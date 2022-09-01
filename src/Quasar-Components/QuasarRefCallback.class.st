@@ -44,8 +44,8 @@ QuasarRefCallback >> refValueUpdate: anObject [
 QuasarRefCallback >> writeCodeOn: aJSStream with: anAjaxFactory [
 	| ajax code |
 
-	ajax := (anAjaxFactory ajax
-			callback: [ :value | self runCallbackWith: (STONJSON fromString: value) ]
+	ajax := (anAjaxFactory fetch
+			callback: [ :value | self runCallbackWith: (WAJsonParser parse: value) ]
 				value: (JSStream on: 'JSON.stringify(arg1)');
 			json: [ :json | json render: self refValue ];
 			yourself).
@@ -55,7 +55,7 @@ QuasarRefCallback >> writeCodeOn: aJSStream with: anAjaxFactory [
 		code := 'if(', condition, ')' ].
 
 	self emitRefresh ifTrue: [
-		ajax onSuccess: "html javascript refresh" (self makeJSSriptWith: anAjaxFactory) refresh ].
+		ajax onSuccess: anAjaxFactory javascript refresh ].
 
 	aJSStream
 		nextPutAll: 'async function '; nextPutAll: self functionName; nextPutAll: '(arg1) {';

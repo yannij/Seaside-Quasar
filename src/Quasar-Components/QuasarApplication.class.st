@@ -387,7 +387,7 @@ QuasarApplication >> renderContentOn: html [
 		html script url: self quasarMarkdownJsUrl ].
 
 	jsStream := JSStream new.
-	self quasarOnLoadOn: jsStream with: html jQuery.
+	self quasarOnLoadOn: jsStream with: html qAjax.
 	html document addLoadScript: jsStream
 ]
 

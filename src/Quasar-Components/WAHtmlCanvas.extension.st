@@ -1,6 +1,14 @@
 Extension { #name : #WAHtmlCanvas }
 
 { #category : #'*Quasar-Components' }
+WAHtmlCanvas >> qAjax [
+
+	^ (QuasarAjax context: self context)
+		rendererClass: self species;
+		yourself
+]
+
+{ #category : #'*Quasar-Components' }
 WAHtmlCanvas >> qApp [
 
 	^ self brush: QuasarApp new
