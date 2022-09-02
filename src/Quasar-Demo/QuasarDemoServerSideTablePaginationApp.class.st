@@ -478,7 +478,7 @@ QuasarDemoServerSideTablePaginationApp >> rowsRef: anObject [
 
 { #category : #accessing }
 QuasarDemoServerSideTablePaginationApp >> rowsRefUpdate: props [
-	| startRow fetchCount filter sortBy descending filteredRows slice sortedSlice sortBlock fieldBlock |
+	| startRow fetchCount filter sortBy descending filteredRows slice sortedRows sortBlock fieldBlock |
 
 "Transcript crShow: props printString."
 	startRow := [ (props at: 'startRow' ifAbsent: [ '0' ]) asInteger ] onErrorDo: [ 0 ].
@@ -489,18 +489,18 @@ QuasarDemoServerSideTablePaginationApp >> rowsRefUpdate: props [
 
 	filteredRows := self originalRowsFiltered: filter.
 
-	"Adjust from 0-based to 1-based indexing"
-	startRow := startRow + 1.
-	slice := filteredRows copyFrom: startRow to: ((startRow + fetchCount - 1) min: filteredRows size).
-"Transcript crShow: 'slice size: ', slice size printString."
-"Transcript crShow: 'slice ', slice printString."
-
 	sortBy = 'desc' ifTrue: [ sortBy := 'name' ].
 	fieldBlock := [ :object :fieldName | object at: fieldName ifAbsent: [ '' ] ].
 	sortBlock := descending
 		ifTrue: [ [ :a :b | (fieldBlock value: a value: sortBy) < (fieldBlock value: b value: sortBy) ] ]
 		ifFalse: [ [ :a :b | (fieldBlock value: a value: sortBy) > (fieldBlock value: b value: sortBy) ] ].
-	sortedSlice := (SortedCollection sortBlock: sortBlock) addAll: slice; yourself.
+	sortedRows := (SortedCollection sortBlock: sortBlock) addAll: filteredRows; yourself.
 
-	self rowsRef refValue: sortedSlice
+	"Adjust from 0-based to 1-based indexing"
+	startRow := startRow + 1.
+	slice := sortedRows copyFrom: startRow to: ((startRow + fetchCount - 1) min: filteredRows size).
+"Transcript crShow: 'slice size: ', slice size printString."
+"Transcript crShow: 'slice ', slice printString."
+
+	self rowsRef refValue: slice
 ]

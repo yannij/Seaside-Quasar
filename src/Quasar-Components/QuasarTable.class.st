@@ -81,3 +81,9 @@ QuasarTable >> vOnRowClick: anObject [
 
 	self vOn: 'row-click' with: anObject
 ]
+
+{ #category : #attributes }
+QuasarTable >> vRowsPerPageOptions: optionsString [
+
+	self vBind: 'rows-per-page-options' with: optionsString
+]
