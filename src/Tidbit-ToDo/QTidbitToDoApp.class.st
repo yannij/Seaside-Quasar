@@ -69,7 +69,7 @@ QTidbitToDoApp class >> viewStyleTextFieldOutlined [
 { #category : #testing }
 QTidbitToDoApp >> anonymousLoginAllowed [
 
-	^ false
+	^ "false" true
 ]
 
 { #category : #accessing }
@@ -136,6 +136,8 @@ QTidbitToDoApp >> buildLoginComponent [
 
 	^ MDQLogin new
 		loginTitle: self applicationTitle;
+		loginId: 'demo, guset, user1-10';
+		password: 'secret';
 		authenticationBlock: [ :username :password |
 			| userOrNil |
 			userOrNil := self authenticateUsername: username password: password.
@@ -202,7 +204,7 @@ QTidbitToDoApp >> initialize [
 	self sideSheetOpen: ((QuasarRefSyncClientToServer name: 'sideSheetOpen' value: false) callbackBlock: [ :value | value not ]; yourself).
 	self viewStyleDark: ((QuasarRefSyncClientToServer name: 'viewStyleDark' value: false)
 			callbackBlock: [ :value | value not ];
-			onSuccessScript: '$q.dark.set(viewStyleDark.value)';
+			onSuccessScript: '$q.dark.set(viewStyleDark.value);';
 			yourself).
 	self viewStyleTextField: #filled.
 	self viewStyleDense: false.

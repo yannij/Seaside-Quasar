@@ -50,7 +50,7 @@ LoanexApp class >> initialize [
 { #category : #testing }
 LoanexApp >> anonymousLoginAllowed [
 
-	^ false
+	^ "false" true
 ]
 
 { #category : #accessing }
@@ -111,6 +111,8 @@ LoanexApp >> buildLoginComponent [
 
 	^ MDQLogin new
 		loginTitle: self applicationTitle;
+		loginId: 'demo, guset, u1-10';
+		password: 'secret';
 		authenticationBlock: [ :username :password |
 			| userOrNil |
 			userOrNil := self authenticateUsername: username password: password.

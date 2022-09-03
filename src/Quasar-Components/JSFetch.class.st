@@ -1,3 +1,8 @@
+"
+I represent a Javascript Fetch API usage.
+
+Currently a work in progress. The initial code was constructed by copying JQAjax and superclasses, then the code hierarchy was flattened to ""JSObject subclass: #JSFetch"".
+"
 Class {
 	#name : #JSFetch,
 	#superclass : #JSObject,
@@ -496,13 +501,4 @@ JSFetch >> username: aString [
 	"A username to be used in response to an HTTP access authentication request."
 	
 	self optionAt: 'username' put: aString
-]
-
-{ #category : #printing }
-JSFetch >> zzzjavascriptContentOn: aStream [
-	aStream
-		"javascript: self owner;" nextPut: $$;
-		nextPut: $.;
-		nextPutAll: self method.
-	JSStream encodeArguments: self arguments on: aStream
 ]

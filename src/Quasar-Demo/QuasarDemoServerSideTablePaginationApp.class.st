@@ -7,7 +7,10 @@ Class {
 		'rowsRef',
 		'onRequest',
 		'onMountedCode',
-		'loading'
+		'loading',
+		'pagination',
+		'pagesNumber',
+		'onUpdatePage'
 	],
 	#category : #'Quasar-Demo-Basic'
 }
@@ -92,13 +95,6 @@ QuasarDemoServerSideTablePaginationApp >> constSetupJs [
 	^ '
     const rows = ref([]);
     const filter = ref("");
-    const pagination = ref({
-      sortBy: "desc",
-      descending: false,
-      page: 1,
-      rowsPerPage: 3,
-      rowsNumber: 10
-    });
 '
 ]
 
@@ -163,6 +159,16 @@ QuasarDemoServerSideTablePaginationApp >> initialize [
 			yourself).
 	self reactiveObjectsAdd: self onRequest.
 
+	self pagesNumber: ((QuasarComputed name: 'pagesNumber')
+			codeBlock: self pagesNumberCodeBlock;
+			yourself).
+	self reactiveObjectsAdd: self pagesNumber.
+
+	self onUpdatePage: ((QuasarCallback name: 'onUpdatePage')
+			codeBlock: self onUpdatePageCodeBlock;
+			yourself).
+	self reactiveObjectsAdd: self onUpdatePage.
+
 	self onMountedCode: ((QuasarOnMounted name: 'onMountedCode')
 			codeBlock: self onMountedCodeBlock;
 			yourself).
@@ -170,6 +176,10 @@ QuasarDemoServerSideTablePaginationApp >> initialize [
 
 	self loading: (QuasarRefClientOnly name: 'loading' value: false).
 	self reactiveObjectsAdd: self loading.
+
+	self pagination ifNil: [
+		self pagination: (QuasarRefSyncClientToServer name: 'pagination' value: self paginationNew).
+		self reactiveObjectsAdd: self pagination ].
 
 	self rowsRef: ((QuasarRefSyncServerToClient name: 'rowsRemote' value: Array new)
 			"traceOn;"
@@ -270,12 +280,9 @@ async function onRequest(props) {
 
 	loading.value = true;
 
-	//setTimeout(() => {
 	// update rowsCount with appropriate value
-	//pagination.value.rowsNumber = await getRowsNumberCount(filter);
 	await rowCountRefGet(filter);
 	pagination.value.rowsNumber = rowCount.value;
-//console.log(pagination.value);
 
 	// get all rows if "All" (0) is selected
 	const fetchCount = rowsPerPage === 0 ? pagination.value.rowsNumber : rowsPerPage;
@@ -284,7 +291,6 @@ async function onRequest(props) {
 	const startRow = (page - 1) * rowsPerPage;
 
 	// fetch data from "server"
-	//const returnedData = await fetchFromServer(startRow, fetchCount, filter, sortBy, descending);
 	const returnedData = await rowsRemoteRefGet({
 "startRow": startRow,
 "fetchCount": fetchCount,
@@ -292,7 +298,6 @@ async function onRequest(props) {
 "sortBy": sortBy,
 "descending": descending
 });
-//console.log(returnedData);
 
 	// clear out existing data and add new
 	//rows.value.splice(0, rows.value.length, ...returnedData);
@@ -305,7 +310,42 @@ async function onRequest(props) {
 
 	// ...and turn off loading indicator
 	loading.value = false;
-	//}, 500);
+}
+'
+]
+
+{ #category : #accessing }
+QuasarDemoServerSideTablePaginationApp >> onUpdatePage [
+
+	^ onUpdatePage
+]
+
+{ #category : #accessing }
+QuasarDemoServerSideTablePaginationApp >> onUpdatePage: anObject [
+
+	onUpdatePage := anObject
+]
+
+{ #category : #'js-setup' }
+QuasarDemoServerSideTablePaginationApp >> onUpdatePageCodeBlock [
+
+	^ [ :stream :ajaxFactory | stream nextPutAll: self onUpdatePageJs ]
+]
+
+{ #category : #'js-setup' }
+QuasarDemoServerSideTablePaginationApp >> onUpdatePageJs [
+	"update to page indicated by pagination object"
+
+	^ '
+async function ', self onUpdatePage functionName, '(page) {
+	const value = ', self pagination refName, '.value;
+	const parms = {
+		page: page,
+		rowsPerPage: value.rowsPerPage,
+		sortBy: value.sortBy,
+		descending: value.descending
+	};
+	await ', self onRequest functionName, '({pagination: parms});
 }
 '
 ]
@@ -382,6 +422,54 @@ QuasarDemoServerSideTablePaginationApp >> originalRowsJson [
 ]'
 ]
 
+{ #category : #accessing }
+QuasarDemoServerSideTablePaginationApp >> pagesNumber [
+
+	^ pagesNumber
+]
+
+{ #category : #accessing }
+QuasarDemoServerSideTablePaginationApp >> pagesNumber: anObject [
+
+	pagesNumber := anObject
+]
+
+{ #category : #'js-setup' }
+QuasarDemoServerSideTablePaginationApp >> pagesNumberCodeBlock [
+
+	^ [ :stream :ajaxFactory | stream nextPutAll: self pagesNumberCodeBlockJs ]
+]
+
+{ #category : #'js-setup' }
+QuasarDemoServerSideTablePaginationApp >> pagesNumberCodeBlockJs [
+
+	^ 'Math.ceil(', self pagination refName, '.value.rowsNumber / ', self pagination refName,'.value.rowsPerPage)'
+]
+
+{ #category : #accessing }
+QuasarDemoServerSideTablePaginationApp >> pagination [
+
+	^ pagination
+]
+
+{ #category : #accessing }
+QuasarDemoServerSideTablePaginationApp >> pagination: anObject [
+
+	pagination := anObject
+]
+
+{ #category : #initialization }
+QuasarDemoServerSideTablePaginationApp >> paginationNew [
+
+	^ Dictionary new
+		at: 'sortBy' put: 'desc';
+		at: 'descending' put: false;
+		at: 'page' put: 1;
+		at: 'rowsPerPage' put: 3;
+ 		at: 'rowsNumber' put: 10;
+		yourself
+]
+
 { #category : #'rendering - quasar hooks' }
 QuasarDemoServerSideTablePaginationApp >> quasarOnLoadOn: aJSStream with: anAjaxFactory [
 
@@ -421,7 +509,8 @@ QuasarDemoServerSideTablePaginationApp >> renderAppOn: html [
 				html qToolbarTitle with: [
 					html text: 'Server-side table pagination' ] ] ].
 		html qPageContainer with: [
-			self renderTableExampleOn: html ] ]
+			self renderTableExampleOn: html.
+			self renderPaginationOn: html ] ]
 ]
 
 { #category : #rendering }
@@ -429,6 +518,18 @@ QuasarDemoServerSideTablePaginationApp >> renderLayoutOn: html [
 
 	html qApp id: self appId; with: [
 		self renderAppOn: html ]
+]
+
+{ #category : #rendering }
+QuasarDemoServerSideTablePaginationApp >> renderPaginationOn: html [
+
+	html div class: 'row justify-center q-mt-md'; with: [
+		html qPagination
+			vModel: self pagination refName, '.page';
+			vOnUpdateModelValue: self onUpdatePage functionName, '($event)';
+			vBind: 'max' with: self pagesNumber refName;
+			vBind: 'max-pages' with: 6;
+			boundaryNumbers: false ]
 ]
 
 { #category : #rendering }
