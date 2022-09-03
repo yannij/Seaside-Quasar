@@ -3,8 +3,7 @@ Class {
 	#superclass : #QuasarRefObject,
 	#instVars : [
 		'onSuccessScript',
-		'emitOnSuccess',
-		'transformBlock'
+		'emitOnSuccess'
 	],
 	#category : #'Quasar-Components'
 }
@@ -58,35 +57,25 @@ QuasarRefSyncClientToServer >> quasarSetupReturnOn: aJSStream with: anAjaxFactor
 
 { #category : #actions }
 QuasarRefSyncClientToServer >> refValueUpdate: anObject [
-	| newValue |
 
-	newValue := self transformBlock ifNil: [ anObject ] ifNotNil: [ :block | block value: anObject ].
-	self refValue: newValue
-]
-
-{ #category : #accessing }
-QuasarRefSyncClientToServer >> transformBlock [
-
-	^ transformBlock
-]
-
-{ #category : #accessing }
-QuasarRefSyncClientToServer >> transformBlock: anObject [
-
-	transformBlock := anObject
+	self refValue: anObject
 ]
 
 { #category : #'rendering - ajax' }
 QuasarRefSyncClientToServer >> writeCodeOn: aJSStream with: anAjaxFactory [
-	"Answer AJAX callback to pass the browser ref value back to the server,
-	along with client code to set the browser ref value from the server response"
 	| ajax script |
 
-	script := JSStream new nextPutAll: refName; nextPutAll: '.value = data'; yourself.
+	script := JSStream new nextPutAll: refName; nextPutAll: '.value = data;'; yourself.
+	false ifTrue: [
+		script
+			nextPutAll: 'console.log('''; nextPutAll: refName; nextPutAll: ' is: '');';
+			nextPutAll: 'console.log(data);' ].
 	self onSuccessScript ifNotNil: [ :value | script nextPut: $;; nextPutAll: value ].
+	script nextPutAll: 'return data;'.
 
 	ajax := anAjaxFactory fetch
 			callback: [ :value | self runCallbackWith: (WAJsonParser parse: value) ]
+				"**** diff is below ***"
 				value: (JSStream on: 'JSON.stringify(', refName, '.value)');
 			json: [ :json | json render: self refValue ];
 			yourself.

@@ -1,8 +1,12 @@
+"
+I represent a server callback. A condition guard may be specified to avoid the callback. A full page refresh may be specified.
+"
 Class {
 	#name : #QuasarRefCallback,
 	#superclass : #QuasarRefObject,
 	#instVars : [
-		'condition'
+		'condition',
+		'emitRefresh'
 	],
 	#category : #'Quasar-Components'
 }
@@ -19,10 +23,36 @@ QuasarRefCallback >> condition: anObject [
 	condition := anObject
 ]
 
+{ #category : #accessing }
+QuasarRefCallback >> emitRefresh [
+
+	^ emitRefresh
+]
+
+{ #category : #accessing }
+QuasarRefCallback >> emitRefresh: anObject [
+
+	emitRefresh := anObject
+]
+
+{ #category : #accessing }
+QuasarRefCallback >> emitRefreshOn [
+
+	self emitRefresh: true
+]
+
 { #category : #'rendering - ajax' }
 QuasarRefCallback >> functionName [
 
 	^ self refName, 'RefCallback'
+]
+
+{ #category : #initialization }
+QuasarRefCallback >> initialize [
+
+	super initialize.
+
+	self emitRefresh: false
 ]
 
 { #category : #'rendering - ajax' }

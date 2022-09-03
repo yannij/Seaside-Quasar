@@ -1,20 +1,14 @@
+"
+I represent computed value code appearing in Quasar setup().
+"
 Class {
 	#name : #QuasarComputed,
 	#superclass : #QuasarSetupObject,
 	#instVars : [
-		'refName',
 		'codeBlock'
 	],
 	#category : #'Quasar-Components'
 }
-
-{ #category : #'instance creation' }
-QuasarComputed class >> name: aName [
-
-	^ self new
-		refName: aName;
-		yourself
-]
 
 { #category : #accessing }
 QuasarComputed >> codeBlock [
@@ -35,18 +29,6 @@ QuasarComputed >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
 	aJSStream nextPutAll: ': computed(() => '.
 	self writeCodeOn: aJSStream with: anAjaxFactory.
 	aJSStream nextPutAll: ')'
-]
-
-{ #category : #accessing }
-QuasarComputed >> refName [
-
-	^ refName
-]
-
-{ #category : #accessing }
-QuasarComputed >> refName: anObject [
-
-	refName := anObject
 ]
 
 { #category : #'rendering - ajax' }

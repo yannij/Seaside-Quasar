@@ -63,20 +63,19 @@ QuasarRefSyncServerToClient >> refValueUpdate: anObject [
 
 { #category : #'rendering - ajax' }
 QuasarRefSyncServerToClient >> writeCodeOn: aJSStream with: anAjaxFactory [
-	"Answer AJAX callback to pass parameters back to the server
-	to recalculate a reactive value"
 	| ajax script |
 
-	script := JSStream new
-		nextPutAll: refName; nextPutAll: '.value = data;';
-		"nextPutAll: 'console.log('''; nextPutAll: refName; nextPutAll: ' is: '');';
-		nextPutAll: 'console.log(data);';"
-		nextPutAll: 'return data;';
-		yourself.
+	script := JSStream new nextPutAll: refName; nextPutAll: '.value = data;'; yourself.
+	false ifTrue: [
+		script
+			nextPutAll: 'console.log('''; nextPutAll: refName; nextPutAll: ' is: '');';
+			nextPutAll: 'console.log(data);' ].
 	self onSuccessScript ifNotNil: [ :value | script nextPut: $;; nextPutAll: value ].
+	script nextPutAll: 'return data;'.
 
 	ajax := anAjaxFactory fetch
 			callback: [ :value | self runCallbackWith: (WAJsonParser parse: value) ]
+				"**** diff is below ***"
 				value: (JSStream on: 'JSON.stringify(arg1)');
 			json: [ :json | json render: self refValue ];
 			yourself.
@@ -87,6 +86,5 @@ QuasarRefSyncServerToClient >> writeCodeOn: aJSStream with: anAjaxFactory [
 	aJSStream
 		nextPutAll: 'async function '; nextPutAll: self functionName; nextPutAll: '(arg1) {';
 		nextPutAll: ajax asJavascript; nextPut: $;;
-		"nextPutAll: 'return ', self refName, '.value';"
 		nextPutAll: '}'.
 ]

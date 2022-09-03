@@ -6,7 +6,8 @@ Class {
 		'rowCountRef',
 		'rowsRef',
 		'onRequest',
-		'onMountedCode'
+		'onMountedCode',
+		'loading'
 	],
 	#category : #'Quasar-Demo-Basic'
 }
@@ -91,7 +92,6 @@ QuasarDemoServerSideTablePaginationApp >> constSetupJs [
 	^ '
     const rows = ref([]);
     const filter = ref("");
-    const loading = ref(false);
     const pagination = ref({
       sortBy: "desc",
       descending: false,
@@ -168,6 +168,9 @@ QuasarDemoServerSideTablePaginationApp >> initialize [
 			yourself).
 	self onMountedObjectsAdd: self onMountedCode.
 
+	self loading: (QuasarRefClientOnly name: 'loading' value: false).
+	self reactiveObjectsAdd: self loading.
+
 	self rowsRef: ((QuasarRefSyncServerToClient name: 'rowsRemote' value: Array new)
 			"traceOn;"
 			"onSuccessScript: 'console.log(rowsRemote.value)';"
@@ -181,6 +184,18 @@ QuasarDemoServerSideTablePaginationApp >> initialize [
 			callbackBlock: [ :ajaxArg | self rowCountRefUpdate: ajaxArg ];
 			yourself).
 	self reactiveObjectsAdd: self rowCountRef
+]
+
+{ #category : #accessing }
+QuasarDemoServerSideTablePaginationApp >> loading [
+
+	^ loading
+]
+
+{ #category : #accessing }
+QuasarDemoServerSideTablePaginationApp >> loading: anObject [
+
+	loading := anObject
 ]
 
 { #category : #accessing }
@@ -391,7 +406,6 @@ QuasarDemoServerSideTablePaginationApp >> quasarSetupReturnContentOn: aJSStream 
 
 	aJSStream nextPutAll: '
       filter,
-      loading,
       pagination,
       columns,
       rows
@@ -501,6 +515,9 @@ QuasarDemoServerSideTablePaginationApp >> rowsRefUpdate: props [
 	slice := sortedRows copyFrom: startRow to: ((startRow + fetchCount - 1) min: filteredRows size).
 "Transcript crShow: 'slice size: ', slice size printString."
 "Transcript crShow: 'slice ', slice printString."
+
+	"Delay to see the loading indicator"
+	(Delay forMilliseconds: 300) wait.
 
 	self rowsRef refValue: slice
 ]

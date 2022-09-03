@@ -1,11 +1,23 @@
+"
+I am an abstract class for objects (i.e. ref's and functions) used to construct content for the Quasar setup() definition.
+"
 Class {
 	#name : #QuasarSetupObject,
 	#superclass : #Object,
 	#instVars : [
-		'traceLevel'
+		'traceLevel',
+		'refName'
 	],
 	#category : #'Quasar-Components'
 }
+
+{ #category : #'instance creation' }
+QuasarSetupObject class >> name: aName [
+
+	^ self new
+		refName: aName;
+		yourself
+]
 
 { #category : #logging }
 QuasarSetupObject >> logString: aString [
@@ -27,6 +39,18 @@ QuasarSetupObject >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
 	Typically refs and functions that need to be visible.
 
 	Subclasses may override"
+]
+
+{ #category : #accessing }
+QuasarSetupObject >> refName [
+
+	^ refName
+]
+
+{ #category : #accessing }
+QuasarSetupObject >> refName: anObject [
+
+	refName := anObject
 ]
 
 { #category : #testing }

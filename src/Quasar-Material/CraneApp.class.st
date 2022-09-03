@@ -103,7 +103,7 @@ CraneApp >> initialize [
 	self tab: (QuasarRefCallback name: 'tab' value: 'fly').
 	self reactiveObjectsAdd: self tab.
 
-	self filterShow: ((QuasarRefSyncClientToServer name: 'filterShow' value: false) transformBlock: [ :value | value not ]; yourself).
+	self filterShow: ((QuasarRefSyncClientToServer name: 'filterShow' value: false) callbackBlock: [ :value | value not ]; yourself).
 	self reactiveObjectsAdd: self filterShow.
 
 	self initializeFlyFilter.
@@ -117,23 +117,23 @@ CraneApp >> initializeEatFilter [
 
 	self eatFilter: CraneEatSearch new.
 
-	newReactive := (QuasarRefSyncClientToServer name: 'dinerCount' value: 2) transformBlock: [ :value | value ]; yourself.
+	newReactive := QuasarRefSyncClientToServer name: 'dinerCount' value: 2.
 	self eatFilter dinerCount: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := (QuasarRefSyncClientToServer name: 'diningDate' value: Date today) "transformBlock: [ :value | value ];" yourself.
+	newReactive := QuasarRefSyncClientToServer name: 'diningDate' value: Date today.
 	self eatFilter diningDate: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := (QuasarRefSyncClientToServer name: 'diningTime' value: Time now) "transformBlock: [ :value | value ];" yourself.
+	newReactive := QuasarRefSyncClientToServer name: 'diningTime' value: Time now.
 	self eatFilter diningTime: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := (QuasarRefSyncClientToServer name: 'cuisine' value: nil) transformBlock: [ :value | value ]; yourself.
+	newReactive := QuasarRefSyncClientToServer name: 'cuisine' value: nil.
 	self eatFilter cuisine: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := (QuasarRefSyncClientToServer name: 'city' value: nil) "transformBlock: [ :value | value ];" yourself.
+	newReactive := QuasarRefSyncClientToServer name: 'city' value: nil.
 	self eatFilter city: newReactive.
 	self reactiveObjectsAdd: newReactive.
 ]
@@ -148,15 +148,15 @@ CraneApp >> initializeFlyFilter [
 
 	self flyFilter: CraneFlySearch new.
 
-	newReactive := (QuasarRefSyncClientToServer name: 'adultCount' value: 2) transformBlock: [ :value | value ]; yourself.
+	newReactive := QuasarRefSyncClientToServer name: 'adultCount' value: 2.
 	self flyFilter adultCount: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := (QuasarRefSyncClientToServer name: 'childrenCount' value: 3) transformBlock: [ :value | value ]; yourself.
+	newReactive := QuasarRefSyncClientToServer name: 'childrenCount' value: 3.
 	self flyFilter childrenCount: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := (QuasarRefSyncClientToServer name: 'cabin' value: 'Economy') transformBlock: [ :value | value ]; yourself.
+	newReactive := QuasarRefSyncClientToServer name: 'cabin' value: 'Economy'.
 	self flyFilter cabinType: newReactive.
 	self reactiveObjectsAdd: newReactive.
 	newReactive := (QuasarRefSyncClientToServer name: 'cabinOptions' value: #('Economy' 'Business' 'First Class')) yourself.
@@ -182,15 +182,15 @@ CraneApp >> initializeSleepFilter [
 
 	self sleepFilter: CraneSleepSearch new.
 
-	newReactive := (QuasarRefSyncClientToServer name: 'adultCount' value: 2) transformBlock: [ :value | value ]; yourself.
+	newReactive := QuasarRefSyncClientToServer name: 'adultCount' value: 2.
 	self sleepFilter adultCount: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := (QuasarRefSyncClientToServer name: 'childrenCount' value: 3) transformBlock: [ :value | value ]; yourself.
+	newReactive := QuasarRefSyncClientToServer name: 'childrenCount' value: 3.
 	self sleepFilter childrenCount: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
-	"newReactive := (QuasarReactiveRefSync name: 'startDate' value: Date today) ""transformBlock: [ :value | value ];"" yourself.
+	"newReactive := QuasarReactiveRefSync name: 'startDate' value: Date today.
 	self sleepFilter startDate: newReactive refValue.
 	self reactiveObjectsAdd: newReactive."
 ]

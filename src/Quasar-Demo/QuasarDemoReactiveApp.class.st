@@ -74,7 +74,7 @@ QuasarDemoReactiveApp >> buildTestCollection [
 		yourself.
 
 	^ (QuasarRefSyncClientToServer name: 'testCollection' value: newList)
-		transformBlock: [ :value | value asOrderedCollection add: QuasarDemoObjectA newRandom; yourself ]; yourself
+		callbackBlock: [ :value | value asOrderedCollection add: QuasarDemoObjectA newRandom; yourself ]; yourself
 ]
 
 { #category : #accessing }
@@ -129,21 +129,21 @@ QuasarDemoReactiveApp >> initialize [
 	super initialize.
 
 	self reactiveList: (OrderedCollection new
-		add: ((QuasarRefSyncClientToServer name: 'reactive1' value: true) transformBlock: [ :value | value not ]; yourself);
-		add: ((QuasarRefSyncClientToServer name: 'reactive2' value: 0) transformBlock: [ :value | value + 1 ]; yourself);
-		add: ((QuasarRefSyncClientToServer name: 'reactive3' value: 1.2) transformBlock: [ :value | value + 1 ]; yourself);
-		add: ((QuasarRefSyncClientToServer name: 'reactive4' value: 'abc') transformBlock: [ :value | value, value ]; yourself);
-		add: ((QuasarRefSyncClientToServer name: 'reactive5' value: DateAndTime now) transformBlock: [ :value | DateAndTime now ]; yourself);
+		add: ((QuasarRefSyncClientToServer name: 'reactive1' value: true) callbackBlock: [ :value | value not ]; yourself);
+		add: ((QuasarRefSyncClientToServer name: 'reactive2' value: 0) callbackBlock: [ :value | value + 1 ]; yourself);
+		add: ((QuasarRefSyncClientToServer name: 'reactive3' value: 1.2) callbackBlock: [ :value | value + 1 ]; yourself);
+		add: ((QuasarRefSyncClientToServer name: 'reactive4' value: 'abc') callbackBlock: [ :value | value, value ]; yourself);
+		add: ((QuasarRefSyncClientToServer name: 'reactive5' value: DateAndTime now) callbackBlock: [ :value | DateAndTime now ]; yourself);
 		add: ((QuasarRefSyncClientToServer name: 'reactive6' value: {true. 123. 3.456. 'abc'. DateAndTime now})
-			transformBlock: [ :value | value, value ]; yourself);
+			callbackBlock: [ :value | value, value ]; yourself);
 		add: ((QuasarRefSyncClientToServer name: 'reactive7' value: {'k1'->'v1'. 'k2'->'v2'. 'k3'->'v3'} asDictionary)
-			transformBlock: [ :value | value at: 100 atRandom printString put: 1000 atRandom; yourself ]; yourself);
+			callbackBlock: [ :value | value at: 100 atRandom printString put: 1000 atRandom; yourself ]; yourself);
 		add: ((QuasarRefSyncClientToServer name: 'reactive8'
 			value: {
 				{'k1'->'v1'. 'k2'->'v2'. 'k3'->'v3'} asDictionary.
 				{'k21'->'v21'. 'k22'->'v22'. 'k23'->'v23'} asDictionary.
 				{'k31'->'v31'. 'k32'->'v32'. 'k33'->'v33'} asDictionary })
-			transformBlock: [ :value | value ]; yourself);
+			callbackBlock: [ :value | value ]; yourself);
 		yourself).
 
 	self testCollection: self buildTestCollection

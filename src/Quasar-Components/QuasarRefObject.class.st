@@ -2,10 +2,8 @@ Class {
 	#name : #QuasarRefObject,
 	#superclass : #QuasarSetupObject,
 	#instVars : [
-		'refName',
 		'refValue',
-		'callbackBlock',
-		'emitRefresh'
+		'callbackBlock'
 	],
 	#category : #'Quasar-Components'
 }
@@ -31,41 +29,6 @@ QuasarRefObject >> callbackBlock: anObject [
 	callbackBlock := anObject
 ]
 
-{ #category : #accessing }
-QuasarRefObject >> emitRefresh [
-
-	^ emitRefresh
-]
-
-{ #category : #accessing }
-QuasarRefObject >> emitRefresh: anObject [
-
-	emitRefresh := anObject
-]
-
-{ #category : #accessing }
-QuasarRefObject >> emitRefreshOn [
-
-	self emitRefresh: true
-]
-
-{ #category : #initialization }
-QuasarRefObject >> initialize [
-
-	super initialize.
-
-	self emitRefresh: false
-]
-
-{ #category : #initialization }
-QuasarRefObject >> makeJSSriptWith: anAjaxFactory [
-	"Temporary solution to workaround not passing the html renderer in the API"
-
-	^ (JSScript context: anAjaxFactory renderContext)
-		rendererClass: anAjaxFactory rendererClass;
-		yourself
-]
-
 { #category : #'rendering - ajax' }
 QuasarRefObject >> quasarSetupOn: aJSStream [
 
@@ -82,18 +45,6 @@ QuasarRefObject >> quasarSetupOn: aJSStream [
 QuasarRefObject >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPut: Character cr; nextPutAll: refName
-]
-
-{ #category : #accessing }
-QuasarRefObject >> refName [
-
-	^ refName
-]
-
-{ #category : #accessing }
-QuasarRefObject >> refName: anObject [
-
-	refName := anObject
 ]
 
 { #category : #accessing }
@@ -122,5 +73,5 @@ QuasarRefObject >> runCallbackWith: anObject [
 
 	self callbackBlock
 		ifNil: [ self refValueUpdate: anObject ]
-		ifNotNil: [ :block | block value: anObject ]
+		ifNotNil: [ :block | self refValueUpdate: (block value: anObject) ]
 ]
