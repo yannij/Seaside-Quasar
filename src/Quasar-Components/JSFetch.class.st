@@ -213,10 +213,8 @@ JSFetch >> javascriptContentOn: aStream [
 	aStream
 		nextPutAll: 'await fetch(', self javascriptUrl contents, ',', fetchOptions, ')';
 		nextPutAll: '.then((response) => {
-	if (!response.ok) {
-		throw new Error(''Network response was not OK'');
-	}
-	return response.json();
+	if (!response.ok){throw new Error(''Network response was not OK'',{cause: null});}
+	try {return response.json();} catch(err){throw new Error(''Parse json failed'',{cause: err});}
 })';
 		nextPutAll: '.then('; nextPutAll: self onSuccessFunction asJavascript; nextPutAll: ')';
 		nextPutAll: '.catch((error) => {';
@@ -307,7 +305,7 @@ JSFetch >> onErrorCode [
 
 	self options at: 'error' ifPresent: [ :value | ^ 'showNotif(''star'',error.toString(),''top'',''Dismiss'',3000);' ].
 
-	^ 'console.error(''Problem with fetch operation:'', error);'
+	^ 'console.log(error.message);console.log(error.cause);'
 ]
 
 { #category : #events }

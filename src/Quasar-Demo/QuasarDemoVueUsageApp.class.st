@@ -1,8 +1,8 @@
 "
-I am a demo application showing how to use Quasar Utils from Seaside.
+I hold various code examples for utilizing Vue features from Seaside
 "
 Class {
-	#name : #QuasarDemoUtilsApp,
+	#name : #QuasarDemoVueUsageApp,
 	#superclass : #QuasarApplication,
 	#instVars : [
 		'demoName',
@@ -14,13 +14,13 @@ Class {
 }
 
 { #category : #initialization }
-QuasarDemoUtilsApp class >> applicationPath [
+QuasarDemoVueUsageApp class >> applicationPath [
 
-	^ 'quasar/utils-demo'
+	^ 'quasar/vue-usage'
 ]
 
 { #category : #initialization }
-QuasarDemoUtilsApp class >> initialize [
+QuasarDemoVueUsageApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
 	WAAdmin unregister: self applicationPath.
@@ -30,80 +30,75 @@ QuasarDemoUtilsApp class >> initialize [
 ]
 
 { #category : #accessing }
-QuasarDemoUtilsApp >> applicationTitle [
+QuasarDemoVueUsageApp >> applicationTitle [
 
-	^ 'Quasar Utils'
+	^ 'Vue Usage'
 ]
 
 { #category : #accessing }
-QuasarDemoUtilsApp >> demoName [
+QuasarDemoVueUsageApp >> demoName [
 
 	^ demoName
 ]
 
 { #category : #accessing }
-QuasarDemoUtilsApp >> demoName: anObject [
+QuasarDemoVueUsageApp >> demoName: anObject [
 
 	demoName := anObject
 ]
 
 { #category : #accessing }
-QuasarDemoUtilsApp >> demoNames [
+QuasarDemoVueUsageApp >> demoNames [
 
 	^ #(
-	DOM
-	Other
+	Scroll
 	)
 ]
 
+{ #category : #'rendering - quasar' }
+QuasarDemoVueUsageApp >> quasarOnLoadOn: aJSStream with: anAjaxFactory [
+
+	aJSStream nextPutAll: 'const { QBtn } = Quasar;'.
+	super quasarOnLoadOn: aJSStream with: anAjaxFactory
+]
+
 { #category : #'rendering - quasar hooks' }
-QuasarDemoUtilsApp >> quasarSetupContentOn: aJSStream with: html [
+QuasarDemoVueUsageApp >> quasarSetupContentOn: aJSStream with: html [
 
 	aJSStream nextPutAll: '
-const uid1 = ref("uid1 initial value");
-const dom1 = ref("dom1 initial value");
+const mybutton = ref(QBtn);
 '
 ]
 
 { #category : #'rendering - quasar hooks' }
-QuasarDemoUtilsApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
+QuasarDemoVueUsageApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
 
 	aJSStream
-		nextPutAll: 'uid1, utilUid(){ uid1.value = Quasar.uid() }';
-		"nextPutAll: ', dom1, utilDomOffset(){ dom1.value = Quasar.dom.offset(this.$refs.dom1Chip) }'"
-		nextPutAll: ', dom1, utilDomOffset(){ console.log(this.$refs.dom1Chip) }'
+		nextPutAll: 'mybutton'
 ]
 
-{ #category : #'demo - DOM' }
-QuasarDemoUtilsApp >> renderDemoDOMOn: html [
+{ #category : #'demo - scroll' }
+QuasarDemoVueUsageApp >> renderDemoScrollOn: html [
 
-	html text: 'Click to generate UID: '.
-	html qChip
-		clickable;
-		vOnClick: 'utilUid($event)';
-		vBind: 'label' with: 'uid1'
-		"label: 'foobar'"
-]
+	self onMountedObjectsAdd: ((QuasarOnMounted name: 'demoScrollOnMounted')
+			codeBlock: [ :stream :ajaxFactory | stream nextPutAll: 'mybutton.value.$el.scrollIntoView({ behavior: ''smooth'' })' ];
+			yourself).
 
-{ #category : #'demo - other' }
-QuasarDemoUtilsApp >> renderDemoOtherOn: html [
+	html div class: 'q-qa-sm'; with: [
+		html qBtn
+			label: 'Scroll to target';
+			vOnClick: 'this.$refs.mybutton.$el.scrollIntoView({ behavior: ''smooth'' })'.
+		html div
+			vFor: 'n in 100';
+			vBind: 'key' with: 'n';
+			with: 'Item {{ n }} / 100' ].
 
-	self renderDemoOtherUIDOn: html
-]
-
-{ #category : #'demo - other' }
-QuasarDemoUtilsApp >> renderDemoOtherUIDOn: html [
-
-	html text: 'Click to generate UID: '.
-	html qChip
-		clickable;
-		vOnClick: 'utilUid($event)';
-		vBind: 'label' with: 'uid1'
-		"label: 'foobar'"
+	html div "style: 'padding-top: 1000px';" with: [
+		html qBtn ref: 'mybutton'; label: 'Scroll To Me!' ].
 ]
 
 { #category : #rendering }
-QuasarDemoUtilsApp >> renderLayoutOn: html [
+QuasarDemoVueUsageApp >> renderLayoutOn: html [
 
 	html html: '<style>
 .my-card {
@@ -123,7 +118,7 @@ QuasarDemoUtilsApp >> renderLayoutOn: html [
 ]
 
 { #category : #rendering }
-QuasarDemoUtilsApp >> renderLayoutPageOn: html [
+QuasarDemoVueUsageApp >> renderLayoutPageOn: html [
 	| demoSelector |
 
 	self demoName ifNil: [ ^ self ].
@@ -138,7 +133,7 @@ QuasarDemoUtilsApp >> renderLayoutPageOn: html [
 ]
 
 { #category : #rendering }
-QuasarDemoUtilsApp >> renderLeftDrawerOn: html [
+QuasarDemoVueUsageApp >> renderLeftDrawerOn: html [
 
 	html qDrawer ref: 'leftDrawer'; showIfAbove; persistent; side: 'left';
 		class: 'bg-primary'; style: 'color: white';
@@ -149,7 +144,7 @@ QuasarDemoUtilsApp >> renderLeftDrawerOn: html [
 ]
 
 { #category : #rendering }
-QuasarDemoUtilsApp >> renderNavOn: html [
+QuasarDemoVueUsageApp >> renderNavOn: html [
 
 	html qList with: [
 		self demoNames do: [ :eachItem |

@@ -34,6 +34,7 @@ QuasarDemoBrowseApp >> demoClasses [
 	#QuasarDemoLayoutApp
 	#QuasarDemoComponentApp
 	#QuasarDemoReactiveApp
+	#QuasarDemoServerSideTablePaginationApp
 	#QuasarDemoHtmlTextApp
 	#QuasarDemoMarkdownApp
 	#QuasarDemoAccountingApp
@@ -48,10 +49,11 @@ QuasarDemoBrowseApp >> demoClasses [
 	#LoanexApp
 	#KeycloakHelloApp
 	#KeycloakHelloBootstrapApp
-	#QuasarDemoScaffoldApp
+	#QuasarDemoVueUsageApp
 	#QuasarDemoVueRouterApp
 	#QuasarCodePenVueRouterApp
-	#QuasarDemoServerSideTablePaginationApp
+	#QuasarDemoUtilsApp
+	#QuasarDemoScaffoldApp
 	)
 	collect: [ :eachApp | eachApp asClassInEnvironment: Smalltalk globals ifAbsent: [ nil ] ]
 ]

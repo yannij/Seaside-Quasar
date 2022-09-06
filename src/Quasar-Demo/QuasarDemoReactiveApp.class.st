@@ -96,6 +96,7 @@ QuasarDemoReactiveApp >> demoNames [
 	Ajax
 	Reactive
 	Collection
+	FetchError
 	)
 ]
 
@@ -228,6 +229,24 @@ QuasarDemoReactiveApp >> renderDemoCollectionOn: html [
 
 	html div class: 'q-py-md'; with: [
 		html qTable title: 'Test Collection'; "columns: self refNameCols;" rows: refName ]
+]
+
+{ #category : #'demo - fetch error' }
+QuasarDemoReactiveApp >> renderDemoFetchErrorOn: html [
+	| testRef |
+
+	testRef := self mdqApplicationGet reactiveObjects
+		at: 'FetchError1'
+		ifAbsentPut: [
+			((QuasarRefSyncServerToClient name: 'FetchError1' value: 10)
+				"traceOn;"
+				callbackBlock: [ :ref :ajaxArg | self error: ajaxArg ];
+				yourself) ].
+
+	html div class: 'q-pa-sm'; with: [
+		html div with: testRef refName, ': {{ ', testRef refName, ' }}' ].
+	html div with: [
+		html qBtn label: testRef refName; vOnClick: testRef functionName, '()' ]
 ]
 
 { #category : #'demo - reactive' }

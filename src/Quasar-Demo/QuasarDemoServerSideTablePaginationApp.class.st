@@ -1,3 +1,6 @@
+"
+I provide a Seaside implementation of the example at https://quasar.dev/vue-components/table#example--synchronizing-with-server
+"
 Class {
 	#name : #QuasarDemoServerSideTablePaginationApp,
 	#superclass : #QuasarApplication,

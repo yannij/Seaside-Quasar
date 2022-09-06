@@ -1,3 +1,6 @@
+"
+I include the necessary scaffolding to quickly try out some code snippets. The code here is meant to be temporary.
+"
 Class {
 	#name : #QuasarDemoScaffoldApp,
 	#superclass : #QuasarApplication,
