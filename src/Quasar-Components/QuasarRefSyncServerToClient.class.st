@@ -55,12 +55,6 @@ QuasarRefSyncServerToClient >> quasarSetupReturnOn: aJSStream with: anAjaxFactor
 	aJSStream nextPutAll: self functionName
 ]
 
-{ #category : #actions }
-QuasarRefSyncServerToClient >> refValueUpdate: anObject [
-
-	"self refValue: anObject"
-]
-
 { #category : #'rendering - ajax' }
 QuasarRefSyncServerToClient >> writeCodeOn: aJSStream with: anAjaxFactory [
 	| ajax script |

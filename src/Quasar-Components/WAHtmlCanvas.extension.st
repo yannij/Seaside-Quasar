@@ -21,6 +21,12 @@ WAHtmlCanvas >> qAvatar [
 ]
 
 { #category : #'*Quasar-Components' }
+WAHtmlCanvas >> qBanner [
+
+	^ self brush: QuasarBanner new
+]
+
+{ #category : #'*Quasar-Components' }
 WAHtmlCanvas >> qBtn [
 
 	^ self brush: QuasarBtn new

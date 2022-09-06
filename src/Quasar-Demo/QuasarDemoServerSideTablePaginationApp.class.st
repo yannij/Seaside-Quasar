@@ -184,14 +184,14 @@ QuasarDemoServerSideTablePaginationApp >> initialize [
 	self rowsRef: ((QuasarRefSyncServerToClient name: 'rowsRemote' value: Array new)
 			"traceOn;"
 			"onSuccessScript: 'console.log(rowsRemote.value)';"
-			callbackBlock: [ :ajaxArg | self rowsRefUpdate: ajaxArg ];
+			callbackBlock: [ :ref :ajaxArg | self rowsRefUpdate: ajaxArg ];
 			yourself).
 	self reactiveObjectsAdd: self rowsRef.
 
 	self rowCountRef: ((QuasarRefSyncServerToClient name: 'rowCount' value: 10)
 			"traceOn;"
 			"onSuccessScript: 'console.log(rowCount.value)';"
-			callbackBlock: [ :ajaxArg | self rowCountRefUpdate: ajaxArg ];
+			callbackBlock: [ :ref :ajaxArg | self rowCountRefUpdate: ajaxArg ];
 			yourself).
 	self reactiveObjectsAdd: self rowCountRef
 ]

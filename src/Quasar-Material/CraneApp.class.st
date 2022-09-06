@@ -103,7 +103,7 @@ CraneApp >> initialize [
 	self tab: (QuasarRefCallback name: 'tab' value: 'fly').
 	self reactiveObjectsAdd: self tab.
 
-	self filterShow: ((QuasarRefSyncClientToServer name: 'filterShow' value: false) callbackBlock: [ :value | value not ]; yourself).
+	self filterShow: ((QuasarRefSyncClientToServer name: 'filterShow' value: false) callbackBlock: [ :ref :value | ref refValue: value not ]; yourself).
 	self reactiveObjectsAdd: self filterShow.
 
 	self initializeFlyFilter.

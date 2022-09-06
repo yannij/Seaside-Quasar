@@ -31,6 +31,7 @@ QuasarRefSyncClientToServer >> initialize [
 
 	super initialize.
 
+	self callbackBlock: [ :ref :value | ref refValue: value ].
 	self emitOnSuccess: true
 ]
 
@@ -53,12 +54,6 @@ QuasarRefSyncClientToServer >> quasarSetupReturnOn: aJSStream with: anAjaxFactor
 
 	aJSStream nextPut: $,.
 	aJSStream nextPutAll: self functionName
-]
-
-{ #category : #actions }
-QuasarRefSyncClientToServer >> refValueUpdate: anObject [
-
-	self refValue: anObject
 ]
 
 { #category : #'rendering - ajax' }

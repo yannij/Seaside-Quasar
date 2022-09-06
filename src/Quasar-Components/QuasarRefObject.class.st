@@ -3,7 +3,8 @@ Class {
 	#superclass : #QuasarSetupObject,
 	#instVars : [
 		'refValue',
-		'callbackBlock'
+		'callbackBlock',
+		'onServerErrorBlock'
 	],
 	#category : #'Quasar-Components'
 }
@@ -27,6 +28,18 @@ QuasarRefObject >> callbackBlock [
 QuasarRefObject >> callbackBlock: anObject [
 
 	callbackBlock := anObject
+]
+
+{ #category : #accessing }
+QuasarRefObject >> onServerErrorBlock [
+
+	^ onServerErrorBlock
+]
+
+{ #category : #accessing }
+QuasarRefObject >> onServerErrorBlock: anObject [
+
+	onServerErrorBlock := anObject
 ]
 
 { #category : #'rendering - ajax' }
@@ -63,15 +76,9 @@ QuasarRefObject >> refValue: anObject [
 ]
 
 { #category : #actions }
-QuasarRefObject >> refValueUpdate: anObject [
-
-	self subclassResponsibility
-]
-
-{ #category : #actions }
 QuasarRefObject >> runCallbackWith: anObject [
+	"If callback block is present, then invoke it.
+	The callback block is responsible for the ref value update"
 
-	self callbackBlock
-		ifNil: [ self refValueUpdate: anObject ]
-		ifNotNil: [ :block | self refValueUpdate: (block value: anObject) ]
+	self callbackBlock ifNotNil: [ :block | block value: self value: anObject ]
 ]

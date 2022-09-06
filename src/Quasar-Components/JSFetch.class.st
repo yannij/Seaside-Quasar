@@ -170,6 +170,8 @@ JSFetch >> hasCallback [
 JSFetch >> html: aRenderable [
 	"Defines a html rendering callback."
 
+	self notSupported.
+
 	self dataType: 'html'.
 	self respond: [ :response |
 		response
@@ -206,7 +208,7 @@ JSFetch >> jQuery [
 JSFetch >> javascriptContentOn: aStream [
 	| fetchOptions |
 
-	fetchOptions := '{method: ''GET''}'.
+	fetchOptions := '{method: ''GET'',headers: {''Content-Type'': ''application/json''}}'.
 
 	aStream
 		nextPutAll: 'await fetch(', self javascriptUrl contents, ',', fetchOptions, ')';
@@ -217,9 +219,10 @@ JSFetch >> javascriptContentOn: aStream [
 	return response.json();
 })';
 		nextPutAll: '.then('; nextPutAll: self onSuccessFunction asJavascript; nextPutAll: ')';
-		nextPutAll: '.catch((error) => {
-	console.error(''Problem with fetch operation:'', error);
-});'
+		nextPutAll: '.catch((error) => {';
+		nextPutAll: self onErrorCode;
+		nextPutAll: '}';
+		nextPutAll: ');'
 ]
 
 { #category : #'accessing-urls' }
@@ -246,6 +249,7 @@ JSFetch >> json: aRenderable [
 		response
 			doNotCache;
 			contentType: WAMimeType applicationJson;
+			"nextPutAll: ([ WAJsonCanvas builder render: aRenderable ] on: Error do: [ :ex | ex printString asJson ]) ]"
 			nextPutAll: (WAJsonCanvas builder render: aRenderable) ]
 ]
 
@@ -268,9 +272,16 @@ JSFetch >> method [
 	^ 'ajax'
 ]
 
+{ #category : #callbacks }
+JSFetch >> notSupported [
+	"Raise error when JQAjax methods used. Support for the API methods are pending further thought"
+]
+
 { #category : #events }
 JSFetch >> onBeforeSend: anObject [
 	"A pre-callback to modify the XMLHttpRequest object before it is sent. Use this to set custom headers etc. The XMLHttpRequest is passed as the only argument."
+
+	self notSupported.
 	
 	self optionAt: 'beforeSend' put: anObject asFunction
 ]
@@ -285,13 +296,25 @@ JSFetch >> onComplete: anObject [
 { #category : #events }
 JSFetch >> onError: anObject [
 	"A function to be called if the request fails. The function is passed three arguments: The XMLHttpRequest object, a string describing the type of error that occurred and an optional exception object, if one occurred. Possible values for the second argument (besides null) are 'timeout', 'error', 'notmodified' and 'parsererror'."
+
+	self notSupported.
 	
 	self optionAt: 'error' put: anObject asFunction
+]
+
+{ #category : #printing }
+JSFetch >> onErrorCode [
+
+	self options at: 'error' ifPresent: [ :value | ^ 'showNotif(''star'',error.toString(),''top'',''Dismiss'',3000);' ].
+
+	^ 'console.error(''Problem with fetch operation:'', error);'
 ]
 
 { #category : #events }
 JSFetch >> onSuccess: anObject [
 	"A function to be called if the request succeeds. The function gets passed the data returned from the server, formatted according to the 'dataType' parameter."
+
+	self notSupported.
 	
 	self optionAt: 'success' put: (anObject asFunction: #('data'))
 ]
@@ -353,6 +376,8 @@ JSFetch >> respond: aBlock [
 { #category : #callbacks }
 JSFetch >> script: aBlock [
 	"Defines a script rendering callback."
+
+	self notSupported.
 
 	self dataType: 'script'.
 	self respond: [ :response |
@@ -453,6 +478,8 @@ JSFetch >> serializeWithHidden: aQuery [
 { #category : #callbacks }
 JSFetch >> text: aBlock [
 	"Defines a text rendering callback."
+
+	self notSupported.
 
 	self dataType: 'text'.
 	self respond: [ :response |

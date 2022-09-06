@@ -52,6 +52,7 @@ QuasarRefCallback >> initialize [
 
 	super initialize.
 
+	self callbackBlock: [ :ref :value | ref refValue: value ].
 	self emitRefresh: false
 ]
 
@@ -62,12 +63,6 @@ QuasarRefCallback >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPut: $,.
 	aJSStream nextPutAll: self functionName
-]
-
-{ #category : #actions }
-QuasarRefCallback >> refValueUpdate: anObject [
-
-	self refValue: anObject
 ]
 
 { #category : #'rendering - ajax' }

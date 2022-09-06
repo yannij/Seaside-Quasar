@@ -7,11 +7,6 @@ Class {
 	#category : #'Quasar-Components'
 }
 
-{ #category : #actions }
-QuasarRefClientOnly >> refValueUpdate: anObject [
-	"Do nothing"
-]
-
 { #category : #'rendering - ajax' }
 QuasarRefClientOnly >> writeCodeOn: aJSStream with: anAjaxFactory [
 
