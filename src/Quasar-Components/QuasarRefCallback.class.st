@@ -69,7 +69,7 @@ QuasarRefCallback >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
 QuasarRefCallback >> writeCodeOn: aJSStream with: anAjaxFactory [
 	| ajax code |
 
-	ajax := (anAjaxFactory fetch
+	ajax := ((self newFetchUsing: anAjaxFactory)
 			callback: [ :value | self runCallbackWith: (WAJsonParser parse: value) ]
 				value: (JSStream on: 'JSON.stringify(arg1)');
 			json: [ :json | json render: self refValue ];

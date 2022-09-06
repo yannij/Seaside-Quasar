@@ -4,7 +4,10 @@ Class {
 	#instVars : [
 		'refValue',
 		'callbackBlock',
-		'onServerErrorBlock'
+		'onErrorServerBlock'
+	],
+	#classVars : [
+		'OnErrorSetting'
 	],
 	#category : #'Quasar-Components'
 }
@@ -19,6 +22,31 @@ QuasarRefObject class >> name: aString value: anObject [
 ]
 
 { #category : #accessing }
+QuasarRefObject class >> onErrorSetting [
+
+	^ OnErrorSetting
+]
+
+{ #category : #accessing }
+QuasarRefObject class >> onErrorSetting: anObject [
+
+	^ OnErrorSetting := anObject
+]
+
+{ #category : #'rendering - ajax' }
+QuasarRefObject class >> onErrorSettingClear [
+
+	self onErrorSetting: nil
+]
+
+{ #category : #'rendering - ajax' }
+QuasarRefObject class >> onErrorSettingUseConsole [
+
+	"self onErrorSetting: [ :ref | '(error) => {console.error(error);}' ]"
+	self onErrorSetting: [ :ref | '(error) => {console.log(error.name);console.log(error.message);}']
+]
+
+{ #category : #accessing }
 QuasarRefObject >> callbackBlock [
 
 	^ callbackBlock
@@ -30,16 +58,28 @@ QuasarRefObject >> callbackBlock: anObject [
 	callbackBlock := anObject
 ]
 
-{ #category : #accessing }
-QuasarRefObject >> onServerErrorBlock [
+{ #category : #'rendering - ajax' }
+QuasarRefObject >> newFetchUsing: anAjaxFactory [
+	| newFetch |
 
-	^ onServerErrorBlock
+	newFetch := anAjaxFactory fetch.
+
+	self class onErrorSetting ifNotNil: [ :block |
+		newFetch onError: (block value: self) ].
+
+	^ newFetch
 ]
 
 { #category : #accessing }
-QuasarRefObject >> onServerErrorBlock: anObject [
+QuasarRefObject >> onErrorServerBlock [
 
-	onServerErrorBlock := anObject
+	^ onErrorServerBlock
+]
+
+{ #category : #accessing }
+QuasarRefObject >> onErrorServerBlock: anObject [
+
+	onErrorServerBlock := anObject
 ]
 
 { #category : #'rendering - ajax' }
@@ -64,6 +104,12 @@ QuasarRefObject >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
 QuasarRefObject >> refValue [
 
 	^ refValue
+]
+
+{ #category : #accessing }
+QuasarRefObject >> refValue1: anObject [
+
+	refValue := anObject
 ]
 
 { #category : #accessing }

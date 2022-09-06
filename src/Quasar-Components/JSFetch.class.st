@@ -213,14 +213,13 @@ JSFetch >> javascriptContentOn: aStream [
 	aStream
 		nextPutAll: 'await fetch(', self javascriptUrl contents, ',', fetchOptions, ')';
 		nextPutAll: '.then((response) => {
-	if (!response.ok){throw new Error(''Network response was not OK'',{cause: null});}
-	try {return response.json();} catch(err){throw new Error(''Parse json failed'',{cause: err});}
+	if (!response.ok){throw new Error(''Network response was not OK'');}
+	return response.json();
 })';
-		nextPutAll: '.then('; nextPutAll: self onSuccessFunction asJavascript; nextPutAll: ')';
-		nextPutAll: '.catch((error) => {';
-		nextPutAll: self onErrorCode;
-		nextPutAll: '}';
-		nextPutAll: ');'
+		nextPutAll: '.then('; nextPutAll: self onSuccessFunction asJavascript; nextPutAll: ')'.
+
+	self options at: 'error' ifPresent: [ :code |
+		aStream nextPutAll: '.catch('; nextPutAll: self onErrorCode; nextPutAll: ');' ]
 ]
 
 { #category : #'accessing-urls' }
@@ -293,19 +292,15 @@ JSFetch >> onComplete: anObject [
 
 { #category : #events }
 JSFetch >> onError: anObject [
-	"A function to be called if the request fails. The function is passed three arguments: The XMLHttpRequest object, a string describing the type of error that occurred and an optional exception object, if one occurred. Possible values for the second argument (besides null) are 'timeout', 'error', 'notmodified' and 'parsererror'."
-
-	self notSupported.
+	"A function to be called if the request fails. The function is passed a single argumenbt: the error object itself."
 	
-	self optionAt: 'error' put: anObject asFunction
+	self optionAt: 'error' put: anObject
 ]
 
-{ #category : #printing }
+{ #category : #events }
 JSFetch >> onErrorCode [
 
-	self options at: 'error' ifPresent: [ :value | ^ 'showNotif(''star'',error.toString(),''top'',''Dismiss'',3000);' ].
-
-	^ 'console.log(error.message);console.log(error.cause);'
+	^ self options at: 'error' ifAbsent: [ nil ]
 ]
 
 { #category : #events }

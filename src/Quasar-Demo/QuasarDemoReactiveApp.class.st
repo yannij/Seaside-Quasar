@@ -96,7 +96,8 @@ QuasarDemoReactiveApp >> demoNames [
 	Ajax
 	Reactive
 	Collection
-	FetchError
+	"Do not combine the fetch error render code because a class variable is set differently for each case"
+	FetchError1 FetchError2 FetchError3
 	)
 ]
 
@@ -232,21 +233,57 @@ QuasarDemoReactiveApp >> renderDemoCollectionOn: html [
 ]
 
 { #category : #'demo - fetch error' }
-QuasarDemoReactiveApp >> renderDemoFetchErrorOn: html [
+QuasarDemoReactiveApp >> renderDemoFetchError1On: html [
 	| testRef |
 
 	testRef := self mdqApplicationGet reactiveObjects
 		at: 'FetchError1'
 		ifAbsentPut: [
-			((QuasarRefSyncServerToClient name: 'FetchError1' value: 10)
+			((QuasarRefSyncServerToClient name: 'FetchError1' value: 0)
 				"traceOn;"
 				callbackBlock: [ :ref :ajaxArg | self error: ajaxArg ];
 				yourself) ].
 
+	QuasarRefObject onErrorSettingClear.
 	html div class: 'q-pa-sm'; with: [
-		html div with: testRef refName, ': {{ ', testRef refName, ' }}' ].
-	html div with: [
-		html qBtn label: testRef refName; vOnClick: testRef functionName, '()' ]
+		html text: 'No error handler specified. See console log after clicking the button'.
+		html qBtn class: 'q-mx-md'; label: 'Fetch Error-1'; vOnClick: testRef functionName, '()' ]
+]
+
+{ #category : #'demo - fetch error' }
+QuasarDemoReactiveApp >> renderDemoFetchError2On: html [
+	| testRef |
+
+	testRef := self mdqApplicationGet reactiveObjects
+		at: 'FetchError2'
+		ifAbsentPut: [
+			((QuasarRefSyncServerToClient name: 'FetchError2' value: 0)
+				"traceOn;"
+				callbackBlock: [ :ref :ajaxArg | self error: ajaxArg ];
+				yourself) ].
+
+	QuasarRefObject onErrorSettingUseConsole.
+	html div class: 'q-pa-sm'; with: [
+		html text: 'Use default error handler. See console log after clicking the button'.
+		html qBtn class: 'q-mx-md'; label: 'Fetch Error-2'; vOnClick: testRef functionName, '()' ]
+]
+
+{ #category : #'demo - fetch error' }
+QuasarDemoReactiveApp >> renderDemoFetchError3On: html [
+	| testRef |
+
+	testRef := self mdqApplicationGet reactiveObjects
+		at: 'FetchError3'
+		ifAbsentPut: [
+			((QuasarRefSyncServerToClient name: 'FetchError3' value: 0)
+				"traceOn;"
+				callbackBlock: [ :ref :ajaxArg | self error: ajaxArg ];
+				yourself) ].
+
+	QuasarRefObject onErrorSetting: [ :ref | '(error)=>{$q.notify({position: ''top'', message: error.toString(), actions: [{label: ''Dismiss''}], timeout: 5000})}' ].
+	html div class: 'q-pa-sm'; with: [
+		html text: 'Use notify error handler. Expect a notifier to pop up'.
+		html qBtn class: 'q-mx-md'; label: 'Fetch Error-3'; vOnClick: testRef functionName, '()' ]
 ]
 
 { #category : #'demo - reactive' }

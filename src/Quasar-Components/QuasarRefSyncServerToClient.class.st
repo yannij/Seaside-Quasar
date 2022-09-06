@@ -67,7 +67,7 @@ QuasarRefSyncServerToClient >> writeCodeOn: aJSStream with: anAjaxFactory [
 	self onSuccessScript ifNotNil: [ :value | script nextPut: $;; nextPutAll: value ].
 	script nextPutAll: 'return data;'.
 
-	ajax := anAjaxFactory fetch
+	ajax := (self newFetchUsing: anAjaxFactory)
 			callback: [ :value | self runCallbackWith: (WAJsonParser parse: value) ]
 				"**** diff is below ***"
 				value: (JSStream on: 'JSON.stringify(arg1)');
