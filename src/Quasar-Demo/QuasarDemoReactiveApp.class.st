@@ -27,6 +27,21 @@ QuasarDemoReactiveApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
+{ #category : #'demo - ref' }
+QuasarDemoReactiveApp >> addRefNamed: aRefName initialValue: anObject block: aCallbackBlock [
+	| testRef |
+
+	testRef := self mdqApplicationGet reactiveObjects
+		at: aRefName
+		ifAbsentPut: [
+			((QuasarRefSyncClientToServer name: aRefName value: anObject)
+				traceOn;
+				callbackBlock: aCallbackBlock;
+				yourself) ].
+
+	^ testRef
+]
+
 { #category : #'demo - ajax' }
 QuasarDemoReactiveApp >> ajax2: json with: anAjaxFactory [
 
@@ -74,7 +89,7 @@ QuasarDemoReactiveApp >> buildTestCollection [
 		yourself.
 
 	^ (QuasarRefSyncClientToServer name: 'testCollection' value: newList)
-		callbackBlock: [ :ref :value | ref refValue: (value asOrderedCollection add: QuasarDemoObjectA newRandom; yourself) ]; yourself
+		callbackBlock: [ :ref :value | ref refValue: (ref refValue asOrderedCollection add: QuasarDemoObjectA newRandom; yourself) ]; yourself
 ]
 
 { #category : #accessing }
@@ -96,6 +111,8 @@ QuasarDemoReactiveApp >> demoNames [
 	Ajax
 	Reactive
 	Collection
+	RefSyncScalar
+	RefSyncServerCompute
 	"Do not combine the fetch error render code because a class variable is set differently for each case"
 	FetchError1 FetchError2 FetchError3
 	)
@@ -131,21 +148,21 @@ QuasarDemoReactiveApp >> initialize [
 	super initialize.
 
 	self reactiveList: (OrderedCollection new
-		add: ((QuasarRefSyncClientToServer name: 'reactive1' value: true) callbackBlock: [ :ref :value | ref refValue: value not ]; yourself);
-		add: ((QuasarRefSyncClientToServer name: 'reactive2' value: 0) callbackBlock: [ :ref :value | ref refValue: value + 1 ]; yourself);
-		add: ((QuasarRefSyncClientToServer name: 'reactive3' value: 1.2) callbackBlock: [ :ref :value | ref refValue: value + 1 ]; yourself);
-		add: ((QuasarRefSyncClientToServer name: 'reactive4' value: 'abc') callbackBlock: [ :ref :value | ref refValue: value, value ]; yourself);
+		add: ((QuasarRefSyncClientToServer name: 'reactive1' value: true) callbackBlock: [ :ref :value | ref refValue: ref refValue not ]; yourself);
+		add: ((QuasarRefSyncClientToServer name: 'reactive2' value: 0) callbackBlock: [ :ref :value | ref refValue: ref refValue + 1 ]; yourself);
+		add: ((QuasarRefSyncClientToServer name: 'reactive3' value: 1.2) callbackBlock: [ :ref :value | ref refValue: ref refValue + 1 ]; yourself);
+		add: ((QuasarRefSyncClientToServer name: 'reactive4' value: 'abc') callbackBlock: [ :ref :value | ref refValue: ref refValue, ref refValue ]; yourself);
 		add: ((QuasarRefSyncClientToServer name: 'reactive5' value: DateAndTime now) callbackBlock: [ :ref :value | ref refValue: DateAndTime now ]; yourself);
 		add: ((QuasarRefSyncClientToServer name: 'reactive6' value: {true. 123. 3.456. 'abc'. DateAndTime now})
-			callbackBlock: [ :ref :value | ref refValue: value, value ]; yourself);
+			callbackBlock: [ :ref :value | ref refValue: ref refValue, ref refValue ]; yourself);
 		add: ((QuasarRefSyncClientToServer name: 'reactive7' value: {'k1'->'v1'. 'k2'->'v2'. 'k3'->'v3'} asDictionary)
-			callbackBlock: [ :ref :value | ref refValue: (value at: 100 atRandom printString put: 1000 atRandom; yourself) ]; yourself);
+			callbackBlock: [ :ref :value | ref refValue: (ref refValue at: 100 atRandom printString put: 1000 atRandom; yourself) ]; yourself);
 		add: ((QuasarRefSyncClientToServer name: 'reactive8'
 			value: {
 				{'k1'->'v1'. 'k2'->'v2'. 'k3'->'v3'} asDictionary.
 				{'k21'->'v21'. 'k22'->'v22'. 'k23'->'v23'} asDictionary.
 				{'k31'->'v31'. 'k32'->'v32'. 'k33'->'v33'} asDictionary })
-			callbackBlock: [ :ref :value | ref refValue: value ]; yourself);
+			callbackBlock: [ :ref :value | ref refValue: ref refValue ]; yourself);
 		yourself).
 
 	self testCollection: self buildTestCollection
@@ -214,7 +231,7 @@ QuasarDemoReactiveApp >> renderDemoCollectionOn: html [
 	html div class: 'q-pa-sm'; with: [
 		html div with: refName, ': {{ ', refName, ' }}' ].
 	html div with: [
-		html qBtn label: refName; vOnClick: refName, 'RefSync()' ].
+		html qBtn label: refName; vOnClick: self testCollection functionName, '($event)' ].
 
 	html break.
 	html qCard with: [
@@ -239,15 +256,17 @@ QuasarDemoReactiveApp >> renderDemoFetchError1On: html [
 	testRef := self mdqApplicationGet reactiveObjects
 		at: 'FetchError1'
 		ifAbsentPut: [
-			((QuasarRefSyncServerToClient name: 'FetchError1' value: 0)
+			((QuasarRefSyncClientToServer name: 'FetchError1' value: 0)
+				useClientArgument;
 				"traceOn;"
-				callbackBlock: [ :ref :ajaxArg | self error: ajaxArg ];
+				callbackBlock: [ :ref :ajaxArg | self error: 'Fetch Error 1' ];
 				yourself) ].
 
+	testRef onSuccessScript: 'throw new Error("Error intentionally triggered in ', testRef refName, '");'.
 	QuasarRefObject onErrorSettingClear.
 	html div class: 'q-pa-sm'; with: [
 		html text: 'No error handler specified. See console log after clicking the button'.
-		html qBtn class: 'q-mx-md'; label: 'Fetch Error-1'; vOnClick: testRef functionName, '()' ]
+		html qBtn class: 'q-mx-md'; label: 'Fetch Error-1'; vOnClick: testRef functionName, '($event)' ]
 ]
 
 { #category : #'demo - fetch error' }
@@ -257,15 +276,17 @@ QuasarDemoReactiveApp >> renderDemoFetchError2On: html [
 	testRef := self mdqApplicationGet reactiveObjects
 		at: 'FetchError2'
 		ifAbsentPut: [
-			((QuasarRefSyncServerToClient name: 'FetchError2' value: 0)
+			((QuasarRefSyncClientToServer name: 'FetchError2' value: 0)
+				useClientArgument;
 				"traceOn;"
-				callbackBlock: [ :ref :ajaxArg | self error: ajaxArg ];
+				callbackBlock: [ :ref :ajaxArg | self error: 'Fetch Error 2' ];
 				yourself) ].
 
+	testRef onSuccessScript: 'throw new Error("Error intentionally triggered in ', testRef refName, '");'.
 	QuasarRefObject onErrorSettingUseConsole.
 	html div class: 'q-pa-sm'; with: [
 		html text: 'Use default error handler. See console log after clicking the button'.
-		html qBtn class: 'q-mx-md'; label: 'Fetch Error-2'; vOnClick: testRef functionName, '()' ]
+		html qBtn class: 'q-mx-md'; label: 'Fetch Error-2'; vOnClick: testRef functionName, '($event)' ]
 ]
 
 { #category : #'demo - fetch error' }
@@ -275,15 +296,17 @@ QuasarDemoReactiveApp >> renderDemoFetchError3On: html [
 	testRef := self mdqApplicationGet reactiveObjects
 		at: 'FetchError3'
 		ifAbsentPut: [
-			((QuasarRefSyncServerToClient name: 'FetchError3' value: 0)
+			((QuasarRefSyncClientToServer name: 'FetchError3' value: 0)
+				useClientArgument;
 				"traceOn;"
-				callbackBlock: [ :ref :ajaxArg | self error: ajaxArg ];
+				callbackBlock: [ :ref :ajaxArg | self error: 'Fetch Error 3' ];
 				yourself) ].
 
-	QuasarRefObject onErrorSetting: [ :ref | '(error)=>{$q.notify({position: ''top'', message: error.toString(), actions: [{label: ''Dismiss''}], timeout: 5000})}' ].
+	testRef onSuccessScript: 'throw new Error("Error intentionally triggered in ', testRef refName, '");'.
+	QuasarRefObject onErrorSettingUseNofify.
 	html div class: 'q-pa-sm'; with: [
 		html text: 'Use notify error handler. Expect a notifier to pop up'.
-		html qBtn class: 'q-mx-md'; label: 'Fetch Error-3'; vOnClick: testRef functionName, '()' ]
+		html qBtn class: 'q-mx-md'; label: 'Fetch Error-3'; vOnClick: testRef functionName, '($event)' ]
 ]
 
 { #category : #'demo - reactive' }
@@ -297,8 +320,121 @@ QuasarDemoReactiveApp >> renderDemoReactiveOn: html [
 			html div class: 'q-pa-sm'; with: [
 				html div with: refName, ': {{ ', refName, ' }}' ].
 			html div with: [
-				html qBtn label: refName; vOnClick: refName, 'RefSync()' ] ]
+				html qBtn label: refName; vOnClick: eachObject functionName, '($event)' ] ]
 		separatedBy: [ html qSeparator spaced ]
+]
+
+{ #category : #'demo - ref' }
+QuasarDemoReactiveApp >> renderDemoRefSyncScalarBooleanOn: html [
+	| testRef |
+
+	testRef := self
+		addRefNamed: 'SyncScalarBoolean'
+		initialValue: false
+		block: [ :ref :value | ref refValue: ref refValue not ].
+
+	html div class: 'q-pa-sm'; with: [
+		html text: 'Value is: {{ ', testRef refName, ' }}'.
+		html qBtn class: 'q-mx-md'; label: 'Toggle'; vOnClick: testRef functionName, '($event)' ]
+]
+
+{ #category : #'demo - ref' }
+QuasarDemoReactiveApp >> renderDemoRefSyncScalarDateOn: html [
+	| testRef |
+
+	testRef := self
+		addRefNamed: 'SyncScalarDate'
+		initialValue: Date today
+		block: [ :ref :value | ref refValue: (ref refValue addDays: 1) ].
+
+	html div class: 'q-pa-sm'; with: [
+		html text: 'Value is: {{ ', testRef refName, ' }}'.
+		html qBtn class: 'q-mx-md'; label: 'Next day'; noCaps; vOnClick: testRef functionName, '($event)' ]
+]
+
+{ #category : #'demo - ref' }
+QuasarDemoReactiveApp >> renderDemoRefSyncScalarDateTimeOn: html [
+	| testRef |
+
+	testRef := self
+		addRefNamed: 'ScalarDateTime'
+		initialValue: DateAndTime now
+		block: [ :ref :value | ref refValue: DateAndTime now ].
+
+	html div class: 'q-pa-sm'; with: [
+		html text: 'Value is: {{ ', testRef refName, ' }}'.
+		html qBtn class: 'q-mx-md'; label: 'Date and time now'; noCaps; vOnClick: testRef functionName, '($event)' ]
+]
+
+{ #category : #'demo - ref' }
+QuasarDemoReactiveApp >> renderDemoRefSyncScalarFloatOn: html [
+	| testRef |
+
+	testRef := self
+		addRefNamed: 'SyncScalarFloat'
+		initialValue: 1.1
+		block: [ :ref :value | ref refValue: ref refValue value + 0.3 ].
+
+	html div class: 'q-pa-sm'; with: [
+		html text: 'Value is: {{ ', testRef refName, ' }}'.
+		html qBtn class: 'q-mx-md'; label: 'Increment'; vOnClick: testRef functionName, '($event)' ]
+]
+
+{ #category : #'demo - ref' }
+QuasarDemoReactiveApp >> renderDemoRefSyncScalarIntegerOn: html [
+	| testRef |
+
+	testRef := self
+		addRefNamed: 'SyncScalarInteger'
+		initialValue: 0
+		block: [ :ref :value | ref refValue: ref refValue value + 1 ].
+
+	html div class: 'q-pa-sm'; with: [
+		html text: 'Value is: {{ ', testRef refName, ' }}'.
+		html qBtn class: 'q-mx-md'; label: 'Increment'; vOnClick: testRef functionName, '($event)' ]
+]
+
+{ #category : #'demo - ref' }
+QuasarDemoReactiveApp >> renderDemoRefSyncScalarOn: html [
+
+	self renderDemoRefSyncScalarBooleanOn: html.
+	self renderDemoRefSyncScalarIntegerOn: html.
+	self renderDemoRefSyncScalarFloatOn: html.
+	self renderDemoRefSyncScalarDateOn: html.
+	self renderDemoRefSyncScalarTimeOn: html.
+	self renderDemoRefSyncScalarDateTimeOn: html
+]
+
+{ #category : #'demo - ref' }
+QuasarDemoReactiveApp >> renderDemoRefSyncScalarTimeOn: html [
+	| testRef |
+
+	testRef := self
+		addRefNamed: 'SyncScalarTime'
+		initialValue: Time now
+		block: [ :ref :value | ref refValue: Time now ].
+
+	html div class: 'q-pa-sm'; with: [
+		html text: 'Value is: {{ ', testRef refName, ' }}'.
+		html qBtn class: 'q-mx-md'; label: 'Time now'; noCaps; vOnClick: testRef functionName, '($event)' ]
+]
+
+{ #category : #'demo - ref' }
+QuasarDemoReactiveApp >> renderDemoRefSyncServerComputeOn: html [
+	| testRef |
+
+	testRef := self mdqApplicationGet reactiveObjects
+		at: 'syncServerCompute'
+		ifAbsentPut: [
+			((QuasarRefSyncClientToServer name: 'syncServerCompute' value: 0)
+				useClientArgument;
+				traceOn;
+				callbackBlock: [ :ref :value | ref refValue: (ref refValue + 1) ];
+				yourself) ].
+
+	html div class: 'q-pa-sm'; with: [
+		html text: 'Value is: {{ ', testRef refName, ' }}'.
+		html qBtn class: 'q-mx-md'; label: 'Compute on server'; vOnClick: testRef functionName, '($event)' ]
 ]
 
 { #category : #rendering }
@@ -392,7 +528,8 @@ QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment2On: aJSStream with: anAjax
 
 	ajax := (anAjaxFactory fetch
 			json: [ :json | self ajax2: json with: anAjaxFactory ];
-			onSuccess: (anAjaxFactory javascript << (JSStream new nextPutAll: 'experiment2.value = arguments[0]'; yourself));
+			"onSuccess: (anAjaxFactory javascript << (JSStream new nextPutAll: 'experiment2.value = arguments[0]'; yourself));"
+			onSuccess: 'experiment2.value = arguments[0]';
 			yourself).
 
 	aJSStream

@@ -184,14 +184,16 @@ QuasarDemoServerSideTablePaginationApp >> initialize [
 		self pagination: (QuasarRefSyncClientToServer name: 'pagination' value: self paginationNew).
 		self reactiveObjectsAdd: self pagination ].
 
-	self rowsRef: ((QuasarRefSyncServerToClient name: 'rowsRemote' value: Array new)
+	self rowsRef: ((QuasarRefSyncClientToServer name: 'rowsRemote' value: Array new)
+			useClientArgument;
 			"traceOn;"
 			"onSuccessScript: 'console.log(rowsRemote.value)';"
 			callbackBlock: [ :ref :ajaxArg | self rowsRefUpdate: ajaxArg ];
 			yourself).
 	self reactiveObjectsAdd: self rowsRef.
 
-	self rowCountRef: ((QuasarRefSyncServerToClient name: 'rowCount' value: 10)
+	self rowCountRef: ((QuasarRefSyncClientToServer name: 'rowCount' value: 10)
+			useClientArgument;
 			"traceOn;"
 			"onSuccessScript: 'console.log(rowCount.value)';"
 			callbackBlock: [ :ref :ajaxArg | self rowCountRefUpdate: ajaxArg ];
@@ -279,12 +281,12 @@ QuasarDemoServerSideTablePaginationApp >> onRequestJs [
 	^ '
 async function onRequest(props) {
 	const { page, rowsPerPage, sortBy, descending } = props.pagination;
-	const filter = props.filter;
+	const filter = props.filter === undefined ? null : props.filter;
 
 	loading.value = true;
 
 	// update rowsCount with appropriate value
-	await rowCountRefGet(filter);
+	await rowCountRefSync(filter);
 	pagination.value.rowsNumber = rowCount.value;
 
 	// get all rows if "All" (0) is selected
@@ -294,7 +296,7 @@ async function onRequest(props) {
 	const startRow = (page - 1) * rowsPerPage;
 
 	// fetch data from "server"
-	const returnedData = await rowsRemoteRefGet({
+	const returnedData = await rowsRemoteRefSync({
 "startRow": startRow,
 "fetchCount": fetchCount,
 "filter": filter,

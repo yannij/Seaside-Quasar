@@ -33,17 +33,24 @@ QuasarRefObject class >> onErrorSetting: anObject [
 	^ OnErrorSetting := anObject
 ]
 
-{ #category : #'rendering - ajax' }
+{ #category : #accessing }
 QuasarRefObject class >> onErrorSettingClear [
 
 	self onErrorSetting: nil
 ]
 
-{ #category : #'rendering - ajax' }
+{ #category : #accessing }
 QuasarRefObject class >> onErrorSettingUseConsole [
 
-	"self onErrorSetting: [ :ref | '(error) => {console.error(error);}' ]"
-	self onErrorSetting: [ :ref | '(error) => {console.log(error.name);console.log(error.message);}']
+	self onErrorSetting: [ :ref |
+		'console.log(error.name);console.log(error.message);' asFunction: #('error') ]
+]
+
+{ #category : #accessing }
+QuasarRefObject class >> onErrorSettingUseNofify [
+
+	self onErrorSetting: [ :ref |
+		'$q.notify({position: "top", message: error.toString(), closeBtn: true, timeout: 4000})' asFunction: #('error') ]
 ]
 
 { #category : #accessing }
@@ -107,15 +114,9 @@ QuasarRefObject >> refValue [
 ]
 
 { #category : #accessing }
-QuasarRefObject >> refValue1: anObject [
-
-	refValue := anObject
-]
-
-{ #category : #accessing }
 QuasarRefObject >> refValue: anObject [
 
-	self traceIsOn ifTrue: [
+	traceLevel > 0 ifTrue: [
 		self logString: 'Reactive::', self refName, ': ', refValue greaseString, ' --> ', anObject greaseString ].
 
 	refValue := anObject
@@ -126,5 +127,7 @@ QuasarRefObject >> runCallbackWith: anObject [
 	"If callback block is present, then invoke it.
 	The callback block is responsible for the ref value update"
 
-	self callbackBlock ifNotNil: [ :block | block value: self value: anObject ]
+	[ self callbackBlock ifNotNil: [ :block | block value: self value: anObject ] ]
+		on: Error
+		do: [ :ex | ^ ex printString ]
 ]

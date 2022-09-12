@@ -21,6 +21,18 @@ JSFetch class >> context: aRenderContext rendererClass: aRendererClass [
 		yourself
 ]
 
+{ #category : #javascript }
+JSFetch class >> jsFetchJs [
+	"Javascript code to be deployed to support JSFetch"
+
+	^ '
+async function jsFetch(arg){
+let url = arg.url + "?" + arg.data;
+let options = {method: "GET",headers: {"Content-Type": "application/json"}};
+let onOk = (response)=>{if (!response.ok){throw new Error("Network response was not OK");}return response.json();};
+await fetch(url,options).then(onOk).then(arg.success).catch(arg.error)}'
+]
+
 { #category : #parameters }
 JSFetch >> addParameter: anObject [
 	"Add the request parameter anObject, a single value or an association."
@@ -64,13 +76,13 @@ JSFetch >> callback: aBlock [
 	callback := aBlock
 ]
 
-{ #category : #json }
+{ #category : #callbacks }
 JSFetch >> callback: aBlock json: anObject [
 	"Register aBlock as a secondary callback. anObject is a reference to a Javascript object on the client-side. anObject will be serialized to a JSON string, sent back to the server, deserialized from JSON to nested Smalltalk objects, and result passed into aBlock."
 
 	self
-		callback: [ :value | aBlock value: (WAJsonParser parse: value) ] 
-		value: (JSJson new stringify: anObject)
+		callback: [ :value | aBlock value: (WAJsonParser parse: value) ]
+		value: (JSStream on: 'JSON.stringify(', anObject, ')')
 ]
 
 { #category : #callbacks }
@@ -206,20 +218,10 @@ JSFetch >> jQuery [
 
 { #category : #printing }
 JSFetch >> javascriptContentOn: aStream [
-	| fetchOptions |
 
-	fetchOptions := '{method: ''GET'',headers: {''Content-Type'': ''application/json''}}'.
-
-	aStream
-		nextPutAll: 'await fetch(', self javascriptUrl contents, ',', fetchOptions, ')';
-		nextPutAll: '.then((response) => {
-	if (!response.ok){throw new Error(''Network response was not OK'');}
-	return response.json();
-})';
-		nextPutAll: '.then('; nextPutAll: self onSuccessFunction asJavascript; nextPutAll: ')'.
-
-	self options at: 'error' ifPresent: [ :code |
-		aStream nextPutAll: '.catch('; nextPutAll: self onErrorCode; nextPutAll: ');' ]
+	aStream nextPutAll: 'await jsFetch'.
+	JSStream encodeArguments: self arguments on: aStream
+	"aStream nextPutAll: 'await jsFetch(', self javascriptUrl contents, ')'"
 ]
 
 { #category : #'accessing-urls' }
@@ -246,8 +248,8 @@ JSFetch >> json: aRenderable [
 		response
 			doNotCache;
 			contentType: WAMimeType applicationJson;
-			"nextPutAll: ([ WAJsonCanvas builder render: aRenderable ] on: Error do: [ :ex | ex printString asJson ]) ]"
-			nextPutAll: (WAJsonCanvas builder render: aRenderable) ]
+			nextPutAll: ([ WAJsonCanvas builder render: aRenderable ] on: Error do: [ :ex | ex printString asJson ]) ]
+			"nextPutAll: (WAJsonCanvas builder render: aRenderable) ]"
 ]
 
 { #category : #options }
@@ -271,7 +273,9 @@ JSFetch >> method [
 
 { #category : #callbacks }
 JSFetch >> notSupported [
-	"Raise error when JQAjax methods used. Support for the API methods are pending further thought"
+	"Raise error when unsupported JQAjax methods used. Support for the API methods are pending further thought"
+
+	self error: 'JSFetch does not support this feature'
 ]
 
 { #category : #events }
@@ -294,20 +298,12 @@ JSFetch >> onComplete: anObject [
 JSFetch >> onError: anObject [
 	"A function to be called if the request fails. The function is passed a single argumenbt: the error object itself."
 	
-	self optionAt: 'error' put: anObject
-]
-
-{ #category : #events }
-JSFetch >> onErrorCode [
-
-	^ self options at: 'error' ifAbsent: [ nil ]
+	self optionAt: 'error' put: anObject asFunction
 ]
 
 { #category : #events }
 JSFetch >> onSuccess: anObject [
 	"A function to be called if the request succeeds. The function gets passed the data returned from the server, formatted according to the 'dataType' parameter."
-
-	self notSupported.
 	
 	self optionAt: 'success' put: (anObject asFunction: #('data'))
 ]

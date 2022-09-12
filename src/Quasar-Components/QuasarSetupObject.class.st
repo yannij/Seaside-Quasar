@@ -19,6 +19,44 @@ QuasarSetupObject class >> name: aName [
 		yourself
 ]
 
+{ #category : #accessing }
+QuasarSetupObject >> beTrace0 [
+
+	self traceLevel: 0
+]
+
+{ #category : #accessing }
+QuasarSetupObject >> beTrace1 [
+
+	self traceLevel: 2
+]
+
+{ #category : #accessing }
+QuasarSetupObject >> beTrace2 [
+
+	self traceLevel: 2
+]
+
+{ #category : #accessing }
+QuasarSetupObject >> beTrace3 [
+
+	self traceLevel: 3
+]
+
+{ #category : #accessing }
+QuasarSetupObject >> beTrace4 [
+
+	self traceLevel: 4
+]
+
+{ #category : #initialization }
+QuasarSetupObject >> initialize [
+
+	super initialize.
+
+	traceLevel := 0
+]
+
 { #category : #logging }
 QuasarSetupObject >> logString: aString [
 
@@ -53,12 +91,6 @@ QuasarSetupObject >> refName: anObject [
 	refName := anObject
 ]
 
-{ #category : #testing }
-QuasarSetupObject >> traceIsOn [
-
-	^ self traceLevel notNil
-]
-
 { #category : #accessing }
 QuasarSetupObject >> traceLevel [
 
@@ -72,9 +104,15 @@ QuasarSetupObject >> traceLevel: anObject [
 ]
 
 { #category : #accessing }
+QuasarSetupObject >> traceOff [
+
+	self beTrace0
+]
+
+{ #category : #accessing }
 QuasarSetupObject >> traceOn [
 
-	self traceLevel: 1
+	self beTrace2
 ]
 
 { #category : #'rendering - ajax' }

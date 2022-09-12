@@ -264,6 +264,7 @@ QuasarApplication >> quasarSetupOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPutAll: 'setup() {'.
 	aJSStream nextPutAll: 'const $q = useQuasar();'.
+	aJSStream nextPutAll: JSFetch jsFetchJs.
 	self reactiveObjects do: [ :eachObject | eachObject quasarSetupOn: aJSStream ].
 	self reactiveObjects do: [ :eachObject | eachObject writeCodeOn: aJSStream with: anAjaxFactory. aJSStream nextPutAll: ';' ].
 	self quasarSetupContentOn: aJSStream with: anAjaxFactory.
@@ -379,6 +380,7 @@ QuasarApplication >> renderContentOn: html [
 
 	html script "async;" url: self vueJsUrl.
 	html script "async;" url: self quasarJsUrl.
+	"html script with: JSFetch jsFetchJs."
 	"html script url: 'https://cdn.jsdelivr.net/npm/quasar@v2/dist/icon-set/fontawesome-v6.umd.prod.js'.
 	html script with: 'Quasar.iconSet.set(Quasar.iconSet.fontawesomeV6)'."
 	"html script url: 'https://cdn.jsdelivr.net/npm/quasar@v2/dist/icon-set/material-symbols-sharp.umd.prod.js'.
