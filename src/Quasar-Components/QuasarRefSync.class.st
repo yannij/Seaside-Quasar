@@ -1,5 +1,5 @@
 Class {
-	#name : #QuasarRefSyncClientToServer,
+	#name : #QuasarRefSync,
 	#superclass : #QuasarRefObject,
 	#instVars : [
 		'syncType',
@@ -10,25 +10,25 @@ Class {
 }
 
 { #category : #accessing }
-QuasarRefSyncClientToServer >> emitOnSuccess [
+QuasarRefSync >> emitOnSuccess [
 
 	^ emitOnSuccess
 ]
 
 { #category : #accessing }
-QuasarRefSyncClientToServer >> emitOnSuccess: anObject [
+QuasarRefSync >> emitOnSuccess: anObject [
 
 	emitOnSuccess := anObject
 ]
 
 { #category : #'rendering - ajax' }
-QuasarRefSyncClientToServer >> functionName [
+QuasarRefSync >> functionName [
 
 	^ self refName, 'RefSync'
 ]
 
 { #category : #initialization }
-QuasarRefSyncClientToServer >> initialize [
+QuasarRefSync >> initialize [
 
 	super initialize.
 
@@ -38,31 +38,31 @@ QuasarRefSyncClientToServer >> initialize [
 ]
 
 { #category : #accessing }
-QuasarRefSyncClientToServer >> isSyncTypeClientArgument [
+QuasarRefSync >> isSyncTypeClientArgument [
 
 	^ self syncType = #arg
 ]
 
 { #category : #accessing }
-QuasarRefSyncClientToServer >> isSyncTypeClientRefValue [
+QuasarRefSync >> isSyncTypeClientRefValue [
 
 	^ self syncType = #refValue
 ]
 
 { #category : #accessing }
-QuasarRefSyncClientToServer >> onSuccessScript [
+QuasarRefSync >> onSuccessScript [
 
 	^ onSuccessScript
 ]
 
 { #category : #accessing }
-QuasarRefSyncClientToServer >> onSuccessScript: anObject [
+QuasarRefSync >> onSuccessScript: anObject [
 
 	onSuccessScript := anObject
 ]
 
 { #category : #'rendering - ajax' }
-QuasarRefSyncClientToServer >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
+QuasarRefSync >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
 
 	super quasarSetupReturnOn: aJSStream with: anAjaxFactory.
 
@@ -71,31 +71,31 @@ QuasarRefSyncClientToServer >> quasarSetupReturnOn: aJSStream with: anAjaxFactor
 ]
 
 { #category : #accessing }
-QuasarRefSyncClientToServer >> syncType [
+QuasarRefSync >> syncType [
 
 	^ syncType
 ]
 
 { #category : #accessing }
-QuasarRefSyncClientToServer >> syncType: anObject [
+QuasarRefSync >> syncType: anObject [
 
 	syncType := anObject
 ]
 
 { #category : #accessing }
-QuasarRefSyncClientToServer >> useClientArgument [
+QuasarRefSync >> useClientArgument [
 
 	self syncType: #arg
 ]
 
 { #category : #accessing }
-QuasarRefSyncClientToServer >> useClientRefValue [
+QuasarRefSync >> useClientRefValue [
 
 	self syncType: #refValue
 ]
 
 { #category : #'rendering - ajax' }
-QuasarRefSyncClientToServer >> writeCodeOn: aJSStream with: anAjaxFactory [
+QuasarRefSync >> writeCodeOn: aJSStream with: anAjaxFactory [
 	| ajax script callbackValue |
 
 	script := JSStream new.

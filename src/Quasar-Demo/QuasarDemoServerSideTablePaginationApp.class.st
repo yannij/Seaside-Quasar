@@ -181,10 +181,10 @@ QuasarDemoServerSideTablePaginationApp >> initialize [
 	self reactiveObjectsAdd: self loading.
 
 	self pagination ifNil: [
-		self pagination: (QuasarRefSyncClientToServer name: 'pagination' value: self paginationNew).
+		self pagination: (QuasarRefSync name: 'pagination' value: self paginationNew).
 		self reactiveObjectsAdd: self pagination ].
 
-	self rowsRef: ((QuasarRefSyncClientToServer name: 'rowsRemote' value: Array new)
+	self rowsRef: ((QuasarRefSync name: 'rowsRemote' value: Array new)
 			useClientArgument;
 			"traceOn;"
 			"onSuccessScript: 'console.log(rowsRemote.value)';"
@@ -192,7 +192,7 @@ QuasarDemoServerSideTablePaginationApp >> initialize [
 			yourself).
 	self reactiveObjectsAdd: self rowsRef.
 
-	self rowCountRef: ((QuasarRefSyncClientToServer name: 'rowCount' value: 10)
+	self rowCountRef: ((QuasarRefSync name: 'rowCount' value: 10)
 			useClientArgument;
 			"traceOn;"
 			"onSuccessScript: 'console.log(rowCount.value)';"

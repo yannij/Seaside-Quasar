@@ -103,7 +103,7 @@ CraneApp >> initialize [
 	self tab: (QuasarRefCallback name: 'tab' value: 'fly').
 	self reactiveObjectsAdd: self tab.
 
-	self filterShow: ((QuasarRefSyncClientToServer name: 'filterShow' value: false) callbackBlock: [ :ref :value | ref refValue: value not ]; yourself).
+	self filterShow: ((QuasarRefSync name: 'filterShow' value: false) callbackBlock: [ :ref :value | ref refValue: value not ]; yourself).
 	self reactiveObjectsAdd: self filterShow.
 
 	self initializeFlyFilter.
@@ -117,23 +117,23 @@ CraneApp >> initializeEatFilter [
 
 	self eatFilter: CraneEatSearch new.
 
-	newReactive := QuasarRefSyncClientToServer name: 'dinerCount' value: 2.
+	newReactive := QuasarRefSync name: 'dinerCount' value: 2.
 	self eatFilter dinerCount: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := QuasarRefSyncClientToServer name: 'diningDate' value: Date today.
+	newReactive := QuasarRefSync name: 'diningDate' value: Date today.
 	self eatFilter diningDate: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := QuasarRefSyncClientToServer name: 'diningTime' value: Time now.
+	newReactive := QuasarRefSync name: 'diningTime' value: Time now.
 	self eatFilter diningTime: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := QuasarRefSyncClientToServer name: 'cuisine' value: nil.
+	newReactive := QuasarRefSync name: 'cuisine' value: nil.
 	self eatFilter cuisine: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := QuasarRefSyncClientToServer name: 'city' value: nil.
+	newReactive := QuasarRefSync name: 'city' value: nil.
 	self eatFilter city: newReactive.
 	self reactiveObjectsAdd: newReactive.
 ]
@@ -148,18 +148,18 @@ CraneApp >> initializeFlyFilter [
 
 	self flyFilter: CraneFlySearch new.
 
-	newReactive := QuasarRefSyncClientToServer name: 'adultCount' value: 2.
+	newReactive := QuasarRefSync name: 'adultCount' value: 2.
 	self flyFilter adultCount: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := QuasarRefSyncClientToServer name: 'childrenCount' value: 3.
+	newReactive := QuasarRefSync name: 'childrenCount' value: 3.
 	self flyFilter childrenCount: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := QuasarRefSyncClientToServer name: 'cabin' value: 'Economy'.
+	newReactive := QuasarRefSync name: 'cabin' value: 'Economy'.
 	self flyFilter cabinType: newReactive.
 	self reactiveObjectsAdd: newReactive.
-	newReactive := (QuasarRefSyncClientToServer name: 'cabinOptions' value: #('Economy' 'Business' 'First Class')) yourself.
+	newReactive := (QuasarRefSync name: 'cabinOptions' value: #('Economy' 'Business' 'First Class')) yourself.
 	self reactiveObjectsAdd: newReactive.
 
 	newReactive := (QuasarRefCallback  name: 'origin' value: nil) emitRefreshOn; yourself.
@@ -182,11 +182,11 @@ CraneApp >> initializeSleepFilter [
 
 	self sleepFilter: CraneSleepSearch new.
 
-	newReactive := QuasarRefSyncClientToServer name: 'adultCount' value: 2.
+	newReactive := QuasarRefSync name: 'adultCount' value: 2.
 	self sleepFilter adultCount: newReactive.
 	self reactiveObjectsAdd: newReactive.
 
-	newReactive := QuasarRefSyncClientToServer name: 'childrenCount' value: 3.
+	newReactive := QuasarRefSync name: 'childrenCount' value: 3.
 	self sleepFilter childrenCount: newReactive.
 	self reactiveObjectsAdd: newReactive.
 

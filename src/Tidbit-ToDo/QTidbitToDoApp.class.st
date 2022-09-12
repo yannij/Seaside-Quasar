@@ -200,9 +200,9 @@ QTidbitToDoApp >> initialize [
 
 	self colorTheme: self buildColorTheme.
 
-	self sideNavOpen: ((QuasarRefSyncClientToServer name: 'sideNavOpen' value: true) callbackBlock: [ :ref :value | ref refValue: value not ]; yourself).
-	self sideSheetOpen: ((QuasarRefSyncClientToServer name: 'sideSheetOpen' value: false) callbackBlock: [ :ref :value | ref refValue: value not ]; yourself).
-	self viewStyleDark: ((QuasarRefSyncClientToServer name: 'viewStyleDark' value: false)
+	self sideNavOpen: ((QuasarRefSync name: 'sideNavOpen' value: true) callbackBlock: [ :ref :value | ref refValue: value not ]; yourself).
+	self sideSheetOpen: ((QuasarRefSync name: 'sideSheetOpen' value: false) callbackBlock: [ :ref :value | ref refValue: value not ]; yourself).
+	self viewStyleDark: ((QuasarRefSync name: 'viewStyleDark' value: false)
 			callbackBlock: [ :ref :value | ref refValue: value not ];
 			onSuccessScript: '$q.dark.set(viewStyleDark.value);';
 			yourself).

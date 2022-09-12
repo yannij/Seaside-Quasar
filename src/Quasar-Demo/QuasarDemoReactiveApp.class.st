@@ -34,7 +34,7 @@ QuasarDemoReactiveApp >> addRefNamed: aRefName initialValue: anObject block: aCa
 	testRef := self mdqApplicationGet reactiveObjects
 		at: aRefName
 		ifAbsentPut: [
-			((QuasarRefSyncClientToServer name: aRefName value: anObject)
+			((QuasarRefSync name: aRefName value: anObject)
 				traceOn;
 				callbackBlock: aCallbackBlock;
 				yourself) ].
@@ -88,7 +88,7 @@ QuasarDemoReactiveApp >> buildTestCollection [
 		add: QuasarDemoObjectA newRandom;
 		yourself.
 
-	^ (QuasarRefSyncClientToServer name: 'testCollection' value: newList)
+	^ (QuasarRefSync name: 'testCollection' value: newList)
 		callbackBlock: [ :ref :value | ref refValue: (ref refValue asOrderedCollection add: QuasarDemoObjectA newRandom; yourself) ]; yourself
 ]
 
@@ -148,16 +148,16 @@ QuasarDemoReactiveApp >> initialize [
 	super initialize.
 
 	self reactiveList: (OrderedCollection new
-		add: ((QuasarRefSyncClientToServer name: 'reactive1' value: true) callbackBlock: [ :ref :value | ref refValue: ref refValue not ]; yourself);
-		add: ((QuasarRefSyncClientToServer name: 'reactive2' value: 0) callbackBlock: [ :ref :value | ref refValue: ref refValue + 1 ]; yourself);
-		add: ((QuasarRefSyncClientToServer name: 'reactive3' value: 1.2) callbackBlock: [ :ref :value | ref refValue: ref refValue + 1 ]; yourself);
-		add: ((QuasarRefSyncClientToServer name: 'reactive4' value: 'abc') callbackBlock: [ :ref :value | ref refValue: ref refValue, ref refValue ]; yourself);
-		add: ((QuasarRefSyncClientToServer name: 'reactive5' value: DateAndTime now) callbackBlock: [ :ref :value | ref refValue: DateAndTime now ]; yourself);
-		add: ((QuasarRefSyncClientToServer name: 'reactive6' value: {true. 123. 3.456. 'abc'. DateAndTime now})
+		add: ((QuasarRefSync name: 'reactive1' value: true) callbackBlock: [ :ref :value | ref refValue: ref refValue not ]; yourself);
+		add: ((QuasarRefSync name: 'reactive2' value: 0) callbackBlock: [ :ref :value | ref refValue: ref refValue + 1 ]; yourself);
+		add: ((QuasarRefSync name: 'reactive3' value: 1.2) callbackBlock: [ :ref :value | ref refValue: ref refValue + 1 ]; yourself);
+		add: ((QuasarRefSync name: 'reactive4' value: 'abc') callbackBlock: [ :ref :value | ref refValue: ref refValue, ref refValue ]; yourself);
+		add: ((QuasarRefSync name: 'reactive5' value: DateAndTime now) callbackBlock: [ :ref :value | ref refValue: DateAndTime now ]; yourself);
+		add: ((QuasarRefSync name: 'reactive6' value: {true. 123. 3.456. 'abc'. DateAndTime now})
 			callbackBlock: [ :ref :value | ref refValue: ref refValue, ref refValue ]; yourself);
-		add: ((QuasarRefSyncClientToServer name: 'reactive7' value: {'k1'->'v1'. 'k2'->'v2'. 'k3'->'v3'} asDictionary)
+		add: ((QuasarRefSync name: 'reactive7' value: {'k1'->'v1'. 'k2'->'v2'. 'k3'->'v3'} asDictionary)
 			callbackBlock: [ :ref :value | ref refValue: (ref refValue at: 100 atRandom printString put: 1000 atRandom; yourself) ]; yourself);
-		add: ((QuasarRefSyncClientToServer name: 'reactive8'
+		add: ((QuasarRefSync name: 'reactive8'
 			value: {
 				{'k1'->'v1'. 'k2'->'v2'. 'k3'->'v3'} asDictionary.
 				{'k21'->'v21'. 'k22'->'v22'. 'k23'->'v23'} asDictionary.
@@ -256,7 +256,7 @@ QuasarDemoReactiveApp >> renderDemoFetchError1On: html [
 	testRef := self mdqApplicationGet reactiveObjects
 		at: 'FetchError1'
 		ifAbsentPut: [
-			((QuasarRefSyncClientToServer name: 'FetchError1' value: 0)
+			((QuasarRefSync name: 'FetchError1' value: 0)
 				useClientArgument;
 				"traceOn;"
 				callbackBlock: [ :ref :ajaxArg | self error: 'Fetch Error 1' ];
@@ -276,7 +276,7 @@ QuasarDemoReactiveApp >> renderDemoFetchError2On: html [
 	testRef := self mdqApplicationGet reactiveObjects
 		at: 'FetchError2'
 		ifAbsentPut: [
-			((QuasarRefSyncClientToServer name: 'FetchError2' value: 0)
+			((QuasarRefSync name: 'FetchError2' value: 0)
 				useClientArgument;
 				"traceOn;"
 				callbackBlock: [ :ref :ajaxArg | self error: 'Fetch Error 2' ];
@@ -296,7 +296,7 @@ QuasarDemoReactiveApp >> renderDemoFetchError3On: html [
 	testRef := self mdqApplicationGet reactiveObjects
 		at: 'FetchError3'
 		ifAbsentPut: [
-			((QuasarRefSyncClientToServer name: 'FetchError3' value: 0)
+			((QuasarRefSync name: 'FetchError3' value: 0)
 				useClientArgument;
 				"traceOn;"
 				callbackBlock: [ :ref :ajaxArg | self error: 'Fetch Error 3' ];
@@ -426,7 +426,7 @@ QuasarDemoReactiveApp >> renderDemoRefSyncServerComputeOn: html [
 	testRef := self mdqApplicationGet reactiveObjects
 		at: 'syncServerCompute'
 		ifAbsentPut: [
-			((QuasarRefSyncClientToServer name: 'syncServerCompute' value: 0)
+			((QuasarRefSync name: 'syncServerCompute' value: 0)
 				useClientArgument;
 				traceOn;
 				callbackBlock: [ :ref :value | ref refValue: (ref refValue + 1) ];
