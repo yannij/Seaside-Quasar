@@ -112,7 +112,7 @@ QuasarDemoReactiveApp >> demoNames [
 	Reactive
 	Collection
 	RefSyncScalar
-	RefSyncServerCompute
+	RefSync
 	"Do not combine the fetch error render code because a class variable is set differently for each case"
 	FetchError1 FetchError2 FetchError3
 	)
@@ -325,6 +325,24 @@ QuasarDemoReactiveApp >> renderDemoReactiveOn: html [
 ]
 
 { #category : #'demo - ref' }
+QuasarDemoReactiveApp >> renderDemoRefSyncOn: html [
+	| testRef |
+
+	testRef := self mdqApplicationGet reactiveObjects
+		at: 'sync1'
+		ifAbsentPut: [
+			((QuasarRefSync name: 'sync1' value: 0)
+				useClientArgument;
+				traceOn;
+				callbackBlock: [ :ref :value | ref refValue: (ref refValue + 1) ];
+				yourself) ].
+
+	html div class: 'q-pa-sm'; with: [
+		html text: 'Value is: {{ ', testRef refName, ' }}'.
+		html qBtn class: 'q-mx-md'; label: 'Sync 1'; vOnClick: testRef functionName, '($event)' ]
+]
+
+{ #category : #'demo - ref' }
 QuasarDemoReactiveApp >> renderDemoRefSyncScalarBooleanOn: html [
 	| testRef |
 
@@ -417,24 +435,6 @@ QuasarDemoReactiveApp >> renderDemoRefSyncScalarTimeOn: html [
 	html div class: 'q-pa-sm'; with: [
 		html text: 'Value is: {{ ', testRef refName, ' }}'.
 		html qBtn class: 'q-mx-md'; label: 'Time now'; noCaps; vOnClick: testRef functionName, '($event)' ]
-]
-
-{ #category : #'demo - ref' }
-QuasarDemoReactiveApp >> renderDemoRefSyncServerComputeOn: html [
-	| testRef |
-
-	testRef := self mdqApplicationGet reactiveObjects
-		at: 'syncServerCompute'
-		ifAbsentPut: [
-			((QuasarRefSync name: 'syncServerCompute' value: 0)
-				useClientArgument;
-				traceOn;
-				callbackBlock: [ :ref :value | ref refValue: (ref refValue + 1) ];
-				yourself) ].
-
-	html div class: 'q-pa-sm'; with: [
-		html text: 'Value is: {{ ', testRef refName, ' }}'.
-		html qBtn class: 'q-mx-md'; label: 'Compute on server'; vOnClick: testRef functionName, '($event)' ]
 ]
 
 { #category : #rendering }

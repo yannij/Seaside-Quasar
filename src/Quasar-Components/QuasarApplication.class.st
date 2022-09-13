@@ -25,7 +25,7 @@ QuasarApplication class >> mdqRegisterDeployment: aName [
 		WAAdmin applicationDefaults removeParent: WADevelopmentConfiguration instance ].
 
 	app := WAAdmin register: self asApplicationAt: aName.
-	app addLibrary: JQGoogleLibrary.
+	"app addLibrary: JQGoogleLibrary."
 	^ app
 ]
 

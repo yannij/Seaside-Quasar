@@ -29,8 +29,12 @@ JSFetch class >> jsFetchJs [
 async function jsFetch(arg){
 let url = arg.url + "?" + arg.data;
 let options = {method: "GET",headers: {"Content-Type": "application/json"}};
-let onOk = (response)=>{if (!response.ok){throw new Error("Network response was not OK");}return response.json();};
-await fetch(url,options).then(onOk).then(arg.success).catch(arg.error)}'
+let onOk = (response)=>{if (!response.ok){throw new Error("Network response was not OK");}
+return arg.dataType=="json"?response.json():0;
+};
+if(!(arg.beforeSend===undefined))arg.beforeSend();
+await fetch(url,options).then(onOk).then(arg.success).then(arg.complete).catch(arg.error);
+}'
 ]
 
 { #category : #parameters }
@@ -52,6 +56,12 @@ JSFetch >> arguments [
 	^ options isNil
 		ifTrue: [ Array new ]
 		ifFalse: [ Array with: options ]
+]
+
+{ #category : #printing }
+JSFetch >> async [
+
+	^ (self options at: 'async' ifAbsent: [ true ]) 
 ]
 
 { #category : #options }
@@ -219,9 +229,10 @@ JSFetch >> jQuery [
 { #category : #printing }
 JSFetch >> javascriptContentOn: aStream [
 
-	aStream nextPutAll: 'await jsFetch'.
+	self async ifTrue: [
+		aStream nextPutAll: 'await ' ].
+	aStream nextPutAll: 'jsFetch'.
 	JSStream encodeArguments: self arguments on: aStream
-	"aStream nextPutAll: 'await jsFetch(', self javascriptUrl contents, ')'"
 ]
 
 { #category : #'accessing-urls' }
@@ -280,16 +291,14 @@ JSFetch >> notSupported [
 
 { #category : #events }
 JSFetch >> onBeforeSend: anObject [
-	"A pre-callback to modify the XMLHttpRequest object before it is sent. Use this to set custom headers etc. The XMLHttpRequest is passed as the only argument."
-
-	self notSupported.
+	"A pre-callback to run code before the fetch() is run."
 	
 	self optionAt: 'beforeSend' put: anObject asFunction
 ]
 
 { #category : #events }
 JSFetch >> onComplete: anObject [
-	"A function to be called when the request finishes (after success and error callbacks are executed). The function gets passed two arguments: The XMLHttpRequest object and a string describing the type of success of the request."
+	"A function to be called when the request finishes (after success and error callbacks are executed)."
 	
 	self optionAt: 'complete' put: anObject asFunction
 ]

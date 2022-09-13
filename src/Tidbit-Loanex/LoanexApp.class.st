@@ -39,12 +39,15 @@ LoanexApp class >> dockerDeployPreLoad [
 
 { #category : #'class initialization' }
 LoanexApp class >> initialize [
+	| app |
 	"Register path with Seaside.
 	self initialize.
 	WAAdmin unregister: self applicationPath.
 	"
 
-	^ self mdqRegisterDeployment: self applicationPath
+	app := self mdqRegisterDeployment: self applicationPath.
+	app addLibrary: JQGoogleLibrary.
+	^ app
 ]
 
 { #category : #testing }

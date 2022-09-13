@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'refValue',
 		'callbackBlock',
-		'onErrorServerBlock'
+		'onBeforeSend'
 	],
 	#classVars : [
 		'OnErrorSetting'
@@ -78,15 +78,15 @@ QuasarRefObject >> newFetchUsing: anAjaxFactory [
 ]
 
 { #category : #accessing }
-QuasarRefObject >> onErrorServerBlock [
+QuasarRefObject >> onBeforeSend [
 
-	^ onErrorServerBlock
+	^ onBeforeSend
 ]
 
 { #category : #accessing }
-QuasarRefObject >> onErrorServerBlock: anObject [
+QuasarRefObject >> onBeforeSend: anObject [
 
-	onErrorServerBlock := anObject
+	onBeforeSend := anObject
 ]
 
 { #category : #'rendering - ajax' }
