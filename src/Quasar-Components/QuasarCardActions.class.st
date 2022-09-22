@@ -16,6 +16,12 @@ QuasarCardActions >> tag [
 	^ 'q-card-actions'
 ]
 
+{ #category : #accessing }
+QuasarCardActions >> tag: anObject [
+	
+	self attributes at: 'tag' put: anObject
+]
+
 { #category : #attributes }
 QuasarCardActions >> vertical [
 

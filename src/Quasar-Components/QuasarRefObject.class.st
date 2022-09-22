@@ -7,10 +7,23 @@ Class {
 		'onBeforeSend'
 	],
 	#classVars : [
+		'HaltOnError',
 		'OnErrorSetting'
 	],
 	#category : #'Quasar-Components'
 }
+
+{ #category : #accessing }
+QuasarRefObject class >> haltOnError [
+
+	^ HaltOnError ifNil: [ HaltOnError := false ]
+]
+
+{ #category : #accessing }
+QuasarRefObject class >> haltOnError: anObject [
+
+	^ HaltOnError := anObject
+]
 
 { #category : #'instance creation' }
 QuasarRefObject class >> name: aString value: anObject [
@@ -129,5 +142,9 @@ QuasarRefObject >> runCallbackWith: anObject [
 
 	[ self callbackBlock ifNotNil: [ :block | block value: self value: anObject ] ]
 		on: Error
-		do: [ :ex | ^ ex printString ]
+		do: [ :ex |
+			self class haltOnError
+				ifTrue: [ self halt ]
+				ifFalse: [ Transcript crShow: ex printString ].
+			^ ex printString ]
 ]

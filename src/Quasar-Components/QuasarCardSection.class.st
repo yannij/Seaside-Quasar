@@ -15,3 +15,9 @@ QuasarCardSection >> tag [
 
 	^ 'q-card-section'
 ]
+
+{ #category : #attributes }
+QuasarCardSection >> tag: anObject [
+	
+	self attributes at: 'tag' put: anObject
+]
