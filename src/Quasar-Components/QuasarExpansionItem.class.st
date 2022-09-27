@@ -125,6 +125,12 @@ QuasarExpansionItem >> headerStyle: anObject [
 ]
 
 { #category : #attributes }
+QuasarExpansionItem >> hideExpandIcon [
+
+	self attributes at: 'hide-expand-icon' put: true
+]
+
+{ #category : #attributes }
 QuasarExpansionItem >> href: anObject [
 
 	self attributes at: 'href' put: anObject

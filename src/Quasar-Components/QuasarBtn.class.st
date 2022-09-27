@@ -89,6 +89,12 @@ QuasarBtn >> noCaps [
 ]
 
 { #category : #attributes }
+QuasarBtn >> noWrap [
+	
+	self attributes at: 'no-wrap' put: true
+]
+
+{ #category : #attributes }
 QuasarBtn >> outline [
 	
 	self attributes at: 'outline' put: true
@@ -116,6 +122,12 @@ QuasarBtn >> ripple [
 QuasarBtn >> round [
 	
 	self attributes at: 'round' put: true
+]
+
+{ #category : #attributes }
+QuasarBtn >> rounded [
+
+	self attributes at: 'rounded' put: true
 ]
 
 { #category : #attributes }
