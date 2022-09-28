@@ -113,6 +113,9 @@ QuasarRefSync >> writeCodeOn: aJSStream with: anAjaxFactory [
 			json: [ :json | json render: self refValue ];
 			yourself.
 
+	self onBeforeSend ifNotNil: [ :value |
+		ajax onBeforeSend: value ].
+
 	self emitOnSuccess ifTrue: [
 		ajax onSuccess: script contents ].
 

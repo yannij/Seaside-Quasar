@@ -113,8 +113,7 @@ QuasarDemoReactiveApp >> demoNames [
 	Collection
 	RefSyncScalar
 	RefSync
-	"Do not combine the fetch error render code because a class variable is set differently for each case"
-	FetchError1 FetchError2 FetchError3
+	FetchError
 	)
 ]
 
@@ -250,7 +249,16 @@ QuasarDemoReactiveApp >> renderDemoCollectionOn: html [
 ]
 
 { #category : #'demo - fetch error' }
-QuasarDemoReactiveApp >> renderDemoFetchError1On: html [
+QuasarDemoReactiveApp >> renderDemoFetchErrorOn: html [
+
+	self renderDemoFetchErrorUseConsoleOn: html.
+	self renderDemoFetchErrorUseNotifyOn: html.
+	self renderDemoFetchErrorUseCustomOn: html
+
+]
+
+{ #category : #'demo - fetch error' }
+QuasarDemoReactiveApp >> renderDemoFetchErrorUseConsoleOn: html [
 	| testRef |
 
 	testRef := self mdqApplicationGet reactiveObjects
@@ -259,38 +267,19 @@ QuasarDemoReactiveApp >> renderDemoFetchError1On: html [
 			((QuasarRefSync name: 'FetchError1' value: 0)
 				useClientArgument;
 				"traceOn;"
+				onBeforeSend: JSFetch jsFetchOnErrorConsoleJs;
 				callbackBlock: [ :ref :ajaxArg | self error: 'Fetch Error 1' ];
 				yourself) ].
 
 	testRef onSuccessScript: 'throw new Error("Error intentionally triggered in ', testRef refName, '");'.
-	QuasarRefObject onErrorSettingClear.
+	"QuasarRefObject onErrorSettingClear."
 	html div class: 'q-pa-sm'; with: [
-		html text: 'No error handler specified. See console log after clicking the button'.
-		html qBtn class: 'q-mx-md'; label: 'Fetch Error-1'; vOnClick: testRef functionName, '($event)' ]
+		html text: 'Use application default error handler. See console log after clicking the button'.
+		html qBtn class: 'q-mx-md'; label: 'Error on console'; vOnClick: testRef functionName, '($event)' ]
 ]
 
 { #category : #'demo - fetch error' }
-QuasarDemoReactiveApp >> renderDemoFetchError2On: html [
-	| testRef |
-
-	testRef := self mdqApplicationGet reactiveObjects
-		at: 'FetchError2'
-		ifAbsentPut: [
-			((QuasarRefSync name: 'FetchError2' value: 0)
-				useClientArgument;
-				"traceOn;"
-				callbackBlock: [ :ref :ajaxArg | self error: 'Fetch Error 2' ];
-				yourself) ].
-
-	testRef onSuccessScript: 'throw new Error("Error intentionally triggered in ', testRef refName, '");'.
-	QuasarRefObject onErrorSettingUseConsole.
-	html div class: 'q-pa-sm'; with: [
-		html text: 'Use default error handler. See console log after clicking the button'.
-		html qBtn class: 'q-mx-md'; label: 'Fetch Error-2'; vOnClick: testRef functionName, '($event)' ]
-]
-
-{ #category : #'demo - fetch error' }
-QuasarDemoReactiveApp >> renderDemoFetchError3On: html [
+QuasarDemoReactiveApp >> renderDemoFetchErrorUseCustomOn: html [
 	| testRef |
 
 	testRef := self mdqApplicationGet reactiveObjects
@@ -299,14 +288,36 @@ QuasarDemoReactiveApp >> renderDemoFetchError3On: html [
 			((QuasarRefSync name: 'FetchError3' value: 0)
 				useClientArgument;
 				"traceOn;"
+				onBeforeSend: 'jsFetchOnError=(error)=>{$q.notify({position: "right", caption: error.toString(), closeBtn: true, timeout: 4000, message: "Custom notify", color: "info"})}';
 				callbackBlock: [ :ref :ajaxArg | self error: 'Fetch Error 3' ];
 				yourself) ].
 
 	testRef onSuccessScript: 'throw new Error("Error intentionally triggered in ', testRef refName, '");'.
-	QuasarRefObject onErrorSettingUseNofify.
+	"QuasarRefObject onErrorSettingUseNofify."
+	html div class: 'q-pa-sm'; with: [
+		html text: 'Use a custom error handler. Expect a notifier to pop up on the right'.
+		html qBtn class: 'q-mx-md'; label: 'Error custom notify'; vOnClick: testRef functionName, '($event)' ]
+]
+
+{ #category : #'demo - fetch error' }
+QuasarDemoReactiveApp >> renderDemoFetchErrorUseNotifyOn: html [
+	| testRef |
+
+	testRef := self mdqApplicationGet reactiveObjects
+		at: 'FetchError2'
+		ifAbsentPut: [
+			((QuasarRefSync name: 'FetchError2' value: 0)
+				useClientArgument;
+				"traceOn;"
+				onBeforeSend: QuasarRefSync onErrorNotifyJs;
+				callbackBlock: [ :ref :ajaxArg | self error: 'Fetch Error 2' ];
+				yourself) ].
+
+	testRef onSuccessScript: 'throw new Error("Error intentionally triggered in ', testRef refName, '");'.
+	"QuasarRefObject onErrorSettingUseNofify."
 	html div class: 'q-pa-sm'; with: [
 		html text: 'Use notify error handler. Expect a notifier to pop up'.
-		html qBtn class: 'q-mx-md'; label: 'Fetch Error-3'; vOnClick: testRef functionName, '($event)' ]
+		html qBtn class: 'q-mx-md'; label: 'Error notify'; vOnClick: testRef functionName, '($event)' ]
 ]
 
 { #category : #'demo - reactive' }

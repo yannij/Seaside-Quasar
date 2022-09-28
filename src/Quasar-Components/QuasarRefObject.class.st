@@ -15,6 +15,9 @@ Class {
 
 { #category : #accessing }
 QuasarRefObject class >> haltOnError [
+	"
+	HaltOnError := true
+	"
 
 	^ HaltOnError ifNil: [ HaltOnError := false ]
 ]
@@ -35,35 +38,15 @@ QuasarRefObject class >> name: aString value: anObject [
 ]
 
 { #category : #accessing }
+QuasarRefObject class >> onErrorNotifyJs [
+
+	^ 'jsFetchOnError=(error)=>{$q.notify({position: "top", message: error.name, caption: error.message, closeBtn: true, color: "warning", textColor: "grey-10"})}'
+]
+
+{ #category : #accessing }
 QuasarRefObject class >> onErrorSetting [
 
 	^ OnErrorSetting
-]
-
-{ #category : #accessing }
-QuasarRefObject class >> onErrorSetting: anObject [
-
-	^ OnErrorSetting := anObject
-]
-
-{ #category : #accessing }
-QuasarRefObject class >> onErrorSettingClear [
-
-	self onErrorSetting: nil
-]
-
-{ #category : #accessing }
-QuasarRefObject class >> onErrorSettingUseConsole [
-
-	self onErrorSetting: [ :ref |
-		'console.log(error.name);console.log(error.message);' asFunction: #('error') ]
-]
-
-{ #category : #accessing }
-QuasarRefObject class >> onErrorSettingUseNofify [
-
-	self onErrorSetting: [ :ref |
-		'$q.notify({position: "top", message: error.toString(), closeBtn: true, timeout: 4000})' asFunction: #('error') ]
 ]
 
 { #category : #accessing }
@@ -84,8 +67,8 @@ QuasarRefObject >> newFetchUsing: anAjaxFactory [
 
 	newFetch := anAjaxFactory fetch.
 
-	self class onErrorSetting ifNotNil: [ :block |
-		newFetch onError: (block value: self) ].
+	"self class onErrorSetting ifNotNil: [ :block |
+		newFetch onError: (block value: self) ]."
 
 	^ newFetch
 ]

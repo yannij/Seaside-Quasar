@@ -33,8 +33,16 @@ let onOk = (response)=>{if (!response.ok){throw new Error("Network response was 
 return arg.dataType=="json"?response.json():0;
 };
 if(!(arg.beforeSend===undefined))arg.beforeSend();
-await fetch(url,options).then(onOk).then(arg.success).then(arg.complete).catch(arg.error);
+let onError = arg.error==undefined?jsFetchOnError:arg.error;
+await fetch(url,options).then(onOk).then(arg.success).then(arg.complete).catch(onError);
 }'
+]
+
+{ #category : #javascript }
+JSFetch class >> jsFetchOnErrorConsoleJs [
+	"Error handler. See jsFetchJs"
+
+	^ 'jsFetchOnError=console.error;'
 ]
 
 { #category : #parameters }
@@ -301,13 +309,6 @@ JSFetch >> onComplete: anObject [
 	"A function to be called when the request finishes (after success and error callbacks are executed)."
 	
 	self optionAt: 'complete' put: anObject asFunction
-]
-
-{ #category : #events }
-JSFetch >> onError: anObject [
-	"A function to be called if the request fails. The function is passed a single argumenbt: the error object itself."
-	
-	self optionAt: 'error' put: anObject asFunction
 ]
 
 { #category : #events }

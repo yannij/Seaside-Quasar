@@ -260,11 +260,19 @@ QuasarApplication >> quasarSetupContentOn: aJSStream with: html [
 ]
 
 { #category : #'rendering - quasar' }
+QuasarApplication >> quasarSetupFetchOn: aJSStream with: anAjaxFactory [
+
+	aJSStream nextPutAll: JSFetch jsFetchOnErrorConsoleJs.
+	"aJSStream nextPutAll: QuasarRefSync onErrorNotifyJs."
+	aJSStream nextPutAll: JSFetch jsFetchJs
+]
+
+{ #category : #'rendering - quasar' }
 QuasarApplication >> quasarSetupOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPutAll: 'setup() {'.
 	aJSStream nextPutAll: 'const $q = useQuasar();'.
-	aJSStream nextPutAll: JSFetch jsFetchJs.
+	self quasarSetupFetchOn: aJSStream with: anAjaxFactory.
 	self reactiveObjects do: [ :eachObject | eachObject quasarSetupOn: aJSStream ].
 	self reactiveObjects do: [ :eachObject | eachObject writeCodeOn: aJSStream with: anAjaxFactory. aJSStream nextPutAll: ';' ].
 	self quasarSetupContentOn: aJSStream with: anAjaxFactory.
