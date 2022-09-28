@@ -55,7 +55,7 @@ BaselineOfSeasideQuasar >> seaside: spec [
 	spec
 		baseline: 'Seaside3'
 		with: [ spec repository: 'github://SeasideSt/Seaside:v3.4.7/repository';
-			loads: #('Core' 'JSON' 'Email' 'Javascript' 'JQuery' 'Zinc' 'Seaside-Welcome') ]
+			loads: #('Core' 'JSON' 'Email' 'Javascript' 'Zinc') ]
 ]
 
 { #category : #dependencies }
