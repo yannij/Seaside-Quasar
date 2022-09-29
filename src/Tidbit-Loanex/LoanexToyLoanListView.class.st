@@ -17,7 +17,7 @@ LoanexToyLoanListView >> renderInstancesOn: html [
 	app := self mdqApplicationGet.
 	list := app repository selectAll: self modelClass.
 
-	borrowerName := app filterValues toyLoanBorrower.
+	borrowerName := app filterValues toyLoanBorrower refValue.
 	(borrowerName notNil and: [ borrowerName notEmpty ]) ifTrue: [
 		list := list select: [ :eachInstance | eachInstance borrower username = borrowerName ] ].
 

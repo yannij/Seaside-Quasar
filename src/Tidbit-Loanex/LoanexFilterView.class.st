@@ -14,10 +14,17 @@ LoanexFilterView >> renderFieldLabel: aString on: html [
 
 { #category : #rendering }
 LoanexFilterView >> renderRefreshOn: html [
+	| callbackRef app |
+
+	app := self mdqApplicationGet.
+	(callbackRef := app reactiveObjectsNamed: 'refresh') ifNil: [
+		callbackRef := (QuasarRefCallback name: 'refresh' value: nil)
+				callbackBlock: [ :ref :ajaxArg | ];
+				emitRefreshOn;
+				yourself.
+			app reactiveObjectsAdd: callbackRef ].
 
 	html qBtn round;
-		onClick: ((html jQuery ajax)
-			"callback: [  ];"
-			onComplete: html javascript refresh);
+		vOnClick: callbackRef functionName, '($event)';
 		icon: 'refresh'
 ]

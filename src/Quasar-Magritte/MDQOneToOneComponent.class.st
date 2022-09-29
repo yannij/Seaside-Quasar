@@ -35,9 +35,10 @@ MDQOneToOneComponent >> renderViewerOn: html [
 
 	html qCard "class: 'bg-secondary text-white';" with: [
 		html qCardSection
-			onClick: ((html qAjax fetch)
+			"TODO: fix needed"
+			"onClick: ((html qAjax fetch)
 				callback: [ self mdqApplicationGet navTo: self value ];
-				onComplete: html javascript refresh);
+				onComplete: html javascript refresh);"
 			with: [
 				html div class: 'text-h6'; with: self value mdPrimaryString.
 				html div class: 'text-subtitle2'; with: self value mdSecondaryString ].

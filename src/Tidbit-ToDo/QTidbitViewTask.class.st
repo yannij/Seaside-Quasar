@@ -94,14 +94,14 @@ QTidbitViewTask >> renderCardsTabsOn: html [
 		with: [
 			TidbitToDoItem importanceValues withIndexDo: [ :eachValue :index |
 				html qTab name: eachValue; label: eachValue;
-					onClick: ((html jQuery ajax)
-						callback: [ self sideSheet tabImportance: eachValue ];
-						onComplete: html javascript refresh) ] ]
+					vOnClick:
+						self sideSheet tabImportance functionName,
+						'("', eachValue, '")' ] ]
 ]
 
 { #category : #'rendering - styles' }
 QTidbitViewTask >> renderChips: aUser on: html [
-	| iconMap denseFlag |
+	| iconMap denseFlag app |
 
 	iconMap := Dictionary new
 		at: TidbitToDoItem importanceValueHigh put: 'star';
@@ -111,16 +111,21 @@ QTidbitViewTask >> renderChips: aUser on: html [
 
 	denseFlag := self mdqApplicationGet viewStyleDense.
 
+	app := self mdqApplicationGet.
 	html div class: 'q-pa-none';
 		with: [
 			self tasksFiltered
-				do: [ :eachItem |
+				do: [ :eachItem | | callbackRef |
+					(callbackRef := app reactiveObjectsNamed: 't', eachItem hash printString) ifNil: [
+						callbackRef := (QuasarRefCallback name: 't', eachItem hash printString value: nil)
+							callbackBlock: [ :ref :ajaxArg | self navToView: eachItem ];
+							emitRefreshOn;
+							yourself.
+						app reactiveObjectsAdd: callbackRef ].
 					html qChip
 						denseIf: denseFlag;
 						clickable;
-						onClick: ((html jQuery ajax)
-							callback: [ self navToView: eachItem ];
-							onComplete: html javascript refresh);
+						vOnClick: callbackRef functionName, '($event)';
 						with: [
 							html qAvatar
 								fontSize: '1.2rem';

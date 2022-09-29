@@ -235,15 +235,6 @@ MDQLogin >> loginTitleDefault [
 	^ 'MDQ Seaside'
 ]
 
-{ #category : #rendering }
-MDQLogin >> onClickNotYetImplementedScript: html [
-
-	^ (html jQuery ajax)
-		callback: [ :value | ];
-		script: [ :s | s alert: 'Not yet implemented' ];
-		yourself
-]
-
 { #category : #accessing }
 MDQLogin >> password [
 	^ password
@@ -526,13 +517,13 @@ MDQLogin >> renderSingleSignOnOn: html [
 		html span class: 'text-caption'; with: 'Login with' ].
 	html div style: 'margin: 0px auto; width: 300px; text-align: center'; with: [
 		html qBtn outline;
-			onClick: (self onClickNotYetImplementedScript: html);
+			onClick: 'alert("Not yet implemented");';
 			with: 'Google'.
 		html qBtn outline;
-			onClick: (self onClickNotYetImplementedScript: html);
+			onClick: 'alert("Not yet implemented");';
 			with: 'Twitter'.
 		html qBtn outline;
-			onClick: (self onClickNotYetImplementedScript: html);
+			onClick: 'alert("Not yet implemented");';
 			with: 'Facebook' ]
 ]
 

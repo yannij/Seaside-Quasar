@@ -33,8 +33,9 @@ MDQActionColumn >> renderCellLinkContent: anObject on: html [
 		with: '>'"
 
 	html qBtn
-		onClick: ((html jQuery ajax)
+		"TODO: needs to be fixed"
+		"onClick: (html qAjax fetch
 			callback: [ self commandBlock value: anObject ];
-			onComplete: html javascript refresh);
+			onComplete: html javascript refresh);"
 		icon: 'chevron_right'
 ]

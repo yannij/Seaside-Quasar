@@ -7,6 +7,7 @@ Class {
 	#instVars : [
 		'loginComponent',
 		'pageComponent',
+		'filterComponent',
 		'currentUser',
 		'viewUser',
 		'viewUsers',
@@ -168,6 +169,18 @@ LoanexApp >> currentUser: anObject [
 ]
 
 { #category : #accessing }
+LoanexApp >> filterComponent [
+
+	^ filterComponent
+]
+
+{ #category : #accessing }
+LoanexApp >> filterComponent: anObject [
+
+	filterComponent := anObject
+]
+
+{ #category : #accessing }
 LoanexApp >> filterValues [
 
 	^ filterValues
@@ -196,7 +209,6 @@ LoanexApp >> initialize [
 	self colorTheme: self buildColorTheme.
 
 	self filterValues: LoanexFilterValues new.
-	self filterValues toyAvailable: #both.
 	self initializeLayout
 ]
 
@@ -242,7 +254,8 @@ LoanexApp >> navTo: aModel  aspect: anAspect [
 					"addMessage: 'hello';"
 					yourself.
 
-	self pageComponentSet: newView
+	self pageComponentSet: newView.
+	self filterComponent: nil
 ]
 
 { #category : #'utility - login' }
@@ -392,12 +405,14 @@ LoanexApp >> renderPageContentOn: html [
 { #category : #rendering }
 LoanexApp >> renderSideSheetOn: html [
 
+	self filterComponent ifNil: [ ^ self ].
+
 	html qDrawer ref: 'sideSheet'; showIfAbove; side: 'right';
 		class: 'q-pa-md';
 		"class: 'bg-secondary';" style: 'background: #E0F2F1';
 		with: [
 			html qScrollArea class: 'fit'; with: [
-				html render: self viewTask filterView ] ]
+				html render: self filterComponent ] ]
 ]
 
 { #category : #'utility - repository' }
@@ -464,6 +479,7 @@ LoanexApp >> viewTask: anObject [
 LoanexApp >> viewTaskGo [
 
 	self pageComponentSet: self viewTask.
+	self filterComponent: self viewTask filterView
 	"self layout sideSheetContent: self viewTask filterView.
 	self viewTask filterView
 		ifNil: [ self layout sideSheetHide ]
@@ -474,8 +490,9 @@ LoanexApp >> viewTaskGo [
 LoanexApp >> viewToyLoansGo [
 	| newView |
 
-	newView := LoanexToyLoanListView new filterView: LoanexToyLoadFilterView new; yourself.
+	newView := LoanexToyLoanListView new filterView: LoanexToyLoanFilterView new; yourself.
 	self pageComponentSet: newView.
+	self filterComponent: newView filterView
 	"self layout sideSheetContent: newView filterView.
 	newView filterView
 		ifNil: [ self layout sideSheetHide ]
@@ -495,7 +512,8 @@ LoanexApp >> viewUser: anObject [
 { #category : #navigation }
 LoanexApp >> viewUserGo [
 
-	self pageComponentSet: self viewUser
+	self pageComponentSet: self viewUser.
+	self filterComponent: nil
 ]
 
 { #category : #navigation }
@@ -526,5 +544,6 @@ LoanexApp >> viewUsers: anObject [
 { #category : #navigation }
 LoanexApp >> viewUsersGo [
 
-	self pageComponentSet: self viewUsers
+	self pageComponentSet: self viewUsers.
+	self filterComponent: nil
 ]

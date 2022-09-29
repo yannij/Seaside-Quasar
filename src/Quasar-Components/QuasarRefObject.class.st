@@ -7,8 +7,7 @@ Class {
 		'onBeforeSend'
 	],
 	#classVars : [
-		'HaltOnError',
-		'OnErrorSetting'
+		'HaltOnError'
 	],
 	#category : #'Quasar-Components'
 }
@@ -41,12 +40,6 @@ QuasarRefObject class >> name: aString value: anObject [
 QuasarRefObject class >> onErrorNotifyJs [
 
 	^ 'jsFetchOnError=(error)=>{$q.notify({position: "top", message: error.name, caption: error.message, closeBtn: true, color: "warning", textColor: "grey-10"})}'
-]
-
-{ #category : #accessing }
-QuasarRefObject class >> onErrorSetting [
-
-	^ OnErrorSetting
 ]
 
 { #category : #accessing }

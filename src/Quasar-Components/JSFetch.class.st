@@ -229,9 +229,8 @@ JSFetch >> isSupportedOption: aString [
 
 { #category : #private }
 JSFetch >> jQuery [
-	^ (JQueryClass context: self renderContext)
-		rendererClass: self rendererClass;
-		yourself
+
+	self error: 'Not supported'
 ]
 
 { #category : #printing }

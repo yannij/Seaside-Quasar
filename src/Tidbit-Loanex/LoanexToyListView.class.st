@@ -17,7 +17,7 @@ LoanexToyListView >> renderInstancesOn: html [
 	app := self mdqApplicationGet.
 	list := app repository selectAll: self modelClass.
 
-	ownerName := app filterValues toyOwner.
+	ownerName := app filterValues toyOwner ifNil: [ nil ] ifNotNil: [ :ref | ref refValue ].
 	(ownerName notNil and: [ ownerName notEmpty ]) ifTrue: [
 		list := list select: [ :eachInstance | eachInstance owner username = ownerName ] ].
 

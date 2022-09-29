@@ -312,7 +312,7 @@ QTidbitToDoApp >> pageComponentSet: anObject [
 QTidbitToDoApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
 	| exports |
 
-	exports := ',' join: (self quasarData, (self vueRefs keys)).
+	exports := ',' join: (#('jsFetch'), self quasarData, (self vueRefs keys)).
 
 	aJSStream nextPutAll: exports
 ]
@@ -424,7 +424,8 @@ QTidbitToDoApp >> renderSideSheetOn: html [
 
 	html qDrawer
 		ref: 'sideSheet'; showIfAbove; side: 'right';
-		vIf: 'sideSheetOpen';
+		"vIf: 'sideSheetOpen';"
+		vIf: 'true';
 		class: 'q-pa-md';
 		"class: 'bg-secondary';" style: 'background: #E0F2F1';
 		with: [

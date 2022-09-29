@@ -7,40 +7,54 @@ Class {
 { #category : #rendering }
 LoanexToyFilterView >> renderContentOn: html [
 
-	self renderRefreshOn: html.
 	self renderFilterRadioButtonsOn: html.
-	self renderFilterOwnerOn: html
+	self renderFilterOwnerOn: html.
+	self renderRefreshOn: html
 ]
 
 { #category : #rendering }
 LoanexToyFilterView >> renderFilterOwnerOn: html [
 
-	self renderFieldLabel: 'Owner' on: html.
+	self toyOwner ifNil: [ | callbackRef |
+		callbackRef := (QuasarRefCallback name: 'filterOwner' value: nil)
+			callbackBlock: [ :ref :ajaxArg | self toyOwner refValue: ajaxArg. self toyOwner refValue ];
+			emitRefreshOn;
+			yourself.
+		self mdqApplicationGet reactiveObjectsAdd: callbackRef.
+		self toyOwner: callbackRef ].
 
-	html textInput
-		onBlur: ((html jQuery ajax) callback: [ :value | self toyOwner: value ] value: (html jQuery this value));
-		with: self toyOwner
+	"self renderFieldLabel: 'Owner' on: html."
+
+	html qInput
+		label: 'Owner';
+		vModel: self toyOwner refName;
+		vOn: 'change' with: self toyOwner functionName, '(', self toyOwner refName, ')';
+		yourself
 ]
 
 { #category : #rendering }
 LoanexToyFilterView >> renderFilterRadioButtonsOn: html [
-	| formId group |
+	| group app |
 
 	self renderFieldLabel: 'Availability' on: html.
 
-	formId := html nextId.
-	html form id: formId; with: [
+	app := self mdqApplicationGet.
 	group := html radioGroup.
 	{#both->'Both'. #availableOnly->'Available Only'. #notAvailableOnly->'Not Available Only'}
-		do: [ :each | | optionId |
+		do: [ :each | | optionId callbackRef |
+			(callbackRef := app reactiveObjectsNamed: 'filter', each key) ifNil: [
+				callbackRef := (QuasarRefCallback name: 'filter', each key value: #both)
+					callbackBlock: [ :ref :ajaxArg | self toyAvailable: each key ];
+					emitRefreshOn;
+					yourself.
+				app reactiveObjectsAdd: callbackRef ].
 			optionId := html nextId.
-					html radioButton id: optionId; group: group;
-						selected: self toyAvailable = each key;
-						callback: [ self toyAvailable: each key ];
-						onChange: (html jQuery ajax script: [ :s | s << (s jQuery id: formId) call: 'submit' ]);
-						yourself.
-				html label for: optionId; with: each value ]
-		separatedBy: [ html break ] ]
+			html radioButton id: optionId; group: group;
+				selected: self toyAvailable = each key;
+				vOnClick: callbackRef functionName, '($event)';
+				yourself.
+			html label for: optionId; with: each value ]
+		separatedBy: [ html break ]
 ]
 
 { #category : #accessing }

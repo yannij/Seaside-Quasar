@@ -33,7 +33,6 @@ QTidbitViewTaskSideSheet >> initialize [
 	super initialize.
 
 	self filterDone: #both.
-	self tabImportance: TidbitToDoItem importanceValueHigh.
 	self itemsStyle: #table
 ]
 
@@ -49,6 +48,13 @@ QTidbitViewTaskSideSheet >> itemsStyle: anObject [
 
 { #category : #rendering }
 QTidbitViewTaskSideSheet >> renderContentOn: html [
+
+	self tabImportance ifNil: [
+		self tabImportance: ((QuasarRefSync name: 'tabImportance' value: TidbitToDoItem importanceValueHigh)
+				callbackBlock: [ :ref :value | ref refValue: value. ref refValue ];
+				onSuccessScript: 'window.location.reload();';
+				yourself).
+		self mdqApplicationGet reactiveObjectsAdd: self tabImportance ].
 
 	self renderFieldLabel: 'Tasks Filter' on: html.
 	self renderFilterRadioButtonsOn: html.
@@ -67,44 +73,52 @@ QTidbitViewTaskSideSheet >> renderFieldLabel: aString on: html [
 
 { #category : #rendering }
 QTidbitViewTaskSideSheet >> renderFilterRadioButtonsOn: html [
-	| formId group |
+	| group app |
 
 	self renderFieldLabel: 'Done/Not-done' on: html.
 
-	formId := html nextId.
-	html form id: formId; with: [
+	app := self mdqApplicationGet.
 	group := html radioGroup.
 	{#both->'Both'. #doneOnly->'Done Only'. #notDoneOnly->'Not Done Only'}
-		do: [ :each | | optionId |
+		do: [ :each | | optionId callbackRef |
+			(callbackRef := app reactiveObjectsNamed: 'filter', each key) ifNil: [
+				callbackRef := (QuasarRefCallback name: 'filter', each key value: nil)
+					callbackBlock: [ :ref :ajaxArg | self filterDoneSet: each key ];
+					emitRefreshOn;
+					yourself.
+				app reactiveObjectsAdd: callbackRef ].
 			optionId := html nextId.
 			html radioButton id: optionId; group: group;
 				selected: self filterDone = each key;
-				callback: [ self filterDoneSet: each key ];
-				onChange: (html jQuery ajax script: [ :s | s << (s jQuery id: formId) call: 'submit' ]);
+				vOnClick: callbackRef functionName, '($event)';
 				yourself.
 			html label for: optionId; with: each value ]
-		separatedBy: [ html break ] ]
+		separatedBy: [ html break ]
 ]
 
 { #category : #rendering }
 QTidbitViewTaskSideSheet >> renderItemsStyleRadioButtonsOn: html [
-	| formId group |
+	| group app |
 
 	self renderFieldLabel: 'Items style' on: html.
 
-	formId := html nextId.
+	app := self mdqApplicationGet.
 	group := html radioGroup.
-	html form id: formId; with: [
 	{#table->'Table'. #listSingleLine->'List single-line'. #listTwoLine->'List two-line'. #chips->'Chips'. #cards->'Cards'}
-		do: [ :each | | optionId |
+		do: [ :each | | optionId callbackRef |
+			(callbackRef := app reactiveObjectsNamed: 'style', each key) ifNil: [
+				callbackRef := (QuasarRefCallback name: 'style', each key value: nil)
+					callbackBlock: [ :ref :ajaxArg | self itemsStyle: each key ];
+					emitRefreshOn;
+					yourself.
+				app reactiveObjectsAdd: callbackRef ].
 			optionId := html nextId.
 			html radioButton id: optionId; group: group;
 				selected: self itemsStyle = each key;
-				callback: [ self itemsStyle: each key ];
-				onChange: (html jQuery ajax script: [ :s | s << (s jQuery id: formId) call: 'submit' ]);
+				vOnClick: callbackRef functionName, '($event)';
 				yourself.
 			html label for: optionId; with: each value ]
-		separatedBy: [ html break ] ]
+		separatedBy: [ html break ]
 ]
 
 { #category : #accessing }
@@ -120,7 +134,7 @@ QTidbitViewTaskSideSheet >> tabImportance: anObject [
 { #category : #accessing }
 QTidbitViewTaskSideSheet >> tabImportanceSelected [
 
-	^ self tabImportance
+	^ self tabImportance refValue
 		ifNil: [ TidbitToDoItem importanceValueHigh ]
 		ifNotNil: [ :value | value ]
 ]
