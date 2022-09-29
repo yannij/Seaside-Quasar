@@ -47,7 +47,7 @@ LoanexApp class >> initialize [
 	"
 
 	app := self mdqRegisterDeployment: self applicationPath.
-	app addLibrary: JQGoogleLibrary.
+	"app addLibrary: JQGoogleLibrary."
 	^ app
 ]
 
