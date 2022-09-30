@@ -1,5 +1,5 @@
 # Seaside-Quasar
-Pharo/Smalltalk code to use Quasar Framework in Seaside. Includes some demo apps using Voyage/MongoDB.
+Pharo/Smalltalk code to use Quasar Framework in Seaside. Includes some demo apps using Magritte.
 
 ## License
 
