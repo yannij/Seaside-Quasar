@@ -116,7 +116,7 @@ QuasarApplication >> logFormat: aFormatString with: aValue1 with: aValue2 with: 
 { #category : #logging }
 QuasarApplication >> logString: aString [
 
-	Transcript crShow: aString
+	self crTrace: aString
 ]
 
 { #category : #login }

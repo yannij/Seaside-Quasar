@@ -11,9 +11,21 @@ QuasarInput >> borderless [
 ]
 
 { #category : #attributes }
+QuasarInput >> bottomSlots: aBoolean [
+
+	self attributes at: 'bottom-slots' put: aBoolean
+]
+
+{ #category : #attributes }
 QuasarInput >> debounce: anObject [
 	
 	self attributes at: 'debounce' put: anObject
+]
+
+{ #category : #attributes }
+QuasarInput >> hideBottomSpace [
+
+	self attributes at: 'hide-bottom-space' put: true
 ]
 
 { #category : #attributes }
@@ -26,6 +38,12 @@ QuasarInput >> inputClass: anObject [
 QuasarInput >> inputStyle: anObject [
 	
 	self attributes at: 'input-style' put: anObject
+]
+
+{ #category : #attributes }
+QuasarInput >> labelSlot: aBoolean [
+
+	self attributes at: 'label-slot' put: aBoolean
 ]
 
 { #category : #api }

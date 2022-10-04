@@ -121,6 +121,6 @@ QuasarRefObject >> runCallbackWith: anObject [
 		do: [ :ex |
 			self class haltOnError
 				ifTrue: [ self halt ]
-				ifFalse: [ Transcript crShow: ex printString ].
+				ifFalse: [ self crTrace: ex printString ].
 			^ ex printString ]
 ]

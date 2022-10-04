@@ -60,7 +60,7 @@ QuasarSetupObject >> initialize [
 { #category : #logging }
 QuasarSetupObject >> logString: aString [
 
-	Transcript crShow: aString
+	self crTrace: aString
 ]
 
 { #category : #'rendering - ajax' }
