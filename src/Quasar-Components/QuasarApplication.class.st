@@ -398,7 +398,7 @@ QuasarApplication >> renderContentOn: html [
 
 	jsStream := JSStream new.
 	self quasarOnLoadOn: jsStream with: html qAjax.
-	html document addLoadScript: jsStream
+	html script with: jsStream
 ]
 
 { #category : #rendering }

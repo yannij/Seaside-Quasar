@@ -104,6 +104,9 @@ MDQReport >> renderContentOn: html [
 		vBind: 'pagination' with: '{rowsPerPage: 10}';
 		rowKey: 'name'.
 		"with: [ self renderTableOn: html ]"
+
+	"MDQReport is broken until usage of addLoadScript: below is fixed.
+	The content needs to be added to Quasar setup(), which is no longer part of onLoad()"
 	html document addLoadScript: (JSStream on: (self javascriptColumnsWith: self refNameCols)).
 	html document addLoadScript: (JSStream on: (self javascriptRowsWith: self refNameRows)).
 
