@@ -384,7 +384,7 @@ MDQStripeCheckout >> serverUrl [
 MDQStripeCheckout >> stripeRedirectScriptOn: html [
 
 	"TODO: fix needed"
-	^ html qAjax fetch
+	^ html qAjax jsFetch
 		json: [ :json | self deprecatedCreateCheckoutSessionRequest: html json: json ];
 		onSuccess: (html javascript << (JSStream new
 				nextPutAll: 'Stripe(''';

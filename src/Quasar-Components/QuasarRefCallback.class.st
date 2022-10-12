@@ -69,10 +69,10 @@ QuasarRefCallback >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
 QuasarRefCallback >> writeCodeOn: aJSStream with: anAjaxFactory [
 	| ajax code |
 
-	ajax := ((self newFetchUsing: anAjaxFactory)
-			callback: [ :value | self runCallbackWith: value ] json: 'arg1';
-			json: [ :json | json render: self refValue ];
-			yourself).
+	ajax := anAjaxFactory jsFetch
+				callback: [ :value | self runCallbackWith: value ] json: 'arg1';
+				json: [ :json | json render: self refValue ];
+				yourself.
 
 	self onBeforeSend ifNotNil: [ :value |
 		ajax onBeforeSend: value ].

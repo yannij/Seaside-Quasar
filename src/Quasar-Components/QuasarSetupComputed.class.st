@@ -2,7 +2,7 @@
 I represent computed value code appearing in Quasar setup().
 "
 Class {
-	#name : #QuasarComputed,
+	#name : #QuasarSetupComputed,
 	#superclass : #QuasarSetupObject,
 	#instVars : [
 		'codeBlock'
@@ -11,19 +11,19 @@ Class {
 }
 
 { #category : #accessing }
-QuasarComputed >> codeBlock [
+QuasarSetupComputed >> codeBlock [
 
 	^ codeBlock
 ]
 
 { #category : #accessing }
-QuasarComputed >> codeBlock: anObject [
+QuasarSetupComputed >> codeBlock: anObject [
 
 	codeBlock := anObject
 ]
 
 { #category : #'rendering - ajax' }
-QuasarComputed >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
+QuasarSetupComputed >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPut: Character cr; nextPutAll: self refName.
 	aJSStream nextPutAll: ': computed(() => '.
@@ -32,7 +32,7 @@ QuasarComputed >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
 ]
 
 { #category : #'rendering - ajax' }
-QuasarComputed >> writeCodeOn: aJSStream with: anAjaxFactory [
+QuasarSetupComputed >> writeCodeOn: aJSStream with: anAjaxFactory [
 
 	self codeBlock ifNotNil: [ :block |
 		block value: aJSStream value: anAjaxFactory ]

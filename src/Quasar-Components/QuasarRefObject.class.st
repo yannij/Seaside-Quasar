@@ -1,3 +1,6 @@
+"
+I am an abstract class holding common code for ""ref"" objects as utilized in the Quasar/Vue Framework.
+"
 Class {
 	#name : #QuasarRefObject,
 	#superclass : #QuasarSetupObject,
@@ -52,18 +55,6 @@ QuasarRefObject >> callbackBlock [
 QuasarRefObject >> callbackBlock: anObject [
 
 	callbackBlock := anObject
-]
-
-{ #category : #'rendering - ajax' }
-QuasarRefObject >> newFetchUsing: anAjaxFactory [
-	| newFetch |
-
-	newFetch := anAjaxFactory fetch.
-
-	"self class onErrorSetting ifNotNil: [ :block |
-		newFetch onError: (block value: self) ]."
-
-	^ newFetch
 ]
 
 { #category : #accessing }

@@ -108,7 +108,7 @@ QuasarRefSync >> writeCodeOn: aJSStream with: anAjaxFactory [
 	script nextPutAll: 'return data;'.
 
 	callbackValue := self isSyncTypeClientArgument ifTrue: [ 'arg1' ] ifFalse: [ refName, '.value' ].
-	ajax := (self newFetchUsing: anAjaxFactory)
+	ajax := anAjaxFactory jsFetch
 			callback: [ :value | self runCallbackWith: value ] json: callbackValue;
 			json: [ :json | json render: self refValue ];
 			yourself.

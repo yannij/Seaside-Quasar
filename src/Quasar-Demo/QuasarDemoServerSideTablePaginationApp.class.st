@@ -157,22 +157,22 @@ QuasarDemoServerSideTablePaginationApp >> initialize [
 
 	self originalRows: (WAJsonParser parse: self originalRowsJson).
 
-	self onRequest: ((QuasarCallback name: 'onRequest')
+	self onRequest: ((QuasarSetupFunction name: 'onRequest')
 			codeBlock: self onRequestCodeBlock;
 			yourself).
 	self reactiveObjectsAdd: self onRequest.
 
-	self pagesNumber: ((QuasarComputed name: 'pagesNumber')
+	self pagesNumber: ((QuasarSetupComputed name: 'pagesNumber')
 			codeBlock: self pagesNumberCodeBlock;
 			yourself).
 	self reactiveObjectsAdd: self pagesNumber.
 
-	self onUpdatePage: ((QuasarCallback name: 'onUpdatePage')
+	self onUpdatePage: ((QuasarSetupFunction name: 'onUpdatePage')
 			codeBlock: self onUpdatePageCodeBlock;
 			yourself).
 	self reactiveObjectsAdd: self onUpdatePage.
 
-	self onMountedCode: ((QuasarOnMounted name: 'onMountedCode')
+	self onMountedCode: ((QuasarSetupOnMounted name: 'onMountedCode')
 			codeBlock: self onMountedCodeBlock;
 			yourself).
 	self onMountedObjectsAdd: self onMountedCode.

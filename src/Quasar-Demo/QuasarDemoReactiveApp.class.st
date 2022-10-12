@@ -537,11 +537,11 @@ QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment1On: aJSStream with: anAjax
 QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment2On: aJSStream with: anAjaxFactory [
 	| ajax |
 
-	ajax := (anAjaxFactory fetch
+	ajax := anAjaxFactory jsFetch
 			json: [ :json | self ajax2: json with: anAjaxFactory ];
 			"onSuccess: (anAjaxFactory javascript << (JSStream new nextPutAll: 'experiment2.value = arguments[0]'; yourself));"
 			onSuccess: 'experiment2.value = arguments[0]';
-			yourself).
+			yourself.
 
 	aJSStream
 		nextPutAll: 'experiment2';
@@ -552,11 +552,11 @@ QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment2On: aJSStream with: anAjax
 QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment3On: aJSStream with: anAjaxFactory [
 	| ajax |
 
-	ajax := (anAjaxFactory fetch
+	ajax := anAjaxFactory jsFetch
 			json: [ :json | self ajax3: json with: anAjaxFactory ];
 			onSuccess: (anAjaxFactory javascript
 				<< (JSStream new nextPutAll: 'experiment3.value = arguments[0]'; yourself));
-			yourself).
+			yourself.
 
 	aJSStream
 		nextPutAll: 'experiment3';
@@ -567,12 +567,12 @@ QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment3On: aJSStream with: anAjax
 QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment4On: aJSStream with: anAjaxFactory [
 	| ajax |
 
-	ajax := (anAjaxFactory fetch
+	ajax := anAjaxFactory jsFetch
 			callback: [ :value | self experiment4: value ] value: (JSStream on: 'experiment4.value');
 			json: [ :json | self ajax4: json with: anAjaxFactory ];
 			onSuccess: (anAjaxFactory javascript
 				<< (JSStream new nextPutAll: 'experiment4a.value = arguments[0]'; yourself));
-			yourself).
+			yourself.
 
 	aJSStream
 		nextPutAll: 'experiment4,experiment4a';

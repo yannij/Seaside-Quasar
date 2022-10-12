@@ -2,7 +2,7 @@
 I represent a utility function defined in the Quasar setup().
 "
 Class {
-	#name : #QuasarCallback,
+	#name : #QuasarSetupFunction,
 	#superclass : #QuasarSetupObject,
 	#instVars : [
 		'codeBlock'
@@ -11,31 +11,31 @@ Class {
 }
 
 { #category : #accessing }
-QuasarCallback >> codeBlock [
+QuasarSetupFunction >> codeBlock [
 
 	^ codeBlock
 ]
 
 { #category : #accessing }
-QuasarCallback >> codeBlock: anObject [
+QuasarSetupFunction >> codeBlock: anObject [
 
 	codeBlock := anObject
 ]
 
 { #category : #accessing }
-QuasarCallback >> functionName [
+QuasarSetupFunction >> functionName [
 
 	^ refName
 ]
 
 { #category : #'rendering - ajax' }
-QuasarCallback >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
+QuasarSetupFunction >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPut: Character cr; nextPutAll: self functionName
 ]
 
 { #category : #'rendering - ajax' }
-QuasarCallback >> writeCodeOn: aJSStream with: anAjaxFactory [
+QuasarSetupFunction >> writeCodeOn: aJSStream with: anAjaxFactory [
 
 	self codeBlock ifNotNil: [ :block |
 		block value: aJSStream value: anAjaxFactory ]

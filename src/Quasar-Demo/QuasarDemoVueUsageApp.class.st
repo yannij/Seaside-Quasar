@@ -80,7 +80,7 @@ QuasarDemoVueUsageApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFacto
 { #category : #'demo - scroll' }
 QuasarDemoVueUsageApp >> renderDemoScrollOn: html [
 
-	self onMountedObjectsAdd: ((QuasarOnMounted name: 'demoScrollOnMounted')
+	self onMountedObjectsAdd: ((QuasarSetupOnMounted name: 'demoScrollOnMounted')
 			codeBlock: [ :stream :ajaxFactory | stream nextPutAll: 'mybutton.value.$el.scrollIntoView({ behavior: ''smooth'' })' ];
 			yourself).
 
