@@ -1,13 +1,13 @@
 Extension { #name : #MADescriptionComponent }
 
 { #category : #'*Quasar-Magritte' }
-MADescriptionComponent >> beReadonlyForced [
-	"Subclasses may specialize"
-]
-
-{ #category : #'*Quasar-Magritte' }
-MADescriptionComponent >> isReadonlyForced [
+MADescriptionComponent >> isReadOnlyForced [
 	"Subclasses may specialize"
 
 	^ false
+]
+
+{ #category : #'*Quasar-Magritte' }
+MADescriptionComponent >> isReadOnlyForced: ignored [
+	"Do nothing. Subclasses may specialize"
 ]

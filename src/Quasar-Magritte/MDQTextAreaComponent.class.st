@@ -25,7 +25,7 @@ MDQTextAreaComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	self fieldPrefix ifNotNil: [ :prefixValue | inputTag prefix: prefixValue ].
 	self fieldSuffix ifNotNil: [ :suffixValue | inputTag suffix: suffixValue ].
 
-	(aReadonlyFlag or: [ self isReadonlyForced ])
+	(aReadonlyFlag or: [ self isReadOnlyForced ])
 		ifTrue: [
 			inputTag readonly: true; modelValue: inputValue ]
 		ifFalse: [ | modelName |

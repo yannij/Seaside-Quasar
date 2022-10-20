@@ -44,7 +44,7 @@ MDQMarkdownComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	inputTag type: 'textarea'.
 	inputTag label: inputLabel.
 
-	flag := aReadonlyFlag or: [ self isReadonlyForced ].
+	flag := aReadonlyFlag or: [ self isReadOnlyForced ].
 	modelName := self magritteDescription mdqLabelAsSafeIdentifier.
 	splitterName := modelName, 'Splitter'.
 	app vueRefsAdd: modelName -> inputValue.

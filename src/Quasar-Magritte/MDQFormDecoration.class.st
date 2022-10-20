@@ -13,7 +13,7 @@ MDQFormDecoration >> renderButtonsOn: html [
 
 	html div class: 'row'; class: 'justify-between'; with: [
 		html span class: 'text-h6'; class: 'col-8'; with: self decoratedComponent model mdPrimaryString.
-		self decoratedComponent isReadonly ifFalse: [
+		self decoratedComponent isReadOnly ifFalse: [
 			html span class: 'text-right'; class: 'col-4'; with: [
 				html qBtn
 					denseIf: denseFlag;

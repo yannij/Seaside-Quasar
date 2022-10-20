@@ -42,7 +42,7 @@ MDQOneToOneComponent >> renderViewerOn: html [
 			with: [
 				html div class: 'text-h6'; with: self value mdPrimaryString.
 				html div class: 'text-subtitle2'; with: self value mdSecondaryString ].
-		self isReadonly ifFalse: [
+		self isReadOnly ifFalse: [
 			html qSeparator dark.
 			html qCardActions "vertical" with: [
 				self renderEditButtonOn: html.

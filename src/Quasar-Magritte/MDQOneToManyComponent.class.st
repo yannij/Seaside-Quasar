@@ -142,7 +142,7 @@ MDQOneToManyComponent >> renderViewerOn: html [
 	html qCard "class: 'bg-secondary text-white';" with: [
 		html qCardSection
 			with: [ self renderLabelOn: html ].
-		self isReadonly ifFalse: [
+		self isReadOnly ifFalse: [
 			html qSeparator dark.
 			html qCardActions "vertical" with: [
 				self renderAddButtonOn: html.
