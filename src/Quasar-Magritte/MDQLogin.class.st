@@ -13,7 +13,7 @@ Class {
 		'registerBlock',
 		'sendTokenBlock'
 	],
-	#category : #'Quasar-Components'
+	#category : #'Quasar-Magritte'
 }
 
 { #category : #'utility - password' }

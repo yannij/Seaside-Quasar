@@ -8,7 +8,7 @@ Class {
 		'active',
 		'insetLevel'
 	],
-	#category : #'Quasar-Components'
+	#category : #'Quasar-Magritte'
 }
 
 { #category : #'instance creation' }

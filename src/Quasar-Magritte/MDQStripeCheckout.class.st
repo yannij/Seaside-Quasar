@@ -6,7 +6,7 @@ Class {
 		'cartState',
 		'cartItems'
 	],
-	#category : #'Quasar-Components'
+	#category : #'Quasar-Magritte'
 }
 
 { #category : #testing }

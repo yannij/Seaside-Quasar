@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'groupedLists'
 	],
-	#category : #'Quasar-Components'
+	#category : #'Quasar-Magritte'
 }
 
 { #category : #accessing }

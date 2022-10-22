@@ -5,7 +5,7 @@ Class {
 		'items',
 		'subheader'
 	],
-	#category : #'Quasar-Components'
+	#category : #'Quasar-Magritte'
 }
 
 { #category : #accessing }

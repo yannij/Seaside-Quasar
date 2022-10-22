@@ -28,6 +28,12 @@ QuasarTag >> filledIf: aBoolean [
 	self viewStyle: #filled if: aBoolean
 ]
 
+{ #category : #'accessing - view style' }
+QuasarTag >> flatIf: aBoolean [
+
+	self viewStyle: #flat if: aBoolean
+]
+
 { #category : #'vue special attributes' }
 QuasarTag >> key: anObject [
 	
@@ -59,6 +65,12 @@ QuasarTag >> outlinedIf: aBoolean [
 QuasarTag >> ref: anObject [
 	
 	self attributes at: 'ref' put: anObject
+]
+
+{ #category : #'accessing - view style' }
+QuasarTag >> roundedIf: aBoolean [
+
+	self viewStyle: #rounded if: aBoolean
 ]
 
 { #category : #attributes }
