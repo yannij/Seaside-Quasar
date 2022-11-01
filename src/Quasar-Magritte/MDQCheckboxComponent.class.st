@@ -26,7 +26,7 @@ MDQCheckboxComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	app := self mdqApplicationGet.
 
 	fieldTag := html qField.
-	self setFieldStyleOf: inputTag.
+	self setFieldStyleOf: fieldTag.
 	fieldTag vModel: modelName.
 
 	fieldTag with: [
