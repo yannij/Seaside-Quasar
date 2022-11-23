@@ -57,6 +57,12 @@ QuasarSetupObject >> initialize [
 	traceLevel := 0
 ]
 
+{ #category : #testing }
+QuasarSetupObject >> isWatch [
+
+	^ false
+]
+
 { #category : #logging }
 QuasarSetupObject >> logString: aString [
 

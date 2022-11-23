@@ -113,6 +113,7 @@ QuasarDemoReactiveApp >> demoNames [
 	Collection
 	RefSyncScalar
 	RefSync
+	RefWatch
 	FetchError
 	)
 ]
@@ -170,7 +171,12 @@ QuasarDemoReactiveApp >> initialize [
 { #category : #rendering }
 QuasarDemoReactiveApp >> quasarSetupContentOn: aJSStream with: html [
 
-	self vueSetupDemoExperimentOn: aJSStream
+	self vueSetupDemoExperimentOn: aJSStream.
+
+	self reactiveObjects do: [ :eachObject |
+		eachObject isWatch ifTrue: [
+			eachObject writeWatchCodeOn: aJSStream.
+			aJSStream nextPut: $; ] ]
 ]
 
 { #category : #'rendering - quasar hooks' }
@@ -446,6 +452,39 @@ QuasarDemoReactiveApp >> renderDemoRefSyncScalarTimeOn: html [
 	html div class: 'q-pa-sm'; with: [
 		html text: 'Value is: {{ ', testRef refName, ' }}'.
 		html qBtn class: 'q-mx-md'; label: 'Time now'; noCaps; vOnClick: testRef functionName, '($event)' ]
+]
+
+{ #category : #'demo - watch' }
+QuasarDemoReactiveApp >> renderDemoRefWatchOn: html [
+	| testRef |
+
+	testRef := self mdqApplicationGet reactiveObjects
+		at: 'watch1'
+		ifAbsentPut: [
+			((QuasarRefWatch name: 'watch1' value: 0)
+				traceOn;
+				callbackBlock: [ :ref :value |
+					ref refValue printString crTrace.
+					value printString crTrace.
+					ref refValue: value ];
+				yourself) ].
+
+	html div class: 'q-pa-sm'; with: [
+		html qBtn
+			class: 'q-mx-md';
+			label: 'Increment Watch-1';
+			vOnClick: testRef refName, '++,', testRef functionName, '()' ].
+
+	html div class: 'q-pa-sm'; with: [
+		html text: 'Server Ref Value is: ', testRef refValue printString.
+		html text: ' (Refresh the webpage to see latest server ref value)'; break.
+		html text: 'Client Ref Value is: {{ ', testRef refName, ' }}' ].
+
+	html div class: 'q-pa-sm'; with: [
+		html qBtn
+			class: 'q-mx-md';
+			label: 'Invoke Watch-1 function';
+			vOnClick: testRef functionName, '()' ]
 ]
 
 { #category : #rendering }
