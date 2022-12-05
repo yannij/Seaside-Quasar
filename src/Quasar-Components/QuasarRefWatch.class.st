@@ -76,13 +76,14 @@ QuasarRefWatch >> writeCodeOn: aJSStream with: anAjaxFactory [
 QuasarRefWatch >> writeWatchCodeOn: aJSStream [
 
 	aJSStream
-		nextPutAll: 'console.log("AAA");';
+		"nextPutAll: 'console.log(""AAA"");';"
 		nextPutAll: 'Vue.watchEffect(()=>';
 		nextPutAll: self refName;
 		nextPutAll: ',(newV,oldV)=>{';
-		nextPutAll: 'console.log("QQQ");';
+		"nextPutAll: 'console.log(""QQQ"");';"
 		nextPutAll: self functionName; nextPutAll: '();';
-		nextPutAll: 'console.log("WWW");';
+		"nextPutAll: 'console.log(""WWW"");';"
 		nextPutAll: '});';
-		nextPutAll: 'console.log("BBB");'
+		"nextPutAll: 'console.log(""BBB"");'"
+		yourself
 ]

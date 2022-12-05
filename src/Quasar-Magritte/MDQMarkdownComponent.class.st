@@ -33,29 +33,43 @@ MDQMarkdownComponent >> exampleHtml [
 
 { #category : #rendering }
 MDQMarkdownComponent >> renderFieldOn: html readonly: aReadonlyFlag [
-	| inputTag inputLabel inputValue app flag modelName splitterName |
+	| inputTag inputValue app flag modelName splitterName |
 
 	app := self mdqApplicationGet.
-	inputLabel := self magritteDescription label.
+	modelName := self magritteDescription mdqLabelAsSafeIdentifier.
 	inputValue := self perform: self inputAspect.
+	app vueRefsAdd: modelName -> inputValue.
+
+	flag := aReadonlyFlag or: [ self isReadOnlyForced ].
+	flag ifTrue: [
+		^ self renderMarkdown: modelName on: html ].
+
+	splitterName := modelName, 'Splitter'.
+	app vueRefsAdd: splitterName -> 50.
 
 	inputTag := html qInput.
 	self setFieldStyleOf: inputTag.
 	inputTag type: 'textarea'.
-	inputTag label: inputLabel.
-
-	flag := aReadonlyFlag or: [ self isReadOnlyForced ].
-	modelName := self magritteDescription mdqLabelAsSafeIdentifier.
-	splitterName := modelName, 'Splitter'.
-	app vueRefsAdd: modelName -> inputValue.
-	app vueRefsAdd: splitterName -> 50.
+	inputTag label: self magritteDescription label.
 	inputTag
 		inputStyle: 'display: none';
 		vModel: modelName;
 		on: self inputAspect of: self;
 		with: [
 			html qTemplate vSlot: 'default'; with: [
+				"self renderMarkdown: modelName on: html"
 				self renderMarkdown: modelName splitter: splitterName readonly: flag on: html ] ]
+]
+
+{ #category : #rendering }
+MDQMarkdownComponent >> renderMarkdown: modelName on: html [
+
+	html div class: 'q-py-sm fit'; with: [
+		html div class: 'q-pl-md'; "style: 'max-height: 467px;';" with: [
+			html qMarkdown
+				noHeadingAnchorLinks;
+				vModel: modelName colon: 'src';
+				class: 'fit bordered q-pr-xs' ] ]
 ]
 
 { #category : #rendering }
@@ -78,6 +92,7 @@ MDQMarkdownComponent >> renderMarkdown: modelName splitter: splitterName readonl
 			html qTemplate vSlot: 'after'; with: [
 				html div class: 'q-pl-md'; style: 'max-height: 467px;'; with: [
 					html qMarkdown
+						noHeadingAnchorLinks;
 						vModel: modelName colon: 'src';
 						class: 'fit bordered q-pr-xs' ] ] ] ]
 ]

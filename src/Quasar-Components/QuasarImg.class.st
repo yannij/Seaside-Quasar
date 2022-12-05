@@ -59,15 +59,15 @@ QuasarImg >> imgStyle: anObject [
 ]
 
 { #category : #attributes }
-QuasarImg >> loading: anObject [
+QuasarImg >> initialRatio: anObject [
 	
-	self attributes at: 'loading' put: anObject
+	self attributes at: 'initial-ratio' put: anObject
 ]
 
 { #category : #attributes }
-QuasarImg >> nitialRatio: anObject [
+QuasarImg >> loading: anObject [
 	
-	self attributes at: 'nitial-ratio' put: anObject
+	self attributes at: 'loading' put: anObject
 ]
 
 { #category : #attributes }

@@ -4,6 +4,12 @@ Class {
 	#category : #'Quasar-Components'
 }
 
+{ #category : #'as yet unclassified' }
+QuasarMarkdown >> noHeadingAnchorLinks [
+	
+	self attributes at: 'no-heading-anchor-links' put: true
+]
+
 { #category : #accessing }
 QuasarMarkdown >> tag [
 

@@ -78,36 +78,11 @@ QuasarDemoHtmlTextApp >> renderAppOn: html [
 ]
 
 { #category : #rendering }
-QuasarDemoHtmlTextApp >> renderHtmlText: modelName splitter: splitterName on: html [
-
-	html div class: 'q-py-sm fit'; with: [
-		html qSplitter vModel: splitterName; with: [
-			html qTemplate vSlot: 'separator'; with: [
-				html qAvatar color: 'primary'; textColor: 'white'; size: '28px'; icon: 'adjust' ].
-			html qTemplate vSlot: 'before'; with: [
-				html div class: 'q-pr-md'; with: [ | textareaTag |
-					textareaTag := html textArea.
-					textareaTag attributes removeKey: 'rows' ifAbsent: [  ].
-					textareaTag attributes removeKey: 'coloumns' ifAbsent: [  ].
-					textareaTag
-						vModel: modelName;
-						vBind: 'rows' with: 20;
-						class: 'fit q-pa-sm' ] ].
-			html qTemplate vSlot: 'after'; with: [
-				html div class: 'q-pl-md'; style: 'max-height: 467px;'; with: [
-					html qMarkdown
-						vModel: modelName colon: 'src';
-						class: 'fit bordered q-pr-xs' ] ] ] ]
-]
-
-{ #category : #rendering }
 QuasarDemoHtmlTextApp >> renderHtmlTextOn: html [
-	| app modelName splitterName |
+	| app modelName |
 
 	app := self mdqApplicationGet.
 	modelName := self htmlText1 refName.
-	splitterName := modelName, 'Splitter'.
-	app vueRefsAdd: splitterName -> 50.
 
 	html qInput stackLabel; filled; type: 'textarea';
 		label: 'HtmlText 1'; inputStyle: 'display: none';
