@@ -3,7 +3,7 @@ Class {
 	#superclass : #Object,
 	#classVars : [
 		'Memory1',
-		'Mongo1'
+		'Soil1'
 	],
 	#category : #'Tidbit-Loanex-Model'
 }
@@ -22,6 +22,9 @@ LoanexDatabase class >> buildToyLoans: itemCount repository: aRepository [
 			borrower: allUsers atRandom;
 			dateBorrowed: (today addDays: index negated);
 			dateDue: (today addDays: index negated + 21);
+			"Bug in Soil, so nil these values"
+			dateBorrowed: nil;
+			dateDue: nil;
 			yourself.
 		aRepository save: newObject.
 
@@ -40,7 +43,7 @@ LoanexDatabase class >> buildToys: itemCount repository: aRepository [
 		newObject := LoanexToy new
 			"available: (index \\ 5) isZero not;"
 			summary: 'toy ', index printString;
-			dateAdded: (today addDays: index negated);
+			"dateAdded: (today addDays: index negated);"
 			owner: allUsers atRandom;
 			yourself.
 		100 atRandom even ifTrue: [
@@ -89,99 +92,6 @@ LoanexDatabase class >> memory1Clear [
 	Memory1 := nil
 ]
 
-{ #category : #accessing }
-LoanexDatabase class >> mongo1 [
-	^ Mongo1
-]
-
-{ #category : #accessing }
-LoanexDatabase class >> mongo1: anObject [
-	Mongo1 := anObject
-]
-
-{ #category : #initalize }
-LoanexDatabase class >> mongo1RecreateTestData [
-	"
-	self mongo1ResetConnection; mongo1RecreateTestData
-	"
-
-	self mongo1 ifNil: [
-		"TODO: log an error"
-		^ self ].
-
-	self mongoRepositorySetUp: self mongo1
-]
-
-{ #category : #initalize }
-LoanexDatabase class >> mongo1ResetConnection [
-
-	Mongo1 := self mongoRepositoryBuild
-]
-
-{ #category : #accessing }
-LoanexDatabase class >> mongoDatabase [
-
-	^ DockerDeploy current mongoDatabaseDefault
-]
-
-{ #category : #accessing }
-LoanexDatabase class >> mongoHost [
-
-	^ DockerDeploy current mongoHostDefault
-		ifNotNil: [ :value | value ]
-		ifNil: [ VOMongoRepository defaultHost ]
-]
-
-{ #category : #accessing }
-LoanexDatabase class >> mongoPort [
-
-	^ DockerDeploy current mongoPortDefault
-		ifNotNil: [ :value | value ]
-		ifNil: [ VOMongoRepository defaultPort ]
-]
-
-{ #category : #initalize }
-LoanexDatabase class >> mongoRepositoryBuild [
-	| mongo username pwd |
-
-	"
-	To set up config values, run:
-		DockerDeploy current runStartup
-	"
-	username := DockerDeploy current secretsAt: DockerDeploy defaultMongoSecretName atKey: 'mongo-username'.
-	(username isNil or: [ username isEmpty ]) ifTrue: [
-		^ self error: 'mongo-username is nil or empty' ].
-	pwd := DockerDeploy current secretsAt: DockerDeploy defaultMongoSecretName atKey: 'mongo-password'.
-	(pwd isNil or: [ pwd isEmpty ]) ifTrue: [
-		^ self error: 'mongo-password is nil or empty' ].
-
-	mongo := VOMongoRepository
-		host: self mongoHost
-		port: self mongoPort
-		database: self mongoDatabase
-		username: username
-		password: pwd.
-
-	^ mongo
-]
-
-{ #category : #initalize }
-LoanexDatabase class >> mongoRepositorySetUp: aMongoRepository [
-	"
-	self mongo1Clear.
-	self mongoRepositorySetUp: self mongoRepositoryBuild.
-	"
-
-	aMongoRepository removeAll: LoanexToyLoan.
-	aMongoRepository removeAll: LoanexToy.
-	aMongoRepository removeAll: LoanexUser.
-
-	#('demo' 'guest' 'u1' 'u2' 'u3' 'u4' 'u5') do: [ :eachName |
-		self buildUser: eachName repository: aMongoRepository ].
-	self buildToys: 25 repository: aMongoRepository.
-	self buildToyLoans: 9 repository: aMongoRepository
-]
-
 { #category : #initalize }
 LoanexDatabase class >> repositorySetUpMemory1 [
 	"
@@ -198,19 +108,44 @@ LoanexDatabase class >> repositorySetUpMemory1 [
 	self buildToyLoans: 9 repository: self memory1
 ]
 
-{ #category : #initalize }
-LoanexDatabase class >> repositorySetUpMemorySingleton [
-	"
-	self repositorySetUpMemorySingleton
-	"
-	| repository |
+{ #category : #accessing }
+LoanexDatabase class >> soil1 [
 
-	VORepository current ifNotNil: [ :value | value reset ].
-	repository := VOMemoryRepository new.
-	repository enableSingleton.
+	^ Soil1
+]
+
+{ #category : #accessing }
+LoanexDatabase class >> soil1: anObject [
+
+	Soil1 := anObject
+]
+
+{ #category : #initalize }
+LoanexDatabase class >> soil1Reset [
+	"
+	self soil1Reset.
+	"
+	| newSoil |
+
+	Soil1 ifNotNil: [ :value | value soilDatabase close ].
+	newSoil := Soil path: 'loanex'.
+	self soil1: (SoilRepository on: newSoil).
+]
+
+{ #category : #initalize }
+LoanexDatabase class >> soil1Setup [
+	"
+	self soil1Setup.
+	"
+	| newSoil |
+
+	Soil1 ifNotNil: [ :value | value soilDatabase close ].
+	newSoil := (Soil path: 'loanex') destroy; initializeFilesystem; yourself.
+	self soil1: (SoilRepository on: newSoil).
+	self soil1 rootCreate.
 
 	#('demo' 'guest' 'u1' 'u2' 'u3' 'u4' 'u5') do: [ :eachName |
-		self buildUser: eachName repository: repository ].
-	self buildToys: 25 repository: repository.
-	self buildToyLoans: 9 repository: repository
+		self buildUser: eachName repository: self soil1 ].
+	self buildToys: 25 repository: self soil1.
+	self buildToyLoans: 9 repository: self soil1
 ]

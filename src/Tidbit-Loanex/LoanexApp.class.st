@@ -418,8 +418,8 @@ LoanexApp >> renderSideSheetOn: html [
 { #category : #'utility - repository' }
 LoanexApp >> repository [
 
-	^ LoanexDatabase memory1
-	"^ VORepository current"
+	"^ LoanexDatabase memory1"
+	^ LoanexDatabase soil1
 ]
 
 { #category : #'utility - repository' }

@@ -14,6 +14,7 @@ BaselineOfSeasideQuasar >> baseline: spec [
 			self seaside: spec.
 			self magritte: spec.
 			self voyage: spec.
+			self soil: spec.
 
 			spec
 				package: 'Quasar-Components' with: [ spec requires: #('Seaside3' 'NeoJSON') ];
@@ -23,7 +24,7 @@ BaselineOfSeasideQuasar >> baseline: spec [
 				package: 'Stripe' with: [ spec requires: #('Quasar-Components') ];
 				package: 'Quasar-Material' with: [ spec requires: #('Quasar-Magritte' 'DockerUtility' 'Stripe') ];
 				package: 'Tidbit-ToDo' with: [ spec requires: #('Quasar-Magritte' 'Voyage') ];
-				package: 'Tidbit-Loanex' with: [ spec requires: #('Quasar-Magritte' 'Voyage') ].
+				package: 'Tidbit-Loanex' with: [ spec requires: #('Quasar-Magritte' 'Voyage' 'Soil') ].
 
 			spec
 				group: 'default' with: #('Quasar-Demo');
@@ -56,6 +57,14 @@ BaselineOfSeasideQuasar >> seaside: spec [
 		baseline: 'Seaside3'
 		with: [ spec repository: 'github://SeasideSt/Seaside:v3.4.7/repository';
 			loads: #('Core' 'JSON' 'Email' 'Javascript' 'Zinc') ]
+]
+
+{ #category : #dependencies }
+BaselineOfSeasideQuasar >> soil: spec [
+
+	spec
+		baseline: 'Soil'
+		with: [ spec repository: 'github://ApptiveGrid/Soil:development/src' ]
 ]
 
 { #category : #dependencies }
