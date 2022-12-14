@@ -263,11 +263,13 @@ JSFetch >> json: aRenderable [
 
 	self dataType: 'json'.
 	self respond: [ :response |
+		[
 		response
 			doNotCache;
 			contentType: WAMimeType applicationJson;
-			nextPutAll: ([ WAJsonCanvas builder render: aRenderable ] on: Error do: [ :ex | ex printString asJson ]) ]
-			"nextPutAll: (WAJsonCanvas builder render: aRenderable) ]"
+			nextPutAll: (WAJsonCanvas builder render: aRenderable)
+		] on: Error do: [ :ex |
+			ex printString crTrace. ex printString asJson ] ]
 ]
 
 { #category : #options }
@@ -368,6 +370,12 @@ JSFetch >> processData: aBoolean [
 JSFetch >> respond: aBlock [
 	"Defines a response callback."
 
+	"| c |
+	c := Smalltalk globals at: #_FetchCount ifAbsentPut: [ 0 ].
+	Smalltalk globals at: #_FetchCount put: c + 1."
+	"Smalltalk globals at: #_FetchCount put: 0."
+	
+	"('JSFetch# ', c printString) crTrace."
 	self callback: [ self requestContext respond: aBlock ]
 ]
 

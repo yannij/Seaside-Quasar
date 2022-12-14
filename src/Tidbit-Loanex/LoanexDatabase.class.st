@@ -22,9 +22,6 @@ LoanexDatabase class >> buildToyLoans: itemCount repository: aRepository [
 			borrower: allUsers atRandom;
 			dateBorrowed: (today addDays: index negated);
 			dateDue: (today addDays: index negated + 21);
-			"Bug in Soil, so nil these values"
-			dateBorrowed: nil;
-			dateDue: nil;
 			yourself.
 		aRepository save: newObject.
 
@@ -43,7 +40,7 @@ LoanexDatabase class >> buildToys: itemCount repository: aRepository [
 		newObject := LoanexToy new
 			"available: (index \\ 5) isZero not;"
 			summary: 'toy ', index printString;
-			"dateAdded: (today addDays: index negated);"
+			dateAdded: (today addDays: index negated);
 			owner: allUsers atRandom;
 			yourself.
 		100 atRandom even ifTrue: [

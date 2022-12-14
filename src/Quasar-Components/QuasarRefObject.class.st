@@ -9,26 +9,8 @@ Class {
 		'callbackBlock',
 		'onBeforeSend'
 	],
-	#classVars : [
-		'HaltOnError'
-	],
 	#category : #'Quasar-Components'
 }
-
-{ #category : #accessing }
-QuasarRefObject class >> haltOnError [
-	"
-	HaltOnError := true
-	"
-
-	^ HaltOnError ifNil: [ HaltOnError := false ]
-]
-
-{ #category : #accessing }
-QuasarRefObject class >> haltOnError: anObject [
-
-	^ HaltOnError := anObject
-]
 
 { #category : #'instance creation' }
 QuasarRefObject class >> name: aString value: anObject [
@@ -107,11 +89,5 @@ QuasarRefObject >> runCallbackWith: anObject [
 	"If callback block is present, then invoke it.
 	The callback block is responsible for the ref value update"
 
-	[ self callbackBlock ifNotNil: [ :block | block value: self value: anObject ] ]
-		on: Error
-		do: [ :ex |
-			self class haltOnError
-				ifTrue: [ self halt ]
-				ifFalse: [ self crTrace: ex printString ].
-			^ ex printString ]
+	self callbackBlock ifNotNil: [ :block | block value: self value: anObject ]
 ]
