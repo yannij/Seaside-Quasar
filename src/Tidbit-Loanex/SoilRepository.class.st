@@ -54,10 +54,10 @@ SoilRepository >> save: anObject [
 	| tx list |
 
 	tx := self soilDatabase newTransaction.
-	list := root at: anObject class name asSymbol ifAbsentPut: [ Set new ].
+	list := tx root at: anObject class name asSymbol ifAbsentPut: [ Set new ].
 	list add: anObject.
 	"tx makeRoot: anObject."
-	tx root: root.
+	"tx root: root."
 	tx commit
 ]
 

@@ -51,6 +51,18 @@ DockerDeploy class >> currentReset [
 ]
 
 { #category : #accessing }
+DockerDeploy class >> defaultAtKey: aKey [
+
+	^ self defaultAtKey: aKey ifAbsent: [ nil ]
+]
+
+{ #category : #accessing }
+DockerDeploy class >> defaultAtKey: aKey ifAbsent: aBlock [
+
+	^ self current configsAt: self defaultConfigName atKey: aKey ifAbsent: aBlock
+]
+
+{ #category : #accessing }
 DockerDeploy class >> defaultConfigName [
 
 	^ 'default'
@@ -60,6 +72,15 @@ DockerDeploy class >> defaultConfigName [
 DockerDeploy class >> defaultMongoSecretName [
 
 	^ 'mongo-secret'
+]
+
+{ #category : #accessing }
+DockerDeploy class >> loadDefaultConfig [
+	"
+	DockerDeploy loadDefaultConfig.
+	"
+
+	^ self current loadConfigNamed: self defaultConfigName
 ]
 
 { #category : #accessing }
