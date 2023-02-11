@@ -21,8 +21,8 @@ QuasarApplication class >> canBeRoot [
 QuasarApplication class >> mdqRegisterDeployment: aName [
 	| app |
 
-	self environment at: #WADevelopmentConfiguration ifPresent: [ :class |
-		WAAdmin applicationDefaults removeParent: WADevelopmentConfiguration instance ].
+	self environment at: #WADevelopmentConfiguration ifPresent: [ :theClass |
+		WAAdmin applicationDefaults removeParent: theClass instance ].
 
 	app := WAAdmin register: self asApplicationAt: aName.
 	"app addLibrary: JQGoogleLibrary."
@@ -55,9 +55,9 @@ QuasarApplication >> colorTheme: anObject [
 
 { #category : #accessing }
 QuasarApplication >> faviconUrl [
-	"Subclasses should override"
+	"Subclasses may override"
 
-	^ '/files/WAToolFiles/help.png'
+	^ nil
 ]
 
 { #category : #initialization }
@@ -435,11 +435,10 @@ QuasarApplication >> updateRoot: anHtmlRoot [
 	anHtmlRoot meta
 		name: 'viewport';
 		content: 'width=device-width, initial-scale=1.0, shrink-to-fit=no'.
-	anHtmlRoot stylesheet url: (QuasarApplicationLibrary urlOf: #qAppCss).
-	anHtmlRoot link beShortcutIcon; url: self faviconUrl.
+	anHtmlRoot style: '[v-cloak]{display:none}'.
+	self faviconUrl ifNotNil: [ :value | anHtmlRoot link beShortcutIcon; url: value ].
 	anHtmlRoot title: self applicationTitle.
 	anHtmlRoot beHtml5
-
 ]
 
 { #category : #updating }
