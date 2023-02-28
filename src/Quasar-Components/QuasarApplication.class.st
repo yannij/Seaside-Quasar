@@ -322,7 +322,7 @@ QuasarApplication >> quasarVersion: anObject [
 { #category : #accessing }
 QuasarApplication >> quasarVersionLazy [
 
-	self quasarVersion ifNil: [ self quasarVersion: '2.11.5' ].
+	self quasarVersion ifNil: [ self quasarVersion: '2.11.7' ].
 
 	^ self quasarVersion
 ]

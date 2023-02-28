@@ -99,7 +99,14 @@ JSFetch >> callback: aBlock json: anObject [
 	"Register aBlock as a secondary callback. anObject is a reference to a Javascript object on the client-side. anObject will be serialized to a JSON string, sent back to the server, deserialized from JSON to nested Smalltalk objects, and result passed into aBlock."
 
 	self
-		callback: [ :value | aBlock value: (WAJsonParser parse: value) ]
+		callback: [ :value |
+			[ aBlock value: (WAJsonParser parse: value) ]
+				on: Error
+				do: [ :ex |
+					ex printString crTrace.
+					self requestContext respond: [ :response |
+						response doNotCache; contentType: WAMimeType applicationJson;
+						nextPutAll: ex printString asJson ] ] ]
 		value: (JSStream on: 'JSON.stringify(', anObject, ')')
 ]
 
@@ -262,14 +269,16 @@ JSFetch >> json: aRenderable [
 	"Defines a json rendering callback."
 
 	self dataType: 'json'.
-	self respond: [ :response |
-		[
+	self respond: [ :response | | result |
+		result := [ WAJsonCanvas builder render: aRenderable  ]
+			on: Error
+			do: [ :ex |
+				ex printString crTrace.
+				ex printString asJson ].
 		response
 			doNotCache;
 			contentType: WAMimeType applicationJson;
-			nextPutAll: (WAJsonCanvas builder render: aRenderable)
-		] on: Error do: [ :ex |
-			ex printString crTrace. ex printString asJson ] ]
+			nextPutAll: result ]
 ]
 
 { #category : #options }
