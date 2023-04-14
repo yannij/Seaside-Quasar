@@ -139,15 +139,6 @@ brand: {
 }'
 ]
 
-{ #category : #'rendering - quasar hooks' }
-QuasarDemoAccountingApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
-	| exports |
-
-	exports := ',' join: (self quasarData, (self vueRefs keys)).
-	exports ifNotEmpty: [
-		aJSStream nextPutAll: exports ]
-]
-
 { #category : #rendering }
 QuasarDemoAccountingApp >> renderAccountsOn: html [
 

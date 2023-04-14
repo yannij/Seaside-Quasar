@@ -27,7 +27,7 @@ TidbitToDoMongoApp class >> applicationPath [
 TidbitToDoMongoApp class >> dockerDeployPostLoad [
 	<dockerDeployPostLoad>
 
-	TidbitExampleDatabase mongo1ResetConnection
+	"TidbitExampleDatabase mongo1ResetConnection"
 ]
 
 { #category : #'class initialization' }

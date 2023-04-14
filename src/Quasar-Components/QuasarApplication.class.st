@@ -6,7 +6,6 @@ Class {
 		'colorTheme',
 		'reactiveObjects',
 		'onMountedObjects',
-		'quasarData',
 		'vueRefs'
 	],
 	#category : #'Quasar-Components'
@@ -66,7 +65,6 @@ QuasarApplication >> initialize [
 	super initialize.
 
 	self vueRefsClear.
-	self quasarDataClear.
 	self onMountedObjectsClear.
 	self reactiveObjectsClear
 ]
@@ -180,36 +178,6 @@ QuasarApplication >> quasarCssUrl [
 ]
 
 { #category : #accessing }
-QuasarApplication >> quasarData [
-
-	^ quasarData
-]
-
-{ #category : #accessing }
-QuasarApplication >> quasarData: anObject [
-
-	quasarData := anObject
-]
-
-{ #category : #accessing }
-QuasarApplication >> quasarDataAdd: anObject [
-
-	self quasarData addIfNotPresent: anObject
-]
-
-{ #category : #accessing }
-QuasarApplication >> quasarDataClear [
-
-	self quasarData: OrderedCollection new
-]
-
-{ #category : #accessing }
-QuasarApplication >> quasarDataRemove: anObject [
-
-	self quasarData remove: anObject ifAbsent: [ nil ]
-]
-
-{ #category : #accessing }
 QuasarApplication >> quasarJsUrl [
 
 	^ self jsdelivrUrlFragment, 'quasar.umd.prod.js'
@@ -294,6 +262,11 @@ onMounted(() => {'.
 { #category : #'rendering - quasar hooks' }
 QuasarApplication >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
 	"Subclasses may override"
+	| exports |
+
+	exports := ',' join: self vueRefs keys.
+	exports ifNotEmpty: [
+		aJSStream nextPutAll: exports ]
 ]
 
 { #category : #'rendering - quasar' }

@@ -2,7 +2,6 @@ Class {
 	#name : #MDQOneToManyComponent,
 	#superclass : #MAOneToManyComponent,
 	#instVars : [
-		'quasarData',
 		'expanded'
 	],
 	#category : #'Quasar-Magritte'
@@ -42,7 +41,6 @@ MDQOneToManyComponent >> initialize [
 
 	super initialize.
 
-	self quasarData: OrderedCollection new.
 	self expanded: false
 ]
 
@@ -50,24 +48,6 @@ MDQOneToManyComponent >> initialize [
 MDQOneToManyComponent >> isExpanded [
 
 	^ self expanded
-]
-
-{ #category : #accessing }
-MDQOneToManyComponent >> quasarData [
-
-	^ quasarData
-]
-
-{ #category : #accessing }
-MDQOneToManyComponent >> quasarData: anObject [
-
-	quasarData := anObject
-]
-
-{ #category : #accessing }
-MDQOneToManyComponent >> quasarDataAdd: anObject [
-
-	self quasarData addIfNotPresent: anObject
 ]
 
 { #category : #private }

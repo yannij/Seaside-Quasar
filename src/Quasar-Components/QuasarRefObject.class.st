@@ -56,7 +56,7 @@ QuasarRefObject >> quasarSetupOn: aJSStream [
 
 	aJSStream
 		nextPut: Character cr;
-		nextPutAll: 'const ';
+		"nextPutAll: 'const ';"
 		nextPutAll: self refName;
 		nextPutAll: ' = ref(';
 		nextPutAll: self refValue asJson;

@@ -19,7 +19,7 @@ SoilRepository class >> on: aSoil [
 { #category : #accessing }
 SoilRepository >> root [
 
-	root ifNil: [ root := self rootGet ].
+	"root ifNil: [ root := self rootGet ]."
 	^ root
 ]
 

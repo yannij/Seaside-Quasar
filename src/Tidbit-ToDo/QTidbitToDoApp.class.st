@@ -139,7 +139,7 @@ QTidbitToDoApp >> buildLoginComponent [
 
 	^ MDQLogin new
 		loginTitle: self applicationTitle;
-		loginId: 'demo, guset, user1-10';
+		loginId: 'demo, guest, user1-10';
 		password: 'secret';
 		authenticationBlock: [ :username :password |
 			| userOrNil |
@@ -304,17 +304,7 @@ QTidbitToDoApp >> pageComponent: anObject [
 { #category : #accessing }
 QTidbitToDoApp >> pageComponentSet: anObject [
 
-	self quasarDataClear.
 	self pageComponent: anObject
-]
-
-{ #category : #'rendering - quasar hooks' }
-QTidbitToDoApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
-	| exports |
-
-	exports := ',' join: (#('jsFetch'), self quasarData, (self vueRefs keys)).
-
-	aJSStream nextPutAll: exports
 ]
 
 { #category : #'utility - login' }

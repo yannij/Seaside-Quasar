@@ -12,61 +12,41 @@ MDQReport >> addColumnDescription: aDescription [
 		yourself)
 ]
 
+{ #category : #rendering }
+MDQReport >> dataColumns [
+	
+	^ self visibleColumns collect: [ :col |
+		Dictionary new
+			at: 'name' put: col label;
+			at: 'label' put: col label;
+			at: 'field' put: col label;
+			at: 'sortable' put: (col magritteDescription isSortable ifTrue: [ true ] ifFalse: [ false ]);
+			at: 'align' put: col magritteDescription mdqTableAlign;
+			"nextPutAll: (i = 1 ifTrue: [ ',align: ''left''' ] ifFalse: [ '' ]);
+			nextPutAll: (i = 1 ifTrue: [ ',required: true' ] ifFalse: [ '' ]);
+			nextPutAll: (i = 1 ifTrue: [ ',format: val => `${val}`' ] ifFalse: [ '' ]);"
+			yourself ]
+]
+
+{ #category : #rendering }
+MDQReport >> dataRows [
+	| reportColumns |
+
+	reportColumns := self visibleColumns.
+	^ self visible collect: [ :eachRow | | dict |
+		dict := Dictionary new.
+		reportColumns do: [ :col | | cellValue cellContent |
+			cellValue := col valueFor: eachRow.
+			cellContent := col formatter value: cellValue.
+			dict at: col label put: cellContent ].
+		dict ]
+]
+
 { #category : #initialization }
 MDQReport >> initialize [
 
 	super initialize.
 	self tableEmpty: '** NONE **'
-]
-
-{ #category : #rendering }
-MDQReport >> javascriptColumnsWith: aVariableName [
-	
-	^ String streamContents: [ :stream |
-		stream nextPutAll: 'const '; nextPutAll: aVariableName; nextPutAll: ' = ['.
-		self visibleColumns do: [ :col |
-			stream
-				nextPut: ${;
-				nextPutAll: 'name: '''; nextPutAll: col label; nextPut: $';
-				nextPutAll: ',label: '''; nextPutAll: col label; nextPut: $';
-				nextPutAll: ',field: '''; nextPutAll: col label; nextPut: $';
-				nextPutAll: (col magritteDescription isSortable ifTrue: [ ',sortable: true' ] ifFalse: [ '' ]);
-				nextPutAll: ',align: '''; nextPutAll: col magritteDescription mdqTableAlign; nextPut: $';
-				"nextPutAll: (i = 1 ifTrue: [ ',align: ''left''' ] ifFalse: [ '' ]);
-				nextPutAll: (i = 1 ifTrue: [ ',required: true' ] ifFalse: [ '' ]);
-				nextPutAll: (i = 1 ifTrue: [ ',format: val => `${val}`' ] ifFalse: [ '' ]);"
-				nextPut: $} ]
-			separatedBy: [ stream nextPut: $, ].
-		stream nextPut: $] ]
-]
-
-{ #category : #rendering }
-MDQReport >> javascriptRowsWith: aVariableName [
-
-	^ String streamContents: [ :stream | | reportColumns |
-		stream nextPutAll: 'const '; nextPutAll: aVariableName; nextPutAll: ' = ['.
-
-		reportColumns := self visibleColumns.
-		self visible
-			do: [ :eachRow |
-				stream nextPut: ${.
-				reportColumns
-					do: [ :col | | cellValue cellContent |
-						cellValue := col valueFor: eachRow.
-						cellContent := col formatter value: cellValue.
-						cellContent := cellContent copyReplaceAll: '''' with: '\'''.
-						"cellContent := cellContent copyWithout: $'."
-						cellValue isNumber ifFalse: [
-							cellContent := cellContent surroundedBySingleQuotes ].
-						stream
-							nextPut: $'; nextPutAll: col label; nextPut: $';
-							nextPut: $:;
-							nextPutAll: cellContent ]
-					separatedBy: [ stream nextPut: $, ].
-				stream nextPut: $} ]
-			separatedBy: [ stream nextPut: $, ].
-
-		stream nextPut: $] ]
 ]
 
 { #category : #'accessing-settings' }
@@ -102,14 +82,5 @@ MDQReport >> renderContentOn: html [
 		columns: self refNameCols;
 		rows: self refNameRows;
 		vBind: 'pagination' with: '{rowsPerPage: 10}';
-		rowKey: 'name'.
-		"with: [ self renderTableOn: html ]"
-
-	"MDQReport is broken until usage of addLoadScript: below is fixed.
-	The content needs to be added to Quasar setup(), which is no longer part of onLoad()"
-	html document addLoadScript: (JSStream on: (self javascriptColumnsWith: self refNameCols)).
-	html document addLoadScript: (JSStream on: (self javascriptRowsWith: self refNameRows)).
-
-	"self showFooter ifTrue: [
-		self renderTableBatchOn: html ]"
+		rowKey: 'name'
 ]

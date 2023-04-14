@@ -56,15 +56,6 @@ QuasarDemoHtmlTextApp >> initialize [
 	self reactiveObjectsAdd: self htmlText1
 ]
 
-{ #category : #'rendering - quasar hooks' }
-QuasarDemoHtmlTextApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
-	| exports |
-
-	exports := ',' join: (self quasarData, (self vueRefs keys)).
-	exports ifNotEmpty: [
-		aJSStream nextPutAll: exports ]
-]
-
 { #category : #rendering }
 QuasarDemoHtmlTextApp >> renderAppOn: html [
 

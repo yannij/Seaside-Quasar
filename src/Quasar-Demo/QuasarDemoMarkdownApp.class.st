@@ -69,15 +69,6 @@ ___This is bold italic text, second way___
 '
 ]
 
-{ #category : #'rendering - quasar hooks' }
-QuasarDemoMarkdownApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
-	| exports |
-
-	exports := ',' join: (self quasarData, (self vueRefs keys)).
-	exports ifNotEmpty: [
-		aJSStream nextPutAll: exports ]
-]
-
 { #category : #rendering }
 QuasarDemoMarkdownApp >> renderAppOn: html [
 

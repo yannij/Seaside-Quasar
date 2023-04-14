@@ -218,10 +218,6 @@ QTidbitViewTask >> renderListTwoLineItems: anItemList on: html [
 QTidbitViewTask >> renderStyledItemsFor: user on: html [
 	| itemsStyle |
 
-	self mdqApplicationGet
-		quasarDataRemove: self quasarDataColumnName;
-		quasarDataRemove: self quasarDataRowName.
-
 	itemsStyle := self sideSheet itemsStyle.
 
 	itemsStyle = #listSingleLine ifTrue: [
@@ -242,10 +238,12 @@ QTidbitViewTask >> renderStyledItemsFor: user on: html [
 { #category : #'rendering - styles' }
 QTidbitViewTask >> renderTable: aUser on: html [
 
-	self mdqApplicationGet
-		quasarDataAdd: self quasarDataColumnName;
-		quasarDataAdd: self quasarDataRowName.
 	self report ifNil: [ self report: self buildReport ].
+
+	self mdqApplicationGet
+		vueRefsAdd: self quasarDataColumnName -> (self report dataColumns);
+		vueRefsAdd: self quasarDataRowName -> (self report dataRows).
+
 	html render: self report
 ]
 

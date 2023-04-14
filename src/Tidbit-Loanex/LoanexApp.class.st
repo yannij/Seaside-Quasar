@@ -289,24 +289,7 @@ LoanexApp >> pageComponent: anObject [
 { #category : #rendering }
 LoanexApp >> pageComponentSet: anObject [
 
-	self quasarDataClear.
 	self pageComponent: anObject
-]
-
-{ #category : #rendering }
-LoanexApp >> quasarSetupContentOn: aJSStream with: html [
-
-	self vueRefs keysAndValuesDo: [ :key :value |
-		aJSStream nextPutAll:  'const ', key, ' = ref(', value asJson, ');' ]
-]
-
-{ #category : #'rendering - quasar hooks' }
-LoanexApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
-	| exports |
-
-	exports := ',' join: (self quasarData, (self vueRefs keys)).
-
-	aJSStream nextPutAll: exports
 ]
 
 { #category : #'utility - login' }
@@ -418,8 +401,8 @@ LoanexApp >> renderSideSheetOn: html [
 { #category : #'utility - repository' }
 LoanexApp >> repository [
 
-	"^ LoanexDatabase memory1"
-	^ LoanexDatabase soil1
+	^ LoanexDatabase memory1
+	"^ LoanexDatabase soil1"
 ]
 
 { #category : #'utility - repository' }
