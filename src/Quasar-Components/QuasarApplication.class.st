@@ -5,8 +5,7 @@ Class {
 		'quasarVersion',
 		'colorTheme',
 		'reactiveObjects',
-		'onMountedObjects',
-		'vueRefs'
+		'onMountedObjects'
 	],
 	#category : #'Quasar-Components'
 }
@@ -63,8 +62,6 @@ QuasarApplication >> faviconUrl [
 QuasarApplication >> initialize [
 
 	super initialize.
-
-	self vueRefsClear.
 	self onMountedObjectsClear.
 	self reactiveObjectsClear
 ]
@@ -220,11 +217,7 @@ QuasarApplication >> quasarOnLoadOn: aJSStream with: anAjaxFactory [
 
 { #category : #'rendering - quasar hooks' }
 QuasarApplication >> quasarSetupContentOn: aJSStream with: html [
-
-	self vueRefs keysAndValuesDo: [ :key :value |
-		aJSStream
-			nextPutAll: key;
-			nextPutAll: '=ref('; nextPutAll: value asJson; nextPutAll: ');' ]
+	"Subclasses may override"
 ]
 
 { #category : #'rendering - quasar' }
@@ -262,11 +255,6 @@ onMounted(() => {'.
 { #category : #'rendering - quasar hooks' }
 QuasarApplication >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
 	"Subclasses may override"
-	| exports |
-
-	exports := ',' join: self vueRefs keys.
-	exports ifNotEmpty: [
-		aJSStream nextPutAll: exports ]
 ]
 
 { #category : #'rendering - quasar' }
@@ -454,31 +442,11 @@ QuasarApplication >> vueJsUrl [
 ]
 
 { #category : #accessing }
-QuasarApplication >> vueRefs [
-
-	^ vueRefs
-]
-
-{ #category : #accessing }
-QuasarApplication >> vueRefs: anObject [
-
-	vueRefs := anObject
-]
-
-{ #category : #accessing }
 QuasarApplication >> vueRefsAdd: anObject [
 
-	self vueRefs at: anObject key put: anObject value
-]
-
-{ #category : #accessing }
-QuasarApplication >> vueRefsClear [
-
-	self vueRefs: Dictionary new
-]
-
-{ #category : #accessing }
-QuasarApplication >> vueRefsRemove: anObject [
-
-	self vueRefs remove: anObject ifAbsent: [ nil ]
+	"self vueRefs at: anObject key put: anObject value"
+	self reactiveObjects
+		at: anObject key
+		ifPresent: [ :ref | ref refValue: anObject value ]
+		ifAbsentPut: [ QuasarRefClientOnly name: anObject key value: anObject value ]
 ]
