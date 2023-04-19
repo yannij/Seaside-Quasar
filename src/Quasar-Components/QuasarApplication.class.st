@@ -242,14 +242,20 @@ QuasarApplication >> quasarSetupOn: aJSStream with: anAjaxFactory [
 	aJSStream nextPutAll: '}'.
 ]
 
+{ #category : #'rendering - quasar hooks' }
+QuasarApplication >> quasarSetupOnMountedContentOn: aJSStream with: anAjaxFactory [
+	"Subclasses may override"
+]
+
 { #category : #'rendering - quasar' }
 QuasarApplication >> quasarSetupOnMountedOn: aJSStream with: anAjaxFactory [
 
-	self onMountedObjects ifNotEmpty: [ :list |
-		aJSStream nextPutAll: '
+	aJSStream nextPutAll: '
 onMounted(() => {'.
+	self onMountedObjects ifNotEmpty: [ :list |
 		list do: [ :eachObject | eachObject writeCodeOn: aJSStream with: anAjaxFactory ].
-		aJSStream nextPutAll: '});' ]
+		self quasarSetupOnMountedContentOn: aJSStream with: anAjaxFactory ].
+	aJSStream nextPutAll: '});'
 ]
 
 { #category : #'rendering - quasar hooks' }
