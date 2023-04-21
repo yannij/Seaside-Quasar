@@ -101,10 +101,10 @@ CraneApp >> initialize [
 	super initialize.
 
 	self tab: (QuasarRefCallback name: 'tab' value: 'fly').
-	self reactiveObjectsAdd: self tab.
+	self reactiveObjectsAddIfAbsent: self tab.
 
 	self filterShow: ((QuasarRefSync name: 'filterShow' value: false) callbackBlock: [ :ref :value | ref refValue: value not ]; yourself).
-	self reactiveObjectsAdd: self filterShow.
+	self reactiveObjectsAddIfAbsent: self filterShow.
 
 	self initializeFlyFilter.
 	self initializeSleepFilter.
@@ -119,61 +119,61 @@ CraneApp >> initializeEatFilter [
 
 	newReactive := QuasarRefSync name: 'dinerCount' value: 2.
 	self eatFilter dinerCount: newReactive.
-	self reactiveObjectsAdd: newReactive.
+	self reactiveObjectsAddIfAbsent: newReactive.
 
 	newReactive := QuasarRefSync name: 'diningDate' value: Date today.
 	self eatFilter diningDate: newReactive.
-	self reactiveObjectsAdd: newReactive.
+	self reactiveObjectsAddIfAbsent: newReactive.
 
 	newReactive := QuasarRefSync name: 'diningTime' value: Time now.
 	self eatFilter diningTime: newReactive.
-	self reactiveObjectsAdd: newReactive.
+	self reactiveObjectsAddIfAbsent: newReactive.
 
 	newReactive := QuasarRefSync name: 'cuisine' value: nil.
 	self eatFilter cuisine: newReactive.
-	self reactiveObjectsAdd: newReactive.
+	self reactiveObjectsAddIfAbsent: newReactive.
 
 	newReactive := QuasarRefSync name: 'city' value: nil.
 	self eatFilter city: newReactive.
-	self reactiveObjectsAdd: newReactive.
+	self reactiveObjectsAddIfAbsent: newReactive.
 ]
 
 { #category : #'tab - fly' }
 CraneApp >> initializeFlyFilter [
 	| newReactive dateRange |
 
-	self reactiveObjectsAdd: (QuasarRefCallback name: 'flyOriginDialog' value: false).
-	self reactiveObjectsAdd: (QuasarRefCallback name: 'flyDestinationDialog' value: false).
-	self reactiveObjectsAdd: (QuasarRefCallback name: 'flyDateRangeDialog' value: false).
+	self reactiveObjectsAddIfAbsent: (QuasarRefCallback name: 'flyOriginDialog' value: false).
+	self reactiveObjectsAddIfAbsent: (QuasarRefCallback name: 'flyDestinationDialog' value: false).
+	self reactiveObjectsAddIfAbsent: (QuasarRefCallback name: 'flyDateRangeDialog' value: false).
 
 	self flyFilter: CraneFlySearch new.
 
 	newReactive := QuasarRefSync name: 'adultCount' value: 2.
 	self flyFilter adultCount: newReactive.
-	self reactiveObjectsAdd: newReactive.
+	self reactiveObjectsAddIfAbsent: newReactive.
 
 	newReactive := QuasarRefSync name: 'childrenCount' value: 3.
 	self flyFilter childrenCount: newReactive.
-	self reactiveObjectsAdd: newReactive.
+	self reactiveObjectsAddIfAbsent: newReactive.
 
 	newReactive := QuasarRefSync name: 'cabin' value: 'Economy'.
 	self flyFilter cabinType: newReactive.
-	self reactiveObjectsAdd: newReactive.
+	self reactiveObjectsAddIfAbsent: newReactive.
 	newReactive := (QuasarRefSync name: 'cabinOptions' value: #('Economy' 'Business' 'First Class')) yourself.
-	self reactiveObjectsAdd: newReactive.
+	self reactiveObjectsAddIfAbsent: newReactive.
 
 	newReactive := (QuasarRefCallback  name: 'origin' value: nil) emitRefreshOn; yourself.
 	self flyFilter origin: newReactive.
-	self reactiveObjectsAdd: newReactive.
+	self reactiveObjectsAddIfAbsent: newReactive.
 
 	newReactive := (QuasarRefCallback name: 'destination' value: nil) emitRefreshOn; yourself.
 	self flyFilter destination: newReactive.
-	self reactiveObjectsAdd: newReactive.
+	self reactiveObjectsAddIfAbsent: newReactive.
 
 	dateRange := { 'from' -> Date today yyyymmdd. 'to' -> (Date today addDays: 6) yyyymmdd } asDictionary.
 	newReactive := (QuasarRefCallback name: 'flyDateRange' value: dateRange) emitRefreshOn; yourself.
 	self flyFilter startDate: newReactive.
-	self reactiveObjectsAdd: newReactive.
+	self reactiveObjectsAddIfAbsent: newReactive.
 ]
 
 { #category : #'tab - sleep' }
@@ -184,15 +184,15 @@ CraneApp >> initializeSleepFilter [
 
 	newReactive := QuasarRefSync name: 'adultCount' value: 2.
 	self sleepFilter adultCount: newReactive.
-	self reactiveObjectsAdd: newReactive.
+	self reactiveObjectsAddIfAbsent: newReactive.
 
 	newReactive := QuasarRefSync name: 'childrenCount' value: 3.
 	self sleepFilter childrenCount: newReactive.
-	self reactiveObjectsAdd: newReactive.
+	self reactiveObjectsAddIfAbsent: newReactive.
 
 	"newReactive := QuasarReactiveRefSync name: 'startDate' value: Date today.
 	self sleepFilter startDate: newReactive refValue.
-	self reactiveObjectsAdd: newReactive."
+	self reactiveObjectsAddIfAbsent: newReactive."
 ]
 
 { #category : #'tab - fly' }

@@ -53,7 +53,7 @@ QuasarDemoHtmlTextApp >> initialize [
 	super initialize.
 
 	self htmlText1: (QuasarRefCallback name: 'htmlText1' value: self htmlText1Default).
-	self reactiveObjectsAdd: self htmlText1
+	self reactiveObjectsAddIfAbsent: self htmlText1
 ]
 
 { #category : #rendering }

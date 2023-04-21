@@ -76,16 +76,13 @@ QuasarDemoComponentApp >> quasarSetupContentOn: aJSStream with: html [
 ]
 
 { #category : #'rendering - quasar hooks' }
-QuasarDemoComponentApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
+QuasarDemoComponentApp >> quasarSetupReturnCustomList: aList with: anAjaxFactory [
 
-	self vueSetupReturnDemoSelectOn: aJSStream.
-	aJSStream nextPut: $,.
-	self vueSetupReturnDemoTableOn: aJSStream.
-	aJSStream nextPut: $,.
-	self vueSetupReturnDemoDrawerOn: aJSStream.
-	aJSStream nextPut: $,.
+	self vueSetupReturnDemoSelectOn: aList.
+	self vueSetupReturnDemoTableOn: aList.
+	self vueSetupReturnDemoDrawerOn: aList.
 	
-	aJSStream nextPutAll: '
+	aList add: '
 currentPagination: ref(3),
 dialog: ref(false),
 cancelEnabled: ref(false),
@@ -645,15 +642,15 @@ const rows = [
 ]
 
 { #category : #'demo - drawer' }
-QuasarDemoComponentApp >> vueSetupReturnDemoDrawerOn: aJSStream [
+QuasarDemoComponentApp >> vueSetupReturnDemoDrawerOn: aList [
 
-	aJSStream nextPutAll: 'drawer: ref(false), menuList'
+	aList add: 'drawer: ref(false), menuList'
 ]
 
 { #category : #'demo - select' }
-QuasarDemoComponentApp >> vueSetupReturnDemoSelectOn: aJSStream [
+QuasarDemoComponentApp >> vueSetupReturnDemoSelectOn:  aList [
 
-	aJSStream nextPutAll: '
+	aList add: '
       preferred: ref(1),
       accepted: ref([1,2]),
 
@@ -692,7 +689,7 @@ QuasarDemoComponentApp >> vueSetupReturnDemoSelectOn: aJSStream [
 ]
 
 { #category : #'demo - table' }
-QuasarDemoComponentApp >> vueSetupReturnDemoTableOn: aJSStream [
-	
-	aJSStream nextPutAll: 'columns,rows'
+QuasarDemoComponentApp >> vueSetupReturnDemoTableOn:  aList [
+
+	aList add: 'columns'; add: 'rows'
 ]

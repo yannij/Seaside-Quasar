@@ -71,10 +71,9 @@ const mybutton = ref(QBtn);
 ]
 
 { #category : #'rendering - quasar hooks' }
-QuasarDemoVueUsageApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
+QuasarDemoVueUsageApp >> quasarSetupReturnCustomList: aList with: anAjaxFactory [
 
-	aJSStream
-		nextPutAll: 'mybutton'
+	aList add: 'mybutton'
 ]
 
 { #category : #'demo - scroll' }

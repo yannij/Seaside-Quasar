@@ -85,7 +85,7 @@ QuasarDemoAccountingApp >> initialize [
 	super initialize.
 
 	self sideSheetOpen: ((QuasarRefCallback name: 'sideSheetOpen' value: true) traceOn; yourself).
-	self reactiveObjectsAdd: self sideSheetOpen.
+	self reactiveObjectsAddIfAbsent: self sideSheetOpen.
 	self sideSheet: QuasarDemoSideSheet new.
 	self tab: 'users'
 ]

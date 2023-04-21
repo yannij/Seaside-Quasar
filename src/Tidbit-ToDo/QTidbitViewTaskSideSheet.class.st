@@ -54,7 +54,7 @@ QTidbitViewTaskSideSheet >> renderContentOn: html [
 				callbackBlock: [ :ref :value | ref refValue: value. ref refValue ];
 				onSuccessScript: 'window.location.reload();';
 				yourself).
-		self mdqApplicationGet reactiveObjectsAdd: self tabImportance ].
+		self mdqApplicationGet reactiveObjectsAddIfAbsent: self tabImportance ].
 
 	self renderFieldLabel: 'Tasks Filter' on: html.
 	self renderFilterRadioButtonsOn: html.
@@ -81,12 +81,11 @@ QTidbitViewTaskSideSheet >> renderFilterRadioButtonsOn: html [
 	group := html radioGroup.
 	{#both->'Both'. #doneOnly->'Done Only'. #notDoneOnly->'Not Done Only'}
 		do: [ :each | | optionId callbackRef |
-			(callbackRef := app reactiveObjectsNamed: 'filter', each key) ifNil: [
-				callbackRef := (QuasarRefCallback name: 'filter', each key value: nil)
+			callbackRef := app reactiveObjectsAt: 'filter', each key ifAbsentPut: [
+				(QuasarRefCallback name: 'filter', each key value: nil)
 					callbackBlock: [ :ref :ajaxArg | self filterDoneSet: each key ];
 					emitRefreshOn;
-					yourself.
-				app reactiveObjectsAdd: callbackRef ].
+					yourself ].
 			optionId := html nextId.
 			html radioButton id: optionId; group: group;
 				selected: self filterDone = each key;
@@ -106,12 +105,11 @@ QTidbitViewTaskSideSheet >> renderItemsStyleRadioButtonsOn: html [
 	group := html radioGroup.
 	{#table->'Table'. #listSingleLine->'List single-line'. #listTwoLine->'List two-line'. #chips->'Chips'. #cards->'Cards'}
 		do: [ :each | | optionId callbackRef |
-			(callbackRef := app reactiveObjectsNamed: 'style', each key) ifNil: [
-				callbackRef := (QuasarRefCallback name: 'style', each key value: nil)
+			callbackRef := app reactiveObjectsAt: 'style', each key ifAbsentPut: [
+				(QuasarRefCallback name: 'style', each key value: nil)
 					callbackBlock: [ :ref :ajaxArg | self itemsStyle: each key ];
 					emitRefreshOn;
-					yourself.
-				app reactiveObjectsAdd: callbackRef ].
+					yourself ].
 			optionId := html nextId.
 			html radioButton id: optionId; group: group;
 				selected: self itemsStyle = each key;

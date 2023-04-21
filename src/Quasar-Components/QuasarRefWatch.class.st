@@ -40,12 +40,11 @@ QuasarRefWatch >> isWatch [
 ]
 
 { #category : #'rendering - ajax' }
-QuasarRefWatch >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
+QuasarRefWatch >> quasarSetupReturnList: aList with: anAjaxFactory [
 
-	super quasarSetupReturnOn: aJSStream with: anAjaxFactory.
+	super quasarSetupReturnList: aList with: anAjaxFactory.
 
-	aJSStream nextPut: $,.
-	aJSStream nextPutAll: self functionName
+	aList add: self functionName
 ]
 
 { #category : #'rendering - ajax' }

@@ -35,7 +35,7 @@ QuasarDemoMarkdownApp >> initialize [
 	super initialize.
 
 	self markdown1: (QuasarRefCallback name: 'markdown1' value: self markdown1Default).
-	self reactiveObjectsAdd: self markdown1
+	self reactiveObjectsAddIfAbsent: self markdown1
 ]
 
 { #category : #accessing }

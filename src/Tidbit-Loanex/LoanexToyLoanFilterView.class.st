@@ -13,16 +13,16 @@ LoanexToyLoanFilterView >> renderContentOn: html [
 
 { #category : #rendering }
 LoanexToyLoanFilterView >> renderFilterBorrowerOn: html [
+	| callbackRef |
 
 	"self renderFieldLabel: 'Borrower' on: html."
 
-	self toyLoanBorrower ifNil: [ | callbackRef |
-		callbackRef := (QuasarRefCallback name: 'filterBorrower' value: nil)
+	callbackRef := self app reactiveObjectsAt: 'filterBorrower' ifAbsentPut: [
+		(QuasarRefCallback name: 'filterBorrower' value: nil)
 			callbackBlock: [ :ref :ajaxArg | self toyLoanBorrower refValue: ajaxArg. self toyLoanBorrower refValue ];
 			emitRefreshOn;
-			yourself.
-		self mdqApplicationGet reactiveObjectsAdd: callbackRef.
-		self toyLoanBorrower: callbackRef ].
+			yourself ].
+	self toyLoanBorrower: callbackRef.
 
 	html qInput
 		label: 'Borrower';
@@ -34,11 +34,11 @@ LoanexToyLoanFilterView >> renderFilterBorrowerOn: html [
 { #category : #accessing }
 LoanexToyLoanFilterView >> toyLoanBorrower [
 
-	^ self mdqApplicationGet filterValues toyLoanBorrower
+	^ self app filterValues toyLoanBorrower
 ]
 
 { #category : #accessing }
 LoanexToyLoanFilterView >> toyLoanBorrower: anObject [
 
-	self mdqApplicationGet filterValues toyLoanBorrower: anObject
+	self app filterValues toyLoanBorrower: anObject
 ]

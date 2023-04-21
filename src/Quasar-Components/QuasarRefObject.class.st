@@ -64,9 +64,9 @@ QuasarRefObject >> quasarSetupOn: aJSStream [
 ]
 
 { #category : #'rendering - ajax' }
-QuasarRefObject >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
+QuasarRefObject >> quasarSetupReturnList: aList with: anAjaxFactory [
 
-	aJSStream nextPut: Character cr; nextPutAll: refName
+	aList add: refName
 ]
 
 { #category : #accessing }

@@ -116,12 +116,11 @@ QTidbitViewTask >> renderChips: aUser on: html [
 		with: [
 			self tasksFiltered
 				do: [ :eachItem | | callbackRef |
-					(callbackRef := app reactiveObjectsNamed: 't', eachItem hash printString) ifNil: [
-						callbackRef := (QuasarRefCallback name: 't', eachItem hash printString value: nil)
+					callbackRef := app reactiveObjectsAt: 't', eachItem hash printString ifAbsentPut: [
+						(QuasarRefCallback name: 't', eachItem hash printString value: nil)
 							callbackBlock: [ :ref :ajaxArg | self navToView: eachItem ];
 							emitRefreshOn;
-							yourself.
-						app reactiveObjectsAdd: callbackRef ].
+							yourself ].
 					html qChip
 						denseIf: denseFlag;
 						clickable;

@@ -23,12 +23,15 @@ QuasarSetupComputed >> codeBlock: anObject [
 ]
 
 { #category : #'rendering - ajax' }
-QuasarSetupComputed >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
+QuasarSetupComputed >> quasarSetupReturnList: aList with: anAjaxFactory [
+	| stream |
 
-	aJSStream nextPut: Character cr; nextPutAll: self refName.
-	aJSStream nextPutAll: ': computed(() => '.
-	self writeCodeOn: aJSStream with: anAjaxFactory.
-	aJSStream nextPutAll: ')'
+	stream := WriteStream on: String new.
+	stream nextPutAll: self refName; nextPutAll: ': computed(() => '.
+	self writeCodeOn: stream with: anAjaxFactory.
+	stream nextPut: $).
+
+	aList add: stream contents
 ]
 
 { #category : #'rendering - ajax' }

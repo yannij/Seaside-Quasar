@@ -62,12 +62,11 @@ QuasarRefSync >> onSuccessScript: anObject [
 ]
 
 { #category : #'rendering - ajax' }
-QuasarRefSync >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
+QuasarRefSync >> quasarSetupReturnList: aList with: anAjaxFactory [
 
-	super quasarSetupReturnOn: aJSStream with: anAjaxFactory.
+	super quasarSetupReturnList: aList with: anAjaxFactory.
 
-	aJSStream nextPut: $,.
-	aJSStream nextPutAll: self functionName
+	aList add: self functionName
 ]
 
 { #category : #accessing }

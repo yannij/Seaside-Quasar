@@ -57,12 +57,11 @@ QuasarRefCallback >> initialize [
 ]
 
 { #category : #'rendering - ajax' }
-QuasarRefCallback >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
+QuasarRefCallback >> quasarSetupReturnList: aList with: anAjaxFactory [
 
-	super quasarSetupReturnOn: aJSStream with: anAjaxFactory.
+	super quasarSetupReturnList: aList with: anAjaxFactory.
 
-	aJSStream nextPut: $,.
-	aJSStream nextPutAll: self functionName
+	aList add: self functionName
 ]
 
 { #category : #'rendering - ajax' }

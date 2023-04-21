@@ -160,29 +160,29 @@ QuasarDemoServerSideTablePaginationApp >> initialize [
 	self onRequest: ((QuasarSetupFunction name: 'onRequest')
 			codeBlock: self onRequestCodeBlock;
 			yourself).
-	self reactiveObjectsAdd: self onRequest.
+	self reactiveObjectsAddIfAbsent: self onRequest.
 
 	self pagesNumber: ((QuasarSetupComputed name: 'pagesNumber')
 			codeBlock: self pagesNumberCodeBlock;
 			yourself).
-	self reactiveObjectsAdd: self pagesNumber.
+	self reactiveObjectsAddIfAbsent: self pagesNumber.
 
 	self onUpdatePage: ((QuasarSetupFunction name: 'onUpdatePage')
 			codeBlock: self onUpdatePageCodeBlock;
 			yourself).
-	self reactiveObjectsAdd: self onUpdatePage.
+	self reactiveObjectsAddIfAbsent: self onUpdatePage.
 
 	self onMountedCode: ((QuasarSetupOnMounted name: 'onMountedCode')
 			codeBlock: self onMountedCodeBlock;
 			yourself).
-	self onMountedObjectsAdd: self onMountedCode.
+	self reactiveObjectsAddIfAbsent: self onMountedCode.
 
 	self loading: (QuasarRefClientOnly name: 'loading' value: false).
-	self reactiveObjectsAdd: self loading.
+	self reactiveObjectsAddIfAbsent: self loading.
 
 	self pagination ifNil: [
 		self pagination: (QuasarRefSync name: 'pagination' value: self paginationNew).
-		self reactiveObjectsAdd: self pagination ].
+		self reactiveObjectsAddIfAbsent: self pagination ].
 
 	self rowsRef: ((QuasarRefSync name: 'rowsRemote' value: Array new)
 			useClientArgument;
@@ -190,7 +190,7 @@ QuasarDemoServerSideTablePaginationApp >> initialize [
 			"onSuccessScript: 'console.log(rowsRemote.value)';"
 			callbackBlock: [ :ref :ajaxArg | self rowsRefUpdate: ajaxArg ];
 			yourself).
-	self reactiveObjectsAdd: self rowsRef.
+	self reactiveObjectsAddIfAbsent: self rowsRef.
 
 	self rowCountRef: ((QuasarRefSync name: 'rowCount' value: 10)
 			useClientArgument;
@@ -198,7 +198,7 @@ QuasarDemoServerSideTablePaginationApp >> initialize [
 			"onSuccessScript: 'console.log(rowCount.value)';"
 			callbackBlock: [ :ref :ajaxArg | self rowCountRefUpdate: ajaxArg ];
 			yourself).
-	self reactiveObjectsAdd: self rowCountRef
+	self reactiveObjectsAddIfAbsent: self rowCountRef
 ]
 
 { #category : #accessing }
@@ -495,14 +495,13 @@ QuasarDemoServerSideTablePaginationApp >> quasarSetupContentOn: aJSStream with: 
 ]
 
 { #category : #'rendering - quasar hooks' }
-QuasarDemoServerSideTablePaginationApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
+QuasarDemoServerSideTablePaginationApp >> quasarSetupReturnCustomList: aList with: anAjaxFactory [
 
-	aJSStream nextPutAll: '
-      filter,
-      pagination,
-      columns,
-      rows
-'
+	aList
+		add: 'filter';
+		add: 'pagination';
+		add: 'columns';
+		add: 'rows'
 ]
 
 { #category : #rendering }

@@ -78,7 +78,7 @@ QuasarSetupObject >> quasarSetupOn: aJSStream [
 ]
 
 { #category : #'rendering - ajax' }
-QuasarSetupObject >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
+QuasarSetupObject >> quasarSetupReturnList: aList with: anAjaxFactory [
 	"Add code to Quasar setup(return()).
 	Typically refs and functions that need to be visible.
 

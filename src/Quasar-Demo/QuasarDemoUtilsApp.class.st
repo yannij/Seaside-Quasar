@@ -66,12 +66,12 @@ const dom1 = ref("dom1 initial value");
 ]
 
 { #category : #'rendering - quasar hooks' }
-QuasarDemoUtilsApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
+QuasarDemoUtilsApp >> quasarSetupReturnCustomList: aList with: anAjaxFactory [
 
-	aJSStream
-		nextPutAll: 'uid1, utilUid(){ uid1.value = Quasar.uid() }';
-		"nextPutAll: ', dom1, utilDomOffset(){ dom1.value = Quasar.dom.offset(this.$refs.dom1Chip) }'"
-		nextPutAll: ', dom1, utilDomOffset(){ console.log(this.$refs.dom1Chip) }'
+	aList
+		add: 'uid1, utilUid(){ uid1.value = Quasar.uid() }';
+		"add: 'dom1, utilDomOffset(){ dom1.value = Quasar.dom.offset(this.$refs.dom1Chip) }'"
+		add: 'dom1, utilDomOffset(){ console.log(this.$refs.dom1Chip) }'
 ]
 
 { #category : #'demo - DOM' }

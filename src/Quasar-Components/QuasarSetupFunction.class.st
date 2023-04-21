@@ -29,9 +29,9 @@ QuasarSetupFunction >> functionName [
 ]
 
 { #category : #'rendering - ajax' }
-QuasarSetupFunction >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
+QuasarSetupFunction >> quasarSetupReturnList: aList with: anAjaxFactory [
 
-	aJSStream nextPut: Character cr; nextPutAll: self functionName
+	aList add: self functionName
 ]
 
 { #category : #'rendering - ajax' }

@@ -115,7 +115,7 @@ LoanexApp >> buildLoginComponent [
 
 	^ MDQLogin new
 		loginTitle: self applicationTitle;
-		loginId: 'demo, guset, u1-10';
+		loginId: 'demo, guest, u1-10';
 		password: 'secret';
 		authenticationBlock: [ :username :password |
 			| userOrNil |
@@ -217,7 +217,7 @@ LoanexApp >> initializeLayout [
 
 	self loginComponent: self buildLoginComponent.
 	self viewUsers: LoanexUserListView new.
-	self viewTask: (LoanexToyListView new filterView: LoanexToyFilterView new).
+	self viewTask: (LoanexToyListView new filterView: (LoanexToyFilterView on: self)).
 
 	"self layout: self buildLayout.
 	self setupLayout"
@@ -473,7 +473,7 @@ LoanexApp >> viewTaskGo [
 LoanexApp >> viewToyLoansGo [
 	| newView |
 
-	newView := LoanexToyLoanListView new filterView: LoanexToyLoanFilterView new; yourself.
+	newView := LoanexToyLoanListView new filterView: (LoanexToyLoanFilterView on: self); yourself.
 	self pageComponentSet: newView.
 	self filterComponent: newView filterView
 	"self layout sideSheetContent: newView filterView.

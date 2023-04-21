@@ -238,7 +238,7 @@ QuasarApplication >> quasarSetupOn: aJSStream with: anAjaxFactory [
 	self reactiveObjects do: [ :eachObject | eachObject writeCodeOn: aJSStream with: anAjaxFactory. aJSStream nextPutAll: ';' ].
 	self quasarSetupContentOn: aJSStream with: anAjaxFactory.
 	self quasarSetupOnMountedOn: aJSStream with: anAjaxFactory.
-	self quasarSetupReturnOn: aJSStream with: anAjaxFactory.
+	self quasarSetupReturnList: aJSStream with: anAjaxFactory.
 	aJSStream nextPutAll: '}'.
 ]
 
@@ -259,18 +259,22 @@ onMounted(() => {'.
 ]
 
 { #category : #'rendering - quasar hooks' }
-QuasarApplication >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
+QuasarApplication >> quasarSetupReturnCustomList: aList with: anAjaxFactory [
 	"Subclasses may override"
 ]
 
 { #category : #'rendering - quasar' }
-QuasarApplication >> quasarSetupReturnOn: aJSStream with: anAjaxFactory [
+QuasarApplication >> quasarSetupReturnList: aJSStream with: anAjaxFactory [
+	| list |
+
+	list := OrderedCollection new.
+	self reactiveObjects do: [ :eachObject | eachObject quasarSetupReturnList: list with: anAjaxFactory ].
+	self quasarSetupReturnCustomList: list with: anAjaxFactory.
 
 	aJSStream nextPutAll: 'return {'.
-	self reactiveObjects do: [ :eachObject |
-		eachObject quasarSetupReturnOn: aJSStream with: anAjaxFactory.
-		aJSStream nextPut: $, ].
-	self quasarSetupReturnContentOn: aJSStream with: anAjaxFactory.
+	list
+		do: [ :each | aJSStream nextPutAll: each ]
+		separatedBy: [ aJSStream nextPut: $, ].
 	aJSStream nextPutAll: '}'
 ]
 
@@ -307,9 +311,9 @@ QuasarApplication >> reactiveObjects: anObject [
 ]
 
 { #category : #accessing }
-QuasarApplication >> reactiveObjectsAdd: anObject [
+QuasarApplication >> reactiveObjectsAddIfAbsent: anObject [
 
-	self reactiveObjects at: anObject refName put: anObject
+	self reactiveObjects at: anObject refName ifAbsentPut: [ anObject ]
 ]
 
 { #category : #accessing }
@@ -322,18 +326,6 @@ QuasarApplication >> reactiveObjectsAt: aRefName ifAbsentPut: aBlock [
 QuasarApplication >> reactiveObjectsClear [
 
 	self reactiveObjects: OrderedDictionary new
-]
-
-{ #category : #accessing }
-QuasarApplication >> reactiveObjectsNamed: aRefName [
-
-	^ self reactiveObjects at: aRefName ifAbsent: [ nil ]
-]
-
-{ #category : #accessing }
-QuasarApplication >> reactiveObjectsRemove: anObject [
-
-	self reactiveObjects remove: anObject refName ifAbsent: [ nil ]
 ]
 
 { #category : #actions }

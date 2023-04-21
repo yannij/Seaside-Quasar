@@ -212,9 +212,9 @@ QTidbitToDoApp >> initialize [
 	self viewStyleTextField: #filled.
 	self viewStyleDense: false.
 
-	self reactiveObjectsAdd: self sideNavOpen.
-	self reactiveObjectsAdd: self sideSheetOpen.
-	self reactiveObjectsAdd: self viewStyleDark.
+	self reactiveObjectsAddIfAbsent: self sideNavOpen.
+	self reactiveObjectsAddIfAbsent: self sideSheetOpen.
+	self reactiveObjectsAddIfAbsent: self viewStyleDark.
 
 	self initializeLayout
 ]

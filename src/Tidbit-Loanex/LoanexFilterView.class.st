@@ -1,8 +1,54 @@
 Class {
 	#name : #LoanexFilterView,
 	#superclass : #QuasarComponent,
+	#instVars : [
+		'app',
+		'refRefresh'
+	],
 	#category : #'Tidbit-Loanex-MaterialWeb'
 }
+
+{ #category : #'instance creation' }
+LoanexFilterView class >> on: anApplication [
+
+	^ self new app: anApplication; yourself
+]
+
+{ #category : #accessing }
+LoanexFilterView >> app [
+
+	^ app
+]
+
+{ #category : #accessing }
+LoanexFilterView >> app: anObject [
+
+	app := anObject
+]
+
+{ #category : #accessing }
+LoanexFilterView >> refRefresh [
+
+	^ refRefresh
+]
+
+{ #category : #accessing }
+LoanexFilterView >> refRefresh: anObject [
+
+	refRefresh := anObject
+]
+
+{ #category : #accessing }
+LoanexFilterView >> refRefreshLazy [
+
+	refRefresh ifNil: [
+		refRefresh := (QuasarRefCallback name: 'refresh' value: nil)
+			callbackBlock: [ :ref :ajaxArg | ];
+			emitRefreshOn;
+			yourself ].
+
+	^ refRefresh
+]
 
 { #category : #rendering }
 LoanexFilterView >> renderFieldLabel: aString on: html [
@@ -14,15 +60,10 @@ LoanexFilterView >> renderFieldLabel: aString on: html [
 
 { #category : #rendering }
 LoanexFilterView >> renderRefreshOn: html [
-	| callbackRef app |
+	| callbackRef |
 
-	app := self mdqApplicationGet.
-	(callbackRef := app reactiveObjectsNamed: 'refresh') ifNil: [
-		callbackRef := (QuasarRefCallback name: 'refresh' value: nil)
-				callbackBlock: [ :ref :ajaxArg | ];
-				emitRefreshOn;
-				yourself.
-			app reactiveObjectsAdd: callbackRef ].
+	callbackRef := self refRefreshLazy.
+	self app reactiveObjectsAddIfAbsent: callbackRef.
 
 	html qBtn round;
 		vOnClick: callbackRef functionName, '($event)';

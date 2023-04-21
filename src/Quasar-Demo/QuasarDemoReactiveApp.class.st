@@ -180,9 +180,13 @@ QuasarDemoReactiveApp >> quasarSetupContentOn: aJSStream with: html [
 ]
 
 { #category : #'rendering - quasar hooks' }
-QuasarDemoReactiveApp >> quasarSetupReturnContentOn: aJSStream with: anAjaxFactory [
+QuasarDemoReactiveApp >> quasarSetupReturnCustomList: aList with: anAjaxFactory [
+	| stream |
 
-	self vueSetupReturnDemoExperimentOn: aJSStream with: anAjaxFactory
+	stream := WriteStream on: String new.
+	self vueSetupReturnDemoExperimentOn: stream with: anAjaxFactory.
+
+	aList add: stream contents
 ]
 
 { #category : #accessing }
@@ -230,7 +234,7 @@ QuasarDemoReactiveApp >> renderDemoAjaxOn: html [
 QuasarDemoReactiveApp >> renderDemoCollectionOn: html [
 	| refName |
 
-	self mdqApplicationGet reactiveObjectsAdd: self testCollection.
+	self mdqApplicationGet reactiveObjectsAddIfAbsent: self testCollection.
 
 	refName := self testCollection refName.
 	html div class: 'q-pa-sm'; with: [
@@ -329,7 +333,7 @@ QuasarDemoReactiveApp >> renderDemoFetchErrorUseNotifyOn: html [
 { #category : #'demo - reactive' }
 QuasarDemoReactiveApp >> renderDemoReactiveOn: html [
 
-	self reactiveList do: [ :eachObject | self mdqApplicationGet reactiveObjectsAdd: eachObject ].
+	self reactiveList do: [ :eachObject | self mdqApplicationGet reactiveObjectsAddIfAbsent: eachObject ].
 
 	self reactiveList
 		do: [ :eachObject | | refName |
