@@ -30,6 +30,59 @@ QuasarDemoScaffoldApp >> applicationTitle [
 ]
 
 { #category : #'rendering - quasar' }
+QuasarDemoScaffoldApp >> quasarAppMountOn: aJSStream with: anAjaxFactory [
+
+	aJSStream nextPutAll: '
+const { useQuasar } = Quasar;
+const app = Vue.createApp({
+  setup() {
+    const $q = useQuasar();
+    const rows = [
+      {
+        id: "user1",
+        username: "User1",
+        clients: [
+          { id: 11, name: "Client-11" },
+          { id: 12, name: "Client-12" },
+          { id: 13, name: "Client-13" }
+        ]
+      },
+      {
+        id: "user2",
+        username: "User2",
+        clients: [
+          { id: 21, name: "Client-21" }
+        ]
+      },
+      {
+        id: "user3",
+        username: "User3",
+        clients: []
+      }
+    ];
+    const columns = [
+      {
+        name: "username",
+        label: "Username",
+        align: "left",
+        field: function(row){return row.username}
+      },
+      {
+        name: "clients",
+        label: "Clients",
+        align: "left",
+        field: row => row.clients
+      }
+    ];
+
+    return { rows, columns, navTo(clientId) {console.log(clientId)} };
+  }
+});
+app.use(Quasar, { config: {} });
+app.mount("#q-app");'
+]
+
+{ #category : #'rendering - quasar' }
 QuasarDemoScaffoldApp >> quasarOnLoad1On: aJSStream with: html [
 
 	aJSStream nextPutAll: '
@@ -75,59 +128,6 @@ const app = Vue.createApp({
         align: "left",
         field: (row) => row.clients,
         sortable: false
-      }
-    ];
-
-    return { rows, columns, navTo(clientId) {console.log(clientId)} };
-  }
-});
-app.use(Quasar, { config: {} });
-app.mount("#q-app");'
-]
-
-{ #category : #'rendering - quasar' }
-QuasarDemoScaffoldApp >> quasarOnLoadOn: aJSStream with: anAjaxFactory [
-
-	aJSStream nextPutAll: '
-const { useQuasar } = Quasar;
-const app = Vue.createApp({
-  setup() {
-    const $q = useQuasar();
-    const rows = [
-      {
-        id: "user1",
-        username: "User1",
-        clients: [
-          { id: 11, name: "Client-11" },
-          { id: 12, name: "Client-12" },
-          { id: 13, name: "Client-13" }
-        ]
-      },
-      {
-        id: "user2",
-        username: "User2",
-        clients: [
-          { id: 21, name: "Client-21" }
-        ]
-      },
-      {
-        id: "user3",
-        username: "User3",
-        clients: []
-      }
-    ];
-    const columns = [
-      {
-        name: "username",
-        label: "Username",
-        align: "left",
-        field: function(row){return row.username}
-      },
-      {
-        name: "clients",
-        label: "Clients",
-        align: "left",
-        field: row => row.clients
       }
     ];
 

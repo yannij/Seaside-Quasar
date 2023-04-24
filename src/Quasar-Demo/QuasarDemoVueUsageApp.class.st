@@ -56,10 +56,10 @@ QuasarDemoVueUsageApp >> demoNames [
 ]
 
 { #category : #'rendering - quasar' }
-QuasarDemoVueUsageApp >> quasarOnLoadOn: aJSStream with: anAjaxFactory [
+QuasarDemoVueUsageApp >> quasarAppMountOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPutAll: 'const { QBtn } = Quasar;'.
-	super quasarOnLoadOn: aJSStream with: anAjaxFactory
+	super quasarAppMountOn: aJSStream with: anAjaxFactory
 ]
 
 { #category : #'rendering - quasar hooks' }

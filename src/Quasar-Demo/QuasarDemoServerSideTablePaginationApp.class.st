@@ -476,12 +476,12 @@ QuasarDemoServerSideTablePaginationApp >> paginationNew [
 ]
 
 { #category : #'rendering - quasar hooks' }
-QuasarDemoServerSideTablePaginationApp >> quasarOnLoadOn: aJSStream with: anAjaxFactory [
+QuasarDemoServerSideTablePaginationApp >> quasarAppMountOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPutAll: self constColumnsJs.
 	"aJSStream nextPutAll: self constOriginalRowsJs."
 
-	super quasarOnLoadOn: aJSStream with: anAjaxFactory
+	super quasarAppMountOn: aJSStream with: anAjaxFactory
 ]
 
 { #category : #'rendering - quasar hooks' }

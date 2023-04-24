@@ -155,6 +155,23 @@ QuasarApplication >> onMountedObjectsClear [
 	self onMountedObjects: OrderedDictionary new
 ]
 
+{ #category : #'rendering - quasar' }
+QuasarApplication >> quasarAppMountOn: aJSStream with: anAjaxFactory [
+
+	aJSStream
+		nextPutAll: 'const { useQuasar } = Quasar;';
+		nextPutAll: 'const { ref, onMounted, computed } = Vue;';
+		nextPutAll: 'const app = Vue.createApp({'.
+	self quasarSetupOn: aJSStream with: anAjaxFactory.
+	aJSStream nextPutAll: '});'.
+	aJSStream nextPutAll: 'app.use(Quasar, {'.
+	self quasarConfigOn: aJSStream with: anAjaxFactory.
+	aJSStream nextPutAll: '});'.
+	self needsMarkdown ifTrue: [
+		aJSStream nextPutAll: 'app.component("QMarkdown", QMarkdown.QMarkdown);' ].
+	aJSStream nextPutAll: 'app.mount("#', self appId, '")'
+]
+
 { #category : #'rendering - quasar hooks' }
 QuasarApplication >> quasarConfigContentOn: aJSStream with: html [
 	"Subclasses may override"
@@ -196,23 +213,6 @@ QuasarApplication >> quasarMarkdownJsUrl [
 QuasarApplication >> quasarMarkdownUrlFragment [
 
 	^ 'https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmarkdown@next/dist/'
-]
-
-{ #category : #'rendering - quasar' }
-QuasarApplication >> quasarOnLoadOn: aJSStream with: anAjaxFactory [
-
-	aJSStream
-		nextPutAll: 'const { useQuasar } = Quasar;';
-		nextPutAll: 'const { ref, onMounted, computed } = Vue;';
-		nextPutAll: 'const app = Vue.createApp({'.
-	self quasarSetupOn: aJSStream with: anAjaxFactory.
-	aJSStream nextPutAll: '});'.
-	aJSStream nextPutAll: 'app.use(Quasar, {'.
-	self quasarConfigOn: aJSStream with: anAjaxFactory.
-	aJSStream nextPutAll: '});'.
-	self needsMarkdown ifTrue: [
-		aJSStream nextPutAll: 'app.component("QMarkdown", QMarkdown.QMarkdown);' ].
-	aJSStream nextPutAll: 'app.mount("#', self appId, '")'
 ]
 
 { #category : #'rendering - quasar hooks' }
@@ -293,7 +293,7 @@ QuasarApplication >> quasarVersion: anObject [
 { #category : #accessing }
 QuasarApplication >> quasarVersionLazy [
 
-	self quasarVersion ifNil: [ self quasarVersion: '2.11.7' ].
+	self quasarVersion ifNil: [ self quasarVersion: '2.11.10' ].
 
 	^ self quasarVersion
 ]
@@ -341,9 +341,20 @@ QuasarApplication >> redirect [
 
 { #category : #rendering }
 QuasarApplication >> renderContentOn: html [
-	| jsStream |
 
 	self renderLayoutOn: html.
+	self renderQuasarScriptsOn: html
+]
+
+{ #category : #rendering }
+QuasarApplication >> renderLayoutOn: html [
+
+	self subclassResponsibility
+]
+
+{ #category : #rendering }
+QuasarApplication >> renderQuasarScriptsOn: html [
+	| jsStream |
 
 	html script "async;" url: self vueJsUrl.
 	html script "async;" url: self quasarJsUrl.
@@ -356,14 +367,8 @@ QuasarApplication >> renderContentOn: html [
 		html script url: self quasarMarkdownJsUrl ].
 
 	jsStream := JSStream new.
-	self quasarOnLoadOn: jsStream with: html qAjax.
+	self quasarAppMountOn: jsStream with: html qAjax.
 	html script with: jsStream
-]
-
-{ #category : #rendering }
-QuasarApplication >> renderLayoutOn: html [
-
-	self subclassResponsibility
 ]
 
 { #category : #rendering }
