@@ -136,6 +136,18 @@ QuasarBtn >> size: aString [
 	self attributes at: 'size' put: aString
 ]
 
+{ #category : #attributes }
+QuasarBtn >> square [
+	
+	self attributes at: 'square' put: true
+]
+
+{ #category : #attributes }
+QuasarBtn >> stack [
+	
+	self attributes at: 'stack' put: true
+]
+
 { #category : #accessing }
 QuasarBtn >> tag [
 
