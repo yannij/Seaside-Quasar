@@ -59,8 +59,8 @@ QTidbitViewUsers >> renderTableOn: html [
 	self report ifNil: [ self report: self buildReport ].
 
 	self mdqApplicationGet
-		vueRefsAdd: self quasarDataColumnName -> (self report dataColumns);
-		vueRefsAdd: self quasarDataRowName -> (self report dataRows).
+		vueRefsSet: self quasarDataColumnName -> (self report dataColumns);
+		vueRefsSet: self quasarDataRowName -> (self report dataRows).
 
 	html render: self report
 ]

@@ -120,7 +120,7 @@ QuasarDemoMarkdownApp >> renderMarkdownOn: html [
 	app := self mdqApplicationGet.
 	modelName := self markdown1 refName.
 	splitterName := modelName, 'Splitter'.
-	app vueRefsAdd: splitterName -> 50.
+	app vueRefsSet: splitterName -> 50.
 
 	html qInput stackLabel; filled; type: 'textarea';
 		label: 'Markdown 1'; inputStyle: 'display: none';

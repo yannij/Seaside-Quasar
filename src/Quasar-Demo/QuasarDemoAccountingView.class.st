@@ -78,7 +78,7 @@ QuasarDemoAccountingView >> renderFieldsOf: aModel name: aName on: html [
 	formObjectName := 'tmp'.
 	formObject := Dictionary new.
 	aModel attributeData do: [ :eachAttr | formObject at: eachAttr put: (aModel perform: eachAttr asSymbol) ].
-	self qdemoApp vueRefsAdd: formObjectName -> formObject.
+	self qdemoApp vueRefsSet: formObjectName -> formObject.
 
 	html div with: [ html text: aModel summaryString ].
 	html div class: 'row q-pa-sm'; with: [
@@ -96,7 +96,7 @@ QuasarDemoAccountingView >> renderFormContentOn: html [
 	formObjectName := 'fo'.
 	formObject := Dictionary new.
 	self model attributeData do: [ :eachAttr | formObject at: eachAttr put: (self model perform: eachAttr asSymbol) ].
-	self qdemoApp vueRefsAdd: formObjectName -> formObject.
+	self qdemoApp vueRefsSet: formObjectName -> formObject.
 
 	html div with: [ html text: self model summaryString ].
 	html div class: 'row q-pa-sm'; with: [

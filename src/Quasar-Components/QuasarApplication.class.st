@@ -445,11 +445,12 @@ QuasarApplication >> vueJsUrl [
 ]
 
 { #category : #accessing }
-QuasarApplication >> vueRefsAdd: anObject [
+QuasarApplication >> vueRefsSet: anAssociation [
+	"Create a ref object at the association key, if none present.
+	Set the ref object's value to the association value."
 
-	"self vueRefs at: anObject key put: anObject value"
 	self reactiveObjects
-		at: anObject key
-		ifPresent: [ :ref | ref refValue: anObject value ]
-		ifAbsentPut: [ QuasarRefClientOnly name: anObject key value: anObject value ]
+		at: anAssociation key
+		ifPresent: [ :ref | ref refValue: anAssociation value ]
+		ifAbsentPut: [ QuasarRefClientOnly name: anAssociation key value: anAssociation value ]
 ]

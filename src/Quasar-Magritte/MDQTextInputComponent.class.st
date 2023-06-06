@@ -69,7 +69,7 @@ MDQTextInputComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 			inputTag readonly: true; modelValue: inputValue ]
 		ifFalse: [ | modelName |
 			modelName := self magritteDescription mdqLabelAsSafeIdentifier.
-			app vueRefsAdd: modelName -> inputValue.
+			app vueRefsSet: modelName -> inputValue.
 			inputTag
 				"name: modelName;" vModel: modelName;
 				on: self inputAspect of: self;

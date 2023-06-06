@@ -64,7 +64,97 @@ QuasarDemoComponentApp >> demoNames [
 	Select
 	TabPanels
 	Table
+	Tree
 	)
+]
+
+{ #category : #'demo - tree' }
+QuasarDemoComponentApp >> exampleBasicGraph [
+
+	^ NeoJSONReader fromString: '[
+        {
+          "label": "Satisfied customers (with avatar)",
+          "avatar": "https://cdn.quasar.dev/img/boy-avatar.png",
+          "children": [
+            {
+              "label": "Good food (with icon)",
+              "icon": "restaurant_menu",
+              "children": [
+                { "label": "Quality ingredients" },
+                { "label": "Good recipe" }
+              ]
+            },
+            {
+              "label": "Good service (disabled node with icon)",
+              "icon": "room_service",
+              "disabled": true,
+              "children": [
+                { "label": "Prompt attention" },
+                { "label": "Professional waiter" }
+              ]
+            },
+            {
+              "label": "Pleasant surroundings (with icon)",
+              "icon": "photo",
+              "children": [
+                {
+                  "label": "Happy atmosphere (with image)",
+                  "img": "https://cdn.quasar.dev/img/logo_calendar_128px.png"
+                },
+                { "label": "Good table presentation" },
+                { "label": "Pleasing decor" }
+              ]
+            }
+          ]
+        }
+      ]'
+]
+
+{ #category : #'demo - tree' }
+QuasarDemoComponentApp >> exampleBasicName [
+
+	^ 'treeBasic'
+]
+
+{ #category : #'demo - tree' }
+QuasarDemoComponentApp >> exampleSelectionVsEtcGraph [
+
+	^ NeoJSONReader fromString: '[
+        {
+          "label": "Satisfied customers",
+          "children": [
+            {
+              "label": "Good food",
+              "children": [
+                { "label": "Quality ingredients" },
+                { "label": "Good recipe" }
+              ]
+            },
+            {
+              "label": "Good service (disabled node)",
+              "disabled": true,
+              "children": [
+                { "label": "Prompt attention" },
+                { "label": "Professional waiter" }
+              ]
+            },
+            {
+              "label": "Pleasant surroundings",
+              "children": [
+                { "label": "Happy atmosphere" },
+                { "label": "Good table presentation" },
+                { "label": "Pleasing decor" }
+              ]
+            }
+          ]
+        }
+      ]'
+]
+
+{ #category : #'demo - tree' }
+QuasarDemoComponentApp >> exampleSelectionVsEtcName [
+
+	^ 'treeSelectionVsEtcName'
 ]
 
 { #category : #rendering }
@@ -403,6 +493,80 @@ QuasarDemoComponentApp >> renderDemoTableOn: html [
       row-key="name"
     ></q-table>
   </div>' ]
+]
+
+{ #category : #'demo - tree' }
+QuasarDemoComponentApp >> renderDemoTreeBasicOn: html [
+
+	self vueRefsSet: self exampleBasicName -> self exampleBasicGraph.
+
+	html qTree
+		vIf: 'treeChooser == ''basic''';
+		defaultExpandAll;
+		vBind: 'nodes' with: self exampleBasicName;
+		nodeKey: 'label'
+]
+
+{ #category : #'demo - tree' }
+QuasarDemoComponentApp >> renderDemoTreeChooserOn: html [
+
+	html qBtnDropdown color: 'primary'; label: 'Usage Example'; with: [
+		html qList with: [
+			html qItem clickable; vClosePopUp; vOnClick: 'treeChooser=''basic'''; with: [
+				html qItemSection with: [
+					html qItemLabel with: 'Basic' ] ].
+			html qItem clickable; vClosePopUp; vOnClick: 'treeChooser=''selectionVsEtc'''; with: [
+				html qItemSection with: [
+					html qItemLabel with: 'Selection vs ticking, expansion' ] ] ] ]
+]
+
+{ #category : #'demo - tree' }
+QuasarDemoComponentApp >> renderDemoTreeOn: html [
+
+	self vueRefsSet: 'treeChooser' -> 'basic'.
+	self renderDemoTreeChooserOn: html.
+
+	self renderDemoTreeBasicOn: html.
+	self renderDemoTreeSelectionVsEtcOn: html
+]
+
+{ #category : #'demo - tree' }
+QuasarDemoComponentApp >> renderDemoTreeSelectionVsEtcOn: html [
+
+	self vueRefsSet: self exampleSelectionVsEtcName -> self exampleSelectionVsEtcGraph.
+	self vueRefsSet: 'treeSelected' -> 'Good Food'.
+	self vueRefsSet: 'treeTicked' -> (Array with: 'Quality ingredients' with: 'Good table presentation').
+	self vueRefsSet: 'treeExpanded' ->
+		(Array with: 'Satisfied customers' with: 'Good service (disabled node)' with: 'Pleasant surroundings').
+
+	html div class: 'q-pa-md row q-col-gutter-sm'; vIf: 'treeChooser == ''selectionVsEtc'''; with: [
+		html qTree
+			class: 'col-12 col-sm-6';
+			"defaultExpandAll;"
+			vIf: 'treeChooser == ''selectionVsEtc''';
+			tickStrategy: 'leaf';
+			vModel: 'treeSelected' colon: 'selected';
+			vModel: 'treeTicked' colon: 'ticked';
+			vModel: 'treeExpanded' colon: 'expanded';
+			vBind: 'nodes' with: self exampleSelectionVsEtcName;
+			nodeKey: 'label'.
+		html div class: 'col-12 col-sm-6 q-gutter-sm'; with: [
+			html div class: 'text-h6'; with: 'Selected'.
+		html html: '<div>{{ treeSelected }}</div>'.
+			html qSeparator.
+			html div class: 'text-h6'; with: 'Ticked'.
+			html div with: [
+				html div
+					vFor: 'tick in treeTicked';
+					vBind: 'key' with: '`ticked-${tick}`';
+					with: '{{ tick }}' ].
+			html qSeparator.
+			html div class: 'text-h6'; with: 'Expanded'.
+			html div with: [
+				html div
+					vFor: 'expand in treeExpanded';
+					vBind: 'key' with: '`expanded-${expand}`';
+					with: '{{ expand }}' ] ] ]
 ]
 
 { #category : #rendering }

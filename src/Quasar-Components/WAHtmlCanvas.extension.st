@@ -39,6 +39,12 @@ WAHtmlCanvas >> qBtn [
 ]
 
 { #category : #'*Quasar-Components' }
+WAHtmlCanvas >> qBtnDropdown [
+
+	^ self brush: QuasarBtnDropdown new
+]
+
+{ #category : #'*Quasar-Components' }
 WAHtmlCanvas >> qBtnGroup [
 
 	^ self brush: QuasarBtnGroup new
@@ -390,4 +396,10 @@ WAHtmlCanvas >> qToolbarTitle [
 WAHtmlCanvas >> qTr [
 
 	^ self brush: QuasarTr new
+]
+
+{ #category : #'*Quasar-Components' }
+WAHtmlCanvas >> qTree [
+
+	^ self brush: QuasarTree new
 ]

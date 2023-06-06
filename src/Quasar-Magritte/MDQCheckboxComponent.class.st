@@ -40,7 +40,7 @@ MDQCheckboxComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 			ifTrue: [
 				inputTag readonly: true; modelValue: inputValue ]
 			ifFalse: [
-				app vueRefsAdd: modelName -> inputValue.
+				app vueRefsSet: modelName -> inputValue.
 				inputTag "name: modelName;" vModel: modelName.
 				inputTag on: self inputAspect of: self
 			] ]

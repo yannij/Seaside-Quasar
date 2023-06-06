@@ -38,14 +38,14 @@ MDQMarkdownComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	app := self mdqApplicationGet.
 	modelName := self magritteDescription mdqLabelAsSafeIdentifier.
 	inputValue := self perform: self inputAspect.
-	app vueRefsAdd: modelName -> inputValue.
+	app vueRefsSet: modelName -> inputValue.
 
 	flag := aReadonlyFlag or: [ self isReadOnlyForced ].
 	flag ifTrue: [
 		^ self renderMarkdown: modelName on: html ].
 
 	splitterName := modelName, 'Splitter'.
-	app vueRefsAdd: splitterName -> 50.
+	app vueRefsSet: splitterName -> 50.
 
 	inputTag := html qInput.
 	self setFieldStyleOf: inputTag.

@@ -44,8 +44,8 @@ MDQSelectListComponent >> renderSelectOn: html readonly: aReadonlyFlag [
 		ifFalse: [ | modelName modelOptionsName |
 			modelName := self magritteDescription mdqLabelAsSafeIdentifier.
 			modelOptionsName := modelName, 'Options'.
-			app vueRefsAdd: modelName -> inputValue.
-			app vueRefsAdd: modelOptionsName -> self options.
+			app vueRefsSet: modelName -> inputValue.
+			app vueRefsSet: modelOptionsName -> self options.
 
 			inputTag "name: modelName;" vModel: modelName.
 			inputTag options: modelOptionsName.

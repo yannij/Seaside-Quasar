@@ -30,7 +30,7 @@ MDQRadioGroupComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	inputLabel := self magritteDescription label.
 	modelName := self magritteDescription mdqLabelAsSafeIdentifier.
 	app := self mdqApplicationGet.
-	app vueRefsAdd: modelName -> (self labelForOption: inputValue).
+	app vueRefsSet: modelName -> (self labelForOption: inputValue).
 
 	self optionsWithIndexDo: [ :each :index |
 		inputTag := html qRadio.

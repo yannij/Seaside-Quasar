@@ -46,8 +46,8 @@ MDQMultiselectListComponent >> renderMultiselectOn: html readonly: aReadonlyFlag
 			inputValue := self selectedList collect: [ :each | listValues keyAtValue: each ].
 			optionsList := OrderedCollection new.
 			self availableList withIndexDo: [ :eachOption :index | optionsList add: ({ 'label' -> eachOption. 'value' -> index} asDictionary) ].
-			app vueRefsAdd: modelOptionsName -> optionsList.
-			app vueRefsAdd: modelName -> inputValue.
+			app vueRefsSet: modelOptionsName -> optionsList.
+			app vueRefsSet: modelName -> inputValue.
 		]
 ]
 

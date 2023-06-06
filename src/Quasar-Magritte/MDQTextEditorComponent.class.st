@@ -21,7 +21,7 @@ MDQTextEditorComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	flag := aReadonlyFlag or: [ self isReadOnlyForced ].
 	toolbarItems := flag ifTrue: [ '[]' ] ifFalse: [ self toolbarItemsForEdit ].
 	modelName := self magritteDescription mdqLabelAsSafeIdentifier.
-	app vueRefsAdd: modelName -> inputValue.
+	app vueRefsSet: modelName -> inputValue.
 	inputTag
 		inputStyle: 'display: none';
 		vModel: modelName;

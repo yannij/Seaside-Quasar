@@ -50,7 +50,7 @@ QuasarDemoAccountingApp >> addCols: aList modelClass: aClass [
 				yourself.
 		data add: columnData ].
 
-	self qdemoApp vueRefsAdd: refName -> data.
+	self qdemoApp vueRefsSet: refName -> data.
 	^ refName
 ]
 
@@ -69,7 +69,7 @@ QuasarDemoAccountingApp >> addRows: aList modelClass: aClass on: html [
 
 		data add: map ].
 
-	self qdemoApp vueRefsAdd: refName -> data.
+	self qdemoApp vueRefsSet: refName -> data.
 	^ refName
 ]
 
