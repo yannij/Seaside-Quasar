@@ -4,6 +4,12 @@ Class {
 	#category : #'Quasar-Components'
 }
 
+{ #category : #attributes }
+QuasarToolbar >> inset [
+
+	self attributes at: 'inset' put: true
+]
+
 { #category : #accessing }
 QuasarToolbar >> tag [
 

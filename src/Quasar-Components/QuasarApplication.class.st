@@ -328,6 +328,12 @@ QuasarApplication >> reactiveObjectsClear [
 	self reactiveObjects: OrderedDictionary new
 ]
 
+{ #category : #accessing }
+QuasarApplication >> reactiveObjectsRemoveAt: aRefName [
+
+	^ self reactiveObjects removeKey: aRefName ifAbsent: []
+]
+
 { #category : #actions }
 QuasarApplication >> redirect [
 	"we need to build the url we redirect to because we just expired the session in this test"

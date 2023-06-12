@@ -83,6 +83,12 @@ QuasarTag >> vModelValue: anObject [
 ]
 
 { #category : #attributes }
+QuasarTag >> vOnUpdate: aString colon: aPropertyName [
+	
+	self attributes at: '@update:', aPropertyName put: aString
+]
+
+{ #category : #attributes }
 QuasarTag >> vOnUpdateModelValue: aString [
 	
 	self attributes at: '@update:model-value' put: aString

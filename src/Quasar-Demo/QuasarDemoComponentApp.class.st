@@ -552,7 +552,7 @@ QuasarDemoComponentApp >> renderDemoTreeSelectionVsEtcOn: html [
 			nodeKey: 'label'.
 		html div class: 'col-12 col-sm-6 q-gutter-sm'; with: [
 			html div class: 'text-h6'; with: 'Selected'.
-		html html: '<div>{{ treeSelected }}</div>'.
+			html div with: '{{ treeSelected }}'.
 			html qSeparator.
 			html div class: 'text-h6'; with: 'Ticked'.
 			html div with: [
