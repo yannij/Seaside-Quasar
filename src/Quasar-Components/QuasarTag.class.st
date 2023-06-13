@@ -68,6 +68,12 @@ QuasarTag >> ref: anObject [
 ]
 
 { #category : #'accessing - view style' }
+QuasarTag >> roundIf: aBoolean [
+
+	self viewStyle: #round if: aBoolean
+]
+
+{ #category : #'accessing - view style' }
 QuasarTag >> roundedIf: aBoolean [
 
 	self viewStyle: #rounded if: aBoolean
