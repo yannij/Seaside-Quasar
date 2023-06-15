@@ -2,6 +2,7 @@ Class {
 	#name : #QuasarDemoAccountingApp,
 	#superclass : #QuasarApplication,
 	#instVars : [
+		'username',
 		'tab',
 		'sideSheet',
 		'sideSheetOpen',
@@ -158,6 +159,11 @@ QuasarDemoAccountingApp >> renderCompaniesOn: html [
 { #category : #rendering }
 QuasarDemoAccountingApp >> renderLayoutOn: html [
 
+	self username ifNil: [
+		html qApp id: self appId; with: [
+			html render: QuasarDemoLogin new ].
+		^ self ].
+
 	html qApp id: self appId; with: [
 		html qLayout view: 'hHh lpR fFf'; vCloak; with: [
 			html qHeader heightHint: 98; class: 'bg-primary'; with: [
@@ -302,4 +308,16 @@ QuasarDemoAccountingApp >> updateRoot: anHtmlRoot [
 
 	anHtmlRoot stylesheet url: (QuasarDemoAccountinglLibrary urlOf: #craneCss)
 
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingApp >> username [
+
+	^ username
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingApp >> username: anObject [
+
+	username := anObject
 ]

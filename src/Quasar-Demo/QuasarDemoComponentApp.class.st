@@ -59,6 +59,7 @@ QuasarDemoComponentApp >> demoNames [
 	DateTime
 	Dialog
 	Drawer
+	Form
 	Pagination
 	Radio
 	Select
@@ -155,6 +156,39 @@ QuasarDemoComponentApp >> exampleSelectionVsEtcGraph [
 QuasarDemoComponentApp >> exampleSelectionVsEtcName [
 
 	^ 'treeSelectionVsEtcName'
+]
+
+{ #category : #'demo - form' }
+QuasarDemoComponentApp >> formBasicOnResetJs [
+
+	^ 'function formBasicOnReset () {
+  formBasicName.value = null
+  formBasicAge.value = null
+  formBasicAccept.value = false
+}'
+]
+
+{ #category : #'demo - form' }
+QuasarDemoComponentApp >> formBasicOnSubmitJs [
+
+	^ 'function formBasicOnSubmit () {
+        if (formBasicAccept.value !== true) {
+          $q.notify({
+            color: ''red-5'',
+            textColor: ''white'',
+            icon: ''warning'',
+            message: ''You need to accept the license and terms first''
+          })
+        }
+        else {
+          $q.notify({
+            color: ''green-4'',
+            textColor: ''white'',
+            icon: ''cloud_done'',
+            message: ''Submitted''
+          })
+        }
+      }'
 ]
 
 { #category : #rendering }
@@ -382,6 +416,86 @@ QuasarDemoComponentApp >> renderDemoDrawerOn: html [
     </q-layout>
   </div>
 </div>'
+]
+
+{ #category : #'demo - form' }
+QuasarDemoComponentApp >> renderDemoFormBasicOn: html [
+
+	self vueRefsSet: 'formBasicName' -> nil.
+	self vueRefsSet: 'formBasicAge' -> nil.
+	self vueRefsSet: 'formBasicAccept' -> nil.
+	self reactiveObjectsAddIfAbsent: (
+		(QuasarSetupFunction name: 'formBasicOnSubmit')
+			codeBlock: [ :stream :ajaxFactory | stream nextPutAll: self formBasicOnSubmitJs ];
+			yourself).
+	self reactiveObjectsAddIfAbsent: (
+		(QuasarSetupFunction name: 'formBasicOnReset')
+			codeBlock: [ :stream :ajaxFactory | stream nextPutAll: self formBasicOnResetJs ];
+			yourself).
+
+	html div
+		vIf: 'formChooser == ''basic''';
+		class: 'q-pa-md';
+		style: 'max-width: 400px';
+		with: [
+			html qForm vOnSubmit: 'formBasicOnSubmit'; vOnReset: 'formBasicOnReset'; class: 'q-gutter-md'; with: [
+				html qInput
+					filled;
+					vModel: 'formBasicName';
+					label: 'Your name *';
+					hint: 'Name and surname';
+					vBind: 'rules' with: '[ val => val && val.length > 0 || ''Please type something'']';
+					lazyRules.
+				html qInput
+					filled;
+					type: 'number';
+					vModel: 'formBasicAge';
+					label: 'Your age *';
+					vBind: 'rules' with: '[
+  val => val !== null && val !== '''' || ''Please type your age'',
+  val => val > 0 && val < 100 || ''Please type a real age''
+]';
+					lazyRules.
+				html qToggle
+					vModel: 'formBasicAccept';
+					label: 'I accept the license and terms'.
+				html div with: [
+					html qBtn label: 'Submit'; type: 'submit'; color: 'primary'.
+					html qBtn label: 'Reset'; type: 'reset'; color: 'primary'; flat; class: 'q-ml-sm' ] ] ]
+]
+
+{ #category : #'demo - form' }
+QuasarDemoComponentApp >> renderDemoFormChooserOn: html [
+
+	html qBtnDropdown color: 'primary'; label: 'Usage Example'; with: [
+		html qList with: [
+			html qItem clickable; vClosePopUp; vOnClick: 'formChooser=''basic'''; with: [
+				html qItemSection with: [
+					html qItemLabel with: 'Basic' ] ].
+			html qItem clickable; vClosePopUp; vOnClick: 'formChooser=''nativeSubmit'''; with: [
+				html qItemSection with: [
+					html qItemLabel with: 'Native submit' ] ] ] ]
+]
+
+{ #category : #'demo - form' }
+QuasarDemoComponentApp >> renderDemoFormNativeSubmitOn: html [
+
+	html div
+		vIf: 'formChooser == ''nativeSubmit''';
+		class: 'q-pa-md';
+		style: 'max-width: 400px';
+		with: [
+			html text: 'TODO: Native submit example' ]
+]
+
+{ #category : #'demo - form' }
+QuasarDemoComponentApp >> renderDemoFormOn: html [
+
+	self vueRefsSet: 'formChooser' -> 'basic'.
+	self renderDemoFormChooserOn: html.
+
+	self renderDemoFormBasicOn: html.
+	self renderDemoFormNativeSubmitOn: html
 ]
 
 { #category : #'demo - pagination' }

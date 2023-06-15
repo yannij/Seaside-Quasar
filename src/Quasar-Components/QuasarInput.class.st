@@ -29,6 +29,12 @@ QuasarInput >> hideBottomSpace [
 ]
 
 { #category : #attributes }
+QuasarInput >> hint: anObject [
+	
+	self attributes at: 'hint' put: anObject
+]
+
+{ #category : #attributes }
 QuasarInput >> inputClass: anObject [
 	
 	self attributes at: 'input-class' put: anObject
@@ -44,6 +50,12 @@ QuasarInput >> inputStyle: anObject [
 QuasarInput >> labelSlot: aBoolean [
 
 	self attributes at: 'label-slot' put: aBoolean
+]
+
+{ #category : #attributes }
+QuasarInput >> lazyRules [
+
+	self attributes at: 'lazy-rules' put: true
 ]
 
 { #category : #api }
