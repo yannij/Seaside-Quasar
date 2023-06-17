@@ -14,6 +14,12 @@ QuasarDemoAccountingObject class >> attributeData [
 ]
 
 { #category : #accessing }
+QuasarDemoAccountingObject class >> findAnySatisfying: aBlock [
+
+	^ self instanceList detect: aBlock ifNone: []
+]
+
+{ #category : #accessing }
 QuasarDemoAccountingObject class >> instanceList [
 
 	^ instanceList ifNil: [ instanceList := OrderedCollection new ]

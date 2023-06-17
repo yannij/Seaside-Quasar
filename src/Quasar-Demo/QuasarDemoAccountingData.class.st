@@ -13,7 +13,8 @@ QuasarDemoAccountingData class >> createData [
 	self createDemoUsers.
 	self createDemoCompanies.
 	self createDemoAccounts.
-	self createDemoUserCompanies
+	self createDemoUserCompanies.
+	self createDemoTransactions
 ]
 
 { #category : #'class initialization' }
@@ -24,27 +25,28 @@ QuasarDemoAccountingData class >> createDemoAccounts [
 	modelClass instanceList: nil.
 
 	#(
-	('1' 'regular' 'Test Account-1-1' '22C-001' 'CDN' 1000.00 'TD Bank')
-	('1' 'regular' 'Test Account-1-2' '22C-002' 'CDN' 1100.00 'TD Bank')
-	('1' 'regular' 'Test Account-1-3' '22U-001' 'USD' 1200.00 'TD Bank')
-	('1' 'regular' 'CB-1' '7777-001' 'CDN' 1000.00 'CIBC')
-	('1' 'regular' 'CB-1' '7777-002' 'CDN' 1000.00 'CIBC')
-	('1' 'regular' 'CB-1' '7777-003' 'CDN' 1000.00 'CIBC')
-	('1' 'regular' 'CB-1' '7777-004' 'CDN' 1000.00 'CIBC')
-	('1' 'regular' 'CB-1' '7777-005' 'CDN' 1000.00 'CIBC')
-	('1' 'regular' 'CB-1' '7777-006' 'CDN' 1000.00 'CIBC')
-	('1' 'regular' 'CB-1' '7777-007' 'CDN' 1000.00 'CIBC')
-	('2' 'regular' 'Test Account-2' '5555-001' 'USD' 2000.00 'CIBC')
-	('3' 'non-profit' 'Test Account-3' 'RB-1234-001' 'CDN' 3000.00 'Royal Bank')
+	('1' '1' 'regular' 'Test Account-1-1' '22C-001' 'CDN' 1000.00 'TD Bank')
+	('2' '1' 'regular' 'Test Account-1-2' '22C-002' 'CDN' 1100.00 'TD Bank')
+	('3' '1' 'regular' 'Test Account-1-3' '22U-001' 'USD' 1200.00 'TD Bank')
+	('4' '1' 'regular' 'CB-1' '7777-001' 'CDN' 1000.00 'CIBC')
+	('5' '1' 'regular' 'CB-1' '7777-002' 'CDN' 1000.00 'CIBC')
+	('6' '1' 'regular' 'CB-1' '7777-003' 'CDN' 1000.00 'CIBC')
+	('7' '1' 'regular' 'CB-1' '7777-004' 'CDN' 1000.00 'CIBC')
+	('8' '1' 'regular' 'CB-1' '7777-005' 'CDN' 1000.00 'CIBC')
+	('9' '1' 'regular' 'CB-1' '7777-006' 'CDN' 1000.00 'CIBC')
+	('10' '1' 'regular' 'CB-1' '7777-007' 'CDN' 1000.00 'CIBC')
+	('11' '2' 'regular' 'Test Account-2' '5555-001' 'USD' 2000.00 'CIBC')
+	('12' '3' 'non-profit' 'Test Account-3' 'RB-1234-001' 'CDN' 3000.00 'Royal Bank')
 	) do: [ :data | | newObject |
 		newObject := modelClass new
-			companyId: (data at: 1);
-			type: (data at: 2);
-			name: (data at: 3);
-			number: (data at: 4);
-			currencyCode: (data at: 5);
-			openingBalance: (data at: 6);
-			bankName: (data at: 7);
+			id: (data at: 1);
+			companyId: (data at: 2);
+			type: (data at: 3);
+			name: (data at: 4);
+			number: (data at: 5);
+			currencyCode: (data at: 6);
+			openingBalance: (data at: 7);
+			bankName: (data at: 8);
 			yourself.
 		modelClass instanceListAdd: newObject ]
 ]
@@ -72,6 +74,14 @@ QuasarDemoAccountingData class >> createDemoCompanies [
 			currency: (data at: 7);
 			yourself.
 		modelClass instanceListAdd: newObject ]
+]
+
+{ #category : #'class initialization' }
+QuasarDemoAccountingData class >> createDemoTransactions [
+	| modelClass |
+
+	modelClass := QuasarDemoAccountingTransaction.
+	modelClass instanceList: nil
 ]
 
 { #category : #'class initialization' }

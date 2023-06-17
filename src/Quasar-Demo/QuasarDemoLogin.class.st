@@ -3,10 +3,31 @@ Class {
 	#superclass : #WAComponent,
 	#instVars : [
 		'username',
-		'password'
+		'password',
+		'message'
 	],
 	#category : #'Quasar-Demo-Accounting'
 }
+
+{ #category : #initialization }
+QuasarDemoLogin >> initialize [
+
+	super initialize.
+
+	self username: 'tu1@test.co'
+]
+
+{ #category : #accessing }
+QuasarDemoLogin >> message [
+
+	^ message
+]
+
+{ #category : #accessing }
+QuasarDemoLogin >> message: anObject [
+
+	message := anObject
+]
 
 { #category : #accessing }
 QuasarDemoLogin >> password [
@@ -31,9 +52,7 @@ QuasarDemoLogin >> renderContentOn: html [
 
 { #category : #rendering }
 QuasarDemoLogin >> renderField: aLabel type: anInputType for: anAspect on: html [
-	| fieldId |
 
-	fieldId := html nextId.
 	html qField
 		filled; stackLabel;
 		label: aLabel;
@@ -47,7 +66,7 @@ QuasarDemoLogin >> renderField: aLabel type: anInputType for: anAspect on: html 
 { #category : #rendering }
 QuasarDemoLogin >> renderLoginFormOn: html [
 
-	html qForm 
+	html qForm
 		vOnSubmit: '$event.target.submit()';
 		method: 'post';
 		action: (html urlForAction: [ self tryLogin ]);
@@ -55,11 +74,12 @@ QuasarDemoLogin >> renderLoginFormOn: html [
 			html div class: 'column q-gutter-md'; with: [
 				html div class: 'text-h6 text-center'; with: self mdqApplicationGet applicationTitle.
 				html div with: 'Login'.
-				self renderField: 'Enter username (any non-empty)' type: 'text' for: #username on: html.
+				self renderField: 'Enter email (e.g. tu1@test.co)' type: 'text' for: #username on: html.
 				self renderField: 'Enter password' type: 'text' for: #password on: html.
 				html div class: 'text-right';  with: [  	
 					html qBtn flat; round; type: 'reset'; icon: 'cancel'.
-					html qBtn flat; round; type: 'submit'; icon: 'done' ] ] ]
+					html qBtn flat; round; type: 'submit'; icon: 'done' ].
+				html div with: self message ] ]
 ]
 
 { #category : #rendering }
@@ -67,7 +87,16 @@ QuasarDemoLogin >> tryLogin [
 
 	"Transcript crShow: 'triggered: ', DateAndTime now asFileNameCompatibleString, ', username:', self username, ', password: ', self password."
 	self username ifNotNil: [ :value |
-		value ifNotEmpty: [ self mdqApplicationGet username: value ] ]
+		value ifNotEmpty: [
+			| user |
+			user := QuasarDemoAccountingUser findAnySatisfying: [ :each | each email = value ].
+			user
+				ifNil: [
+					self message: 'User not found' ]
+				ifNotNil: [
+					self message: nil.
+					self password: nil. "Don't leave password in image memory"
+					self mdqApplicationGet userSet: user ] ] ]
 ]
 
 { #category : #accessing }

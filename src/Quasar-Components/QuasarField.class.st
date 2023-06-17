@@ -122,6 +122,12 @@ QuasarField >> readonly [
 ]
 
 { #category : #attributes }
+QuasarField >> readonly: aBoolean [
+
+	self attributes at: 'readonly' put: aBoolean
+]
+
+{ #category : #attributes }
 QuasarField >> rounded [
 
 	self attributes at: 'rounded' put: true

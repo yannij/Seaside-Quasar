@@ -2,7 +2,8 @@ Class {
 	#name : #QuasarDemoAccountingView,
 	#superclass : #WAComponent,
 	#instVars : [
-		'model'
+		'model',
+		'isEdit'
 	],
 	#category : #'Quasar-Demo-Accounting'
 }
@@ -13,6 +14,26 @@ QuasarDemoAccountingView class >> on: aModel [
 	^ self new
 		model: aModel;
 		yourself
+]
+
+{ #category : #initialization }
+QuasarDemoAccountingView >> initialize [
+
+	super initialize.
+
+	self isEdit: false
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingView >> isEdit [
+
+	^ isEdit
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingView >> isEdit: anObject [
+
+	isEdit := anObject
 ]
 
 { #category : #accessing }
@@ -29,9 +50,11 @@ QuasarDemoAccountingView >> model: anObject [
 
 { #category : #actions }
 QuasarDemoAccountingView >> modelSave [
+
+	self isEdit: false
 ]
 
-{ #category : #rendering }
+{ #category : #'rendering - unused' }
 QuasarDemoAccountingView >> renderButtonsOn: html [
 
 	html qBtn
@@ -49,15 +72,19 @@ QuasarDemoAccountingView >> renderButtonsOn: html [
 { #category : #rendering }
 QuasarDemoAccountingView >> renderContentOn: html [
 
-	self renderFormOn: html.
-	self renderDetailsOn: html
+	html div class: 'q-pa-sm'; with: [
+		self isEdit
+			ifTrue: [
+				self renderEditorOn: html ]
+			ifFalse: [
+				self renderViewerOn: html.
+				self renderDetailsOn: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : #'rendering - utility' }
 QuasarDemoAccountingView >> renderDetail: aList modelClass: aClass label: aLabel on: html [
 
-	self renderHeading: aLabel on: html.
-	self qdemoApp renderModelTable: aList modelClass: aClass on: html
+	self qdemoApp renderModelTable: aList modelClass: aClass title: aLabel on: html
 ]
 
 { #category : #rendering }
@@ -66,6 +93,44 @@ QuasarDemoAccountingView >> renderDetailsOn: html [
 ]
 
 { #category : #rendering }
+QuasarDemoAccountingView >> renderEditorButtonsOn: html [
+
+	html qBtn label: 'Save'; type: 'submit'.
+	html qBtn label: 'Cancel'; type: 'a'; href: (html urlForAction: [ self isEdit: false ])
+]
+
+{ #category : #rendering }
+QuasarDemoAccountingView >> renderEditorOn: html [
+
+	html qForm
+		vOnSubmit: '$event.target.submit()';
+		method: 'post';
+		action: (html urlForAction: [ self modelSave ]);
+		with: [
+			html div class: 'row'; with: [
+				html span with: [ html text: self model summaryString ].
+				html qSpace.
+				html span with: [ self renderEditorButtonsOn: html ] ].
+			html div class: 'row q-gutter-sm'; with: [
+				self renderModelNativeWith: false on: html ] ]
+]
+
+{ #category : #'rendering - utility' }
+QuasarDemoAccountingView >> renderField: aLabel type: anInputType for: anAspect readonly: readonlyFlag on: html [
+
+	html qField
+		filled; stackLabel;
+		label: aLabel;
+		readonly: readonlyFlag;
+		with: [
+			html textInput
+				readonly: readonlyFlag;
+				style: 'width: 100%; outline: none; border: none; border-color: transparent; background: inherit';
+				type: anInputType;
+				on: anAspect of: self model ]
+]
+
+{ #category : #'rendering - unused' }
 QuasarDemoAccountingView >> renderFieldsOf: aModel name: aName on: html [
 	| formObjectName formObject |
 
@@ -89,8 +154,30 @@ QuasarDemoAccountingView >> renderFieldsOf: aModel name: aName on: html [
 				html qInput label: fieldName; vModel: (formObjectName, '.', fieldName); on: fieldName asSymbol of: aModel ] ] ]
 ]
 
+{ #category : #'rendering - utility' }
+QuasarDemoAccountingView >> renderModelLink: aModel name: aName on: html [
+
+	aModel ifNil: [
+		^ html text: aName, ' is null' ].
+
+	html qBtn outline; round; icon: 'arrow_forward';
+		type: 'a'; href: (html urlForAction: [ self qdemoApp modelSet: aModel ]).
+
+	html space; text: aModel summaryString
+]
+
 { #category : #rendering }
-QuasarDemoAccountingView >> renderFormContentOn: html [
+QuasarDemoAccountingView >> renderModelNativeWith: readonlyFlag on: html [
+
+	self model attributeData do: [ :eachAttr |
+		| fieldName |
+		fieldName := eachAttr asString.
+		html div class: 'col-4'; with: [
+			self renderField: eachAttr type: nil for: eachAttr readonly: readonlyFlag on: html ] ]
+]
+
+{ #category : #rendering }
+QuasarDemoAccountingView >> renderModelRefOn: html [
 	| formObjectName formObject |
 
 	formObjectName := 'fo'.
@@ -108,19 +195,20 @@ QuasarDemoAccountingView >> renderFormContentOn: html [
 ]
 
 { #category : #rendering }
-QuasarDemoAccountingView >> renderFormOn: html [
+QuasarDemoAccountingView >> renderViewerButtonsOn: html [
 
-	html qForm
-		vOnSubmit: '$event.target.submit()';
-		method: 'post';
-		action: (html urlForAction: [ self modelSave ]);
-		with: [
-			self renderButtonsOn: html.
-			self renderFormContentOn: html ]
+	html qBtn label: 'Edit'; type: 'a'; href: (html urlForAction: [ self isEdit: true ])
 ]
 
 { #category : #rendering }
-QuasarDemoAccountingView >> renderHeading: aLabel on: html [
+QuasarDemoAccountingView >> renderViewerOn: html [
 
-	html heading level5; with: aLabel
+	html qForm
+		with: [
+			html div class: 'row'; with: [
+				html span with: [ html text: self model summaryString ].
+				html qSpace.
+				html span with: [ self renderViewerButtonsOn: html ] ].
+			html div class: 'row q-gutter-sm'; with: [
+				self renderModelNativeWith: true on: html ] ]
 ]

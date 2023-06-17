@@ -1,9 +1,8 @@
 Class {
-	#name : #QuasarDemoAccountingApp,
+	#name : #QuasarDemoSoilDbApp,
 	#superclass : #QuasarApplication,
 	#instVars : [
 		'username',
-		'login',
 		'tab',
 		'sideSheet',
 		'sideSheetOpen',
@@ -14,13 +13,13 @@ Class {
 }
 
 { #category : #initialization }
-QuasarDemoAccountingApp class >> applicationPath [
+QuasarDemoSoilDbApp class >> applicationPath [
 
-	^ 'quasar/accounting'
+	^ 'quasar/accounting-soil'
 ]
 
 { #category : #initialization }
-QuasarDemoAccountingApp class >> initialize [
+QuasarDemoSoilDbApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
 	WAAdmin unregister: self applicationPath.
@@ -29,8 +28,8 @@ QuasarDemoAccountingApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
-{ #category : #'rendering - table' }
-QuasarDemoAccountingApp >> addCols: aList modelClass: aClass [
+{ #category : #'rendering-table' }
+QuasarDemoSoilDbApp >> addCols: aList modelClass: aClass [
 	| refName data |
 
 	refName := aClass modelName, 'Cols'.
@@ -56,8 +55,8 @@ QuasarDemoAccountingApp >> addCols: aList modelClass: aClass [
 	^ refName
 ]
 
-{ #category : #'rendering - table' }
-QuasarDemoAccountingApp >> addRows: aList modelClass: aClass on: html [
+{ #category : #'rendering-table' }
+QuasarDemoSoilDbApp >> addRows: aList modelClass: aClass on: html [
 	| refName data |
 
 	refName := aClass modelName, 'Rows'.
@@ -76,17 +75,16 @@ QuasarDemoAccountingApp >> addRows: aList modelClass: aClass on: html [
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingApp >> applicationTitle [
+QuasarDemoSoilDbApp >> applicationTitle [
 
-	^ 'Accounting'
+	^ 'Accounting-SoilDb'
 ]
 
 { #category : #initialization }
-QuasarDemoAccountingApp >> initialize [
+QuasarDemoSoilDbApp >> initialize [
 
 	super initialize.
 
-	self login: QuasarDemoLogin new.
 	self sideSheetOpen: ((QuasarRefCallback name: 'sideSheetOpen' value: true) traceOn; yourself).
 	self reactiveObjectsAddIfAbsent: self sideSheetOpen.
 	self sideSheet: QuasarDemoSideSheet new.
@@ -94,31 +92,19 @@ QuasarDemoAccountingApp >> initialize [
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingApp >> login [
-
-	^ login
-]
-
-{ #category : #accessing }
-QuasarDemoAccountingApp >> login: anObject [
-
-	login := anObject
-]
-
-{ #category : #accessing }
-QuasarDemoAccountingApp >> model [
+QuasarDemoSoilDbApp >> model [
 
 	^ model
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingApp >> model: anObject [
+QuasarDemoSoilDbApp >> model: anObject [
 
 	model := anObject
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingApp >> modelSet: anObject [
+QuasarDemoSoilDbApp >> modelSet: anObject [
 
 	self model: anObject.
 	anObject
@@ -127,23 +113,23 @@ QuasarDemoAccountingApp >> modelSet: anObject [
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingApp >> modelView [
+QuasarDemoSoilDbApp >> modelView [
 
 	^ modelView
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingApp >> modelView: anObject [
+QuasarDemoSoilDbApp >> modelView: anObject [
 
 	modelView := anObject
 ]
 
 { #category : #'rendering - quasar hooks' }
-QuasarDemoAccountingApp >> quasarConfigContentOn: aJSStream with: html [
+QuasarDemoSoilDbApp >> quasarConfigContentOn: aJSStream with: html [
 
 	aJSStream nextPutAll: '
 brand: {
-	primary: ''#5d1049'',
+	primary: ''#E5E4FA'',
 	secondary: ''#e30425'',
 	accent: ''#9C27B0'',
 	dark: ''#1d1d1d'',
@@ -155,7 +141,7 @@ brand: {
 ]
 
 { #category : #rendering }
-QuasarDemoAccountingApp >> renderAccountsOn: html [
+QuasarDemoSoilDbApp >> renderAccountsOn: html [
 
 	self tab = 'accounts' ifFalse: [ ^ self ].
 
@@ -163,7 +149,7 @@ QuasarDemoAccountingApp >> renderAccountsOn: html [
 ]
 
 { #category : #rendering }
-QuasarDemoAccountingApp >> renderCompaniesOn: html [
+QuasarDemoSoilDbApp >> renderCompaniesOn: html [
 
 	self tab = 'companies' ifFalse: [ ^ self ].
 
@@ -171,19 +157,13 @@ QuasarDemoAccountingApp >> renderCompaniesOn: html [
 ]
 
 { #category : #rendering }
-QuasarDemoAccountingApp >> renderLayoutOn: html [
-
-	self username ifNil: [
-		html qApp id: self appId; with: [
-			html render: self login ].
-		^ self ].
+QuasarDemoSoilDbApp >> renderLayoutOn: html [
 
 	html qApp id: self appId; with: [
 		html qLayout view: 'hHh lpR fFf'; vCloak; with: [
-			html qHeader heightHint: 98; class: 'bg-primary'; with: [
+			html qHeader heightHint: 98; class: 'bg-primary'; style: 'color: black'; with: [
 				html qToolbar with: [
-					"html qBtn dense; flat; round; icon: 'menu'; vOnClick: 'this.$refs.leftDrawer.toggle($event)'."
-					html qImg src: (QuasarDemoAccountinglLibrary urlOf: #cranelogoPng); style: 'height: 56px; width: 56px'.
+					"html qBtn dense; flat; round; icon: 'menu'; vOnClick: 'this.$refs.leftDrawer.toggle($event)'.".
 					self renderTabsOn: html.
 					html qSpace.
 					html qBtn flat; round; icon: 'view_sidebar'; vOnClick: 'this.$refs.sideSheet.toggle($event)' ] ].
@@ -192,7 +172,7 @@ QuasarDemoAccountingApp >> renderLayoutOn: html [
 ]
 
 { #category : #rendering }
-QuasarDemoAccountingApp >> renderLayoutPageOn: html [
+QuasarDemoSoilDbApp >> renderLayoutPageOn: html [
 
 	html qPageContainer with: [
 		html qPage with: [
@@ -200,7 +180,7 @@ QuasarDemoAccountingApp >> renderLayoutPageOn: html [
 ]
 
 { #category : #rendering }
-QuasarDemoAccountingApp >> renderModelList: aList on: html [
+QuasarDemoSoilDbApp >> renderModelList: aList on: html [
 
 	html qList style: 'background: white'; with: [
 		aList do: [ :eachObject |
@@ -216,7 +196,7 @@ QuasarDemoAccountingApp >> renderModelList: aList on: html [
 ]
 
 { #category : #rendering }
-QuasarDemoAccountingApp >> renderModelOn: html [
+QuasarDemoSoilDbApp >> renderModelOn: html [
 
 	self modelView isNil ifTrue: [
 		^ html heading level2; with: 'No model selected' ].
@@ -224,12 +204,10 @@ QuasarDemoAccountingApp >> renderModelOn: html [
 	html render: self modelView
 ]
 
-{ #category : #'rendering - table' }
-QuasarDemoAccountingApp >> renderModelTable: aList modelClass: aClass title: aTitleString on: html [
+{ #category : #'rendering-table' }
+QuasarDemoSoilDbApp >> renderModelTable: aList modelClass: aClass on: html [
 
-	html qTable
-		class: 'q-mt-sm';
-		title: aTitleString;
+	html qTable "title: 'a-title';"
 		flat; bordered;
 		columns: (self addCols: aList modelClass: aClass);
 		rows: (self addRows: aList modelClass: aClass on: html);
@@ -247,7 +225,7 @@ QuasarDemoAccountingApp >> renderModelTable: aList modelClass: aClass title: aTi
 ]
 
 { #category : #rendering }
-QuasarDemoAccountingApp >> renderTabPanelsOn: html [
+QuasarDemoSoilDbApp >> renderTabPanelsOn: html [
 
 	html qTabPanels "vModel: 'tab';" modelValue: self tab; animated; with: [
 		html qTabPanel name: 'companies'; class: 'q-pa-none'; with: [ self renderCompaniesOn: html ].
@@ -256,7 +234,7 @@ QuasarDemoAccountingApp >> renderTabPanelsOn: html [
 ]
 
 { #category : #rendering }
-QuasarDemoAccountingApp >> renderTabsOn: html [
+QuasarDemoSoilDbApp >> renderTabsOn: html [
 
 	html qTabs
 		vModel: self tab;
@@ -267,7 +245,7 @@ QuasarDemoAccountingApp >> renderTabsOn: html [
 ]
 
 { #category : #rendering }
-QuasarDemoAccountingApp >> renderUsersOn: html [
+QuasarDemoSoilDbApp >> renderUsersOn: html [
 
 	self tab = 'users' ifFalse: [ ^ self ].
 
@@ -275,72 +253,56 @@ QuasarDemoAccountingApp >> renderUsersOn: html [
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingApp >> sideSheet [
+QuasarDemoSoilDbApp >> sideSheet [
 
 	^ sideSheet
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingApp >> sideSheet: anObject [
+QuasarDemoSoilDbApp >> sideSheet: anObject [
 
 	sideSheet := anObject
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingApp >> sideSheetOpen [
+QuasarDemoSoilDbApp >> sideSheetOpen [
 
 	^ sideSheetOpen
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingApp >> sideSheetOpen: anObject [
+QuasarDemoSoilDbApp >> sideSheetOpen: anObject [
 
 	sideSheetOpen := anObject
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingApp >> tab [
+QuasarDemoSoilDbApp >> tab [
 
 	^ tab
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingApp >> tab: anObject [
+QuasarDemoSoilDbApp >> tab: anObject [
 
 	tab := anObject
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingApp >> tabSet: anObject [
+QuasarDemoSoilDbApp >> tabSet: anObject [
 
 	self tab: anObject.
 	self modelSet: nil
 ]
 
-{ #category : #updating }
-QuasarDemoAccountingApp >> updateRoot: anHtmlRoot [
-
-	super updateRoot: anHtmlRoot.
-
-	anHtmlRoot stylesheet url: (QuasarDemoAccountinglLibrary urlOf: #craneCss)
-
-]
-
 { #category : #accessing }
-QuasarDemoAccountingApp >> userSet: aUser [
-
-	self username: aUser name.
-	self modelSet: aUser
-]
-
-{ #category : #accessing }
-QuasarDemoAccountingApp >> username [
+QuasarDemoSoilDbApp >> username [
 
 	^ username
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingApp >> username: anObject [
+QuasarDemoSoilDbApp >> username: anObject [
 
 	username := anObject
 ]

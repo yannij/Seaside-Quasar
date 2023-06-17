@@ -2,6 +2,7 @@ Class {
 	#name : #QuasarDemoAccountingAccount,
 	#superclass : #QuasarDemoAccountingObject,
 	#instVars : [
+		'id',
 		'companyId',
 		'type',
 		'name',
@@ -18,7 +19,7 @@ Class {
 { #category : #printing }
 QuasarDemoAccountingAccount class >> attributeData [
 
-	^ #(companyId type name number currencyCode openingBalance bankName bankPhone bankAddress)
+	^ #(id companyId type name number currencyCode openingBalance bankName bankPhone bankAddress)
 ]
 
 { #category : #printing }
@@ -102,6 +103,49 @@ QuasarDemoAccountingAccount >> currencyCode: anObject [
 ]
 
 { #category : #accessing }
+QuasarDemoAccountingAccount >> id [
+
+	^ id
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingAccount >> id: anObject [
+
+	id := anObject
+]
+
+{ #category : #actions }
+QuasarDemoAccountingAccount >> make1 [
+
+	self makeExampleTransactions: 1
+]
+
+{ #category : #actions }
+QuasarDemoAccountingAccount >> make10 [
+
+	self makeExampleTransactions: 10
+]
+
+{ #category : #actions }
+QuasarDemoAccountingAccount >> make100 [
+
+	self makeExampleTransactions: 100
+]
+
+{ #category : #actions }
+QuasarDemoAccountingAccount >> make1000 [
+
+	self makeExampleTransactions: 1000
+]
+
+{ #category : #actions }
+QuasarDemoAccountingAccount >> makeExampleTransactions: aCount [
+
+	aCount timesRepeat: [
+		QuasarDemoAccountingTransaction instanceListAdd: (QuasarDemoAccountingTransaction randomOnAccount: self) ]
+]
+
+{ #category : #accessing }
 QuasarDemoAccountingAccount >> name [
 
 	^ name
@@ -135,6 +179,12 @@ QuasarDemoAccountingAccount >> openingBalance [
 QuasarDemoAccountingAccount >> openingBalance: anObject [
 
 	openingBalance := anObject
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingAccount >> transactions [
+
+	^ QuasarDemoAccountingTransaction instanceList select: [ :each | each accountId = self id ]
 ]
 
 { #category : #accessing }
