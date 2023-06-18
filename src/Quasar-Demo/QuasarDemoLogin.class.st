@@ -89,7 +89,7 @@ QuasarDemoLogin >> tryLogin [
 	self username ifNotNil: [ :value |
 		value ifNotEmpty: [
 			| user |
-			user := QuasarDemoAccountingUser findAnySatisfying: [ :each | each email = value ].
+			user := QuasarDemoMemoryRepository current selectOne: QuasarDemoAccountingUser where: [ :each | each email = value ].
 			user
 				ifNil: [
 					self message: 'User not found' ]

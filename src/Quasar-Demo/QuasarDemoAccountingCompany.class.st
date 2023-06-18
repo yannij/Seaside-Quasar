@@ -34,7 +34,9 @@ QuasarDemoAccountingCompany class >> viewClass [
 { #category : #accessing }
 QuasarDemoAccountingCompany >> accounts [
 
-	^ QuasarDemoAccountingAccount instanceList select: [ :each | each companyId = self id ]
+	^ QuasarDemoMemoryRepository current
+		selectMany: QuasarDemoAccountingAccount
+		where: [ :each | each companyId = self id ]
 ]
 
 { #category : #accessing }
@@ -113,9 +115,15 @@ QuasarDemoAccountingCompany >> taxNumber: anObject [
 QuasarDemoAccountingCompany >> users [
 	| userCompanyList userIdList |
 
-	userCompanyList := QuasarDemoAccountingUserCompany instanceList select: [ :each | each companyId = self id ].
+	userCompanyList := QuasarDemoMemoryRepository current
+		selectMany: QuasarDemoAccountingUserCompany
+		where: [ :each | each companyId = self id ].
+
 	userIdList := (userCompanyList collect: [ :each | each userId ]) asSet.
-	^ QuasarDemoAccountingUser instanceList select: [ :each | userIdList includes: each id ]
+
+	^ QuasarDemoMemoryRepository current
+		selectMany: QuasarDemoAccountingUser
+		where: [ :each | userIdList includes: each id ]
 ]
 
 { #category : #accessing }

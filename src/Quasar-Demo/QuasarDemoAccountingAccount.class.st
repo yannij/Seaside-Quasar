@@ -73,9 +73,9 @@ QuasarDemoAccountingAccount >> bankPhone: anObject [
 { #category : #accessing }
 QuasarDemoAccountingAccount >> company [
 
-	^ QuasarDemoAccountingCompany instanceList
-		detect: [ :each | each id = self companyId ]
-		ifNone: [ nil ]
+	^ QuasarDemoMemoryRepository current
+		selectOne: QuasarDemoAccountingCompany
+		where: [ :each | each id = self companyId ]
 ]
 
 { #category : #accessing }
@@ -142,7 +142,7 @@ QuasarDemoAccountingAccount >> make1000 [
 QuasarDemoAccountingAccount >> makeExampleTransactions: aCount [
 
 	aCount timesRepeat: [
-		QuasarDemoAccountingTransaction instanceListAdd: (QuasarDemoAccountingTransaction randomOnAccount: self) ]
+		QuasarDemoMemoryRepository current save: (QuasarDemoAccountingTransaction randomOnAccount: self) ]
 ]
 
 { #category : #accessing }
@@ -184,7 +184,9 @@ QuasarDemoAccountingAccount >> openingBalance: anObject [
 { #category : #accessing }
 QuasarDemoAccountingAccount >> transactions [
 
-	^ QuasarDemoAccountingTransaction instanceList select: [ :each | each accountId = self id ]
+	^ QuasarDemoMemoryRepository current
+		selectMany: QuasarDemoAccountingTransaction
+		where: [ :each | each accountId = self id ]
 ]
 
 { #category : #accessing }

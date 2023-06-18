@@ -13,22 +13,6 @@ Class {
 	#category : #'Quasar-Demo-Accounting'
 }
 
-{ #category : #initialization }
-QuasarDemoAccountingApp class >> applicationPath [
-
-	^ 'quasar/accounting'
-]
-
-{ #category : #initialization }
-QuasarDemoAccountingApp class >> initialize [
-	"Register path with Seaside.
-	self initialize.
-	WAAdmin unregister: self applicationPath.
-	"
-
-	^ self mdqRegisterDeployment: self applicationPath
-]
-
 { #category : #'rendering - table' }
 QuasarDemoAccountingApp >> addCols: aList modelClass: aClass [
 	| refName data |
@@ -159,7 +143,9 @@ QuasarDemoAccountingApp >> renderAccountsOn: html [
 
 	self tab = 'accounts' ifFalse: [ ^ self ].
 
-	self renderModelList: QuasarDemoAccountingAccount instanceList on: html
+	self
+		renderModelList: (QuasarDemoMemoryRepository current selectAll: QuasarDemoAccountingAccount)
+		on: html
 ]
 
 { #category : #rendering }
@@ -167,7 +153,9 @@ QuasarDemoAccountingApp >> renderCompaniesOn: html [
 
 	self tab = 'companies' ifFalse: [ ^ self ].
 
-	self renderModelList: QuasarDemoAccountingCompany instanceList on: html
+	self
+		renderModelList: (QuasarDemoMemoryRepository current selectAll: QuasarDemoAccountingCompany)
+		on: html
 ]
 
 { #category : #rendering }
@@ -271,7 +259,9 @@ QuasarDemoAccountingApp >> renderUsersOn: html [
 
 	self tab = 'users' ifFalse: [ ^ self ].
 
-	self renderModelList: QuasarDemoAccountingUser instanceList on: html
+	self
+		renderModelList: (QuasarDemoMemoryRepository current selectAll: QuasarDemoAccountingUser)
+		on: html
 ]
 
 { #category : #accessing }

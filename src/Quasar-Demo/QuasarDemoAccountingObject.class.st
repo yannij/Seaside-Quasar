@@ -1,9 +1,6 @@
 Class {
 	#name : #QuasarDemoAccountingObject,
 	#superclass : #Object,
-	#classInstVars : [
-		'instanceList'
-	],
 	#category : #'Quasar-Demo-Accounting'
 }
 
@@ -11,30 +8,6 @@ Class {
 QuasarDemoAccountingObject class >> attributeData [
 
 	^ #()
-]
-
-{ #category : #accessing }
-QuasarDemoAccountingObject class >> findAnySatisfying: aBlock [
-
-	^ self instanceList detect: aBlock ifNone: []
-]
-
-{ #category : #accessing }
-QuasarDemoAccountingObject class >> instanceList [
-
-	^ instanceList ifNil: [ instanceList := OrderedCollection new ]
-]
-
-{ #category : #accessing }
-QuasarDemoAccountingObject class >> instanceList: anObject [
-
-	instanceList := anObject
-]
-
-{ #category : #accessing }
-QuasarDemoAccountingObject class >> instanceListAdd: anObject [
-
-	self instanceList add: anObject
 ]
 
 { #category : #printing }
