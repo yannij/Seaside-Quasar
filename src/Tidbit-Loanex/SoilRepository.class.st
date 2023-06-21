@@ -2,7 +2,6 @@ Class {
 	#name : #SoilRepository,
 	#superclass : #Object,
 	#instVars : [
-		'root',
 		'soilDatabase'
 	],
 	#category : #'Tidbit-Loanex-Model'
@@ -16,55 +15,45 @@ SoilRepository class >> on: aSoil [
 		yourself
 ]
 
-{ #category : #accessing }
-SoilRepository >> root [
-
-	"root ifNil: [ root := self rootGet ]."
-	^ root
-]
-
-{ #category : #accessing }
-SoilRepository >> root: anObject [
-
-	root := anObject
-]
-
 { #category : #initialization }
 SoilRepository >> rootCreate [
-	| tx |
+	| tx theRoot |
 
-	root := IdentityDictionary new.
 	tx := self soilDatabase newTransaction.
-	tx root: root.
+	theRoot := Dictionary new.
+	"tx makeRoot: theRoot."
+	tx root: theRoot.
 	tx commit
-]
-
-{ #category : #initialization }
-SoilRepository >> rootGet [
-	| tx |
-
-	tx := self soilDatabase newTransaction.
-	root := tx root.
-	tx commit.
-	^ root
 ]
 
 { #category : #actions }
 SoilRepository >> save: anObject [
-	| tx list |
+	| tx theRoot list |
 
 	tx := self soilDatabase newTransaction.
-	list := tx root at: anObject class name asSymbol ifAbsentPut: [ Set new ].
+	theRoot := tx root.
+	list := theRoot
+		at: anObject class name
+		ifAbsentPut: [
+			| newList |
+			newList := Set new.
+			tx markDirty: theRoot.
+			tx makeRoot: newList.
+			newList ].
+	tx markDirty: list.
+	tx markDirty: theRoot.
+	tx makeRoot: anObject.
 	list add: anObject.
-	"tx makeRoot: anObject."
-	"tx root: root."
 	tx commit
 ]
 
 { #category : #persistence }
 SoilRepository >> selectAll: aClass [
+	| tx list |
 
-	^ self root at: aClass name asSymbol ifAbsent: [ nil ]
+	tx := self soilDatabase newTransaction.
+	list := tx root at: aClass name asSymbol ifAbsent: [ nil ].
+	^ list
 ]
 
 { #category : #accessing }

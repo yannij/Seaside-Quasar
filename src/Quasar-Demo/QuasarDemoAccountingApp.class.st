@@ -2,6 +2,7 @@ Class {
 	#name : #QuasarDemoAccountingApp,
 	#superclass : #QuasarApplication,
 	#instVars : [
+		'repository',
 		'username',
 		'login',
 		'tab',
@@ -70,6 +71,7 @@ QuasarDemoAccountingApp >> initialize [
 
 	super initialize.
 
+	self repositorySetup.
 	self login: QuasarDemoLogin new.
 	self sideSheetOpen: ((QuasarRefCallback name: 'sideSheetOpen' value: true) traceOn; yourself).
 	self reactiveObjectsAddIfAbsent: self sideSheetOpen.
@@ -144,7 +146,7 @@ QuasarDemoAccountingApp >> renderAccountsOn: html [
 	self tab = 'accounts' ifFalse: [ ^ self ].
 
 	self
-		renderModelList: (QuasarDemoMemoryRepository current selectAll: QuasarDemoAccountingAccount)
+		renderModelList: (self repository selectAll: QuasarDemoAccountingAccount)
 		on: html
 ]
 
@@ -154,7 +156,7 @@ QuasarDemoAccountingApp >> renderCompaniesOn: html [
 	self tab = 'companies' ifFalse: [ ^ self ].
 
 	self
-		renderModelList: (QuasarDemoMemoryRepository current selectAll: QuasarDemoAccountingCompany)
+		renderModelList: (self repository selectAll: QuasarDemoAccountingCompany)
 		on: html
 ]
 
@@ -260,8 +262,32 @@ QuasarDemoAccountingApp >> renderUsersOn: html [
 	self tab = 'users' ifFalse: [ ^ self ].
 
 	self
-		renderModelList: (QuasarDemoMemoryRepository current selectAll: QuasarDemoAccountingUser)
+		renderModelList: (self repository selectAll: QuasarDemoAccountingUser)
 		on: html
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingApp >> repository [
+
+	^ repository
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingApp >> repository: anObject [
+
+	repository := anObject
+]
+
+{ #category : #initialization }
+QuasarDemoAccountingApp >> repositorySetup [
+
+	self subclassResponsibility
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingApp >> repositoryToUse [
+
+	self subclassResponsibility
 ]
 
 { #category : #accessing }

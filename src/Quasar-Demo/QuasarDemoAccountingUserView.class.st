@@ -6,6 +6,8 @@ Class {
 
 { #category : #rendering }
 QuasarDemoAccountingUserView >> renderDetailsOn: html [
+	| companies |
 
-	self renderDetail: self model companies modelClass: QuasarDemoAccountingCompany label: 'Companies' on: html
+	companies := self model companiesIn: self repositoryToUse.
+	self renderDetail: companies modelClass: QuasarDemoAccountingCompany label: 'Companies' on: html
 ]

@@ -30,6 +30,12 @@ QuasarDemoMemoryRepository >> collectionNameFor: aClass [
 ]
 
 { #category : #persistence }
+QuasarDemoMemoryRepository >> commit: aBlock [
+
+	#todo
+]
+
+{ #category : #persistence }
 QuasarDemoMemoryRepository >> count: aClass [
 
 	^ (self listOf: aClass) size

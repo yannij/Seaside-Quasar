@@ -2,7 +2,9 @@ Class {
 	#name : #QuasarDemoSoilRepository,
 	#superclass : #QuasarDemoRepository,
 	#instVars : [
-		'objectMap'
+		'objectMap',
+		'path',
+		'soil'
 	],
 	#category : #'Quasar-Demo-Accounting'
 }
@@ -13,38 +15,54 @@ QuasarDemoSoilRepository class >> createData [
 	self createData
 	"
 
-	self createIn: self current
+	current ifNotNil: [ :value | value close ].
+	self current: (self path: 'soil-demo-acct').
+	self current create.
+	self current open.
+	self createIn: self current.
+	self current close
 ]
 
-{ #category : #initalize }
-QuasarDemoSoilRepository class >> soil1Reset [
-	"
-	self soil1Reset.
-	"
-	"| newSoil |
+{ #category : #'instance creation' }
+QuasarDemoSoilRepository class >> path: aString [
 
-	Soil1 ifNotNil: [ :value | value soilDatabase close ].
-	newSoil := Soil path: 'accounting'.
-	self soil1: (SoilRepository on: newSoil)."
+	^ self new
+		path: aString;
+		yourself
 ]
 
-{ #category : #initalize }
-QuasarDemoSoilRepository class >> soil1Setup [
+{ #category : #'demo data' }
+QuasarDemoSoilRepository class >> soilCleanup [
 	"
-	self soil1Setup.
+	self soilCleanup.
+	QuasarDemoSoilRepository allInstances.
+	QuasarDemoSoilRepository allInstances first pointersTo.
 	"
-	"| newSoil |
 
-	Soil1 ifNotNil: [ :value | value soilDatabase close ].
-	newSoil := (Soil path: 'accounting') destroy; initializeFilesystem; yourself.
-	self soil1: (SoilRepository on: newSoil).
-	self soil1 rootCreate."
+	WAAdmin clearSessions.
+	current ifNotNil: [ :value | value close ].
+	self current: nil.
+	self allInstances do: [ :value | value close ].
+	Smalltalk garbageCollect; garbageCollect; garbageCollect
+]
+
+{ #category : #files }
+QuasarDemoSoilRepository >> close [ 
+
+	soil ifNotNil: [
+		soil close ]
 ]
 
 { #category : #private }
 QuasarDemoSoilRepository >> collectionNameFor: aClass [
 
 	^ aClass name
+]
+
+{ #category : #persistence }
+QuasarDemoSoilRepository >> commit: aBlock [
+
+	#todo
 ]
 
 { #category : #persistence }
@@ -59,20 +77,51 @@ QuasarDemoSoilRepository >> count: aClass where: condition [
 	^ (self selectMany: aClass where: condition) size
 ]
 
+{ #category : #files }
+QuasarDemoSoilRepository >> create [
+	| tx dict |
+
+	soil := (Soil path: self path)
+		destroy;
+		initializeFilesystem.
+
+	tx := soil newTransaction.
+	dict := SoilPersistentDictionary new.
+	tx makeRoot: dict.
+	tx root: dict.
+	"tx markDirty: dict."
+	tx commit.
+
+	soil close
+]
+
+{ #category : #files }
+QuasarDemoSoilRepository >> destroy [
+
+	soil ifNotNil: [
+		soil destroy ]
+]
+
 { #category : #initialization }
 QuasarDemoSoilRepository >> initialize [
 
 	super initialize.
 
-	objectMap := Dictionary new
+	"objectMap := Dictionary new"
 ]
 
 { #category : #private }
 QuasarDemoSoilRepository >> list: aClass [
+	| tx list |
 
-	^ objectMap 
-		at: (self collectionNameFor: aClass) 
-		ifAbsentPut: [ Set new ]
+	tx := self soil newTransaction.
+	list := tx root at: (self collectionNameFor: aClass) ifAbsentPut: [ Set new ].
+	"tx commit."
+
+	list ifNil: [
+		self crTrace: 'list not found for: ', aClass printString ].
+
+	^ list
 ]
 
 { #category : #private }
@@ -87,16 +136,22 @@ QuasarDemoSoilRepository >> listOf: aClass [
 	^ objectSet
 ]
 
-{ #category : #accessing }
-QuasarDemoSoilRepository >> objectMap [
+{ #category : #files }
+QuasarDemoSoilRepository >> open [
 
-	^ objectMap
+	soil := (Soil path: self path) open; yourself
 ]
 
 { #category : #accessing }
-QuasarDemoSoilRepository >> objectMap: anObject [
+QuasarDemoSoilRepository >> path [
 
-	objectMap := anObject
+	^ path
+]
+
+{ #category : #accessing }
+QuasarDemoSoilRepository >> path: anObject [
+
+	path := anObject
 ]
 
 { #category : #persistence }
@@ -116,15 +171,31 @@ QuasarDemoSoilRepository >> removeAll: aClass [
 { #category : #persistence }
 QuasarDemoSoilRepository >> removeCollection: aClass [ 
 
-	objectMap 
+	#todo
+	"objectMap 
 		removeKey: (self collectionNameFor: aClass)
-		ifAbsent: [ "Do nothing" ]	
+		ifAbsent: [ ""Do nothing"" ]"
 ]
 
 { #category : #persistence }
 QuasarDemoSoilRepository >> save: anObject [
+	| tx theRoot list |
 
-	(self list: anObject class) add: anObject
+	tx := self soil newTransaction.
+	theRoot := tx root.
+	list := tx root
+		at: (self collectionNameFor: anObject class)
+		ifAbsentPut: [
+			| newList |
+			newList := Set new.
+			tx markDirty: theRoot.
+			tx makeRoot: newList.
+			newList ].
+	tx markDirty: list.
+	tx markDirty: theRoot.
+	tx makeRoot: anObject.
+	list add: anObject.
+	tx commit
 ]
 
 { #category : #persistence }
@@ -171,4 +242,16 @@ QuasarDemoSoilRepository >> selectMany: aClass where: aBlock sortBy: sortBlock [
 QuasarDemoSoilRepository >> selectOne: aClass where: aBlock [
 
 	^ (self listOf: aClass) detect: aBlock ifNone: [ nil ]
+]
+
+{ #category : #accessing }
+QuasarDemoSoilRepository >> soil [
+
+	^ soil
+]
+
+{ #category : #accessing }
+QuasarDemoSoilRepository >> soil: anObject [
+
+	soil := anObject
 ]

@@ -32,9 +32,9 @@ QuasarDemoAccountingCompany class >> viewClass [
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingCompany >> accounts [
+QuasarDemoAccountingCompany >> accountsIn: aRepo [
 
-	^ QuasarDemoMemoryRepository current
+	^ aRepo
 		selectMany: QuasarDemoAccountingAccount
 		where: [ :each | each companyId = self id ]
 ]
@@ -112,16 +112,16 @@ QuasarDemoAccountingCompany >> taxNumber: anObject [
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingCompany >> users [
+QuasarDemoAccountingCompany >> usersIn: aRepo [
 	| userCompanyList userIdList |
 
-	userCompanyList := QuasarDemoMemoryRepository current
+	userCompanyList := aRepo 
 		selectMany: QuasarDemoAccountingUserCompany
 		where: [ :each | each companyId = self id ].
 
 	userIdList := (userCompanyList collect: [ :each | each userId ]) asSet.
 
-	^ QuasarDemoMemoryRepository current
+	^ aRepo
 		selectMany: QuasarDemoAccountingUser
 		where: [ :each | userIdList includes: each id ]
 ]

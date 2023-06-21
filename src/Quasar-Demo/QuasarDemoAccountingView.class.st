@@ -212,3 +212,9 @@ QuasarDemoAccountingView >> renderViewerOn: html [
 			html div class: 'row q-gutter-sm'; with: [
 				self renderModelNativeWith: true on: html ] ]
 ]
+
+{ #category : #accessing }
+QuasarDemoAccountingView >> repositoryToUse [
+
+	^ self qdemoApp repositoryToUse
+]

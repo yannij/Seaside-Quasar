@@ -19,3 +19,15 @@ QuasarDemoAccountingMemoryDbApp class >> initialize [
 
 	^ self mdqRegisterDeployment: self applicationPath
 ]
+
+{ #category : #initialization }
+QuasarDemoAccountingMemoryDbApp >> repositorySetup [
+
+	self repository: QuasarDemoMemoryRepository current
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingMemoryDbApp >> repositoryToUse [
+
+	^ QuasarDemoMemoryRepository current
+]

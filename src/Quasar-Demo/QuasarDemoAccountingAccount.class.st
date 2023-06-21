@@ -71,14 +71,6 @@ QuasarDemoAccountingAccount >> bankPhone: anObject [
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingAccount >> company [
-
-	^ QuasarDemoMemoryRepository current
-		selectOne: QuasarDemoAccountingCompany
-		where: [ :each | each id = self companyId ]
-]
-
-{ #category : #accessing }
 QuasarDemoAccountingAccount >> companyId [
 
 	^ companyId
@@ -88,6 +80,14 @@ QuasarDemoAccountingAccount >> companyId [
 QuasarDemoAccountingAccount >> companyId: anObject [
 
 	companyId := anObject
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingAccount >> companyIn: aRepo [
+
+	^ aRepo
+		selectOne: QuasarDemoAccountingCompany
+		where: [ :each | each id = self companyId ]
 ]
 
 { #category : #accessing }
@@ -115,34 +115,10 @@ QuasarDemoAccountingAccount >> id: anObject [
 ]
 
 { #category : #actions }
-QuasarDemoAccountingAccount >> make1 [
-
-	self makeExampleTransactions: 1
-]
-
-{ #category : #actions }
-QuasarDemoAccountingAccount >> make10 [
-
-	self makeExampleTransactions: 10
-]
-
-{ #category : #actions }
-QuasarDemoAccountingAccount >> make100 [
-
-	self makeExampleTransactions: 100
-]
-
-{ #category : #actions }
-QuasarDemoAccountingAccount >> make1000 [
-
-	self makeExampleTransactions: 1000
-]
-
-{ #category : #actions }
-QuasarDemoAccountingAccount >> makeExampleTransactions: aCount [
+QuasarDemoAccountingAccount >> makeExampleTransactions: aCount in: aRepo [
 
 	aCount timesRepeat: [
-		QuasarDemoMemoryRepository current save: (QuasarDemoAccountingTransaction randomOnAccount: self) ]
+		aRepo save: (QuasarDemoAccountingTransaction randomOnAccount: self in: aRepo) ]
 ]
 
 { #category : #accessing }
@@ -182,9 +158,9 @@ QuasarDemoAccountingAccount >> openingBalance: anObject [
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingAccount >> transactions [
+QuasarDemoAccountingAccount >> transactionsIn: aRepo [
 
-	^ QuasarDemoMemoryRepository current
+	^ aRepo
 		selectMany: QuasarDemoAccountingTransaction
 		where: [ :each | each accountId = self id ]
 ]

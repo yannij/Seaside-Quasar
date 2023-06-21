@@ -29,16 +29,16 @@ QuasarDemoAccountingUser class >> viewClass [
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingUser >> companies [
+QuasarDemoAccountingUser >> companiesIn: aRepo [
 	| userCompanyList companyIdList |
 
-	userCompanyList := QuasarDemoMemoryRepository current
+	userCompanyList := aRepo
 		selectMany: QuasarDemoAccountingUserCompany
 		where: [ :each | each userId = self id ].
 
 	companyIdList := (userCompanyList collect: [ :each | each companyId ]) asSet.
 
-	^ QuasarDemoMemoryRepository current
+	^ aRepo
 		selectMany: QuasarDemoAccountingCompany
 		where: [ :each | companyIdList includes: each id ]
 ]
