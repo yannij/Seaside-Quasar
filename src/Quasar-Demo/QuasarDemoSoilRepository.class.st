@@ -59,6 +59,16 @@ QuasarDemoSoilRepository >> collectionNameFor: aClass [
 	^ aClass name
 ]
 
+{ #category : #private }
+QuasarDemoSoilRepository >> collectionNewFor: aClass [
+
+	"^ Set new"
+	^ SoilSkipListDictionary new
+		keySize: 16;
+		maxLevel: 8;
+		yourself
+]
+
 { #category : #persistence }
 QuasarDemoSoilRepository >> commit: aBlock [
 
@@ -115,7 +125,7 @@ QuasarDemoSoilRepository >> list: aClass [
 	| tx list |
 
 	tx := self soil newTransaction.
-	list := tx root at: (self collectionNameFor: aClass) ifAbsentPut: [ Set new ].
+	list := tx root at: (self collectionNameFor: aClass) ifAbsentPut: [ self collectionNewFor: aClass ].
 	"tx commit."
 
 	list ifNil: [
@@ -133,7 +143,7 @@ QuasarDemoSoilRepository >> listOf: aClass [
 	"^ aClass = aClass persistentClass 
 		ifTrue: [ objectSet ]
 		ifFalse: [ objectSet select: [ :each | each isKindOf: aClass] ]"
-	^ objectSet
+	^ objectSet values
 ]
 
 { #category : #files }
@@ -187,14 +197,14 @@ QuasarDemoSoilRepository >> save: anObject [
 		at: (self collectionNameFor: anObject class)
 		ifAbsentPut: [
 			| newList |
-			newList := Set new.
+			newList := self collectionNewFor: anObject class.
 			tx markDirty: theRoot.
 			tx makeRoot: newList.
 			newList ].
 	tx markDirty: list.
 	tx markDirty: theRoot.
 	tx makeRoot: anObject.
-	list add: anObject.
+	list at: anObject id asByteArray put: anObject.
 	tx commit
 ]
 

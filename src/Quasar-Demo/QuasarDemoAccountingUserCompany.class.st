@@ -2,6 +2,7 @@ Class {
 	#name : #QuasarDemoAccountingUserCompany,
 	#superclass : #QuasarDemoAccountingObject,
 	#instVars : [
+		'id',
 		'userId',
 		'companyId'
 	],
@@ -18,6 +19,18 @@ QuasarDemoAccountingUserCompany >> companyId [
 QuasarDemoAccountingUserCompany >> companyId: anObject [
 
 	companyId := anObject
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingUserCompany >> id [
+
+	^ id
+]
+
+{ #category : #accessing }
+QuasarDemoAccountingUserCompany >> id: anObject [
+
+	id := anObject
 ]
 
 { #category : #accessing }

@@ -95,6 +95,7 @@ QuasarDemoRepository class >> createDemoUserCompaniesIn: aRepository [
 	('2' '2')
 	) do: [ :data | | newObject |
 		newObject := modelClass new
+			id: UUIDGenerator next;
 			userId: (data at: 1);
 			companyId: (data at: 2);
 			yourself.
