@@ -118,6 +118,16 @@ LoanexDatabase class >> soil1: anObject [
 ]
 
 { #category : #initalize }
+LoanexDatabase class >> soil1Clear [
+	"
+	self soil1Clear.
+	"
+
+	Soil1 ifNotNil: [ :value | value soilDatabase close ].
+	self soil1: nil
+]
+
+{ #category : #initalize }
 LoanexDatabase class >> soil1Reset [
 	"
 	self soil1Reset.

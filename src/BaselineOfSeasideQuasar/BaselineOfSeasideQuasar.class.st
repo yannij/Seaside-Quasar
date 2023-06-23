@@ -18,7 +18,7 @@ BaselineOfSeasideQuasar >> baseline: spec [
 
 			spec
 				package: 'Quasar-Components' with: [ spec requires: #('Seaside3' 'NeoJSON') ];
-				package: 'Quasar-Demo' with: [ spec requires: #('Quasar-Components') ];
+				package: 'Quasar-Demo' with: [ spec requires: #('Quasar-Components' 'Soil') ];
 				package: 'Quasar-Magritte' with: [ spec requires: #('Quasar-Components' 'Magritte') ];
 				package: 'DockerUtility' with: [ spec requires: #('Seaside3') ];
 				package: 'Stripe' with: [ spec requires: #('Quasar-Components') ];
@@ -64,7 +64,7 @@ BaselineOfSeasideQuasar >> soil: spec [
 
 	spec
 		baseline: 'Soil'
-		with: [ spec repository: 'github://ApptiveGrid/Soil:development/src' ]
+		with: [ spec repository: 'github://ApptiveGrid/Soil:main/src' ]
 ]
 
 { #category : #dependencies }
