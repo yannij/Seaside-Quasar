@@ -74,10 +74,16 @@ QuasarDemoRepository class >> createDemoCompaniesIn: aRepository [
 
 { #category : #'demo data' }
 QuasarDemoRepository class >> createDemoTransactionsIn: aRepository [
-	| modelClass |
+	| modelClass all account |
 
 	modelClass := QuasarDemoAccountingTransaction.
-	aRepository removeAll: modelClass
+	aRepository removeAll: modelClass.
+
+	all := aRepository selectMany: QuasarDemoAccountingAccount where: [ :each | each name = 'Test Account-1-1' ].
+	account := all asOrderedCollection first.
+	3 timesRepeat: [ | newObject |
+		newObject := modelClass randomOnAccount: account in: aRepository.
+		aRepository save: newObject ]
 ]
 
 { #category : #'demo data' }

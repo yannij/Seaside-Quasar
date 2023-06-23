@@ -1,9 +1,11 @@
 Extension { #name : #WAComponent }
 
 { #category : #'*Quasar-Components' }
-WAComponent >> mdqPublicServerUrl [
+WAComponent >> mdqApplicationGet [
 
-	^ self class mdqPublicServerUrl
+	^ self session
+		ifNil: [ nil ]
+		ifNotNil: [ :value | value presenter ]
 ]
 
 { #category : #'*Quasar-Components' }
@@ -23,6 +25,12 @@ WAComponent class >> mdqPublicServerUrl [
 	^ serverUrl host
 		ifNil: [ nil ]
 		ifNotNil: [ :value | serverUrl ]
+]
+
+{ #category : #'*Quasar-Components' }
+WAComponent >> mdqPublicServerUrl [
+
+	^ self class mdqPublicServerUrl
 ]
 
 { #category : #'*Quasar-Components' }

@@ -71,21 +71,6 @@ QuasarDemoAccountingTransaction >> amount: anObject [
 ]
 
 { #category : #accessing }
-QuasarDemoAccountingTransaction >> companiesIn: aRepo [
-	| userCompanyList companyIdList |
-
-	userCompanyList := aRepo
-		selectMany: QuasarDemoAccountingUserCompany
-		where: [ :each | each userId = self id ].
-
-	companyIdList := (userCompanyList collect: [ :each | each companyId ]) asSet.
-
-	^ aRepo
-		selectMany: QuasarDemoAccountingCompany
-		where: [ :each | companyIdList includes: each id ]
-]
-
-{ #category : #accessing }
 QuasarDemoAccountingTransaction >> companyId [
 
 	^ companyId
