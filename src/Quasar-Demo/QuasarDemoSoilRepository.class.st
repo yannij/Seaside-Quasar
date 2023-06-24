@@ -2,9 +2,9 @@ Class {
 	#name : #QuasarDemoSoilRepository,
 	#superclass : #QuasarDemoRepository,
 	#instVars : [
-		'objectMap',
 		'path',
-		'soil'
+		'soil',
+		'txn'
 	],
 	#category : #'Quasar-Demo-Accounting'
 }
@@ -47,10 +47,15 @@ QuasarDemoSoilRepository class >> soilCleanup [
 ]
 
 { #category : #files }
-QuasarDemoSoilRepository >> close [ 
+QuasarDemoSoilRepository >> close [
+
+	(txn notNil and: [ txn isAborted not ]) ifTrue: [
+		txn abort.
+		txn := nil ].
 
 	soil ifNotNil: [
-		soil close ]
+		soil close.
+		soil := nil ]
 ]
 
 { #category : #private }
@@ -124,7 +129,7 @@ QuasarDemoSoilRepository >> initialize [
 QuasarDemoSoilRepository >> list: aClass [
 	| tx list |
 
-	tx := self soil newTransaction.
+	tx := self txnLazy.
 	list := tx root at: (self collectionNameFor: aClass) ifAbsentPut: [ self collectionNewFor: aClass ].
 	"tx commit."
 
@@ -191,7 +196,7 @@ QuasarDemoSoilRepository >> removeCollection: aClass [
 QuasarDemoSoilRepository >> save: anObject [
 	| tx theRoot list |
 
-	tx := self soil newTransaction.
+	tx := self txnLazy.
 	theRoot := tx root.
 	list := tx root
 		at: (self collectionNameFor: anObject class)
@@ -205,7 +210,7 @@ QuasarDemoSoilRepository >> save: anObject [
 	tx markDirty: theRoot.
 	tx makeRoot: anObject.
 	list at: anObject id asByteArray put: anObject.
-	tx commit
+	tx checkpointAndContinue
 ]
 
 { #category : #persistence }
@@ -264,4 +269,23 @@ QuasarDemoSoilRepository >> soil [
 QuasarDemoSoilRepository >> soil: anObject [
 
 	soil := anObject
+]
+
+{ #category : #accessing }
+QuasarDemoSoilRepository >> txn [
+
+	^ txn
+]
+
+{ #category : #accessing }
+QuasarDemoSoilRepository >> txn: anObject [
+
+	txn := anObject
+]
+
+{ #category : #accessing }
+QuasarDemoSoilRepository >> txnLazy [
+
+	txn ifNil: [ txn := soil newTransaction ].
+	^ txn
 ]
