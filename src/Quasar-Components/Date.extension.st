@@ -1,6 +1,6 @@
 Extension { #name : #Date }
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : #'*Quasar-Components' }
 Date >> jsonOn: aRenderer [
 
 	aRenderer string: self yyyymmdd

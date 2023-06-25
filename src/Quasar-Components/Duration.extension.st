@@ -1,6 +1,6 @@
 Extension { #name : #Duration }
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : #'*Quasar-Components' }
 Duration >> jsonOn: aRenderer [
 
 	"aRenderer number: self asMilliSeconds"
