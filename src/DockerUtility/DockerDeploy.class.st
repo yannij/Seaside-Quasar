@@ -69,12 +69,6 @@ DockerDeploy class >> defaultConfigName [
 ]
 
 { #category : #accessing }
-DockerDeploy class >> defaultMongoSecretName [
-
-	^ 'mongo-secret'
-]
-
-{ #category : #accessing }
 DockerDeploy class >> loadDefaultConfig [
 	"
 	DockerDeploy loadDefaultConfig.
@@ -169,30 +163,6 @@ DockerDeploy >> loadConfigNamed: aString [
 	json := WAJsonParser parse: configFile contents.
 
 	self configsAt: aString put: json
-]
-
-{ #category : #accessing }
-DockerDeploy >> mongoDatabaseDefault [
-
-	^ self
-		configsAt: self class defaultConfigName
-		atKey: 'mongo-database'
-]
-
-{ #category : #accessing }
-DockerDeploy >> mongoHostDefault [
-
-	^ self
-		configsAt: self class defaultConfigName
-		atKey: 'mongo-host'
-]
-
-{ #category : #accessing }
-DockerDeploy >> mongoPortDefault [
-
-	^ self
-		configsAt: self class defaultConfigName
-		atKey: 'mongo-port'
 ]
 
 { #category : #private }

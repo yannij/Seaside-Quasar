@@ -293,7 +293,7 @@ QuasarApplication >> quasarVersion: anObject [
 { #category : #accessing }
 QuasarApplication >> quasarVersionLazy [
 
-	self quasarVersion ifNil: [ self quasarVersion: '2.12.0' ].
+	self quasarVersion ifNil: [ self quasarVersion: '2.12.4' ].
 
 	^ self quasarVersion
 ]
@@ -340,9 +340,7 @@ QuasarApplication >> redirect [
 	| url |
 	url := self application url.
 	url addAllToPath: self requestContext consumer upToEnd.
-	^ self requestContext responseGenerator
-		redirectTo: url;
-		respond
+	^ self requestContext redirectTo: url
 ]
 
 { #category : #rendering }
