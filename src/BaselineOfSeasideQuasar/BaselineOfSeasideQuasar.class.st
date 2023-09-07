@@ -13,7 +13,6 @@ BaselineOfSeasideQuasar >> baseline: spec [
 			self neoJSON: spec.
 			self seaside: spec.
 			self magritte: spec.
-			self voyage: spec.
 			self soil: spec.
 
 			spec
@@ -22,15 +21,13 @@ BaselineOfSeasideQuasar >> baseline: spec [
 				package: 'Quasar-Magritte' with: [ spec requires: #('Quasar-Components' 'Magritte') ];
 				package: 'DockerUtility' with: [ spec requires: #('Seaside3') ];
 				package: 'Stripe' with: [ spec requires: #('Quasar-Components') ];
-				package: 'Quasar-Material' with: [ spec requires: #('Quasar-Magritte' 'DockerUtility' 'Stripe') ];
-				package: 'Tidbit-ToDo' with: [ spec requires: #('Quasar-Magritte' 'Voyage') ];
-				package: 'Tidbit-Loanex' with: [ spec requires: #('Quasar-Magritte' 'Voyage' 'Soil') ].
+				package: 'Quasar-Material' with: [ spec requires: #('Quasar-Magritte' 'DockerUtility' 'Stripe') ].
 
 			spec
 				group: 'default' with: #('Quasar-Demo');
 				group: 'quasar' with: #('Quasar-Components');
 				group: 'material' with: #('Quasar-Material');
-				group: 'all' with: #('Quasar-Demo' 'Quasar-Material' 'Tidbit-ToDo' 'Tidbit-Loanex') ]
+				group: 'all' with: #('Quasar-Demo' 'Quasar-Material') ]
 ]
 
 { #category : #dependencies }
@@ -64,14 +61,5 @@ BaselineOfSeasideQuasar >> soil: spec [
 
 	spec
 		baseline: 'Soil'
-		with: [ spec repository: 'github://ApptiveGrid/Soil:main/src' ]
-]
-
-{ #category : #dependencies }
-BaselineOfSeasideQuasar >> voyage: spec [
-
-	spec
-		baseline: 'Voyage'
-		with: [ spec repository: 'github://pharo-nosql/voyage:pharo10-ready/mc';
-			loads: #( 'core' 'memory' "'mongo'" ) ]
+		with: [ spec repository: 'github://yannij/Soil:main/src' ]
 ]
