@@ -132,7 +132,7 @@ QuasarSelect >> optionDisable [
 { #category : #attributes }
 QuasarSelect >> options: anObject [
 
-	self attributes at: ':options' put: anObject
+	self attributes at: 'options' put: anObject
 ]
 
 { #category : #attributes }

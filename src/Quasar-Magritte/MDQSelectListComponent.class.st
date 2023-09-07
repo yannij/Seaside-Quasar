@@ -48,7 +48,7 @@ MDQSelectListComponent >> renderSelectOn: html readonly: aReadonlyFlag [
 			app vueRefsSet: modelOptionsName -> self options.
 
 			inputTag "name: modelName;" vModel: modelName.
-			inputTag options: modelOptionsName.
+			inputTag vBind: 'options' with: modelOptionsName.
 			inputTag on: self inputAspect of: self
 		]
 ]
@@ -57,18 +57,4 @@ MDQSelectListComponent >> renderSelectOn: html readonly: aReadonlyFlag [
 MDQSelectListComponent >> renderViewerOn: html [
 
 	self renderFieldOn: html readonly: true
-]
-
-{ #category : #rendering }
-MDQSelectListComponent >> vueOptionDataNamed: aName [
-	| data |
-
-	data := OrderedCollection new.
-	self options keysAndValuesDo: [ :index :item |
-		data add: {'label' -> (self labelForOption: item). 'value' -> item greaseString} asDictionary ].
-
-	^ String streamContents: [ :stream |
-		stream nextPutAll: 'const '; nextPutAll: aName; nextPutAll: ' = '.
-		stream nextPutAll: data asJson
-	]
 ]

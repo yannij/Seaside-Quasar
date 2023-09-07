@@ -39,7 +39,7 @@ MDQMultiselectListComponent >> renderMultiselectOn: html readonly: aReadonlyFlag
 			modelOptionsName := modelName, 'Options'.
 
 			inputTag "name: modelName;" vModel: modelName.
-			inputTag options: modelOptionsName.
+			inputTag vBind: 'options' with: modelOptionsName.
 			inputTag on: #value of: self.
 			inputTag multipleCallbackValue: self availableList.
 			listValues := inputTag values. "values is set by #multipleCallbackValue:"
@@ -61,18 +61,4 @@ MDQMultiselectListComponent >> renderViewerOn: html [
 MDQMultiselectListComponent >> value: anObject [
 	"for breakpoint"
 	^ super value: anObject
-]
-
-{ #category : #rendering }
-MDQMultiselectListComponent >> vueOptionDataNamed: aName [
-	| data |
-
-	data := OrderedCollection new.
-	self availableList keysAndValuesDo: [ :index :item |
-		data add: {'label' -> (self labelForOption: item). 'value' -> index} asDictionary ].
-
-	^ String streamContents: [ :stream |
-		stream nextPutAll: 'const '; nextPutAll: aName; nextPutAll: ' = '.
-		stream nextPutAll: data asJson
-	]
 ]
