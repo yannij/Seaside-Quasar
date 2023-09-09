@@ -453,6 +453,8 @@ QuasarApplication >> vueRefsSet: anAssociation [
 	"Create a ref object at the association key, if none present.
 	Set the ref object's value to the association value."
 
+	anAssociation key ifNil: [ self error: 'Ref name cannot be nil' ].
+
 	self reactiveObjects
 		at: anAssociation key
 		ifPresent: [ :ref | ref refValue: anAssociation value ]

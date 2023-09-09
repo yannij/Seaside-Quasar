@@ -117,16 +117,34 @@ QuasarSelect >> newValueMode [
 	self attributes at: 'new-value-mode' put: true
 ]
 
+{ #category : #attributes }
+QuasarSelect >> newValueMode: aMode [
+	
+	self attributes at: 'new-value-mode' put: aMode
+]
+
+{ #category : #attributes }
+QuasarSelect >> newValueModeAdd [
+	
+	self newValueMode: 'add'
+]
+
+{ #category : #attributes }
+QuasarSelect >> newValueModeAddUnique [
+	
+	self newValueMode: 'add-unique'
+]
+
+{ #category : #attributes }
+QuasarSelect >> newValueModeToggle [
+	
+	self newValueMode: 'toggle'
+]
+
 { #category : #multiselect }
 QuasarSelect >> nextKey [
 
 	^ values size + 1
-]
-
-{ #category : #attributes }
-QuasarSelect >> optionDisable [
-	
-	self attributes at: 'option-disable' put: true
 ]
 
 { #category : #attributes }
@@ -184,6 +202,12 @@ QuasarSelect >> storeCallback: aCallback [
 QuasarSelect >> tag [
 
 	^ 'q-select'
+]
+
+{ #category : #attributes }
+QuasarSelect >> useChips [
+	
+	self attributes at: 'use-chips' put: true
 ]
 
 { #category : #attributes }
