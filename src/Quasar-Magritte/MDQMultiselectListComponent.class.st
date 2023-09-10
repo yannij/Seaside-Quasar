@@ -41,7 +41,7 @@ MDQMultiselectListComponent >> renderMultiselectOn: html readonly: aReadonlyFlag
 	inputTag label: inputLabel.
 	inputTag color: 'primary'.
 
-	inputTag multiple; useChips.
+	inputTag multiple; "useInput; newValueModeAddUnique;" useChips.
 	inputTag on: #value of: self.
 	inputTag multipleCallbackValue: self availableList.
 	listValues := inputTag values. "values is set by #multipleCallbackValue:"

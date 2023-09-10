@@ -29,7 +29,7 @@ MDQSelectListComponent >> renderSelectOn: html readonly: aReadonlyFlag [
 	app := self mdqApplicationGet.
 	inputLabel := self magritteDescription label.
 
-	inputTag := html qSelect emitValue; mapOptions.
+	inputTag := html qSelect "emitValue; mapOptions".
 	modelName := self magritteDescription mdqLabelAsSafeIdentifier.
 	inputTag vModel: modelName.
 	self setFieldStyleOf: inputTag.
@@ -40,17 +40,14 @@ MDQSelectListComponent >> renderSelectOn: html readonly: aReadonlyFlag [
 	inputTag useInput; newValueModeAddUnique.
 	inputTag on: self inputAspect of: self.
 	inputValue := self perform: self inputAspect.
-
 	app vueRefsSet: modelName -> inputValue.
 
-	aReadonlyFlag
-		ifTrue: [
-			inputTag readonly: true ]
-		ifFalse: [
-			modelOptionsName := modelName, 'Options'.
-			inputTag vBind: 'options' with: modelOptionsName.
-			app vueRefsSet: modelOptionsName -> self options
-		]
+	modelOptionsName := modelName, 'Options'.
+	inputTag vBind: 'options' with: modelOptionsName.
+	app vueRefsSet: modelOptionsName -> self options.
+
+	aReadonlyFlag ifTrue: [
+		inputTag readonly: true ]
 ]
 
 { #category : #rendering }
