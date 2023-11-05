@@ -126,7 +126,7 @@ QuasarBtn >> round [
 
 { #category : #attributes }
 QuasarBtn >> rounded [
-
+	
 	self attributes at: 'rounded' put: true
 ]
 

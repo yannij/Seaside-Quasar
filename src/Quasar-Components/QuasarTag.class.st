@@ -73,12 +73,6 @@ QuasarTag >> roundIf: aBoolean [
 	self viewStyle: #round if: aBoolean
 ]
 
-{ #category : #'accessing - view style' }
-QuasarTag >> roundedIf: aBoolean [
-
-	self viewStyle: #rounded if: aBoolean
-]
-
 { #category : #attributes }
 QuasarTag >> vModelValue: anObject [
 	"Set model-value to a variable in our scope to allow dynamically changing it"
