@@ -99,7 +99,7 @@ CraneEatSearch >> dinersDisplayDescription [
 		accessor: #dinersDisplay;
 		label: 'Diners Display';
 		priority: 11;
-		beReadonly;
+		beReadOnly;
 		yourself
 ]
 
@@ -165,6 +165,6 @@ CraneEatSearch >> locationDescription [
 		accessor: #location;
 		label: 'Location';
 		priority: 31;
-		beReadonly;
+		beReadOnly;
 		yourself
 ]

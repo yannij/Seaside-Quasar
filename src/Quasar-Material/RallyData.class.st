@@ -26,7 +26,7 @@ RallyData class >> createRallyAlerts [
 	1 to: 12 do: [ :index | | newObject |
 		newObject := RallyAlert new
 				id: index printString;
-				description: (String loremIpsum truncateTo: 120);
+				description: (String loremIpsum: 120);
 			yourself.
 		RallyAlert instanceListAdd: newObject ]
 ]

@@ -134,6 +134,6 @@ RallyBudgetItem >> spentRatioDescription [
 		accessor: #spentRatio;
 		label: 'Spent Ratio';
 		priority: 50;
-		beReadonly;
+		beReadOnly;
 		yourself
 ]
