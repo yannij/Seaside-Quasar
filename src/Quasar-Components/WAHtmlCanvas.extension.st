@@ -393,6 +393,12 @@ WAHtmlCanvas >> qToolbarTitle [
 ]
 
 { #category : #'*Quasar-Components' }
+WAHtmlCanvas >> qTooltip [
+
+	^ self brush: QuasarTooltip new
+]
+
+{ #category : #'*Quasar-Components' }
 WAHtmlCanvas >> qTr [
 
 	^ self brush: QuasarTr new
