@@ -58,19 +58,6 @@ QuasarDemoAccountingSoilDbApp >> renderLayoutOn: html [
 
 { #category : #initialization }
 QuasarDemoAccountingSoilDbApp >> repositorySetup [
-	| repo |
 
-	repo := (QuasarDemoSoilRepository path: 'soil-demo-acct') open; yourself.
-	self repository: repo
-]
-
-{ #category : #accessing }
-QuasarDemoAccountingSoilDbApp >> repositoryToUse [
-	| useGlobalRepo |
-
-	useGlobalRepo := false.
-
-	^ useGlobalRepo
-		ifTrue: [ QuasarDemoSoilRepository current ]
-		ifFalse: [ self repository ]
+	self repository: QuasarDemoSoilRepository current
 ]

@@ -25,9 +25,3 @@ QuasarDemoAccountingMemoryDbApp >> repositorySetup [
 
 	self repository: QuasarDemoMemoryRepository current
 ]
-
-{ #category : #accessing }
-QuasarDemoAccountingMemoryDbApp >> repositoryToUse [
-
-	^ QuasarDemoMemoryRepository current
-]

@@ -148,13 +148,19 @@ QuasarDemoRepository class >> createIn: aRepository [
 { #category : #accessing }
 QuasarDemoRepository class >> current [
 
-	^ current ifNil: [ current := self new ]
+	^ current ifNil: [ current := self currentBuild ]
 ]
 
 { #category : #accessing }
 QuasarDemoRepository class >> current: anObject [
 
 	current := anObject
+]
+
+{ #category : #accessing }
+QuasarDemoRepository class >> currentBuild [
+
+	^ self new
 ]
 
 { #category : #persistence }

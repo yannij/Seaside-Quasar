@@ -216,5 +216,5 @@ QuasarDemoAccountingView >> renderViewerOn: html [
 { #category : #accessing }
 QuasarDemoAccountingView >> repositoryToUse [
 
-	^ self qdemoApp repositoryToUse
+	^ self qdemoApp repository
 ]

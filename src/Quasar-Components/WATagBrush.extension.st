@@ -73,6 +73,12 @@ WATagBrush >> vOnClick: aString [
 ]
 
 { #category : #'*Quasar-Components' }
+WATagBrush >> vOnClickStop [
+
+	self attributeAt: '@click.stop' put: true
+]
+
+{ #category : #'*Quasar-Components' }
 WATagBrush >> vShow: anObject [
 
 	self attributes at: 'v-show' put: anObject

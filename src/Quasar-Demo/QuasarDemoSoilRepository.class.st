@@ -14,13 +14,23 @@ QuasarDemoSoilRepository class >> createData [
 	"
 	self createData
 	"
+	| tmp |
 
-	current ifNotNil: [ :value | value close ].
-	self current: (self path: 'soil-demo-acct').
-	self current create.
-	self current open.
-	self createIn: self current.
-	self current close
+	current ifNotNil: [ :value |
+		value close.
+		current := nil ].
+
+	tmp := (self path: self soilPath).
+	tmp create.
+	tmp open.
+	self createIn: tmp.
+	tmp close
+]
+
+{ #category : #'demo data' }
+QuasarDemoSoilRepository class >> currentBuild [
+
+	^ (self path: self soilPath) open; yourself
 ]
 
 { #category : #'instance creation' }
@@ -44,6 +54,12 @@ QuasarDemoSoilRepository class >> soilCleanup [
 	self current: nil.
 	self allInstances do: [ :value | value close ].
 	Smalltalk garbageCollect; garbageCollect; garbageCollect
+]
+
+{ #category : #'demo data' }
+QuasarDemoSoilRepository class >> soilPath [
+
+	^ 'soil-demo-acct'
 ]
 
 { #category : #files }
