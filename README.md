@@ -20,9 +20,9 @@ Metacello new
 ```
 To create demo data:
 ```
-QuasarDemoAccountingMemoryDbApp createData
-QuasarDemoAccountingSoilDbApp createData
-QuasarDemoMovieListingApp createData
+QuasarDemoAccountingMemoryDbApp createData.
+QuasarDemoAccountingSoilDbApp createData.
+QuasarDemoMovieListingApp createData.
 ```
 ### Start Seaside
 1. Open Seaside Control Panel from the Tools menu
