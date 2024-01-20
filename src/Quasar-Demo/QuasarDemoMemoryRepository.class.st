@@ -4,24 +4,8 @@ Class {
 	#instVars : [
 		'objectMap'
 	],
-	#category : #'Quasar-Demo-Accounting'
+	#category : #'Quasar-Demo-Common'
 }
-
-{ #category : #'demo data' }
-QuasarDemoMemoryRepository class >> createData [
-	"
-	self createData
-	"
-
-	self current: nil.
-	self createIn: self current
-]
-
-{ #category : #'class initialization' }
-QuasarDemoMemoryRepository class >> initialize [
-
-	self createData
-]
 
 { #category : #private }
 QuasarDemoMemoryRepository >> collectionNameFor: aClass [

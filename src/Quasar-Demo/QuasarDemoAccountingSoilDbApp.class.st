@@ -20,6 +20,15 @@ QuasarDemoAccountingSoilDbApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
+{ #category : #initialization }
+QuasarDemoAccountingSoilDbApp class >> repositoryClass [
+	"
+	self createData
+	"
+
+	^ QuasarDemoSoilRepository
+]
+
 { #category : #'rendering - quasar hooks' }
 QuasarDemoAccountingSoilDbApp >> quasarConfigContentOn: aJSStream with: html [
 
@@ -54,10 +63,4 @@ QuasarDemoAccountingSoilDbApp >> renderLayoutOn: html [
 					html qBtn flat; round; icon: 'view_sidebar'; vOnClick: 'this.$refs.sideSheet.toggle($event)' ] ].
 			self renderLayoutPageOn: html.
 			html render: self sideSheet ] ]
-]
-
-{ #category : #initialization }
-QuasarDemoAccountingSoilDbApp >> repositorySetup [
-
-	self repository: QuasarDemoSoilRepository current
 ]

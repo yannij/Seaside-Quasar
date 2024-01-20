@@ -6,40 +6,8 @@ Class {
 		'soil',
 		'txn'
 	],
-	#category : #'Quasar-Demo-Accounting'
+	#category : #'Quasar-Demo-Common'
 }
-
-{ #category : #'demo data' }
-QuasarDemoSoilRepository class >> createData [
-	"
-	self createData
-	"
-	| tmp |
-
-	current ifNotNil: [ :value |
-		value close.
-		current := nil ].
-
-	tmp := (self path: self soilPath).
-	tmp create.
-	tmp open.
-	self createIn: tmp.
-	tmp close
-]
-
-{ #category : #'demo data' }
-QuasarDemoSoilRepository class >> currentBuild [
-
-	^ (self path: self soilPath) open; yourself
-]
-
-{ #category : #'instance creation' }
-QuasarDemoSoilRepository class >> path: aString [
-
-	^ self new
-		path: aString;
-		yourself
-]
 
 { #category : #'demo data' }
 QuasarDemoSoilRepository class >> soilCleanup [
@@ -50,19 +18,13 @@ QuasarDemoSoilRepository class >> soilCleanup [
 	"
 
 	WAAdmin clearSessions.
-	current ifNotNil: [ :value | value close ].
-	self current: nil.
+	map ifNotNil: [ :value | value values do: [ :each | each close ] ].
+	self mapReset.
 	self allInstances do: [ :value | value close ].
 	Smalltalk garbageCollect; garbageCollect; garbageCollect
 ]
 
-{ #category : #'demo data' }
-QuasarDemoSoilRepository class >> soilPath [
-
-	^ 'soil-demo-acct'
-]
-
-{ #category : #files }
+{ #category : #api }
 QuasarDemoSoilRepository >> close [
 
 	(txn notNil and: [ txn isAborted not ]) ifTrue: [
@@ -108,7 +70,7 @@ QuasarDemoSoilRepository >> count: aClass where: condition [
 	^ (self selectMany: aClass where: condition) size
 ]
 
-{ #category : #files }
+{ #category : #api }
 QuasarDemoSoilRepository >> create [
 	| tx dict |
 
@@ -126,7 +88,7 @@ QuasarDemoSoilRepository >> create [
 	soil close
 ]
 
-{ #category : #files }
+{ #category : #api }
 QuasarDemoSoilRepository >> destroy [
 
 	soil ifNotNil: [
@@ -167,7 +129,7 @@ QuasarDemoSoilRepository >> listOf: aClass [
 	^ objectSet values
 ]
 
-{ #category : #files }
+{ #category : #api }
 QuasarDemoSoilRepository >> open [
 
 	soil := (Soil path: self path) open; yourself

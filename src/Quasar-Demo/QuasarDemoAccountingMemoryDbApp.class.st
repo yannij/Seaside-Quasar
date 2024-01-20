@@ -21,7 +21,10 @@ QuasarDemoAccountingMemoryDbApp class >> initialize [
 ]
 
 { #category : #initialization }
-QuasarDemoAccountingMemoryDbApp >> repositorySetup [
+QuasarDemoAccountingMemoryDbApp class >> repositoryClass [
+	"
+	self createData
+	"
 
-	self repository: QuasarDemoMemoryRepository current
+	^ QuasarDemoMemoryRepository
 ]
