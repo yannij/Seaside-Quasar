@@ -18,6 +18,12 @@ Metacello new
 	onConflictUseLoaded;
 	load: 'all'.
 ```
+To create demo data:
+```
+QuasarDemoAccountingMemoryDbApp createData
+QuasarDemoAccountingSoilDbApp createData
+QuasarDemoMovieListingApp createData
+```
 ### Start Seaside
 1. Open Seaside Control Panel from the Tools menu
 1. Add a ZnZincServerAdaptor from the control panel
