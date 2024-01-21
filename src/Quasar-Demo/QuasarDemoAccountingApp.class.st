@@ -163,7 +163,7 @@ QuasarDemoAccountingApp class >> createDemoUsersIn: aRepository [
 { #category : #'demo data' }
 QuasarDemoAccountingApp class >> databasePath [
 
-	^ 'soil-demo-acct'
+	^ 'demo-acct'
 ]
 
 { #category : #'demo data' }
