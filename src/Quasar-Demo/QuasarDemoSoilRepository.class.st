@@ -3,8 +3,7 @@ Class {
 	#superclass : #QuasarDemoRepository,
 	#instVars : [
 		'path',
-		'soil',
-		'txn'
+		'soil'
 	],
 	#category : #'Quasar-Demo-Common'
 }
@@ -18,18 +17,14 @@ QuasarDemoSoilRepository class >> soilCleanup [
 	"
 
 	WAAdmin clearSessions.
-	map ifNotNil: [ :value | value values do: [ :each | each close ] ].
-	self mapReset.
-	self allInstances do: [ :value | value close ].
+	self withAllSubclassesDo: [ :e |
+		e mapReset.
+		e allInstances do: [ :value | value close ] ].
 	Smalltalk garbageCollect; garbageCollect; garbageCollect
 ]
 
 { #category : #api }
 QuasarDemoSoilRepository >> close [
-
-	(txn notNil and: [ txn isAborted not ]) ifTrue: [
-		txn abort.
-		txn := nil ].
 
 	soil ifNotNil: [
 		soil close.
@@ -107,9 +102,18 @@ QuasarDemoSoilRepository >> initialize [
 QuasarDemoSoilRepository >> list: aClass [
 	| tx list |
 
-	tx := self txnLazy.
+	tx := soil newTransaction.
+
+	list := self list: aClass transaction: tx.
+
+	^ list
+]
+
+{ #category : #private }
+QuasarDemoSoilRepository >> list: aClass transaction: tx [
+	| list |
+
 	list := tx root at: (self collectionNameFor: aClass) ifAbsentPut: [ self collectionNewFor: aClass ].
-	"tx commit."
 
 	list ifNil: [
 		self crTrace: 'list not found for: ', aClass printString ].
@@ -172,9 +176,17 @@ QuasarDemoSoilRepository >> removeCollection: aClass [
 
 { #category : #persistence }
 QuasarDemoSoilRepository >> save: anObject [
-	| tx theRoot list |
+	| tx |
 
-	tx := self txnLazy.
+	tx := soil newTransaction.
+	self save: anObject transaction: tx.
+	tx commit
+]
+
+{ #category : #persistence }
+QuasarDemoSoilRepository >> save: anObject transaction: tx [
+	| theRoot list |
+
 	theRoot := tx root.
 	list := tx root
 		at: (self collectionNameFor: anObject class)
@@ -187,8 +199,7 @@ QuasarDemoSoilRepository >> save: anObject [
 	tx markDirty: list.
 	tx markDirty: theRoot.
 	tx makeRoot: anObject.
-	list at: anObject id asByteArray put: anObject.
-	tx checkpointAndContinue
+	list at: anObject id asByteArray put: anObject
 ]
 
 { #category : #persistence }
@@ -249,21 +260,32 @@ QuasarDemoSoilRepository >> soil: anObject [
 	soil := anObject
 ]
 
-{ #category : #accessing }
-QuasarDemoSoilRepository >> txn [
+{ #category : #persistence }
+QuasarDemoSoilRepository >> updateData: data class: aClass [
+	| tx modelObject |
 
-	^ txn
+	tx := soil newTransaction.
+	modelObject := self updateData: data class: aClass transaction: tx.
+	modelObject updateFromMap: data.
+	tx commit
 ]
 
-{ #category : #accessing }
-QuasarDemoSoilRepository >> txn: anObject [
+{ #category : #persistence }
+QuasarDemoSoilRepository >> updateData: data class: aClass transaction: tx [
+	| list modelId modelObject |
 
-	txn := anObject
-]
+	modelId := (data at: #id).
 
-{ #category : #accessing }
-QuasarDemoSoilRepository >> txnLazy [
+	list := tx root
+		at: (self collectionNameFor: aClass)
+		ifAbsent: [ self error: 'Missing list for: ', aClass name asString, ' id=', modelId asString ].
+	modelObject := list
+		at: modelId asByteArray
+		ifAbsent: [ self error: 'Missing object for: ', aClass name asString, ' id=', modelId asString ].
 
-	txn ifNil: [ txn := soil newTransaction ].
-	^ txn
+	tx markDirty: list.
+	tx markDirty: modelObject.
+
+	"Answer the model object to allow further processing of it"
+	^ modelObject
 ]

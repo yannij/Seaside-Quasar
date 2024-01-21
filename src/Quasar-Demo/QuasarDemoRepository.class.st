@@ -156,3 +156,9 @@ QuasarDemoRepository >> selectOne: aClass where: aBlock [
 
 	self subclassResponsibility
 ]
+
+{ #category : #persistence }
+QuasarDemoRepository >> updateData: anId class: aClass [
+
+	self subclassResponsibility
+]

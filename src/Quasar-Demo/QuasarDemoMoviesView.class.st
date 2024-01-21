@@ -49,8 +49,9 @@ QuasarDemoMoviesView >> model: anObject [
 ]
 
 { #category : #actions }
-QuasarDemoMoviesView >> modelSave [
+QuasarDemoMoviesView >> modelSave: data class: aClass [
 
+	self repositoryToUse updateData: data class: aClass.
 	self isEdit: false
 ]
 
@@ -101,11 +102,15 @@ QuasarDemoMoviesView >> renderEditorButtonsOn: html [
 
 { #category : #rendering }
 QuasarDemoMoviesView >> renderEditorOn: html [
+	| realObject modelClass |
+
+	realObject := self model isSoilProxy ifTrue: [ self model soilRealObject ] ifFalse: [ self model ].
+	modelClass := realObject class.
 
 	html qForm
 		vOnSubmit: '$event.target.submit()';
 		method: 'post';
-		action: (html urlForAction: [ self modelSave ]);
+		action: (html urlForAction: [ self modelSave: self model asMap class: modelClass ]);
 		with: [
 			html div class: 'row'; with: [
 				html span with: [ html text: self model summaryString ].
@@ -123,11 +128,15 @@ QuasarDemoMoviesView >> renderField: aLabel type: anInputType for: anAspect read
 		label: aLabel;
 		readonly: readonlyFlag;
 		with: [
-			html textInput
+			| tag |
+			tag := html textInput
 				readonly: readonlyFlag;
 				style: 'width: 100%; outline: none; border: none; border-color: transparent; background: inherit';
 				type: anInputType;
-				on: anAspect of: self model ]
+				yourself.
+			anAspect = #id
+				ifTrue: [ tag value: self model id; readonly: true ]
+				ifFalse: [ tag on: anAspect of: self model ] ]
 ]
 
 { #category : #'rendering - unused' }

@@ -52,6 +52,17 @@ QuasarDemoMoviesObject >> summaryString [
 	^ self modelName, ': ', ('/' join: (self attributeData collect: [ :each | self perform: each ]))
 ]
 
+{ #category : #converting }
+QuasarDemoMoviesObject >> updateFromMap: aMap [
+
+	self class attributeData do: [ :each |
+		aMap
+			at: each
+			ifPresent: [ :value |
+				(self perform: each asSymbol) = value ifFalse: [
+					self perform: each asSymbol asMutator with: value ] ] ]
+]
+
 { #category : #printing }
 QuasarDemoMoviesObject >> viewClass [
 

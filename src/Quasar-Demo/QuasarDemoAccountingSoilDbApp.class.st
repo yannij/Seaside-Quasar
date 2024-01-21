@@ -26,7 +26,7 @@ QuasarDemoAccountingSoilDbApp class >> repositoryClass [
 	self createData
 	"
 
-	^ QuasarDemoSoilRepository
+	^ QuasarDemoSoilCheckpointRepository
 ]
 
 { #category : #'rendering - quasar hooks' }

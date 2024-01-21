@@ -7,6 +7,15 @@ Class {
 	#category : #'Quasar-Demo-Common'
 }
 
+{ #category : #accessing }
+QuasarDemoMemoryRepository class >> cleanup [
+	"
+	self cleanup.
+	"
+
+	self mapReset
+]
+
 { #category : #private }
 QuasarDemoMemoryRepository >> collectionNameFor: aClass [
 
@@ -143,4 +152,9 @@ QuasarDemoMemoryRepository >> selectMany: aClass where: aBlock sortBy: sortBlock
 QuasarDemoMemoryRepository >> selectOne: aClass where: aBlock [
 
 	^ (self listOf: aClass) detect: aBlock ifNone: [ nil ]
+]
+
+{ #category : #persistence }
+QuasarDemoMemoryRepository >> updateData: data class: aClass [
+	"Do nothing for memory persistence"
 ]

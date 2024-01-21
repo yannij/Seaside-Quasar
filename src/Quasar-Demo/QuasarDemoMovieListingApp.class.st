@@ -40,8 +40,10 @@ QuasarDemoMovieListingApp class >> createDemoMovieIn: aRepository [
 	aRepository removeAll: modelClass.
 
 	#(
-	(1 'Wonka' 'PG' 8 116 'Adventure, Fantasy, Comedy')
-	(2 'Aquaman and the Lost Kingdom' 'PG' 6 115 'Action, Adventure, Fantasy')
+	(1 'Aquaman and the Lost Kingdom' 'PG' 6 115 'Action, Adventure, Fantasy')
+	(2 'Migration' 'G' 6 91 'Adventure, Animation, Comedy')
+	(3 'Rewind' 'PG' 10 112 'Drama, Romance')
+	(4 'Wonka' 'PG' 8 116 'Adventure, Fantasy, Comedy')
 	) do: [ :data | | newObject |
 		newObject := modelClass new
 			id: (data at: 1);
@@ -62,14 +64,34 @@ QuasarDemoMovieListingApp class >> createDemoShowTimeIn: aRepository [
 	aRepository removeAll: modelClass.
 
 	#(
-	(1 1 1 0 1140)
+	(110 1 1 0 '1:40pm')
+	(111 1 1 0 '3:40pm')
+	(120 1 2 0 '1:30pm')
+	(121 1 2 0 '4:20pm')
+	(140 1 4 0 '1:40pm')
+	(141 1 4 0 '3:50pm')
+	(142 1 4 0 '6:30pm')
+	(143 1 4 0 '9:20pm')
+
+	(210 2 1 0 '12:00pm')
+	(211 2 1 0 '3:00pm')
+	(230 2 3 0 '11:20am')
+	(231 2 3 0 '2:00pm')
+	(232 2 3 0 '4:40pm')
+	(233 2 3 0 '7:20pm')
+	(234 2 3 0 '10:00pm')
+	(240 2 4 0 '11:30am')
+	(241 2 4 0 '2:10pm')
+	(242 2 4 0 '4:50pm')
+	(243 2 4 0 '7:30pm')
+	(244 2 4 0 '10:10pm')
 	) do: [ :data | | newObject |
 		newObject := modelClass new
 			id: (data at: 1);
-			movieId: (data at: 2);
-			theatreId: (data at: 3);
+			theatreId: (data at: 2);
+			movieId: (data at: 3);
 			showDate: (Date today addDays: (data at: 4));
-			showStartTime: (Time fromSeconds: (data at: 5) * 60);
+			showStartTime: (Time fromString: '11:20am');
 			yourself.
 		aRepository save: newObject ]
 ]
@@ -82,7 +104,8 @@ QuasarDemoMovieListingApp class >> createDemoTheatreIn: aRepository [
 	aRepository removeAll: modelClass.
 
 	#(
-	(1 'Cineplex Cinemas Fairview Mall' '1800 Sheppard Ave. E, Unit Y007, Toronto, ON M2J 5A7' '416-644-7746')
+	(1 'Cinemas Fairview Mall' '1800 Sheppard Ave. E, Toronto, ON M2J 5A7' '416-888-7746')
+	(2 'Cinemas Vaughan' '3555 Hwy. 7 W, Vaughan, ON L4L 6B1' '905-888-1001')
 	) do: [ :data | | newObject |
 		newObject := modelClass new
 			id: (data at: 1);
@@ -190,7 +213,7 @@ QuasarDemoMovieListingApp >> initialize [
 	super initialize.
 
 	self repositorySetup.
-	self tab: self tabMovie
+	self tab: self tabTheatre
 ]
 
 { #category : #accessing }
