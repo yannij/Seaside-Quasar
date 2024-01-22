@@ -1,6 +1,6 @@
 Class {
 	#name : #QuasarDemoMovieListingApp,
-	#superclass : #QuasarApplication,
+	#superclass : #QuasarDemoApp,
 	#instVars : [
 		'repository',
 		'tab',

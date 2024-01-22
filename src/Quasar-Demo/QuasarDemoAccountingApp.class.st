@@ -1,6 +1,6 @@
 Class {
 	#name : #QuasarDemoAccountingApp,
-	#superclass : #QuasarApplication,
+	#superclass : #QuasarDemoApp,
 	#instVars : [
 		'repository',
 		'username',
