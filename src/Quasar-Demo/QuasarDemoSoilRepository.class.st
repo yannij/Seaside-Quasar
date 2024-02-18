@@ -2,11 +2,30 @@ Class {
 	#name : #QuasarDemoSoilRepository,
 	#superclass : #QuasarDemoRepository,
 	#instVars : [
+		'pathPrefix',
 		'path',
 		'soil'
 	],
+	#classVars : [
+		'DefaultPathPrefix'
+	],
 	#category : #'Quasar-Demo-Common'
 }
+
+{ #category : #accessing }
+QuasarDemoSoilRepository class >> defaultPathPrefix [
+
+	^ DefaultPathPrefix
+]
+
+{ #category : #accessing }
+QuasarDemoSoilRepository class >> defaultPathPrefix: anObject [
+	"
+	self defaultPathPrefix: 'demo'.
+	"
+
+	DefaultPathPrefix := anObject
+]
 
 { #category : #'demo data' }
 QuasarDemoSoilRepository class >> soilCleanup [
@@ -69,7 +88,7 @@ QuasarDemoSoilRepository >> count: aClass where: condition [
 QuasarDemoSoilRepository >> create [
 	| tx dict |
 
-	soil := (Soil path: self path)
+	soil := (Soil path: self fullPath)
 		destroy;
 		initializeFilesystem.
 
@@ -90,11 +109,20 @@ QuasarDemoSoilRepository >> destroy [
 		soil destroy ]
 ]
 
+{ #category : #accessing }
+QuasarDemoSoilRepository >> fullPath [
+
+	^ self pathPrefix
+		ifNil: [ self path ]
+		ifNotNil: [ :value | value asPath / self path ]
+]
+
 { #category : #initialization }
 QuasarDemoSoilRepository >> initialize [
 
 	super initialize.
 
+	self pathPrefix: self class defaultPathPrefix.
 	"objectMap := Dictionary new"
 ]
 
@@ -136,7 +164,7 @@ QuasarDemoSoilRepository >> listOf: aClass [
 { #category : #api }
 QuasarDemoSoilRepository >> open [
 
-	soil := (Soil path: self path) open; yourself
+	soil := (Soil path: self fullPath) open; yourself
 ]
 
 { #category : #accessing }
@@ -149,6 +177,18 @@ QuasarDemoSoilRepository >> path [
 QuasarDemoSoilRepository >> path: anObject [
 
 	path := anObject
+]
+
+{ #category : #accessing }
+QuasarDemoSoilRepository >> pathPrefix [
+
+	^ pathPrefix
+]
+
+{ #category : #accessing }
+QuasarDemoSoilRepository >> pathPrefix: anObject [
+
+	pathPrefix := anObject
 ]
 
 { #category : #persistence }
