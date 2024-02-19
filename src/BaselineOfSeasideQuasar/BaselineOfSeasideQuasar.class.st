@@ -11,6 +11,7 @@ BaselineOfSeasideQuasar >> baseline: spec [
 		for: #common
 		do: [
 			self neoJSON: spec.
+			self neoconsole: spec.
 			self seaside: spec.
 			self magritte: spec.
 			self soil: spec.
@@ -21,13 +22,14 @@ BaselineOfSeasideQuasar >> baseline: spec [
 				package: 'Quasar-Magritte' with: [ spec requires: #('Quasar-Components' 'Magritte') ];
 				package: 'DockerUtility' with: [ spec requires: #('Seaside3') ];
 				package: 'Stripe' with: [ spec requires: #('Quasar-Components') ];
+				package: 'Quasar-Extras' with: [ spec requires: #('NeoConsole') ];
 				package: 'Quasar-Material' with: [ spec requires: #('Quasar-Magritte' 'DockerUtility' 'Stripe') ].
 
 			spec
 				group: 'default' with: #('Quasar-Demo');
 				group: 'quasar' with: #('Quasar-Components');
 				group: 'material' with: #('Quasar-Material');
-				group: 'all' with: #('Quasar-Demo' 'Quasar-Material') ]
+				group: 'all' with: #('Quasar-Demo' 'Quasar-Material' 'Quasar-Extras') ]
 ]
 
 { #category : #dependencies }
@@ -45,6 +47,12 @@ BaselineOfSeasideQuasar >> neoJSON: spec [
 	spec
 		baseline: 'NeoJSON'
 		with: [ spec repository: 'github://svenvc/NeoJSON:v17/repository' ]
+]
+
+{ #category : #dependencies }
+BaselineOfSeasideQuasar >> neoconsole: spec [
+
+	spec baseline: 'NeoConsole' with: [ spec repository: 'github://svenvc/NeoConsole/src' ]
 ]
 
 { #category : #dependencies }
