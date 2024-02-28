@@ -17,19 +17,19 @@ BaselineOfSeasideQuasar >> baseline: spec [
 			self soil: spec.
 
 			spec
-				package: 'Quasar-Components' with: [ spec requires: #('Seaside3' 'NeoJSON') ];
-				package: 'Quasar-Demo' with: [ spec requires: #('Quasar-Components' 'Soil') ];
-				package: 'Quasar-Magritte' with: [ spec requires: #('Quasar-Components' 'Magritte') ];
 				package: 'DockerUtility' with: [ spec requires: #('Seaside3') ];
 				package: 'Stripe' with: [ spec requires: #('Quasar-Components') ];
-				package: 'Quasar-Extras' with: [ spec requires: #('NeoConsole') ];
-				package: 'Quasar-Material' with: [ spec requires: #('Quasar-Magritte' 'DockerUtility' 'Stripe') ].
+				package: 'Quasar-Extras' with: [ spec requires: #('NeoConsole');
+				package: 'Quasar-Components' with: [ spec requires: #('Seaside3' 'NeoJSON') ];
+				package: 'Quasar-Magritte' with: [ spec requires: #('Quasar-Components' 'Magritte');
+				package: 'Quasar-Material' with: [ spec requires: #('Quasar-Magritte' 'DockerUtility' 'Stripe');
+				package: 'Quasar-Demo' with: [ spec requires: #('Quasar-Components' 'Soil' 'DockerUtility' 'Quasar-Extras') ] ] ] ].
 
 			spec
-				group: 'default' with: #('Quasar-Demo');
+				group: 'default' with: #('Quasar-Demo' 'Quasar-Material');
 				group: 'quasar' with: #('Quasar-Components');
 				group: 'material' with: #('Quasar-Material');
-				group: 'all' with: #('Quasar-Demo' 'Quasar-Material' 'Quasar-Extras') ]
+				group: 'all' with: #('Quasar-Demo') ]
 ]
 
 { #category : #dependencies }
