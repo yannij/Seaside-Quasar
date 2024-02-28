@@ -6,26 +6,8 @@ Class {
 		'path',
 		'soil'
 	],
-	#classVars : [
-		'DefaultPathPrefix'
-	],
 	#category : #'Quasar-Demo-Common'
 }
-
-{ #category : #accessing }
-QuasarDemoSoilRepository class >> defaultPathPrefix [
-
-	^ DefaultPathPrefix
-]
-
-{ #category : #accessing }
-QuasarDemoSoilRepository class >> defaultPathPrefix: anObject [
-	"
-	self defaultPathPrefix: 'demo'.
-	"
-
-	DefaultPathPrefix := anObject
-]
 
 { #category : #'demo data' }
 QuasarDemoSoilRepository class >> soilCleanup [
@@ -122,7 +104,7 @@ QuasarDemoSoilRepository >> initialize [
 
 	super initialize.
 
-	self pathPrefix: self class defaultPathPrefix.
+	self pathPrefix: (DockerDeploy defaultAtKey: 'soilRoot').
 	"objectMap := Dictionary new"
 ]
 
