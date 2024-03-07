@@ -34,7 +34,7 @@ QuasarDemoSoilCheckpointRepository >> save: anObject [
 
 	tx := self txnLazy.
 	self save: anObject transaction: tx.
-	tx checkpointAndContinue
+	tx commitAndContinue
 ]
 
 { #category : #accessing }
@@ -62,5 +62,5 @@ QuasarDemoSoilCheckpointRepository >> updateData: data class: aClass [
 
 	tx := self txnLazy.
 	self updateData: data class: aClass transaction: tx.
-	tx checkpointAndContinue
+	tx commitAndContinue
 ]

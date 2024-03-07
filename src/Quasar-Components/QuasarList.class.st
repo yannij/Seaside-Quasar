@@ -11,6 +11,12 @@ QuasarList >> bordered [
 ]
 
 { #category : #attributes }
+QuasarList >> bordered: aBoolean [
+	
+	self attributes at: 'bordered' put: aBoolean
+]
+
+{ #category : #attributes }
 QuasarList >> dark [
 	
 	self attributes at: 'dark' put: true
