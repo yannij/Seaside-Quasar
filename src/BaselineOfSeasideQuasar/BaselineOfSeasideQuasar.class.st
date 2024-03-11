@@ -19,7 +19,7 @@ BaselineOfSeasideQuasar >> baseline: spec [
 			spec
 				package: 'DockerUtility' with: [ spec requires: #('Seaside3') ];
 				package: 'Stripe' with: [ spec requires: #('Quasar-Components') ];
-				package: 'Quasar-Extras' with: [ spec requires: #('NeoConsole') ];
+				package: 'Quasar-Extras' with: [ spec requires: #('NeoConsole' 'Soil') ];
 				package: 'Quasar-Components' with: [ spec requires: #('Seaside3' 'NeoJSON') ];
 				package: 'Quasar-Magritte' with: [ spec requires: #('Quasar-Components' 'Magritte') ];
 				package: 'Quasar-Material' with: [ spec requires: #('Quasar-Magritte' 'DockerUtility' 'Stripe') ];
