@@ -20,5 +20,7 @@ MDQSearchComponent >> renderTemplateOn: html vModel: aName [
 { #category : #initialization }
 MDQSearchComponent >> setExtraOf: inputTag [
 
+	super setExtraOf: inputTag.
+
 	inputTag type: self inputType
 ]

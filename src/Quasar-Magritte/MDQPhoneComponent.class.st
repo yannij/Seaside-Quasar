@@ -13,5 +13,7 @@ MDQPhoneComponent >> inputType [
 { #category : #initialization }
 MDQPhoneComponent >> setExtraOf: inputTag [
 
+	super setExtraOf: inputTag.
+
 	inputTag type: self inputType
 ]

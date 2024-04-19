@@ -32,6 +32,7 @@ MDQBooleanRadioComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 
 	fieldTag := html qField.
 	self setFieldStyleOf: fieldTag.
+
 	fieldTag
 		"denseIf: true;"
 		label: inputLabel;

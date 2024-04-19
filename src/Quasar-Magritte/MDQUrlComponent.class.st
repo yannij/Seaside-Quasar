@@ -13,5 +13,7 @@ MDQUrlComponent >> inputType [
 { #category : #initialization }
 MDQUrlComponent >> setExtraOf: inputTag [
 
+	super setExtraOf: inputTag.
+
 	inputTag type: self inputType
 ]

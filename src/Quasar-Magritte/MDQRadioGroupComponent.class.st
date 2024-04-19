@@ -1,8 +1,23 @@
 Class {
 	#name : #MDQRadioGroupComponent,
 	#superclass : #MARadioGroupComponent,
+	#instVars : [
+		'errorMessage'
+	],
 	#category : #'Quasar-Magritte'
 }
+
+{ #category : #accessing }
+MDQRadioGroupComponent >> errorMessage [
+
+	^ errorMessage
+]
+
+{ #category : #accessing }
+MDQRadioGroupComponent >> errorMessage: anObject [
+
+	errorMessage := anObject
+]
 
 { #category : #testing }
 MDQRadioGroupComponent >> hasLabelId [

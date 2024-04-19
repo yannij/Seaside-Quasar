@@ -41,6 +41,12 @@ QuasarFormComponent >> disable: aBoolean [
 ]
 
 { #category : #attributes }
+QuasarFormComponent >> errorMessage: anObject [
+	
+	self attributes at: 'error-message' put: anObject
+]
+
+{ #category : #attributes }
 QuasarFormComponent >> filled [
 	
 	self attributes at: 'filled' put: true
@@ -71,6 +77,13 @@ QuasarFormComponent >> on: aSelector of: anObject [
 QuasarFormComponent >> outlined [
 	
 	self attributes at: 'outlined' put: true
+]
+
+{ #category : #attributes }
+QuasarFormComponent >> qerror: aBoolean [
+	"Named #qerror: to avoid collision with #error: which signals Error"
+
+	self attributes at: 'error' put: aBoolean
 ]
 
 { #category : #attributes }

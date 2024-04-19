@@ -5,6 +5,12 @@ Class {
 }
 
 { #category : #attributes }
+QuasarFile >> hint: anObject [
+
+	self attributes at: 'hint' put: anObject
+]
+
+{ #category : #attributes }
 QuasarFile >> loading [
 
 	self attributes at: 'label' put: true

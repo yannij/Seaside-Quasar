@@ -13,5 +13,7 @@ MDQEmailComponent >> inputType [
 { #category : #initialization }
 MDQEmailComponent >> setExtraOf: inputTag [
 
+	super setExtraOf: inputTag.
+
 	inputTag type: self inputType
 ]

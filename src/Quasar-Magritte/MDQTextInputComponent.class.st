@@ -2,10 +2,23 @@ Class {
 	#name : #MDQTextInputComponent,
 	#superclass : #MATextInputComponent,
 	#instVars : [
-		'isReadOnlyForced'
+		'isReadOnlyForced',
+		'errorMessage'
 	],
 	#category : #'Quasar-Magritte'
 }
+
+{ #category : #accessing }
+MDQTextInputComponent >> errorMessage [
+
+	^ errorMessage
+]
+
+{ #category : #accessing }
+MDQTextInputComponent >> errorMessage: anObject [
+
+	errorMessage := anObject
+]
 
 { #category : #rendering }
 MDQTextInputComponent >> fieldPrefix [

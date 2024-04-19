@@ -41,6 +41,8 @@ MDQTextAreaComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 { #category : #rendering }
 MDQTextAreaComponent >> setExtraOf: inputTag [
 
+	super setExtraOf: inputTag.
+
 	inputTag type: self inputType.
 	inputTag attributeAt: 'rows' put: 5.
 	"inputTag attributeAt: 'autogrow' put: true."
