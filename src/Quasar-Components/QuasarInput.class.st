@@ -17,6 +17,12 @@ QuasarInput >> bottomSlots: aBoolean [
 ]
 
 { #category : #attributes }
+QuasarInput >> counter [
+
+	self attributes at: 'counter' put: true
+]
+
+{ #category : #attributes }
 QuasarInput >> debounce: anObject [
 	
 	self attributes at: 'debounce' put: anObject

@@ -41,7 +41,7 @@ MDQTextInputComponent >> inputAspect [
 { #category : #rendering }
 MDQTextInputComponent >> inputType [
 
-	^ 'text'
+	^ nil
 ]
 
 { #category : #testing }

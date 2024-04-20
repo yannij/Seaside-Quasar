@@ -3,7 +3,7 @@ Extension { #name : #MANumberDescription }
 { #category : #'*Quasar-Magritte' }
 MANumberDescription class >> mdqDefaultComponentClasses [
 
-	^ Array with: MDQTextInputComponent
+	^ Array with: MDQStringComponent
 ]
 
 { #category : #'*Quasar-Magritte' }
