@@ -35,7 +35,7 @@ MDQCheckboxComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 			denseIf: app viewStyleDense;
 			trueValue: self magritteDescription trueString;
 			falseValue: self magritteDescription falseString;
-			label: inputLabel.
+			label: inputLabel withAsteriskIfRequired: self magritteDescription isRequired.
 		aReadonlyFlag
 			ifTrue: [
 				inputTag readonly: true; modelValue: inputValue ]

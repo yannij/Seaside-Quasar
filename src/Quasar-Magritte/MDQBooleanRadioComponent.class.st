@@ -35,7 +35,7 @@ MDQBooleanRadioComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 
 	fieldTag
 		"denseIf: true;"
-		label: inputLabel;
+		label: inputLabel withAsteriskIfRequired: self magritteDescription isRequired;
 		vModel: modelName;
 		with: [ super renderFieldOn: html readonly: aReadonlyFlag ]
 ]

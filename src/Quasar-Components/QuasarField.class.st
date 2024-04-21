@@ -91,6 +91,12 @@ QuasarField >> label: anObject [
 ]
 
 { #category : #attributes }
+QuasarField >> label: anObject withAsteriskIfRequired: aBoolean [
+
+	self label: anObject, (aBoolean ifTrue: ['*'] ifFalse: [''])
+]
+
+{ #category : #attributes }
 QuasarField >> labelColor: anObject [
 
 	self attributes at: 'label-color' put: anObject

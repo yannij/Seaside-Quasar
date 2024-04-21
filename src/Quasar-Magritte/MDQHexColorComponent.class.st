@@ -14,7 +14,7 @@ MDQHexColorComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 
 	inputTag := html qInput.
 	self setFieldStyleOf: inputTag.
-	inputTag "type: self inputType;" label: inputLabel.
+	inputTag label: inputLabel withAsteriskIfRequired: self magritteDescription isRequired.
 
 	aReadonlyFlag
 		ifTrue: [

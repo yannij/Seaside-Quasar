@@ -21,7 +21,7 @@ MDQTextAreaComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	inputTag := html qInput.
 	self setFieldStyleOf: inputTag.
 	self setExtraOf: inputTag.
-	inputTag label: inputLabel.
+	inputTag label: inputLabel withAsteriskIfRequired: self magritteDescription isRequired.
 	self fieldPrefix ifNotNil: [ :prefixValue | inputTag prefix: prefixValue ].
 	self fieldSuffix ifNotNil: [ :suffixValue | inputTag suffix: suffixValue ].
 

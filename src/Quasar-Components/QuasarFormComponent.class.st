@@ -59,6 +59,12 @@ QuasarFormComponent >> label: anObject [
 ]
 
 { #category : #attributes }
+QuasarFormComponent >> label: anObject withAsteriskIfRequired: aBoolean [
+
+	self label: anObject, (aBoolean ifTrue: ['*'] ifFalse: [''])
+]
+
+{ #category : #attributes }
 QuasarFormComponent >> name: anObject [
 	
 	self attributes at: 'name' put: anObject

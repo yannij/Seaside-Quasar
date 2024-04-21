@@ -16,7 +16,7 @@ MDQTextEditorComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	inputTag := html qInput.
 	self setFieldStyleOf: inputTag.
 	inputTag type: 'textarea'.
-	inputTag label: inputLabel.
+	inputTag label: inputLabel withAsteriskIfRequired: self magritteDescription isRequired.
 
 	flag := aReadonlyFlag or: [ self isReadOnlyForced ].
 	toolbarItems := flag ifTrue: [ '[]' ] ifFalse: [ self toolbarItemsForEdit ].
