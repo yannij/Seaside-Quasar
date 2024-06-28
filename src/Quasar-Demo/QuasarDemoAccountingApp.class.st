@@ -126,7 +126,9 @@ QuasarDemoAccountingApp class >> createDemoUserCompaniesIn: aRepository [
 	(2 2)
 	) do: [ :data | | newObject |
 		newObject := modelClass new
-			id: UUIDGenerator next;
+			id: (SystemVersion current major >= 12
+					ifTrue: [ UUID new ]
+					ifFalse: [ UUIDGenerator next ]);
 			userId: (data at: 1);
 			companyId: (data at: 2);
 			yourself.
