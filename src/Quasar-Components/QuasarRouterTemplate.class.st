@@ -10,7 +10,7 @@ QuasarRouterTemplate >> tag [
 	^ 'script'
 ]
 
-{ #category : #'*Quasar-Components' }
+{ #category : #attributes }
 QuasarRouterTemplate >> vRouterTemplateType [
 
 	self attributeAt: 'type' put: 'text/x-template'

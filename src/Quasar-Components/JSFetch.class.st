@@ -103,6 +103,7 @@ JSFetch >> callback: aBlock json: anObject [
 			[ aBlock value: (WAJsonParser parse: value) ]
 				on: Error
 				do: [ :ex |
+					"TODO: show an error to the user somehow"
 					ex printString crTrace.
 					self requestContext respond: [ :response |
 						response doNotCache; contentType: WAMimeType applicationJson;

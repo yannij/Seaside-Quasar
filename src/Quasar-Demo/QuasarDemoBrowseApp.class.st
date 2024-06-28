@@ -62,16 +62,19 @@ QuasarDemoBrowseApp >> demoClasses [
 
 { #category : #rendering }
 QuasarDemoBrowseApp >> renderDemoCard: anAppClass on: html [
-	| url |
+	| url comment |
 
 	url := WAUrl absolute: anAppClass applicationPath.
+	comment := SystemVersion current major >= 12
+		ifTrue: [ anAppClass comment ]
+		ifFalse: [ anAppClass organization classComment ].
 
 	html qCard "class: 'bg-secondary text-white';" with: [
 		html qCardSection with: [
 			"html div class: 'text-h6'; with: anAppClass name asString."
 			html div class: 'text-h6'; with: anAppClass basicNew applicationTitle.
 			html div class: 'text-subtitle2'; with: url greaseString ].
-		html qCardSection with: anAppClass organization classComment.
+		html qCardSection with: comment.
 		html qSeparator dark.
 		html qCardActions "align: 'right';" vertical with: [
 			html qBtn "flat;" class: 'justify-end';
