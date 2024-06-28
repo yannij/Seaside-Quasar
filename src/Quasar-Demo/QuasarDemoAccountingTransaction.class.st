@@ -32,7 +32,7 @@ QuasarDemoAccountingTransaction class >> randomOnAccount: anAccount in: aRepo [
 		where: [ :each | each accountId = anAccount id ]) size.
 
 	^ self new
-		id: UUIDGenerator next;
+		id: UUID versionSafeNew;
 		accountId: anAccount id;
 		companyId: anAccount companyId;
 		amount: 1000 atRandom;
