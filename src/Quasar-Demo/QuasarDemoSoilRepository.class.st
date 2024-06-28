@@ -207,7 +207,7 @@ QuasarDemoSoilRepository >> save: anObject [
 
 { #category : #persistence }
 QuasarDemoSoilRepository >> save: anObject transaction: tx [
-	| theRoot list |
+	| theRoot list id key |
 
 	theRoot := tx root.
 	list := tx root
@@ -221,7 +221,11 @@ QuasarDemoSoilRepository >> save: anObject transaction: tx [
 	tx markDirty: list.
 	tx markDirty: theRoot.
 	tx makeRoot: anObject.
-	list at: anObject id asByteArray put: anObject
+	id := anObject id.
+	key := (id class = UUID and: [ SystemVersion current major >= 12 ])
+		ifTrue: [ id uuidData ]
+		ifFalse: [ id asByteArray].
+	list at: key put: anObject
 ]
 
 { #category : #persistence }
