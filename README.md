@@ -20,15 +20,19 @@ Metacello new
 ```
 To create demo data:
 ```
-QuasarDemoAccountingMemoryDbApp createData.
-QuasarDemoAccountingSoilDbApp createData.
-QuasarDemoMovieListingApp createData.
+(Smalltalk classNamed: #QuasarDemoAccountingMemoryDbApp) createData.
+(Smalltalk classNamed: #QuasarDemoAccountingSoilDbApp) createData.
+(Smalltalk classNamed: #QuasarDemoMovieListingApp) createData.
 ```
 ### Start Seaside
 1. Open Seaside Control Panel from the Tools menu
 1. Add a ZnZincServerAdaptor from the control panel
 1. Select the adapter, click on Start button
 
+If Seaside Control Panel is not available, then use:
+```
+(Smalltalk classNamed: #ZnZincServerAdaptor) startOn: 8080.
+```
 ### Open in a web browser
 1. Use a web browser (Chrome, ...)
 1. Go to URL: http://localhost:8080/quasar/browse
