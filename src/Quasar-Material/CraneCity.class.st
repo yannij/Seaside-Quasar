@@ -1,26 +1,28 @@
 Class {
-	#name : #CraneCity,
-	#superclass : #CraneObject,
+	#name : 'CraneCity',
+	#superclass : 'CraneObject',
 	#instVars : [
 		'cityName',
 		'countryName'
 	],
-	#category : #'Quasar-Material-Crane'
+	#category : 'Quasar-Material-Crane',
+	#package : 'Quasar-Material',
+	#tag : 'Crane'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneCity >> cityName [
 
 	^ cityName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneCity >> cityName: anObject [
 
 	cityName := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneCity >> cityNameDescription [
 	<magritteDescription>
 
@@ -31,19 +33,19 @@ CraneCity >> cityNameDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneCity >> countryName [
 
 	^ countryName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneCity >> countryName: anObject [
 
 	countryName := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneCity >> countryNameDescription [
 	<magritteDescription>
 

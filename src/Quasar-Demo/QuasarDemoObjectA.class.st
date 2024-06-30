@@ -1,16 +1,18 @@
 Class {
-	#name : #QuasarDemoObjectA,
-	#superclass : #Object,
+	#name : 'QuasarDemoObjectA',
+	#superclass : 'Object',
 	#instVars : [
 		'key',
 		'string1',
 		'integer1',
 		'boolean1'
 	],
-	#category : #'Quasar-Demo-Basic'
+	#category : 'Quasar-Demo-Basic',
+	#package : 'Quasar-Demo',
+	#tag : 'Basic'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 QuasarDemoObjectA class >> newRandom [
 
 	^ self new
@@ -20,31 +22,31 @@ QuasarDemoObjectA class >> newRandom [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoObjectA >> boolean1 [
 
 	^ boolean1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoObjectA >> boolean1: anObject [
 
 	boolean1 := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoObjectA >> integer1 [
 
 	^ integer1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoObjectA >> integer1: anObject [
 
 	integer1 := anObject
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoObjectA >> jsonOn: aRenderer [
 
 	aRenderer object: [
@@ -53,25 +55,25 @@ QuasarDemoObjectA >> jsonOn: aRenderer [
 		aRenderer key: 'string1' value: self string1 ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoObjectA >> key [
 
 	^ key
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoObjectA >> key: anObject [
 
 	key := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoObjectA >> string1 [
 
 	^ string1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoObjectA >> string1: anObject [
 
 	string1 := anObject

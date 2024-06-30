@@ -1,6 +1,6 @@
 Class {
-	#name : #QuasarDemoMoviesMovie,
-	#superclass : #QuasarDemoMoviesObject,
+	#name : 'QuasarDemoMoviesMovie',
+	#superclass : 'QuasarDemoMoviesObject',
 	#instVars : [
 		'id',
 		'name',
@@ -9,94 +9,96 @@ Class {
 		'duration',
 		'tags'
 	],
-	#category : #'Quasar-Demo-Movies'
+	#category : 'Quasar-Demo-Movies',
+	#package : 'Quasar-Demo',
+	#tag : 'Movies'
 }
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoMoviesMovie class >> attributeData [
 
 	^ #(id name classification rating duration tags)
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoMoviesMovie class >> modelName [
 
 	^ 'Movie'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesMovie class >> viewClass [
 
 	^ QuasarDemoMoviesMovieView
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesMovie >> classification [
 
 	^ classification
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesMovie >> classification: anObject [
 
 	classification := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesMovie >> duration [
 
 	^ duration
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesMovie >> duration: anObject [
 
 	duration := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesMovie >> id [
 
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesMovie >> id: anObject [
 
 	id := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesMovie >> name [
 
 	^ name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesMovie >> name: anObject [
 
 	name := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesMovie >> rating [
 
 	^ rating
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesMovie >> rating: anObject [
 
 	rating := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesMovie >> tags [
 
 	^ tags
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesMovie >> tags: anObject [
 
 	tags := anObject

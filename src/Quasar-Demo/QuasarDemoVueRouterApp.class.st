@@ -2,18 +2,26 @@
 I am a demo application for how to use Vue Router with Standalone/UMD Quasar.
 "
 Class {
-	#name : #QuasarDemoVueRouterApp,
-	#superclass : #QuasarApplication,
-	#category : #'Quasar-Demo-Basic'
+	#name : 'QuasarDemoVueRouterApp',
+	#superclass : 'QuasarApplication',
+	#category : 'Quasar-Demo-Basic',
+	#package : 'Quasar-Demo',
+	#tag : 'Basic'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoVueRouterApp class >> applicationPath [
 
 	^ 'quasar/vue-router-demo'
 ]
 
-{ #category : #initialization }
+{ #category : 'accessing' }
+QuasarDemoVueRouterApp class >> categoryName [
+
+	^ #misc
+]
+
+{ #category : 'initialization' }
 QuasarDemoVueRouterApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -23,19 +31,19 @@ QuasarDemoVueRouterApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoVueRouterApp >> appId [
 
 	^ 'q-app'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoVueRouterApp >> applicationTitle [
 
 	^ 'Vue Route Example'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoVueRouterApp >> exampleJs [
 
 	^ '
@@ -46,7 +54,7 @@ app.use(Quasar, { config: {} });
 app.mount(''#q-app'');'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoVueRouterApp >> page1Js [
 
 	^ 'const Page1 = {
@@ -54,7 +62,7 @@ QuasarDemoVueRouterApp >> page1Js [
 '
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoVueRouterApp >> page2Js [
 
 	^ 'const Page2 = {
@@ -62,7 +70,7 @@ QuasarDemoVueRouterApp >> page2Js [
 '
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoVueRouterApp >> pageHomeJs [
 
 	^ 'const Home = {
@@ -92,7 +100,7 @@ QuasarDemoVueRouterApp >> pageHomeJs [
 '
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoVueRouterApp >> pageRouterJs [
 
 	^ 'const routes = [
@@ -107,7 +115,7 @@ const router = createRouter({
 '
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoVueRouterApp >> renderContentOn: html [
 	| jsStream |
 
@@ -124,7 +132,7 @@ QuasarDemoVueRouterApp >> renderContentOn: html [
 	html document addLoadScript: jsStream."
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoVueRouterApp >> renderExampleOn: html [
 
 	html qLayout view: 'hHh lpR fFf'; vCloak; with: [
@@ -141,7 +149,7 @@ QuasarDemoVueRouterApp >> renderExampleOn: html [
 			html qRouterView ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoVueRouterApp >> renderLayoutOn: html [
 
 	self renderRouterViewOn: html.
@@ -150,7 +158,7 @@ QuasarDemoVueRouterApp >> renderLayoutOn: html [
 		self renderExampleOn: html ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoVueRouterApp >> renderLeftDrawerOn: html [
 
 	html qDrawer ref: 'leftDrawer'; showIfAbove; side: 'left'; "behavior: 'desktop';" with: [
@@ -160,7 +168,7 @@ QuasarDemoVueRouterApp >> renderLeftDrawerOn: html [
 			html qItem to: '/page-2'; with: 'Page-2' ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoVueRouterApp >> renderRouterViewOn: html [
 
 	html qRouterTemplate id: 'home'; vRouterTemplateType; with: [

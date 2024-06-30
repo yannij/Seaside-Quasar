@@ -1,6 +1,6 @@
 Class {
-	#name : #QuasarDemoAccountingAccount,
-	#superclass : #QuasarDemoAccountingObject,
+	#name : 'QuasarDemoAccountingAccount',
+	#superclass : 'QuasarDemoAccountingObject',
 	#instVars : [
 		'id',
 		'companyId',
@@ -13,76 +13,78 @@ Class {
 		'bankPhone',
 		'bankAddress'
 	],
-	#category : #'Quasar-Demo-Accounting'
+	#category : 'Quasar-Demo-Accounting',
+	#package : 'Quasar-Demo',
+	#tag : 'Accounting'
 }
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoAccountingAccount class >> attributeData [
 
 	^ #(id companyId type name number currencyCode openingBalance bankName bankPhone bankAddress)
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoAccountingAccount class >> modelName [
 
 	^ 'Account'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount class >> viewClass [
 
 	^ QuasarDemoAccountingAccountView
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> bankAddress [
 
 	^ bankAddress
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> bankAddress: anObject [
 
 	bankAddress := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> bankName [
 
 	^ bankName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> bankName: anObject [
 
 	bankName := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> bankPhone [
 
 	^ bankPhone
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> bankPhone: anObject [
 
 	bankPhone := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> companyId [
 
 	^ companyId
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> companyId: anObject [
 
 	companyId := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> companyIn: aRepo [
 
 	^ aRepo
@@ -90,74 +92,74 @@ QuasarDemoAccountingAccount >> companyIn: aRepo [
 		where: [ :each | each id = self companyId ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> currencyCode [
 
 	^ currencyCode
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> currencyCode: anObject [
 
 	currencyCode := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> id [
 
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> id: anObject [
 
 	id := anObject
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 QuasarDemoAccountingAccount >> makeExampleTransactions: aCount in: aRepo [
 
 	aCount timesRepeat: [
 		aRepo save: (QuasarDemoAccountingTransaction randomOnAccount: self in: aRepo) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> name [
 
 	^ name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> name: anObject [
 
 	name := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> number [
 
 	^ number
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> number: anObject [
 
 	number := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> openingBalance [
 
 	^ openingBalance
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> openingBalance: anObject [
 
 	openingBalance := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> transactionsIn: aRepo [
 
 	^ aRepo
@@ -165,13 +167,13 @@ QuasarDemoAccountingAccount >> transactionsIn: aRepo [
 		where: [ :each | each accountId = self id ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> type [
 
 	^ type
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingAccount >> type: anObject [
 
 	type := anObject

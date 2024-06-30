@@ -1,25 +1,27 @@
 Class {
-	#name : #QuasarDemoSideSheet,
-	#superclass : #QuasarComponent,
+	#name : 'QuasarDemoSideSheet',
+	#superclass : 'QuasarComponent',
 	#instVars : [
 		'content'
 	],
-	#category : #'Quasar-Demo-Accounting'
+	#category : 'Quasar-Demo-Accounting',
+	#package : 'Quasar-Demo',
+	#tag : 'Accounting'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoSideSheet >> content [
 
 	^ content
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoSideSheet >> content: anObject [
 
 	content := anObject
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoSideSheet >> renderContentOn: html [
 
 	html qDrawer
@@ -43,7 +45,7 @@ QuasarDemoSideSheet >> renderContentOn: html [
 				self renderSheetOn: html ] "]"
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoSideSheet >> renderSheetOn: html [
 
 	"html render: self content"

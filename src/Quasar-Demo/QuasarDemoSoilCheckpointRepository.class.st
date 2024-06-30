@@ -1,13 +1,15 @@
 Class {
-	#name : #QuasarDemoSoilCheckpointRepository,
-	#superclass : #QuasarDemoSoilRepository,
+	#name : 'QuasarDemoSoilCheckpointRepository',
+	#superclass : 'QuasarDemoSoilRepository',
 	#instVars : [
 		'txn'
 	],
-	#category : #'Quasar-Demo-Common'
+	#category : 'Quasar-Demo-Common',
+	#package : 'Quasar-Demo',
+	#tag : 'Common'
 }
 
-{ #category : #api }
+{ #category : 'api' }
 QuasarDemoSoilCheckpointRepository >> close [
 
 	(txn notNil and: [ txn isAborted not ]) ifTrue: [
@@ -17,7 +19,7 @@ QuasarDemoSoilCheckpointRepository >> close [
 	super close
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 QuasarDemoSoilCheckpointRepository >> list: aClass [
 	| tx list |
 
@@ -28,7 +30,7 @@ QuasarDemoSoilCheckpointRepository >> list: aClass [
 	^ list
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoSoilCheckpointRepository >> save: anObject [
 	| tx |
 
@@ -37,26 +39,26 @@ QuasarDemoSoilCheckpointRepository >> save: anObject [
 	tx commitAndContinue
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoSoilCheckpointRepository >> txn [
 
 	^ txn
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoSoilCheckpointRepository >> txn: anObject [
 
 	txn := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoSoilCheckpointRepository >> txnLazy [
 
 	txn ifNil: [ txn := soil newTransaction ].
 	^ txn
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoSoilCheckpointRepository >> updateData: data class: aClass [
 	| tx |
 

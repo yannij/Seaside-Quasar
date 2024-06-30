@@ -1,14 +1,16 @@
 Class {
-	#name : #QuasarDemoAccountingView,
-	#superclass : #WAComponent,
+	#name : 'QuasarDemoAccountingView',
+	#superclass : 'WAComponent',
 	#instVars : [
 		'model',
 		'isEdit'
 	],
-	#category : #'Quasar-Demo-Accounting'
+	#category : 'Quasar-Demo-Accounting',
+	#package : 'Quasar-Demo',
+	#tag : 'Accounting'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 QuasarDemoAccountingView class >> on: aModel [
 
 	^ self new
@@ -16,7 +18,7 @@ QuasarDemoAccountingView class >> on: aModel [
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoAccountingView >> initialize [
 
 	super initialize.
@@ -24,38 +26,38 @@ QuasarDemoAccountingView >> initialize [
 	self isEdit: false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingView >> isEdit [
 
 	^ isEdit
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingView >> isEdit: anObject [
 
 	isEdit := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingView >> model [
 
 	^ model
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingView >> model: anObject [
 
 	model := anObject
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 QuasarDemoAccountingView >> modelSave: data class: aClass [
 
 	self repositoryToUse updateData: data class: aClass.
 	self isEdit: false
 ]
 
-{ #category : #'rendering - unused' }
+{ #category : 'rendering - unused' }
 QuasarDemoAccountingView >> renderButtonsOn: html [
 
 	html qBtn
@@ -70,7 +72,7 @@ QuasarDemoAccountingView >> renderButtonsOn: html [
 		icon: 'cancel'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingView >> renderContentOn: html [
 
 	html div class: 'q-pa-sm'; with: [
@@ -82,25 +84,25 @@ QuasarDemoAccountingView >> renderContentOn: html [
 				self renderDetailsOn: html ] ]
 ]
 
-{ #category : #'rendering - utility' }
+{ #category : 'rendering - utility' }
 QuasarDemoAccountingView >> renderDetail: aList modelClass: aClass label: aLabel on: html [
 
 	self qdemoApp renderModelTable: aList modelClass: aClass title: aLabel on: html
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingView >> renderDetailsOn: html [
 	"Subclasses may override"
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingView >> renderEditorButtonsOn: html [
 
 	html qBtn label: 'Save'; type: 'submit'.
 	html qBtn label: 'Cancel'; type: 'a'; href: (html urlForAction: [ self isEdit: false ])
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingView >> renderEditorOn: html [
 	| realObject modelClass |
 
@@ -120,7 +122,7 @@ QuasarDemoAccountingView >> renderEditorOn: html [
 				self renderModelNativeWith: false on: html ] ]
 ]
 
-{ #category : #'rendering - utility' }
+{ #category : 'rendering - utility' }
 QuasarDemoAccountingView >> renderField: aLabel type: anInputType for: anAspect readonly: readonlyFlag on: html [
 
 	html qField
@@ -139,7 +141,7 @@ QuasarDemoAccountingView >> renderField: aLabel type: anInputType for: anAspect 
 				ifFalse: [ tag on: anAspect of: self model ] ]
 ]
 
-{ #category : #'rendering - unused' }
+{ #category : 'rendering - unused' }
 QuasarDemoAccountingView >> renderFieldsOf: aModel name: aName on: html [
 	| formObjectName formObject |
 
@@ -163,7 +165,7 @@ QuasarDemoAccountingView >> renderFieldsOf: aModel name: aName on: html [
 				html qInput label: fieldName; vModel: (formObjectName, '.', fieldName); on: fieldName asSymbol of: aModel ] ] ]
 ]
 
-{ #category : #'rendering - utility' }
+{ #category : 'rendering - utility' }
 QuasarDemoAccountingView >> renderModelLink: aModel name: aName on: html [
 
 	aModel ifNil: [
@@ -175,7 +177,7 @@ QuasarDemoAccountingView >> renderModelLink: aModel name: aName on: html [
 	html space; text: aModel summaryString
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingView >> renderModelNativeWith: readonlyFlag on: html [
 
 	self model attributeData do: [ :eachAttr |
@@ -185,7 +187,7 @@ QuasarDemoAccountingView >> renderModelNativeWith: readonlyFlag on: html [
 			self renderField: eachAttr type: nil for: eachAttr readonly: readonlyFlag on: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingView >> renderModelRefOn: html [
 	| formObjectName formObject |
 
@@ -203,13 +205,13 @@ QuasarDemoAccountingView >> renderModelRefOn: html [
 				html qInput label: fieldName; vModel: (formObjectName, '.', fieldName); on: fieldName asSymbol of: self model ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingView >> renderViewerButtonsOn: html [
 
 	html qBtn label: 'Edit'; type: 'a'; href: (html urlForAction: [ self isEdit: true ])
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingView >> renderViewerOn: html [
 
 	html qForm
@@ -222,7 +224,7 @@ QuasarDemoAccountingView >> renderViewerOn: html [
 				self renderModelNativeWith: true on: html ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingView >> repositoryToUse [
 
 	^ self qdemoApp repository

@@ -1,16 +1,18 @@
 Class {
-	#name : #QuasarDemoAccountingSoilDbApp,
-	#superclass : #QuasarDemoAccountingApp,
-	#category : #'Quasar-Demo-Accounting'
+	#name : 'QuasarDemoAccountingSoilDbApp',
+	#superclass : 'QuasarDemoAccountingApp',
+	#category : 'Quasar-Demo-Accounting',
+	#package : 'Quasar-Demo',
+	#tag : 'Accounting'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoAccountingSoilDbApp class >> applicationPath [
 
 	^ 'quasar/accounting-soil'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoAccountingSoilDbApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -20,7 +22,7 @@ QuasarDemoAccountingSoilDbApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoAccountingSoilDbApp class >> repositoryClass [
 	"
 	self createData
@@ -29,7 +31,7 @@ QuasarDemoAccountingSoilDbApp class >> repositoryClass [
 	^ QuasarDemoSoilCheckpointRepository
 ]
 
-{ #category : #'rendering - quasar hooks' }
+{ #category : 'rendering - quasar hooks' }
 QuasarDemoAccountingSoilDbApp >> quasarConfigContentOn: aJSStream with: html [
 
 	aJSStream nextPutAll: '
@@ -45,7 +47,7 @@ brand: {
 }'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingSoilDbApp >> renderLayoutOn: html [
 
 	self username ifNil: [

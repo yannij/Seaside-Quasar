@@ -1,28 +1,30 @@
 Class {
-	#name : #RallyBudgetItem,
-	#superclass : #RallyObject,
+	#name : 'RallyBudgetItem',
+	#superclass : 'RallyObject',
 	#instVars : [
 		'id',
 		'description',
 		'amount',
 		'amountSpent'
 	],
-	#category : #'Quasar-Material-Rally'
+	#category : 'Quasar-Material-Rally',
+	#package : 'Quasar-Material',
+	#tag : 'Rally'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyBudgetItem >> amount [
 
 	^ amount
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyBudgetItem >> amount: anObject [
 
 	amount := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 RallyBudgetItem >> amountDescription [
 	<magritteDescription>
 
@@ -34,19 +36,19 @@ RallyBudgetItem >> amountDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyBudgetItem >> amountSpent [
 
 	^ amountSpent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyBudgetItem >> amountSpent: anObject [
 
 	amountSpent := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 RallyBudgetItem >> amountSpentDescription [
 	<magritteDescription>
 
@@ -58,25 +60,25 @@ RallyBudgetItem >> amountSpentDescription [
 		yourself
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 RallyBudgetItem >> cardParameters [
 
 	^ Array with: self id with: self description
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyBudgetItem >> description [
 
 	^ description
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyBudgetItem >> description: anObject [
 
 	description := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 RallyBudgetItem >> descriptionDescription [
 	<magritteDescription>
 
@@ -88,19 +90,19 @@ RallyBudgetItem >> descriptionDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyBudgetItem >> id [
 
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyBudgetItem >> id: anObject [
 
 	id := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 RallyBudgetItem >> idDescription [
 	<magritteDescription>
 
@@ -112,13 +114,13 @@ RallyBudgetItem >> idDescription [
 		yourself
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 RallyBudgetItem >> listItemParameters [
 
 	^ (Array with: self description with: self spentRatio)
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 RallyBudgetItem >> spentRatio [
 
 	^ '{1} / {2}' format: (Array
@@ -126,7 +128,7 @@ RallyBudgetItem >> spentRatio [
 		with: amount displayString)
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 RallyBudgetItem >> spentRatioDescription [
 	<magritteDescription>
 

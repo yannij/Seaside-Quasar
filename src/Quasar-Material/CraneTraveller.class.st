@@ -1,6 +1,6 @@
 Class {
-	#name : #CraneTraveller,
-	#superclass : #CraneObject,
+	#name : 'CraneTraveller',
+	#superclass : 'CraneObject',
 	#instVars : [
 		'dateOfBirth',
 		'fullName',
@@ -10,22 +10,24 @@ Class {
 		'frequentFlyerNumber',
 		'receiveMarketing'
 	],
-	#category : #'Quasar-Material-Crane'
+	#category : 'Quasar-Material-Crane',
+	#package : 'Quasar-Material',
+	#tag : 'Crane'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneTraveller >> dateOfBirth [
 
 	^ dateOfBirth
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneTraveller >> dateOfBirth: anObject [
 
 	dateOfBirth := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneTraveller >> dateOfBirthDescription [
 	<magritteDescription>
 
@@ -36,19 +38,19 @@ CraneTraveller >> dateOfBirthDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneTraveller >> email [
 
 	^ email
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneTraveller >> email: anObject [
 
 	email := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneTraveller >> emailDescription [
 	<magritteDescription>
 
@@ -59,19 +61,19 @@ CraneTraveller >> emailDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneTraveller >> frequentFlyerNumber [
 
 	^ frequentFlyerNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneTraveller >> frequentFlyerNumber: anObject [
 
 	frequentFlyerNumber := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneTraveller >> frequentFlyerNumberDescription [
 	<magritteDescription>
 
@@ -82,19 +84,19 @@ CraneTraveller >> frequentFlyerNumberDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneTraveller >> fullName [
 
 	^ fullName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneTraveller >> fullName: anObject [
 
 	fullName := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneTraveller >> fullNameDescription [
 	<magritteDescription>
 
@@ -105,19 +107,19 @@ CraneTraveller >> fullNameDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneTraveller >> gender [
 
 	^ gender
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneTraveller >> gender: anObject [
 
 	gender := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneTraveller >> genderDescription [
 	<magritteDescription>
 
@@ -130,19 +132,19 @@ CraneTraveller >> genderDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneTraveller >> phone [
 
 	^ phone
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneTraveller >> phone: anObject [
 
 	phone := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneTraveller >> phoneDescription [
 	<magritteDescription>
 
@@ -153,19 +155,19 @@ CraneTraveller >> phoneDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneTraveller >> receiveMarketing [
 
 	^ receiveMarketing
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneTraveller >> receiveMarketing: anObject [
 
 	receiveMarketing := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneTraveller >> receiveMarketingDescription [
 	<magritteDescription>
 

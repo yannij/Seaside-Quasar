@@ -1,6 +1,6 @@
 Class {
-	#name : #CraneFlyBooking,
-	#superclass : #CraneObject,
+	#name : 'CraneFlyBooking',
+	#superclass : 'CraneObject',
 	#instVars : [
 		'id',
 		'flights',
@@ -8,22 +8,24 @@ Class {
 		'cabinType',
 		'tripInsurance'
 	],
-	#category : #'Quasar-Material-Crane'
+	#category : 'Quasar-Material-Crane',
+	#package : 'Quasar-Material',
+	#tag : 'Crane'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlyBooking >> cabinType [
 
 	^ cabinType
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlyBooking >> cabinType: anObject [
 
 	cabinType := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneFlyBooking >> cabinTypeDescription [
 	<magritteDescription>
 
@@ -35,19 +37,19 @@ CraneFlyBooking >> cabinTypeDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlyBooking >> flights [
 
 	^ flights
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlyBooking >> flights: anObject [
 
 	flights := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneFlyBooking >> flightsDescription [
 	<magritteDescription>
 
@@ -59,19 +61,19 @@ CraneFlyBooking >> flightsDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlyBooking >> id [
 
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlyBooking >> id: anObject [
 
 	id := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneFlyBooking >> idDescription [
 	<magritteDescription>
 
@@ -83,19 +85,19 @@ CraneFlyBooking >> idDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlyBooking >> travellers [
 
 	^ travellers
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlyBooking >> travellers: anObject [
 
 	travellers := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneFlyBooking >> travellersDescription [
 	<magritteDescription>
 
@@ -107,19 +109,19 @@ CraneFlyBooking >> travellersDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlyBooking >> tripInsurance [
 
 	^ tripInsurance
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlyBooking >> tripInsurance: anObject [
 
 	tripInsurance := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlyBooking >> tripInsuranceDescription [
 	<magritteDescription>
 

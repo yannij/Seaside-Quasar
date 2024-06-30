@@ -1,27 +1,29 @@
 Class {
-	#name : #CraneAirport,
-	#superclass : #CraneObject,
+	#name : 'CraneAirport',
+	#superclass : 'CraneObject',
 	#instVars : [
 		'airportIATA',
 		'airportName',
 		'city'
 	],
-	#category : #'Quasar-Material-Crane'
+	#category : 'Quasar-Material-Crane',
+	#package : 'Quasar-Material',
+	#tag : 'Crane'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirport >> airportIATA [
 
 	^ airportIATA
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirport >> airportIATA: anObject [
 
 	airportIATA := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneAirport >> airportIATADescription [
 	<magritteDescription>
 
@@ -32,19 +34,19 @@ CraneAirport >> airportIATADescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirport >> airportName [
 
 	^ airportName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirport >> airportName: anObject [
 
 	airportName := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneAirport >> airportNameDescription [
 	<magritteDescription>
 
@@ -55,19 +57,19 @@ CraneAirport >> airportNameDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirport >> city [
 
 	^ city
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirport >> city: anObject [
 
 	city := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneAirport >> cityDescription [
 	<magritteDescription>
 

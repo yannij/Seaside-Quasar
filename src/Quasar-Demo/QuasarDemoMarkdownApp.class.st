@@ -1,19 +1,27 @@
 Class {
-	#name : #QuasarDemoMarkdownApp,
-	#superclass : #QuasarApplication,
+	#name : 'QuasarDemoMarkdownApp',
+	#superclass : 'QuasarApplication',
 	#instVars : [
 		'markdown1'
 	],
-	#category : #'Quasar-Demo-Basic'
+	#category : 'Quasar-Demo-Basic',
+	#package : 'Quasar-Demo',
+	#tag : 'Basic'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoMarkdownApp class >> applicationPath [
 
 	^ 'quasar/markdown'
 ]
 
-{ #category : #initialization }
+{ #category : 'accessing' }
+QuasarDemoMarkdownApp class >> categoryName [
+
+	^ #quasar
+]
+
+{ #category : 'initialization' }
 QuasarDemoMarkdownApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -23,13 +31,13 @@ QuasarDemoMarkdownApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMarkdownApp >> applicationTitle [
 
 	^ 'Markdown'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoMarkdownApp >> initialize [
 
 	super initialize.
@@ -38,19 +46,19 @@ QuasarDemoMarkdownApp >> initialize [
 	self reactiveObjectsAddIfAbsent: self markdown1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMarkdownApp >> markdown1 [
 
 	^ markdown1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMarkdownApp >> markdown1: anObject [
 
 	markdown1 := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoMarkdownApp >> markdown1Default [
 
 	^ '**This is bold text**
@@ -69,7 +77,7 @@ ___This is bold italic text, second way___
 '
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMarkdownApp >> renderAppOn: html [
 
 	html qLayout view: 'hHh lpR fFf'; with: [
@@ -81,14 +89,14 @@ QuasarDemoMarkdownApp >> renderAppOn: html [
 			self renderMarkdownOn: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMarkdownApp >> renderLayoutOn: html [
 
 	html qApp id: self appId; with: [
 		self renderAppOn: html ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMarkdownApp >> renderMarkdown: modelName splitter: splitterName readonly: flag on: html [
 
 	html div class: 'q-py-sm fit'; with: [
@@ -113,7 +121,7 @@ QuasarDemoMarkdownApp >> renderMarkdown: modelName splitter: splitterName readon
 						class: 'fit bordered q-pr-xs' ] ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMarkdownApp >> renderMarkdownOn: html [
 	| app modelName splitterName |
 

@@ -1,10 +1,12 @@
 Class {
-	#name : #QuasarDemoMoviesShowTimeView,
-	#superclass : #QuasarDemoMoviesView,
-	#category : #'Quasar-Demo-Movies'
+	#name : 'QuasarDemoMoviesShowTimeView',
+	#superclass : 'QuasarDemoMoviesView',
+	#category : 'Quasar-Demo-Movies',
+	#package : 'Quasar-Demo',
+	#tag : 'Movies'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMoviesShowTimeView >> renderDetailsOn: html [
 	| theatres movies |
 

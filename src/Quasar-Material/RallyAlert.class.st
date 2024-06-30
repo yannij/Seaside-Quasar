@@ -1,32 +1,34 @@
 Class {
-	#name : #RallyAlert,
-	#superclass : #RallyObject,
+	#name : 'RallyAlert',
+	#superclass : 'RallyObject',
 	#instVars : [
 		'id',
 		'description'
 	],
-	#category : #'Quasar-Material-Rally'
+	#category : 'Quasar-Material-Rally',
+	#package : 'Quasar-Material',
+	#tag : 'Rally'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 RallyAlert >> cardParameters [
 
 	^ Array with: nil with: self description
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyAlert >> description [
 
 	^ description
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyAlert >> description: anObject [
 
 	description := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 RallyAlert >> descriptionDescription [
 	<magritteDescription>
 
@@ -38,19 +40,19 @@ RallyAlert >> descriptionDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyAlert >> id [
 
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyAlert >> id: anObject [
 
 	id := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 RallyAlert >> idDescription [
 	<magritteDescription>
 
@@ -62,7 +64,7 @@ RallyAlert >> idDescription [
 		yourself
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 RallyAlert >> listItemParameters [
 
 	^ (Array with: self id with: (self description truncateWithElipsisTo: 80))

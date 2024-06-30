@@ -1,34 +1,36 @@
 Class {
-	#name : #QuasarDemoAccountingUser,
-	#superclass : #QuasarDemoAccountingObject,
+	#name : 'QuasarDemoAccountingUser',
+	#superclass : 'QuasarDemoAccountingObject',
 	#instVars : [
 		'id',
 		'name',
 		'email',
 		'locale'
 	],
-	#category : #'Quasar-Demo-Accounting'
+	#category : 'Quasar-Demo-Accounting',
+	#package : 'Quasar-Demo',
+	#tag : 'Accounting'
 }
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoAccountingUser class >> attributeData [
 
 	^ #(id name email locale)
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoAccountingUser class >> modelName [
 
 	^ 'User'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingUser class >> viewClass [
 
 	^ QuasarDemoAccountingUserView
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingUser >> companiesIn: aRepo [
 	| userCompanyList companyIdList |
 
@@ -43,49 +45,49 @@ QuasarDemoAccountingUser >> companiesIn: aRepo [
 		where: [ :each | companyIdList includes: each id ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingUser >> email [
 
 	^ email
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingUser >> email: anObject [
 
 	email := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingUser >> id [
 
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingUser >> id: anObject [
 
 	id := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingUser >> locale [
 
 	^ locale
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingUser >> locale: anObject [
 
 	locale := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingUser >> name [
 
 	^ name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingUser >> name: anObject [
 
 	name := anObject

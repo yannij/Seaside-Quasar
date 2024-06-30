@@ -1,6 +1,6 @@
 Class {
-	#name : #QuasarDemoReactiveApp,
-	#superclass : #QuasarApplication,
+	#name : 'QuasarDemoReactiveApp',
+	#superclass : 'QuasarApplication',
 	#instVars : [
 		'demoName',
 		'demoObjectA',
@@ -8,16 +8,18 @@ Class {
 		'reactiveList',
 		'testCollection'
 	],
-	#category : #'Quasar-Demo-Basic'
+	#category : 'Quasar-Demo-Basic',
+	#package : 'Quasar-Demo',
+	#tag : 'Basic'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoReactiveApp class >> applicationPath [
 
 	^ 'quasar/reactive-demo'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoReactiveApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -27,7 +29,7 @@ QuasarDemoReactiveApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
-{ #category : #'demo - ref' }
+{ #category : 'demo - ref' }
 QuasarDemoReactiveApp >> addRefNamed: aRefName initialValue: anObject block: aCallbackBlock [
 	| testRef |
 
@@ -42,7 +44,7 @@ QuasarDemoReactiveApp >> addRefNamed: aRefName initialValue: anObject block: aCa
 	^ testRef
 ]
 
-{ #category : #'demo - ajax' }
+{ #category : 'demo - ajax' }
 QuasarDemoReactiveApp >> ajax2: json with: anAjaxFactory [
 
 	json render: (OrderedCollection new
@@ -51,7 +53,7 @@ QuasarDemoReactiveApp >> ajax2: json with: anAjaxFactory [
 		yourself)
 ]
 
-{ #category : #'demo - ajax' }
+{ #category : 'demo - ajax' }
 QuasarDemoReactiveApp >> ajax3: json with: anAjaxFactory [
 	| objectDictionary |
 
@@ -66,19 +68,19 @@ QuasarDemoReactiveApp >> ajax3: json with: anAjaxFactory [
 	json render: objectDictionary
 ]
 
-{ #category : #'demo - ajax' }
+{ #category : 'demo - ajax' }
 QuasarDemoReactiveApp >> ajax4: json with: anAjaxFactory [
 
 	json render: self experiment4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoReactiveApp >> applicationTitle [
 
 	^ 'Reactive Demo'
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 QuasarDemoReactiveApp >> buildTestCollection [
 	| newList |
 
@@ -92,19 +94,19 @@ QuasarDemoReactiveApp >> buildTestCollection [
 		callbackBlock: [ :ref :value | ref refValue: (ref refValue asOrderedCollection add: QuasarDemoObjectA newRandom; yourself) ]; yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoReactiveApp >> demoName [
 
 	^ demoName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoReactiveApp >> demoName: anObject [
 
 	demoName := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoReactiveApp >> demoNames [
 
 	^ #(
@@ -118,31 +120,31 @@ QuasarDemoReactiveApp >> demoNames [
 	)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoReactiveApp >> demoObjectA [
 
 	^ demoObjectA ifNil: [ demoObjectA := QuasarDemoObjectA new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoReactiveApp >> demoObjectA: anObject [
 
 	demoObjectA := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoReactiveApp >> experiment4 [
 
 	^ experiment4
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoReactiveApp >> experiment4: anObject [
 
 	experiment4 := anObject
 ]
 
-{ #category : #initialize }
+{ #category : 'initialize' }
 QuasarDemoReactiveApp >> initialize [
 
 	super initialize.
@@ -168,7 +170,7 @@ QuasarDemoReactiveApp >> initialize [
 	self testCollection: self buildTestCollection
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoReactiveApp >> quasarSetupContentOn: aJSStream with: html [
 
 	self vueSetupDemoExperimentOn: aJSStream.
@@ -179,7 +181,7 @@ QuasarDemoReactiveApp >> quasarSetupContentOn: aJSStream with: html [
 			aJSStream nextPut: $; ] ]
 ]
 
-{ #category : #'rendering - quasar hooks' }
+{ #category : 'rendering - quasar hooks' }
 QuasarDemoReactiveApp >> quasarSetupReturnCustomList: aList with: anAjaxFactory [
 	| stream |
 
@@ -189,19 +191,19 @@ QuasarDemoReactiveApp >> quasarSetupReturnCustomList: aList with: anAjaxFactory 
 	aList add: stream contents
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoReactiveApp >> reactiveList [
 
 	^ reactiveList
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoReactiveApp >> reactiveList: anObject [
 
 	reactiveList := anObject
 ]
 
-{ #category : #'demo - ajax' }
+{ #category : 'demo - ajax' }
 QuasarDemoReactiveApp >> renderDemoAjaxOn: html [
 
 	html div with: [
@@ -230,7 +232,7 @@ QuasarDemoReactiveApp >> renderDemoAjaxOn: html [
 		html qBtn label: 'experiment-4'; vOnClick: 'onClickExperiment4()' ].
 ]
 
-{ #category : #'demo - collection' }
+{ #category : 'demo - collection' }
 QuasarDemoReactiveApp >> renderDemoCollectionOn: html [
 	| refName |
 
@@ -258,7 +260,7 @@ QuasarDemoReactiveApp >> renderDemoCollectionOn: html [
 		html qTable title: 'Test Collection'; "columns: self refNameCols;" rows: refName ]
 ]
 
-{ #category : #'demo - fetch error' }
+{ #category : 'demo - fetch error' }
 QuasarDemoReactiveApp >> renderDemoFetchErrorOn: html [
 
 	self renderDemoFetchErrorUseConsoleOn: html.
@@ -267,7 +269,7 @@ QuasarDemoReactiveApp >> renderDemoFetchErrorOn: html [
 
 ]
 
-{ #category : #'demo - fetch error' }
+{ #category : 'demo - fetch error' }
 QuasarDemoReactiveApp >> renderDemoFetchErrorUseConsoleOn: html [
 	| testRef |
 
@@ -288,7 +290,7 @@ QuasarDemoReactiveApp >> renderDemoFetchErrorUseConsoleOn: html [
 		html qBtn class: 'q-mx-md'; label: 'Error on console'; vOnClick: testRef functionName, '($event)' ]
 ]
 
-{ #category : #'demo - fetch error' }
+{ #category : 'demo - fetch error' }
 QuasarDemoReactiveApp >> renderDemoFetchErrorUseCustomOn: html [
 	| testRef |
 
@@ -309,7 +311,7 @@ QuasarDemoReactiveApp >> renderDemoFetchErrorUseCustomOn: html [
 		html qBtn class: 'q-mx-md'; label: 'Error custom notify'; vOnClick: testRef functionName, '($event)' ]
 ]
 
-{ #category : #'demo - fetch error' }
+{ #category : 'demo - fetch error' }
 QuasarDemoReactiveApp >> renderDemoFetchErrorUseNotifyOn: html [
 	| testRef |
 
@@ -330,7 +332,7 @@ QuasarDemoReactiveApp >> renderDemoFetchErrorUseNotifyOn: html [
 		html qBtn class: 'q-mx-md'; label: 'Error notify'; vOnClick: testRef functionName, '($event)' ]
 ]
 
-{ #category : #'demo - reactive' }
+{ #category : 'demo - reactive' }
 QuasarDemoReactiveApp >> renderDemoReactiveOn: html [
 
 	self reactiveList do: [ :eachObject | self mdqApplicationGet reactiveObjectsAddIfAbsent: eachObject ].
@@ -345,7 +347,7 @@ QuasarDemoReactiveApp >> renderDemoReactiveOn: html [
 		separatedBy: [ html qSeparator spaced ]
 ]
 
-{ #category : #'demo - ref' }
+{ #category : 'demo - ref' }
 QuasarDemoReactiveApp >> renderDemoRefSyncOn: html [
 	| testRef |
 
@@ -363,7 +365,7 @@ QuasarDemoReactiveApp >> renderDemoRefSyncOn: html [
 		html qBtn class: 'q-mx-md'; label: 'Sync 1'; vOnClick: testRef functionName, '($event)' ]
 ]
 
-{ #category : #'demo - ref' }
+{ #category : 'demo - ref' }
 QuasarDemoReactiveApp >> renderDemoRefSyncScalarBooleanOn: html [
 	| testRef |
 
@@ -377,7 +379,7 @@ QuasarDemoReactiveApp >> renderDemoRefSyncScalarBooleanOn: html [
 		html qBtn class: 'q-mx-md'; label: 'Toggle'; vOnClick: testRef functionName, '($event)' ]
 ]
 
-{ #category : #'demo - ref' }
+{ #category : 'demo - ref' }
 QuasarDemoReactiveApp >> renderDemoRefSyncScalarDateOn: html [
 	| testRef |
 
@@ -391,7 +393,7 @@ QuasarDemoReactiveApp >> renderDemoRefSyncScalarDateOn: html [
 		html qBtn class: 'q-mx-md'; label: 'Next day'; noCaps; vOnClick: testRef functionName, '($event)' ]
 ]
 
-{ #category : #'demo - ref' }
+{ #category : 'demo - ref' }
 QuasarDemoReactiveApp >> renderDemoRefSyncScalarDateTimeOn: html [
 	| testRef |
 
@@ -405,7 +407,7 @@ QuasarDemoReactiveApp >> renderDemoRefSyncScalarDateTimeOn: html [
 		html qBtn class: 'q-mx-md'; label: 'Date and time now'; noCaps; vOnClick: testRef functionName, '($event)' ]
 ]
 
-{ #category : #'demo - ref' }
+{ #category : 'demo - ref' }
 QuasarDemoReactiveApp >> renderDemoRefSyncScalarFloatOn: html [
 	| testRef |
 
@@ -419,7 +421,7 @@ QuasarDemoReactiveApp >> renderDemoRefSyncScalarFloatOn: html [
 		html qBtn class: 'q-mx-md'; label: 'Increment'; vOnClick: testRef functionName, '($event)' ]
 ]
 
-{ #category : #'demo - ref' }
+{ #category : 'demo - ref' }
 QuasarDemoReactiveApp >> renderDemoRefSyncScalarIntegerOn: html [
 	| testRef |
 
@@ -433,7 +435,7 @@ QuasarDemoReactiveApp >> renderDemoRefSyncScalarIntegerOn: html [
 		html qBtn class: 'q-mx-md'; label: 'Increment'; vOnClick: testRef functionName, '($event)' ]
 ]
 
-{ #category : #'demo - ref' }
+{ #category : 'demo - ref' }
 QuasarDemoReactiveApp >> renderDemoRefSyncScalarOn: html [
 
 	self renderDemoRefSyncScalarBooleanOn: html.
@@ -444,7 +446,7 @@ QuasarDemoReactiveApp >> renderDemoRefSyncScalarOn: html [
 	self renderDemoRefSyncScalarDateTimeOn: html
 ]
 
-{ #category : #'demo - ref' }
+{ #category : 'demo - ref' }
 QuasarDemoReactiveApp >> renderDemoRefSyncScalarTimeOn: html [
 	| testRef |
 
@@ -458,7 +460,7 @@ QuasarDemoReactiveApp >> renderDemoRefSyncScalarTimeOn: html [
 		html qBtn class: 'q-mx-md'; label: 'Time now'; noCaps; vOnClick: testRef functionName, '($event)' ]
 ]
 
-{ #category : #'demo - watch' }
+{ #category : 'demo - watch' }
 QuasarDemoReactiveApp >> renderDemoRefWatchOn: html [
 	| testRef |
 
@@ -491,7 +493,7 @@ QuasarDemoReactiveApp >> renderDemoRefWatchOn: html [
 			vOnClick: testRef functionName, '()' ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoReactiveApp >> renderLayoutOn: html [
 
 	html html: '<style>
@@ -511,7 +513,7 @@ QuasarDemoReactiveApp >> renderLayoutOn: html [
 			self renderLayoutPageOn: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoReactiveApp >> renderLayoutPageOn: html [
 	| demoSelector |
 
@@ -526,7 +528,7 @@ QuasarDemoReactiveApp >> renderLayoutPageOn: html [
 					ifFalse: [ html text: 'Missing demo: ', demoSelector asString ] ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoReactiveApp >> renderLeftDrawerOn: html [
 
 	html qDrawer ref: 'leftDrawer'; showIfAbove; persistent; side: 'left';
@@ -537,7 +539,7 @@ QuasarDemoReactiveApp >> renderLeftDrawerOn: html [
 				self renderNavOn: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoReactiveApp >> renderNavOn: html [
 
 	html qList with: [
@@ -548,19 +550,19 @@ QuasarDemoReactiveApp >> renderNavOn: html [
 					html qItemSection with: eachItem ] ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoReactiveApp >> testCollection [
 
 	^ testCollection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoReactiveApp >> testCollection: anObject [
 
 	testCollection := anObject
 ]
 
-{ #category : #'demo - ajax' }
+{ #category : 'demo - ajax' }
 QuasarDemoReactiveApp >> vueSetupDemoExperimentOn: aJSStream [
 
 	aJSStream
@@ -569,14 +571,14 @@ QuasarDemoReactiveApp >> vueSetupDemoExperimentOn: aJSStream [
 		nextPutAll: 'const experiment4 = ref(null); const experiment4a = ref(null);'
 ]
 
-{ #category : #'demo - ajax' }
+{ #category : 'demo - ajax' }
 QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment1On: aJSStream with: anAjaxFactory [
 
 	aJSStream
 		nextPutAll: 'onClickExperiment1(evt) {alert("hello");}'
 ]
 
-{ #category : #'demo - ajax' }
+{ #category : 'demo - ajax' }
 QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment2On: aJSStream with: anAjaxFactory [
 	| ajax |
 
@@ -591,7 +593,7 @@ QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment2On: aJSStream with: anAjax
 		nextPutAll: ',async onClickExperiment2() {'; nextPutAll: ajax asJavascript; nextPutAll: '}'.
 ]
 
-{ #category : #'demo - ajax' }
+{ #category : 'demo - ajax' }
 QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment3On: aJSStream with: anAjaxFactory [
 	| ajax |
 
@@ -606,7 +608,7 @@ QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment3On: aJSStream with: anAjax
 		nextPutAll: ',async onClickExperiment3() {'; nextPutAll: ajax asJavascript; nextPutAll: '}'
 ]
 
-{ #category : #'demo - ajax' }
+{ #category : 'demo - ajax' }
 QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment4On: aJSStream with: anAjaxFactory [
 	| ajax |
 
@@ -622,7 +624,7 @@ QuasarDemoReactiveApp >> vueSetupReturnDemoExperiment4On: aJSStream with: anAjax
 		nextPutAll: ',async onClickExperiment4() {'; nextPutAll: ajax asJavascript; nextPutAll: '}'.
 ]
 
-{ #category : #'demo - ajax' }
+{ #category : 'demo - ajax' }
 QuasarDemoReactiveApp >> vueSetupReturnDemoExperimentOn: aJSStream with: anAjaxFactory [
 
 	self vueSetupReturnDemoExperiment1On: aJSStream with: anAjaxFactory.

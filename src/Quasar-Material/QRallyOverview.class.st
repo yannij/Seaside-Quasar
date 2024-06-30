@@ -1,15 +1,17 @@
 Class {
-	#name : #QRallyOverview,
-	#superclass : #QRallyView,
-	#category : #'Quasar-Material-Rally'
+	#name : 'QRallyOverview',
+	#superclass : 'QRallyView',
+	#category : 'Quasar-Material-Rally',
+	#package : 'Quasar-Material',
+	#tag : 'Rally'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyOverview >> instanceList [
 	"Do nothing"
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyOverview >> instanceList: aList limit: aNumber [
 
 	^ aList
@@ -17,19 +19,19 @@ QRallyOverview >> instanceList: aList limit: aNumber [
 		ifNil: [ #() ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyOverview >> renderContentOn: html [
 
 	self renderOverviewOn: html
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyOverview >> renderHeading: aString on: html [
 
 	html "heading level2" div class: 'q-pa-sm text-h6'; with: aString
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyOverview >> renderOverviewOn: html [
 
 	html div class: 'row'; with: [
@@ -52,31 +54,31 @@ QRallyOverview >> renderOverviewOn: html [
 			self renderAsCards: (self instanceList: RallyAlert instanceList limit: 4) on: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyOverview >> renderSummary: aString on: html [
 
 	html "heading level2" div class: 'q-pa-sm text-h3'; with: aString
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyOverview >> totalAccountBalance [
 
 	^ (RallyAccount instanceList sum: #balance) displayString
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyOverview >> totalBillAmount [
 
 	^ (RallyBill instanceList sum: #amount) displayString
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyOverview >> totalBudgetItemAmount [
 
 	^ (RallyBudgetItem instanceList sum: #amount) displayString
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyOverview >> totalBudgetItemAmountSpent [
 
 	^ (RallyBudgetItem instanceList sum: #amountSpent) displayString

@@ -1,6 +1,6 @@
 Class {
-	#name : #QuasarDemoAccountingApp,
-	#superclass : #QuasarDemoApp,
+	#name : 'QuasarDemoAccountingApp',
+	#superclass : 'QuasarDemoApp',
 	#instVars : [
 		'repository',
 		'username',
@@ -11,10 +11,12 @@ Class {
 		'model',
 		'modelView'
 	],
-	#category : #'Quasar-Demo-Accounting'
+	#category : 'Quasar-Demo-Accounting',
+	#package : 'Quasar-Demo',
+	#tag : 'Accounting'
 }
 
-{ #category : #'demo data' }
+{ #category : 'demo data' }
 QuasarDemoAccountingApp class >> accountingRepository [
 
 	^ self repositoryClass
@@ -22,7 +24,7 @@ QuasarDemoAccountingApp class >> accountingRepository [
 		ifAbsent: [ (self repositoryClass onPath: self databasePath) open; yourself ]
 ]
 
-{ #category : #'demo data' }
+{ #category : 'demo data' }
 QuasarDemoAccountingApp class >> createData [
 	"Run this code only in a concrete subclass. See #repositoryClass implementors"
 	| repo |
@@ -38,7 +40,7 @@ QuasarDemoAccountingApp class >> createData [
 	self createDemoTransactionsIn: repo
 ]
 
-{ #category : #'demo data' }
+{ #category : 'demo data' }
 QuasarDemoAccountingApp class >> createDemoAccountsIn: aRepository [
 	| modelClass |
 
@@ -72,7 +74,7 @@ QuasarDemoAccountingApp class >> createDemoAccountsIn: aRepository [
 		aRepository save: newObject ]
 ]
 
-{ #category : #'demo data' }
+{ #category : 'demo data' }
 QuasarDemoAccountingApp class >> createDemoCompaniesIn: aRepository [
 	| modelClass |
 
@@ -97,7 +99,7 @@ QuasarDemoAccountingApp class >> createDemoCompaniesIn: aRepository [
 		aRepository save: newObject ]
 ]
 
-{ #category : #'demo data' }
+{ #category : 'demo data' }
 QuasarDemoAccountingApp class >> createDemoTransactionsIn: aRepository [
 	| modelClass all account |
 
@@ -111,7 +113,7 @@ QuasarDemoAccountingApp class >> createDemoTransactionsIn: aRepository [
 		aRepository save: newObject ]
 ]
 
-{ #category : #'demo data' }
+{ #category : 'demo data' }
 QuasarDemoAccountingApp class >> createDemoUserCompaniesIn: aRepository [
 	| modelClass |
 
@@ -133,7 +135,7 @@ QuasarDemoAccountingApp class >> createDemoUserCompaniesIn: aRepository [
 		aRepository save: newObject ]
 ]
 
-{ #category : #'demo data' }
+{ #category : 'demo data' }
 QuasarDemoAccountingApp class >> createDemoUsersIn: aRepository [
 	| modelClass |
 
@@ -160,19 +162,19 @@ QuasarDemoAccountingApp class >> createDemoUsersIn: aRepository [
 		aRepository save: newObject ]
 ]
 
-{ #category : #'demo data' }
+{ #category : 'demo data' }
 QuasarDemoAccountingApp class >> databasePath [
 
 	^ 'demo-acct'
 ]
 
-{ #category : #'demo data' }
+{ #category : 'demo data' }
 QuasarDemoAccountingApp class >> repositoryClass [
 
 	self subclassResponsibility
 ]
 
-{ #category : #'rendering - table' }
+{ #category : 'rendering - table' }
 QuasarDemoAccountingApp >> addCols: aList modelClass: aClass [
 	| refName data |
 
@@ -199,7 +201,7 @@ QuasarDemoAccountingApp >> addCols: aList modelClass: aClass [
 	^ refName
 ]
 
-{ #category : #'rendering - table' }
+{ #category : 'rendering - table' }
 QuasarDemoAccountingApp >> addRows: aList modelClass: aClass on: html [
 	| refName data |
 
@@ -218,13 +220,13 @@ QuasarDemoAccountingApp >> addRows: aList modelClass: aClass on: html [
 	^ refName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingApp >> applicationTitle [
 
 	^ 'Accounting'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoAccountingApp >> initialize [
 
 	super initialize.
@@ -237,31 +239,31 @@ QuasarDemoAccountingApp >> initialize [
 	self tab: 'users'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingApp >> login [
 
 	^ login
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingApp >> login: anObject [
 
 	login := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingApp >> model [
 
 	^ model
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingApp >> model: anObject [
 
 	model := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingApp >> modelSet: anObject [
 
 	self model: anObject.
@@ -270,19 +272,19 @@ QuasarDemoAccountingApp >> modelSet: anObject [
 		ifNotNil: [ self modelView: (anObject viewClass on: anObject) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingApp >> modelView [
 
 	^ modelView
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingApp >> modelView: anObject [
 
 	modelView := anObject
 ]
 
-{ #category : #'rendering - quasar hooks' }
+{ #category : 'rendering - quasar hooks' }
 QuasarDemoAccountingApp >> quasarConfigContentOn: aJSStream with: html [
 
 	aJSStream nextPutAll: '
@@ -298,7 +300,7 @@ brand: {
 }'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingApp >> renderAccountsOn: html [
 
 	self tab = 'accounts' ifFalse: [ ^ self ].
@@ -308,7 +310,7 @@ QuasarDemoAccountingApp >> renderAccountsOn: html [
 		on: html
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingApp >> renderCompaniesOn: html [
 
 	self tab = 'companies' ifFalse: [ ^ self ].
@@ -318,7 +320,7 @@ QuasarDemoAccountingApp >> renderCompaniesOn: html [
 		on: html
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingApp >> renderLayoutOn: html [
 
 	self username ifNil: [
@@ -339,7 +341,7 @@ QuasarDemoAccountingApp >> renderLayoutOn: html [
 			html render: self sideSheet ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingApp >> renderLayoutPageOn: html [
 
 	html qPageContainer with: [
@@ -347,7 +349,7 @@ QuasarDemoAccountingApp >> renderLayoutPageOn: html [
 			self renderModelOn: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingApp >> renderModelList: aList on: html [
 
 	html qList style: 'background: white'; with: [
@@ -363,7 +365,7 @@ QuasarDemoAccountingApp >> renderModelList: aList on: html [
 					html qItemLabel style: 'color: red'; with: eachObject price ]" ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingApp >> renderModelOn: html [
 
 	self modelView isNil ifTrue: [
@@ -372,7 +374,7 @@ QuasarDemoAccountingApp >> renderModelOn: html [
 	html render: self modelView
 ]
 
-{ #category : #'rendering - table' }
+{ #category : 'rendering - table' }
 QuasarDemoAccountingApp >> renderModelTable: aList modelClass: aClass title: aTitleString on: html [
 
 	html qTable
@@ -394,7 +396,7 @@ QuasarDemoAccountingApp >> renderModelTable: aList modelClass: aClass title: aTi
 						vBind: 'href' with: 'actions.href' ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingApp >> renderTabPanelsOn: html [
 
 	html qTabPanels "vModel: 'tab';" modelValue: self tab; animated; with: [
@@ -403,7 +405,7 @@ QuasarDemoAccountingApp >> renderTabPanelsOn: html [
 		html qTabPanel name: 'users'; class: 'q-pa-none'; with: [ self renderUsersOn: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingApp >> renderTabsOn: html [
 
 	html qTabs
@@ -414,7 +416,7 @@ QuasarDemoAccountingApp >> renderTabsOn: html [
 			html qRouteTab label: 'Users'; href: (html urlForAction: [ self tabSet: 'users' ]) ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingApp >> renderUsersOn: html [
 
 	self tab = 'users' ifFalse: [ ^ self ].
@@ -424,68 +426,68 @@ QuasarDemoAccountingApp >> renderUsersOn: html [
 		on: html
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingApp >> repository [
 
 	^ repository
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingApp >> repository: anObject [
 
 	repository := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoAccountingApp >> repositorySetup [
 
 	self repository: self class accountingRepository
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingApp >> sideSheet [
 
 	^ sideSheet
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingApp >> sideSheet: anObject [
 
 	sideSheet := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingApp >> sideSheetOpen [
 
 	^ sideSheetOpen
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingApp >> sideSheetOpen: anObject [
 
 	sideSheetOpen := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingApp >> tab [
 
 	^ tab
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingApp >> tab: anObject [
 
 	tab := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingApp >> tabSet: anObject [
 
 	self tab: anObject.
 	self modelSet: nil
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 QuasarDemoAccountingApp >> updateRoot: anHtmlRoot [
 
 	super updateRoot: anHtmlRoot.
@@ -494,20 +496,20 @@ QuasarDemoAccountingApp >> updateRoot: anHtmlRoot [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingApp >> userSet: aUser [
 
 	self username: aUser name.
 	self modelSet: aUser
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingApp >> username [
 
 	^ username
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingApp >> username: anObject [
 
 	username := anObject

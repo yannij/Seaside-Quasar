@@ -2,8 +2,8 @@
 I am a demo application inspired by the Shrine Material Design Study (https://material.io/design/material-studies/shrine.html)
 "
 Class {
-	#name : #QShrineApp,
-	#superclass : #QuasarApplication,
+	#name : 'QShrineApp',
+	#superclass : 'QuasarApplication',
 	#instVars : [
 		'loginComponent',
 		'shoppingCart',
@@ -11,16 +11,24 @@ Class {
 		'productComponent',
 		'category'
 	],
-	#category : #'Quasar-Material-Shrine'
+	#category : 'Quasar-Material-Shrine',
+	#package : 'Quasar-Material',
+	#tag : 'Shrine'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QShrineApp class >> applicationPath [
 
 	^ 'quasar/material-study-shrine'
 ]
 
-{ #category : #initialization }
+{ #category : 'accessing' }
+QShrineApp class >> categoryName [
+
+	^ #studies
+]
+
+{ #category : 'initialization' }
 QShrineApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -30,7 +38,7 @@ QShrineApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QShrineApp class >> shrineSvg: aCssClass [
 
 	^ '<svg class="', aCssClass, '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="48px" height="48px" viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve" fill="#000000">
@@ -44,13 +52,13 @@ QShrineApp class >> shrineSvg: aCssClass [
 '
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QShrineApp >> applicationTitle [
 
 	^ 'Shrine'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QShrineApp >> buildLoginComponent [
 
 	^ MDQLogin new
@@ -62,19 +70,19 @@ QShrineApp >> buildLoginComponent [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QShrineApp >> category [
 
 	^ category
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QShrineApp >> category: anObject [
 
 	category := anObject
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QShrineApp >> categoryList [
 
 	^ #(
@@ -89,7 +97,7 @@ QShrineApp >> categoryList [
 	)
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QShrineApp >> initialize [
 
 	super initialize.
@@ -101,37 +109,37 @@ QShrineApp >> initialize [
 	self category: self categoryList first
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QShrineApp >> loginComponent [
 
 	^ loginComponent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QShrineApp >> loginComponent: anObject [
 
 	loginComponent := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QShrineApp >> productComponent [
 
 	^ productComponent ifNil: [ productComponent := self productComponentBuild ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QShrineApp >> productComponent: anObject [
 
 	productComponent := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QShrineApp >> productComponentBuild [
 
 	^ QShrineCanvas new
 ]
 
-{ #category : #'rendering - quasar hooks' }
+{ #category : 'rendering - quasar hooks' }
 QShrineApp >> quasarConfigContentOn: aJSStream with: html [
 
 	aJSStream nextPutAll: '
@@ -147,7 +155,7 @@ brand: {
 }'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QShrineApp >> renderBottomSheetOn: html [
 
 	html qDialog
@@ -161,7 +169,7 @@ QShrineApp >> renderBottomSheetOn: html [
 			vOnClick: 'this.$refs.bottomSheet.show($event)' ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QShrineApp >> renderLayoutOn: html [
 
 	html script: 'document.body.style.setProperty(''--q-primary'', ''#0273d4'')'.
@@ -179,7 +187,7 @@ QShrineApp >> renderLayoutOn: html [
 							html render: self loginComponent ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QShrineApp >> renderLayoutPageOn: html [
 
 	html qPageContainer with: [
@@ -189,7 +197,7 @@ QShrineApp >> renderLayoutPageOn: html [
 				html render: self productComponent ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QShrineApp >> renderLayoutShrineOn: html [
 
 	html qApp id: self appId; with: [
@@ -206,7 +214,7 @@ QShrineApp >> renderLayoutShrineOn: html [
 			"self renderSettingsFabOn: html" ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QShrineApp >> renderLeftDrawerOn: html [
 
 	html qDrawer ref: 'leftDrawer'; showIfAbove; persistent; side: 'left'; with: [
@@ -215,7 +223,7 @@ QShrineApp >> renderLeftDrawerOn: html [
 			self renderNavOn: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QShrineApp >> renderNavBrandingOn: html [
 
 	html div style: 'text-align: center; margin-bottom: 48px; padding-top: 40px'; with: [
@@ -228,7 +236,7 @@ QShrineApp >> renderNavBrandingOn: html [
 			with: 'Shrine' ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QShrineApp >> renderNavOn: html [
 
 	html qList with: [
@@ -239,7 +247,7 @@ QShrineApp >> renderNavOn: html [
 					html qItemSection class: 'text-center'; with: eachCategory ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QShrineApp >> renderSettingsFabOn: html [
 	| logoutUrl |
 
@@ -257,7 +265,7 @@ QShrineApp >> renderSettingsFabOn: html [
 					onClick: 'Quasar.openURL(''', logoutUrl greaseString, ''')' ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QShrineApp >> renderShoppingCartOn: html [
 
 	html qCard flat;
@@ -270,7 +278,7 @@ QShrineApp >> renderShoppingCartOn: html [
 				html qBtn icon: 'close'; vClosePopUp; style: 'background: var(--q-primary)'; with: 'Close' ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QShrineApp >> renderSideSheetOn: html [
 
 	html qDrawer ref: 'sideSheet'; showIfAbove; side: 'right'; bordered; class: 'bg-secondary';
@@ -282,31 +290,31 @@ QShrineApp >> renderSideSheetOn: html [
 			vOnClick: 'this.$refs.sideSheet.toggle($event)' ]"
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QShrineApp >> shoppingCart [
 
 	^ shoppingCart
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QShrineApp >> shoppingCart: anObject [
 
 	shoppingCart := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QShrineApp >> stripeInterface [
 
 	^ stripeInterface
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QShrineApp >> stripeInterface: anObject [
 
 	stripeInterface := anObject
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 QShrineApp >> updateRoot: anHtmlRoot [
 
 	super updateRoot: anHtmlRoot.

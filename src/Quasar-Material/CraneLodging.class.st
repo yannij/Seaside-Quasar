@@ -1,6 +1,6 @@
 Class {
-	#name : #CraneLodging,
-	#superclass : #CraneObject,
+	#name : 'CraneLodging',
+	#superclass : 'CraneObject',
 	#instVars : [
 		'lodgingName',
 		'lodgingType',
@@ -9,22 +9,24 @@ Class {
 		'distance',
 		'price'
 	],
-	#category : #'Quasar-Material-Crane'
+	#category : 'Quasar-Material-Crane',
+	#package : 'Quasar-Material',
+	#tag : 'Crane'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneLodging >> address [
 
 	^ address
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneLodging >> address: anObject [
 
 	address := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneLodging >> addressDescription [
 	<magritteDescription>
 
@@ -35,19 +37,19 @@ CraneLodging >> addressDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneLodging >> city [
 
 	^ city
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneLodging >> city: anObject [
 
 	city := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneLodging >> cityDescription [
 	<magritteDescription>
 
@@ -59,19 +61,19 @@ CraneLodging >> cityDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneLodging >> distance [
 
 	^ distance
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneLodging >> distance: anObject [
 
 	distance := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneLodging >> distanceDescription [
 	<magritteDescription>
 
@@ -82,19 +84,19 @@ CraneLodging >> distanceDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneLodging >> lodgingName [
 
 	^ lodgingName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneLodging >> lodgingName: anObject [
 
 	lodgingName := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneLodging >> lodgingNameDescription [
 	<magritteDescription>
 
@@ -105,19 +107,19 @@ CraneLodging >> lodgingNameDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneLodging >> lodgingType [
 
 	^ lodgingType
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneLodging >> lodgingType: anObject [
 
 	lodgingType := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneLodging >> lodgingTypeDescription [
 	<magritteDescription>
 
@@ -129,19 +131,19 @@ CraneLodging >> lodgingTypeDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneLodging >> price [
 
 	^ price
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneLodging >> price: anObject [
 
 	price := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneLodging >> priceDescription [
 	<magritteDescription>
 

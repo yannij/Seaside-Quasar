@@ -1,10 +1,12 @@
 Class {
-	#name : #QuasarDemoAccountingCompanyView,
-	#superclass : #QuasarDemoAccountingView,
-	#category : #'Quasar-Demo-Accounting'
+	#name : 'QuasarDemoAccountingCompanyView',
+	#superclass : 'QuasarDemoAccountingView',
+	#category : 'Quasar-Demo-Accounting',
+	#package : 'Quasar-Demo',
+	#tag : 'Accounting'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingCompanyView >> renderDetailsOn: html [
 	| accounts users |
 

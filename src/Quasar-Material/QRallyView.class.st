@@ -1,22 +1,24 @@
 Class {
-	#name : #QRallyView,
-	#superclass : #WAComponent,
-	#category : #'Quasar-Material-Rally'
+	#name : 'QRallyView',
+	#superclass : 'WAComponent',
+	#category : 'Quasar-Material-Rally',
+	#package : 'Quasar-Material',
+	#tag : 'Rally'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyView >> goto: aModel [
 
 	self mdqApplicationGet pageComponent: (aModel asComponent addValidatedForm; yourself)
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyView >> instanceList [
 
 	self subclassResponsibility
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyView >> renderAsCard: aModel on: html with: params [
 
 	html qCard "flat;" bordered; class: 'q-mb-md'; style: 'max-width: 300px'; with: [
@@ -31,7 +33,7 @@ QRallyView >> renderAsCard: aModel on: html with: params [
 				with: 'Open' ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyView >> renderAsCards: aList on: html [
 
 	html div with: [
@@ -39,7 +41,7 @@ QRallyView >> renderAsCards: aList on: html [
 			self renderAsCard: eachInstance on: html with: eachInstance cardParameters ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyView >> renderAsList: aList on: html [
 
 	html qList with: [
@@ -47,7 +49,7 @@ QRallyView >> renderAsList: aList on: html [
 			self renderAsListItem: eachInstance on: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyView >> renderAsListItem: aModel on: html [
 
 	self
@@ -56,7 +58,7 @@ QRallyView >> renderAsListItem: aModel on: html [
 		with: aModel listItemParameters
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyView >> renderAsListItem: aModel on: html with: params [
 
 	html qItem
@@ -76,13 +78,13 @@ QRallyView >> renderAsListItem: aModel on: html with: params [
 					html qIcon name: params fourth ] ] ] 
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyView >> renderContentOn: html [
 
 	self renderInstancesOn: html
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyView >> renderInstancesOn: html [
 
 	self renderAsList: self instanceList on: html

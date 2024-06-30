@@ -1,14 +1,16 @@
 Class {
-	#name : #QuasarDemoMoviesView,
-	#superclass : #WAComponent,
+	#name : 'QuasarDemoMoviesView',
+	#superclass : 'WAComponent',
 	#instVars : [
 		'model',
 		'isEdit'
 	],
-	#category : #'Quasar-Demo-Movies'
+	#category : 'Quasar-Demo-Movies',
+	#package : 'Quasar-Demo',
+	#tag : 'Movies'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 QuasarDemoMoviesView class >> on: aModel [
 
 	^ self new
@@ -16,7 +18,7 @@ QuasarDemoMoviesView class >> on: aModel [
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoMoviesView >> initialize [
 
 	super initialize.
@@ -24,38 +26,38 @@ QuasarDemoMoviesView >> initialize [
 	self isEdit: false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesView >> isEdit [
 
 	^ isEdit
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesView >> isEdit: anObject [
 
 	isEdit := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesView >> model [
 
 	^ model
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesView >> model: anObject [
 
 	model := anObject
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 QuasarDemoMoviesView >> modelSave: data class: aClass [
 
 	self repositoryToUse updateData: data class: aClass.
 	self isEdit: false
 ]
 
-{ #category : #'rendering - unused' }
+{ #category : 'rendering - unused' }
 QuasarDemoMoviesView >> renderButtonsOn: html [
 
 	html qBtn
@@ -70,7 +72,7 @@ QuasarDemoMoviesView >> renderButtonsOn: html [
 		icon: 'cancel'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMoviesView >> renderContentOn: html [
 
 	html div class: 'q-pa-sm'; with: [
@@ -82,25 +84,25 @@ QuasarDemoMoviesView >> renderContentOn: html [
 				self renderDetailsOn: html ] ]
 ]
 
-{ #category : #'rendering - utility' }
+{ #category : 'rendering - utility' }
 QuasarDemoMoviesView >> renderDetail: aList modelClass: aClass label: aLabel on: html [
 
 	self qdemoApp renderModelTable: aList modelClass: aClass title: aLabel on: html
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMoviesView >> renderDetailsOn: html [
 	"Subclasses may override"
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMoviesView >> renderEditorButtonsOn: html [
 
 	html qBtn label: 'Save'; type: 'submit'.
 	html qBtn label: 'Cancel'; type: 'a'; href: (html urlForAction: [ self isEdit: false ])
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMoviesView >> renderEditorOn: html [
 	| realObject modelClass |
 
@@ -120,7 +122,7 @@ QuasarDemoMoviesView >> renderEditorOn: html [
 				self renderModelNativeWith: false on: html ] ]
 ]
 
-{ #category : #'rendering - utility' }
+{ #category : 'rendering - utility' }
 QuasarDemoMoviesView >> renderField: aLabel type: anInputType for: anAspect readonly: readonlyFlag on: html [
 
 	html qField
@@ -139,7 +141,7 @@ QuasarDemoMoviesView >> renderField: aLabel type: anInputType for: anAspect read
 				ifFalse: [ tag on: anAspect of: self model ] ]
 ]
 
-{ #category : #'rendering - unused' }
+{ #category : 'rendering - unused' }
 QuasarDemoMoviesView >> renderFieldsOf: aModel name: aName on: html [
 	| formObjectName formObject |
 
@@ -163,7 +165,7 @@ QuasarDemoMoviesView >> renderFieldsOf: aModel name: aName on: html [
 				html qInput label: fieldName; vModel: (formObjectName, '.', fieldName); on: fieldName asSymbol of: aModel ] ] ]
 ]
 
-{ #category : #'rendering - utility' }
+{ #category : 'rendering - utility' }
 QuasarDemoMoviesView >> renderModelLink: aModel name: aName on: html [
 
 	aModel ifNil: [
@@ -175,7 +177,7 @@ QuasarDemoMoviesView >> renderModelLink: aModel name: aName on: html [
 	html space; text: aModel summaryString
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMoviesView >> renderModelNativeWith: readonlyFlag on: html [
 
 	self model attributeData do: [ :eachAttr |
@@ -185,7 +187,7 @@ QuasarDemoMoviesView >> renderModelNativeWith: readonlyFlag on: html [
 			self renderField: eachAttr type: nil for: eachAttr readonly: readonlyFlag on: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMoviesView >> renderModelRefOn: html [
 	| formObjectName formObject |
 
@@ -203,13 +205,13 @@ QuasarDemoMoviesView >> renderModelRefOn: html [
 				html qInput label: fieldName; vModel: (formObjectName, '.', fieldName); on: fieldName asSymbol of: self model ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMoviesView >> renderViewerButtonsOn: html [
 
 	html qBtn label: 'Edit'; type: 'a'; href: (html urlForAction: [ self isEdit: true ])
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMoviesView >> renderViewerOn: html [
 
 	html qForm
@@ -222,7 +224,7 @@ QuasarDemoMoviesView >> renderViewerOn: html [
 				self renderModelNativeWith: true on: html ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesView >> repositoryToUse [
 
 	^ self qdemoApp repository

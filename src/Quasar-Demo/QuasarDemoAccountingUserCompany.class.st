@@ -1,45 +1,47 @@
 Class {
-	#name : #QuasarDemoAccountingUserCompany,
-	#superclass : #QuasarDemoAccountingObject,
+	#name : 'QuasarDemoAccountingUserCompany',
+	#superclass : 'QuasarDemoAccountingObject',
 	#instVars : [
 		'id',
 		'userId',
 		'companyId'
 	],
-	#category : #'Quasar-Demo-Accounting'
+	#category : 'Quasar-Demo-Accounting',
+	#package : 'Quasar-Demo',
+	#tag : 'Accounting'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingUserCompany >> companyId [
 
 	^ companyId
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingUserCompany >> companyId: anObject [
 
 	companyId := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingUserCompany >> id [
 
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingUserCompany >> id: anObject [
 
 	id := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingUserCompany >> userId [
 
 	^ userId
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingUserCompany >> userId: anObject [
 
 	userId := anObject

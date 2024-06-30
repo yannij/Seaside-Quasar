@@ -1,6 +1,6 @@
 Class {
-	#name : #QuasarDemoMoviesShowTime,
-	#superclass : #QuasarDemoMoviesObject,
+	#name : 'QuasarDemoMoviesShowTime',
+	#superclass : 'QuasarDemoMoviesObject',
 	#instVars : [
 		'id',
 		'movieId',
@@ -8,52 +8,54 @@ Class {
 		'showDate',
 		'showStartTime'
 	],
-	#category : #'Quasar-Demo-Movies'
+	#category : 'Quasar-Demo-Movies',
+	#package : 'Quasar-Demo',
+	#tag : 'Movies'
 }
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoMoviesShowTime class >> attributeData [
 
 	^ #(id movieId theatreId showDate showStartTime)
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoMoviesShowTime class >> modelName [
 
 	^ 'Show Time'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesShowTime class >> viewClass [
 
 	^ QuasarDemoMoviesShowTimeView
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesShowTime >> id [
 
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesShowTime >> id: anObject [
 
 	id := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesShowTime >> movieId [
 
 	^ movieId
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesShowTime >> movieId: anObject [
 
 	movieId := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesShowTime >> moviesIn: aRepo [
 
 	^ aRepo
@@ -61,49 +63,49 @@ QuasarDemoMoviesShowTime >> moviesIn: aRepo [
 		where: [ :each | each id = self movieId ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesShowTime >> name [
 
 	^ ''
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesShowTime >> showDate [
 
 	^ showDate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesShowTime >> showDate: anObject [
 
 	showDate := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesShowTime >> showStartTime [
 
 	^ showStartTime
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesShowTime >> showStartTime: anObject [
 
 	showStartTime := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesShowTime >> theatreId [
 
 	^ theatreId
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesShowTime >> theatreId: anObject [
 
 	theatreId := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesShowTime >> theatresIn: aRepo [
 
 	^ aRepo

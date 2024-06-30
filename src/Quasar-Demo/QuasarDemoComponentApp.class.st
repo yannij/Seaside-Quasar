@@ -2,24 +2,32 @@
 I am a demo application showing how to use the various Quasar Framework components from Seaside.
 "
 Class {
-	#name : #QuasarDemoComponentApp,
-	#superclass : #QuasarApplication,
+	#name : 'QuasarDemoComponentApp',
+	#superclass : 'QuasarApplication',
 	#instVars : [
 		'demoName',
 		'demoObjectA',
 		'experiment4',
 		'reactive1'
 	],
-	#category : #'Quasar-Demo-Basic'
+	#category : 'Quasar-Demo-Basic',
+	#package : 'Quasar-Demo',
+	#tag : 'Basic'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoComponentApp class >> applicationPath [
 
 	^ 'quasar/component-demo'
 ]
 
-{ #category : #initialization }
+{ #category : 'accessing' }
+QuasarDemoComponentApp class >> categoryName [
+
+	^ #quasar
+]
+
+{ #category : 'initialization' }
 QuasarDemoComponentApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -29,25 +37,25 @@ QuasarDemoComponentApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoComponentApp >> applicationTitle [
 
 	^ 'Components'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoComponentApp >> demoName [
 
 	^ demoName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoComponentApp >> demoName: anObject [
 
 	demoName := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoComponentApp >> demoNames [
 
 	^ #(
@@ -69,7 +77,7 @@ QuasarDemoComponentApp >> demoNames [
 	)
 ]
 
-{ #category : #'demo - tree' }
+{ #category : 'demo - tree' }
 QuasarDemoComponentApp >> exampleBasicGraph [
 
 	^ NeoJSONReader fromString: '[
@@ -111,13 +119,13 @@ QuasarDemoComponentApp >> exampleBasicGraph [
       ]'
 ]
 
-{ #category : #'demo - tree' }
+{ #category : 'demo - tree' }
 QuasarDemoComponentApp >> exampleBasicName [
 
 	^ 'treeBasic'
 ]
 
-{ #category : #'demo - tree' }
+{ #category : 'demo - tree' }
 QuasarDemoComponentApp >> exampleSelectionVsEtcGraph [
 
 	^ NeoJSONReader fromString: '[
@@ -152,13 +160,13 @@ QuasarDemoComponentApp >> exampleSelectionVsEtcGraph [
       ]'
 ]
 
-{ #category : #'demo - tree' }
+{ #category : 'demo - tree' }
 QuasarDemoComponentApp >> exampleSelectionVsEtcName [
 
 	^ 'treeSelectionVsEtcName'
 ]
 
-{ #category : #'demo - form' }
+{ #category : 'demo - form' }
 QuasarDemoComponentApp >> formBasicOnResetJs [
 
 	^ 'function formBasicOnReset () {
@@ -168,7 +176,7 @@ QuasarDemoComponentApp >> formBasicOnResetJs [
 }'
 ]
 
-{ #category : #'demo - form' }
+{ #category : 'demo - form' }
 QuasarDemoComponentApp >> formBasicOnSubmitJs [
 
 	^ 'function formBasicOnSubmit () {
@@ -191,7 +199,7 @@ QuasarDemoComponentApp >> formBasicOnSubmitJs [
       }'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoComponentApp >> quasarSetupContentOn: aJSStream with: html [
 
 	self vueSetupDemoDrawerOn: aJSStream.
@@ -199,7 +207,7 @@ QuasarDemoComponentApp >> quasarSetupContentOn: aJSStream with: html [
 	self vueSetupDemoSelectOn: aJSStream
 ]
 
-{ #category : #'rendering - quasar hooks' }
+{ #category : 'rendering - quasar hooks' }
 QuasarDemoComponentApp >> quasarSetupReturnCustomList: aList with: anAjaxFactory [
 
 	self vueSetupReturnDemoSelectOn: aList.
@@ -216,7 +224,7 @@ tab: ref(''mails''),
 shape: ref(''line'')'
 ]
 
-{ #category : #'demo - breadcrumbs' }
+{ #category : 'demo - breadcrumbs' }
 QuasarDemoComponentApp >> renderDemoBreadcrumbsOn: html [
 
 	html qQuasarBreadcrumbs with: [ 
@@ -235,7 +243,7 @@ QuasarDemoComponentApp >> renderDemoBreadcrumbsOn: html [
 		html qQuasarBreadcrumbsEl icon: 'navigation' ].
 ]
 
-{ #category : #'demo - btn' }
+{ #category : 'demo - btn' }
 QuasarDemoComponentApp >> renderDemoBtnOn: html [
 
 	html div class: 'q-pa-md'; class: 'q-gutter-sm'; with: [
@@ -249,7 +257,7 @@ QuasarDemoComponentApp >> renderDemoBtnOn: html [
 		html qBtn color: 'black'; label: 'Black' ]
 ]
 
-{ #category : #'demo - btn toggle' }
+{ #category : 'demo - btn toggle' }
 QuasarDemoComponentApp >> renderDemoBtnToggleOn: html [
 
 	html div class: 'q-pa-md'; class: 'q-gutter-sm'; with: [
@@ -266,7 +274,7 @@ QuasarDemoComponentApp >> renderDemoBtnToggleOn: html [
       ></q-btn-toggle>' ]
 ]
 
-{ #category : #'demo - card' }
+{ #category : 'demo - card' }
 QuasarDemoComponentApp >> renderDemoCardOn: html [
 
 	html div class: 'q-pa-md row items-start q-gutter-md'; with: [
@@ -319,7 +327,7 @@ QuasarDemoComponentApp >> renderDemoCardOn: html [
 				html qBtn flat; with: 'Action 2' ] ] ]
 ]
 
-{ #category : #'demo - color picker' }
+{ #category : 'demo - color picker' }
 QuasarDemoComponentApp >> renderDemoColorPickerOn: html [
 
 	html div class: 'q-pa-md'; class: 'q-gutter-sm'; with: [
@@ -330,7 +338,7 @@ QuasarDemoComponentApp >> renderDemoColorPickerOn: html [
 						html qColor vModel: 'color' ] ] ] ] ]
 ]
 
-{ #category : #'demo - date time' }
+{ #category : 'demo - date time' }
 QuasarDemoComponentApp >> renderDemoDateTimeOn: html [
 
 	html div style: 'max-width: 300px'; with: [
@@ -349,7 +357,7 @@ QuasarDemoComponentApp >> renderDemoDateTimeOn: html [
 								html qBtn vClosePopUp; label: 'Close'; color: 'primary'; flat ] ] ] ] ] ] ]
 ]
 
-{ #category : #'demo - dialog' }
+{ #category : 'demo - dialog' }
 QuasarDemoComponentApp >> renderDemoDialogOn: html [
 
 	html div class: 'q-pa-md'; with: [
@@ -366,7 +374,7 @@ QuasarDemoComponentApp >> renderDemoDialogOn: html [
 					html qBtn flat; label: 'Turn on Wifi'; color: 'primary'; vClosePopUp ] ] ] ]
 ]
 
-{ #category : #'demo - drawer' }
+{ #category : 'demo - drawer' }
 QuasarDemoComponentApp >> renderDemoDrawerOn: html [
 
 	html html: '<div id="q-app" style="min-height: 100vh;">
@@ -418,7 +426,7 @@ QuasarDemoComponentApp >> renderDemoDrawerOn: html [
 </div>'
 ]
 
-{ #category : #'demo - form' }
+{ #category : 'demo - form' }
 QuasarDemoComponentApp >> renderDemoFormBasicOn: html [
 
 	self vueRefsSet: 'formBasicName' -> nil.
@@ -464,7 +472,7 @@ QuasarDemoComponentApp >> renderDemoFormBasicOn: html [
 					html qBtn label: 'Reset'; type: 'reset'; color: 'primary'; flat; class: 'q-ml-sm' ] ] ]
 ]
 
-{ #category : #'demo - form' }
+{ #category : 'demo - form' }
 QuasarDemoComponentApp >> renderDemoFormChooserOn: html [
 
 	html qBtnDropdown color: 'primary'; label: 'Usage Example'; with: [
@@ -477,7 +485,7 @@ QuasarDemoComponentApp >> renderDemoFormChooserOn: html [
 					html qItemLabel with: 'Native submit' ] ] ] ]
 ]
 
-{ #category : #'demo - form' }
+{ #category : 'demo - form' }
 QuasarDemoComponentApp >> renderDemoFormNativeSubmitOn: html [
 
 	html div
@@ -488,7 +496,7 @@ QuasarDemoComponentApp >> renderDemoFormNativeSubmitOn: html [
 			html text: 'TODO: Native submit example' ]
 ]
 
-{ #category : #'demo - form' }
+{ #category : 'demo - form' }
 QuasarDemoComponentApp >> renderDemoFormOn: html [
 
 	self vueRefsSet: 'formChooser' -> 'basic'.
@@ -498,7 +506,7 @@ QuasarDemoComponentApp >> renderDemoFormOn: html [
 	self renderDemoFormNativeSubmitOn: html
 ]
 
-{ #category : #'demo - pagination' }
+{ #category : 'demo - pagination' }
 QuasarDemoComponentApp >> renderDemoPaginationOn: html [
 
 	html div class: 'q-pa-md flex flex-center'; with: [
@@ -525,7 +533,7 @@ QuasarDemoComponentApp >> renderDemoPaginationOn: html [
 		html qPagination vModel: 'currentPagination'; vBind: 'max' with: 5; directionLinks; boundaryLinks ].
 ]
 
-{ #category : #'demo - radio' }
+{ #category : 'demo - radio' }
 QuasarDemoComponentApp >> renderDemoRadioOn: html [
 
 	html div class: 'q-pa-md'; with: [
@@ -538,7 +546,7 @@ QuasarDemoComponentApp >> renderDemoRadioOn: html [
 			html html: 'Your selection is: <strong>{{ shape }}</strong>' ] ]
 ]
 
-{ #category : #'demo - select' }
+{ #category : 'demo - select' }
 QuasarDemoComponentApp >> renderDemoSelectOn: html [
 
 	html qForm vOnSubmit: 'onSubmit'; class: 'q-gutter-md'; with: [
@@ -573,7 +581,7 @@ QuasarDemoComponentApp >> renderDemoSelectOn: html [
     </q-card>'
 ]
 
-{ #category : #'demo - tab panels' }
+{ #category : 'demo - tab panels' }
 QuasarDemoComponentApp >> renderDemoTabPanelsOn: html [
 
 	html div class: 'q-pa-md'; class: 'q-gutter-sm'; with: [
@@ -595,7 +603,7 @@ QuasarDemoComponentApp >> renderDemoTabPanelsOn: html [
 					html text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.' ] ] ] ]
 ]
 
-{ #category : #'demo - table' }
+{ #category : 'demo - table' }
 QuasarDemoComponentApp >> renderDemoTableOn: html [
 
 	html div class: 'q-pa-md'; class: 'q-gutter-sm'; with: [
@@ -609,7 +617,7 @@ QuasarDemoComponentApp >> renderDemoTableOn: html [
   </div>' ]
 ]
 
-{ #category : #'demo - tree' }
+{ #category : 'demo - tree' }
 QuasarDemoComponentApp >> renderDemoTreeBasicOn: html [
 
 	self vueRefsSet: self exampleBasicName -> self exampleBasicGraph.
@@ -621,7 +629,7 @@ QuasarDemoComponentApp >> renderDemoTreeBasicOn: html [
 		nodeKey: 'label'
 ]
 
-{ #category : #'demo - tree' }
+{ #category : 'demo - tree' }
 QuasarDemoComponentApp >> renderDemoTreeChooserOn: html [
 
 	html qBtnDropdown color: 'primary'; label: 'Usage Example'; with: [
@@ -634,7 +642,7 @@ QuasarDemoComponentApp >> renderDemoTreeChooserOn: html [
 					html qItemLabel with: 'Selection vs ticking, expansion' ] ] ] ]
 ]
 
-{ #category : #'demo - tree' }
+{ #category : 'demo - tree' }
 QuasarDemoComponentApp >> renderDemoTreeOn: html [
 
 	self vueRefsSet: 'treeChooser' -> 'basic'.
@@ -644,7 +652,7 @@ QuasarDemoComponentApp >> renderDemoTreeOn: html [
 	self renderDemoTreeSelectionVsEtcOn: html
 ]
 
-{ #category : #'demo - tree' }
+{ #category : 'demo - tree' }
 QuasarDemoComponentApp >> renderDemoTreeSelectionVsEtcOn: html [
 
 	self vueRefsSet: self exampleSelectionVsEtcName -> self exampleSelectionVsEtcGraph.
@@ -683,7 +691,7 @@ QuasarDemoComponentApp >> renderDemoTreeSelectionVsEtcOn: html [
 					with: '{{ expand }}' ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoComponentApp >> renderLayoutOn: html [
 
 	html html: '<style>
@@ -703,7 +711,7 @@ QuasarDemoComponentApp >> renderLayoutOn: html [
 			self renderLayoutPageOn: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoComponentApp >> renderLayoutPageOn: html [
 	| demoSelector |
 
@@ -718,7 +726,7 @@ QuasarDemoComponentApp >> renderLayoutPageOn: html [
 					ifFalse: [ html text: 'Missing demo: ', demoSelector asString ] ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoComponentApp >> renderLeftDrawerOn: html [
 
 	html qDrawer ref: 'leftDrawer'; showIfAbove; persistent; side: 'left';
@@ -729,7 +737,7 @@ QuasarDemoComponentApp >> renderLeftDrawerOn: html [
 				self renderNavOn: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoComponentApp >> renderNavOn: html [
 
 	html qList with: [
@@ -740,7 +748,7 @@ QuasarDemoComponentApp >> renderNavOn: html [
 					html qItemSection with: eachItem ] ] ]
 ]
 
-{ #category : #'demo - drawer' }
+{ #category : 'demo - drawer' }
 QuasarDemoComponentApp >> vueSetupDemoDrawerOn: aJSStream [
 
 	aJSStream
@@ -784,7 +792,7 @@ QuasarDemoComponentApp >> vueSetupDemoDrawerOn: aJSStream [
 ];'
 ]
 
-{ #category : #'demo - select' }
+{ #category : 'demo - select' }
 QuasarDemoComponentApp >> vueSetupDemoSelectOn: aJSStream [
 
 	aJSStream
@@ -792,7 +800,7 @@ QuasarDemoComponentApp >> vueSetupDemoSelectOn: aJSStream [
 		nextPutAll: 'const submitResult = ref([]);'
 ]
 
-{ #category : #'demo - table' }
+{ #category : 'demo - table' }
 QuasarDemoComponentApp >> vueSetupDemoTableOn: aJSStream [
 
 	^ aJSStream nextPutAll: '
@@ -919,13 +927,13 @@ const rows = [
 ];'
 ]
 
-{ #category : #'demo - drawer' }
+{ #category : 'demo - drawer' }
 QuasarDemoComponentApp >> vueSetupReturnDemoDrawerOn: aList [
 
 	aList add: 'drawer: ref(false), menuList'
 ]
 
-{ #category : #'demo - select' }
+{ #category : 'demo - select' }
 QuasarDemoComponentApp >> vueSetupReturnDemoSelectOn:  aList [
 
 	aList add: '
@@ -966,7 +974,7 @@ QuasarDemoComponentApp >> vueSetupReturnDemoSelectOn:  aList [
       }'
 ]
 
-{ #category : #'demo - table' }
+{ #category : 'demo - table' }
 QuasarDemoComponentApp >> vueSetupReturnDemoTableOn:  aList [
 
 	aList add: 'columns'; add: 'rows'

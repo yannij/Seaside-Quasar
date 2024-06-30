@@ -1,16 +1,24 @@
 Class {
-	#name : #KeycloakHelloApp,
-	#superclass : #QuasarApplication,
-	#category : #'Quasar-Material-Keycloak'
+	#name : 'KeycloakHelloApp',
+	#superclass : 'QuasarApplication',
+	#category : 'Quasar-Material-Keycloak',
+	#package : 'Quasar-Material',
+	#tag : 'Keycloak'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 KeycloakHelloApp class >> applicationPath [
 
 	^ 'quasar/keycloak-hello'
 ]
 
-{ #category : #initialization }
+{ #category : 'accessing' }
+KeycloakHelloApp class >> categoryName [
+
+	^ #misc
+]
+
+{ #category : 'initialization' }
 KeycloakHelloApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -22,13 +30,13 @@ KeycloakHelloApp class >> initialize [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KeycloakHelloApp >> applicationTitle [
 
 	^ 'Keycloak Hello'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 KeycloakHelloApp >> keycloakInitJs [
 	^ '
         keycloak.init({
@@ -49,7 +57,7 @@ KeycloakHelloApp >> keycloakInitJs [
 '
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 KeycloakHelloApp >> keycloakVarJs [
 	^ '
         var keycloak = new Keycloak({
@@ -60,7 +68,7 @@ KeycloakHelloApp >> keycloakVarJs [
 '
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 KeycloakHelloApp >> renderAppOn: html [
 
 	html qLayout view: 'hHh lpR fFf'; with: [
@@ -73,7 +81,7 @@ KeycloakHelloApp >> renderAppOn: html [
 				self renderKeycloakOn: html ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 KeycloakHelloApp >> renderKeycloakOn: html [
 
 	"html script url: (KeycloakHelloLibrary urlOf: #keycloakJs)."
@@ -93,7 +101,7 @@ KeycloakHelloApp >> renderKeycloakOn: html [
 			html qBtn label: 'Sign out'; onClick: 'keycloak.logout()' ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 KeycloakHelloApp >> renderLayoutOn: html [
 
 	html qApp id: self appId; with: [

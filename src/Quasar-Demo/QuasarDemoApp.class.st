@@ -1,10 +1,18 @@
 Class {
-	#name : #QuasarDemoApp,
-	#superclass : #QuasarApplication,
-	#category : #'Quasar-Demo-Accounting'
+	#name : 'QuasarDemoApp',
+	#superclass : 'QuasarApplication',
+	#category : 'Quasar-Demo-Accounting',
+	#package : 'Quasar-Demo',
+	#tag : 'Accounting'
 }
 
-{ #category : #hooks }
+{ #category : 'accessing' }
+QuasarDemoApp class >> categoryName [
+
+	^ #demo
+]
+
+{ #category : 'hooks' }
 QuasarDemoApp >> initialRequest: aRequest [
 
 	super initialRequest: aRequest.

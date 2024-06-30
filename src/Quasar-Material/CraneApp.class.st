@@ -2,8 +2,8 @@
 I am a demo application inspired by the Crane Material Design Study (https://material.io/design/material-studies/crane.html)
 "
 Class {
-	#name : #CraneApp,
-	#superclass : #QuasarApplication,
+	#name : 'CraneApp',
+	#superclass : 'QuasarApplication',
 	#instVars : [
 		'tab',
 		'filterShow',
@@ -11,16 +11,24 @@ Class {
 		'sleepFilter',
 		'eatFilter'
 	],
-	#category : #'Quasar-Material-Crane'
+	#category : 'Quasar-Material-Crane',
+	#package : 'Quasar-Material',
+	#tag : 'Crane'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CraneApp class >> applicationPath [
 
 	^ 'quasar/material-study-crane'
 ]
 
-{ #category : #initialization }
+{ #category : 'accessing' }
+CraneApp class >> categoryName [
+
+	^ #studies
+]
+
+{ #category : 'initialization' }
 CraneApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -30,49 +38,49 @@ CraneApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneApp >> applicationTitle [
 
 	^ 'Crane'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneApp >> eatFilter [
 
 	^ eatFilter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneApp >> eatFilter: anObject [
 
 	eatFilter := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneApp >> filterShow [
 
 	^ filterShow
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneApp >> filterShow: anObject [
 
 	filterShow := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneApp >> flyFilter [
 
 	^ flyFilter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneApp >> flyFilter: anObject [
 
 	flyFilter := anObject
 ]
 
-{ #category : #'tab - fly' }
+{ #category : 'tab - fly' }
 CraneApp >> flySearchResult [
 	| fromDate toDate |
 
@@ -95,7 +103,7 @@ CraneApp >> flySearchResult [
 		matchedOriginDestination and: [ matchedFromToDates ] ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 CraneApp >> initialize [
 
 	super initialize.
@@ -111,7 +119,7 @@ CraneApp >> initialize [
 	self initializeEatFilter
 ]
 
-{ #category : #'tab - eat' }
+{ #category : 'tab - eat' }
 CraneApp >> initializeEatFilter [
 	| newReactive |
 
@@ -138,7 +146,7 @@ CraneApp >> initializeEatFilter [
 	self reactiveObjectsAddIfAbsent: newReactive.
 ]
 
-{ #category : #'tab - fly' }
+{ #category : 'tab - fly' }
 CraneApp >> initializeFlyFilter [
 	| newReactive dateRange |
 
@@ -176,7 +184,7 @@ CraneApp >> initializeFlyFilter [
 	self reactiveObjectsAddIfAbsent: newReactive.
 ]
 
-{ #category : #'tab - sleep' }
+{ #category : 'tab - sleep' }
 CraneApp >> initializeSleepFilter [
 	| newReactive |
 
@@ -195,13 +203,13 @@ CraneApp >> initializeSleepFilter [
 	self reactiveObjectsAddIfAbsent: newReactive."
 ]
 
-{ #category : #'tab - fly' }
+{ #category : 'tab - fly' }
 CraneApp >> printFlightDateTime: aDateTime [
 
 	^ aDateTime asLocalStringYMDHM, ' ', aDateTime timeZoneAbbreviation
 ]
 
-{ #category : #'rendering - quasar hooks' }
+{ #category : 'rendering - quasar hooks' }
 CraneApp >> quasarConfigContentOn: aJSStream with: html [
 
 	aJSStream nextPutAll: '
@@ -217,7 +225,7 @@ brand: {
 }'
 ]
 
-{ #category : #'tab - fly' }
+{ #category : 'tab - fly' }
 CraneApp >> renderAirportListOn: html header: headerString ref: aRefObject [
 
 	html qList style: 'background: white'; with: [
@@ -232,7 +240,7 @@ CraneApp >> renderAirportListOn: html header: headerString ref: aRefObject [
 						with: eachObject city cityName, ', ', eachObject city countryName ] ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 CraneApp >> renderBottomSheetContentOn: html [
 
 	html qCard flat;
@@ -245,7 +253,7 @@ CraneApp >> renderBottomSheetContentOn: html [
 				html qBtn icon: 'close'; vClosePopUp; "style: 'background: var(--q-primary)';" with: 'Close' ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 CraneApp >> renderBottomSheetOn: html [
 
 	html qDialog
@@ -259,7 +267,7 @@ CraneApp >> renderBottomSheetOn: html [
 			vOnClick: 'this.$refs.bottomSheet.show($event)' ]
 ]
 
-{ #category : #'tab - eat' }
+{ #category : 'tab - eat' }
 CraneApp >> renderEatListOn: html [
 
 	html qList style: 'background: white'; with: [
@@ -275,7 +283,7 @@ CraneApp >> renderEatListOn: html [
 					html qItemLabel style: 'color: red'; with: eachObject price ]" ] ] ]
 ]
 
-{ #category : #'tab - eat' }
+{ #category : 'tab - eat' }
 CraneApp >> renderEatSearchOn: html [
 
 	html div class: 'xs'; with: [
@@ -291,7 +299,7 @@ CraneApp >> renderEatSearchOn: html [
 		self renderEatSearchOn: html colCount: 'col-3' ]
 ]
 
-{ #category : #'tab - eat' }
+{ #category : 'tab - eat' }
 CraneApp >> renderEatSearchOn: html colCount: colCount [
 
 	html div class: 'q-px-xs q-py-sm row q-col-gutter-xs'; class: 'backdrop-bg'; with: [
@@ -313,7 +321,7 @@ CraneApp >> renderEatSearchOn: html colCount: colCount [
 				label: self eatFilter location ] ]
 ]
 
-{ #category : #'tab - eat' }
+{ #category : 'tab - eat' }
 CraneApp >> renderEatTabPanelOn: html [
 
 	html qTabPanel name: 'eat'; class: 'q-pa-none'; with: [
@@ -321,7 +329,7 @@ CraneApp >> renderEatTabPanelOn: html [
 		self renderEatListOn: html ]
 ]
 
-{ #category : #'tab - fly' }
+{ #category : 'tab - fly' }
 CraneApp >> renderFlyCard: eachObject on: html [
 
 	html qCard class: 'q-px-xs'; flat; with: [ | flight |
@@ -380,7 +388,7 @@ CraneApp >> renderFlyCard: eachObject on: html [
 				html div class: 'col'; with: (self printFlightDateTime: flight arrivalDateTimeUTC) ] ] ]
 ]
 
-{ #category : #'tab - fly' }
+{ #category : 'tab - fly' }
 CraneApp >> renderFlyCardDense: eachObject on: html [
 
 	html qCard class: 'q-px-xs'; "style: 'width: 350px';" flat; with: [ | flight |
@@ -410,7 +418,7 @@ CraneApp >> renderFlyCardDense: eachObject on: html [
 				html div class: 'col-auto'; with: flight flightDuration asHours printString, 'h' "]" ] ]
 ]
 
-{ #category : #'tab - fly' }
+{ #category : 'tab - fly' }
 CraneApp >> renderFlyDialogDateRangeOn: html [
 
 	html div class: 'q-pa-md'; with: [
@@ -425,7 +433,7 @@ CraneApp >> renderFlyDialogDateRangeOn: html [
 						vClosePopUp ] ] ] ]
 ]
 
-{ #category : #'tab - fly' }
+{ #category : 'tab - fly' }
 CraneApp >> renderFlyDialogDestinationOn: html [
 
 	html div class: 'q-pa-md'; with: [
@@ -436,7 +444,7 @@ CraneApp >> renderFlyDialogDestinationOn: html [
 					html qBtn flat; label: 'Cancel'; color: 'primary'; vClosePopUp ] ] ] ]
 ]
 
-{ #category : #'tab - fly' }
+{ #category : 'tab - fly' }
 CraneApp >> renderFlyDialogOriginOn: html [
 
 	html div class: 'q-pa-md'; with: [
@@ -447,7 +455,7 @@ CraneApp >> renderFlyDialogOriginOn: html [
 					html qBtn flat; label: 'Cancel'; color: 'primary'; vClosePopUp ] ] ] ]
 ]
 
-{ #category : #'tab - fly' }
+{ #category : 'tab - fly' }
 CraneApp >> renderFlyResultsOn: html [
 
 	html div
@@ -461,7 +469,7 @@ CraneApp >> renderFlyResultsOn: html [
 				separatedBy: [ "html qSpace" ] ]
 ]
 
-{ #category : #'tab - fly' }
+{ #category : 'tab - fly' }
 CraneApp >> renderFlySearchOn: html [
 
 	html div class: 'xs'; with: [
@@ -477,7 +485,7 @@ CraneApp >> renderFlySearchOn: html [
 		self renderFlySearchOn: html colWidth: 'col-3' ]
 ]
 
-{ #category : #'tab - fly' }
+{ #category : 'tab - fly' }
 CraneApp >> renderFlySearchOn: html colWidth: colWidth [
 
 	html div class: 'q-px-xs q-py-sm row q-col-gutter-xs'; class: 'backdrop-bg'; with: [
@@ -505,7 +513,7 @@ CraneApp >> renderFlySearchOn: html colWidth: colWidth [
 				label: 'Select Dates' ] ]
 ]
 
-{ #category : #'tab - fly' }
+{ #category : 'tab - fly' }
 CraneApp >> renderFlyTabPanelOn: html [
 
 	html qTabPanel name: 'fly'; class: 'q-pa-none'; with: [
@@ -518,7 +526,7 @@ CraneApp >> renderFlyTabPanelOn: html [
 		self renderFlyResultsOn: html ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 CraneApp >> renderLayoutCraneOn: html [
 
 	html qApp id: self appId; with: [
@@ -537,13 +545,13 @@ CraneApp >> renderLayoutCraneOn: html [
 			"self renderSettingsFabOn: html" ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 CraneApp >> renderLayoutOn: html [
 
 	self renderLayoutCraneOn: html
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 CraneApp >> renderLayoutPageOn: html [
 
 	html qPageContainer with: [
@@ -554,7 +562,7 @@ CraneApp >> renderLayoutPageOn: html [
 				html render: self productComponent ]" ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 CraneApp >> renderSettingsFabOn: html [
 	| logoutUrl |
 
@@ -572,7 +580,7 @@ CraneApp >> renderSettingsFabOn: html [
 					onClick: 'Quasar.openURL(''', logoutUrl greaseString, ''')' ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 CraneApp >> renderSideSheetOn: html [
 
 	html qDrawer
@@ -587,7 +595,7 @@ CraneApp >> renderSideSheetOn: html [
 			vOnClick: 'this.$refs.sideSheet.toggle($event)' ]"
 ]
 
-{ #category : #'tab - sleep' }
+{ #category : 'tab - sleep' }
 CraneApp >> renderSleepListOn: html [
 
 	html qList style: 'background: white'; with: [
@@ -603,7 +611,7 @@ CraneApp >> renderSleepListOn: html [
 					html qItemLabel style: 'color: red'; with: eachObject price ] ] ] ]
 ]
 
-{ #category : #'tab - sleep' }
+{ #category : 'tab - sleep' }
 CraneApp >> renderSleepSearchOn: html [
 
 	html div class: 'xs'; with: [
@@ -619,7 +627,7 @@ CraneApp >> renderSleepSearchOn: html [
 		self renderSleepSearchOn: html colCount: 'col-3' ]
 ]
 
-{ #category : #'tab - sleep' }
+{ #category : 'tab - sleep' }
 CraneApp >> renderSleepSearchOn: html colCount: colCount [
 
 	html div class: 'q-px-xs q-py-sm row q-col-gutter-xs'; class: 'backdrop-bg'; with: [
@@ -637,7 +645,7 @@ CraneApp >> renderSleepSearchOn: html colCount: colCount [
 				label: 'Select Location' ] ]
 ]
 
-{ #category : #'tab - sleep' }
+{ #category : 'tab - sleep' }
 CraneApp >> renderSleepTabPanelOn: html [
 
 	html qTabPanel name: 'sleep'; class: 'q-pa-none'; with: [
@@ -645,7 +653,7 @@ CraneApp >> renderSleepTabPanelOn: html [
 		self renderSleepListOn: html ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 CraneApp >> renderTabPanelsOn: html [
 
 	html qTabPanels vModel: 'tab'; animated; with: [
@@ -654,7 +662,7 @@ CraneApp >> renderTabPanelsOn: html [
 		self renderEatTabPanelOn: html ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 CraneApp >> renderTabsOn: html [
 
 	html qTabs
@@ -666,31 +674,31 @@ CraneApp >> renderTabsOn: html [
 			html qTab name: 'eat'; label: 'Eat'; vOn: 'click' with: self tab functionName, '("eat")' ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneApp >> sleepFilter [
 
 	^ sleepFilter
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneApp >> sleepFilter: anObject [
 
 	sleepFilter := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneApp >> tab [
 
 	^ tab
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneApp >> tab: anObject [
 
 	tab := anObject
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 CraneApp >> updateRoot: anHtmlRoot [
 
 	super updateRoot: anHtmlRoot.
@@ -700,7 +708,7 @@ CraneApp >> updateRoot: anHtmlRoot [
 
 ]
 
-{ #category : #'tab - fly' }
+{ #category : 'tab - fly' }
 CraneApp >> xrenderEatSearchOn: html [
 	| filterComponent filterDescription attrComponent attrDescription |
 

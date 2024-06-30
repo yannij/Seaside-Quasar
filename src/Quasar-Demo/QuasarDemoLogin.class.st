@@ -1,15 +1,17 @@
 Class {
-	#name : #QuasarDemoLogin,
-	#superclass : #WAComponent,
+	#name : 'QuasarDemoLogin',
+	#superclass : 'WAComponent',
 	#instVars : [
 		'username',
 		'password',
 		'message'
 	],
-	#category : #'Quasar-Demo-Accounting'
+	#category : 'Quasar-Demo-Accounting',
+	#package : 'Quasar-Demo',
+	#tag : 'Accounting'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoLogin >> initialize [
 
 	super initialize.
@@ -17,31 +19,31 @@ QuasarDemoLogin >> initialize [
 	self username: 'tu1@test.co'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoLogin >> message [
 
 	^ message
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoLogin >> message: anObject [
 
 	message := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoLogin >> password [
 
 	^ password
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoLogin >> password: anObject [
 
 	password := anObject
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoLogin >> renderContentOn: html [
 
 	html div class: 'row justify-center'; style: 'height: 100vh; align-items: center'; with: [
@@ -50,7 +52,7 @@ QuasarDemoLogin >> renderContentOn: html [
 				self renderLoginFormOn: html ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoLogin >> renderField: aLabel type: anInputType for: anAspect on: html [
 
 	html qField
@@ -63,7 +65,7 @@ QuasarDemoLogin >> renderField: aLabel type: anInputType for: anAspect on: html 
 				on: anAspect of: self ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoLogin >> renderLoginFormOn: html [
 
 	html qForm
@@ -82,7 +84,7 @@ QuasarDemoLogin >> renderLoginFormOn: html [
 				html div with: self message ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoLogin >> tryLogin [ 
 
 	"Transcript crShow: 'triggered: ', DateAndTime now asFileNameCompatibleString, ', username:', self username, ', password: ', self password."
@@ -99,13 +101,13 @@ QuasarDemoLogin >> tryLogin [
 					self mdqApplicationGet userSet: user ] ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoLogin >> username [
 
 	^ username
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoLogin >> username: anObject [
 
 	username := anObject

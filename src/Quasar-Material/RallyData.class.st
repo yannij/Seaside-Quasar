@@ -1,10 +1,12 @@
 Class {
-	#name : #RallyData,
-	#superclass : #Object,
-	#category : #'Quasar-Material-Rally'
+	#name : 'RallyData',
+	#superclass : 'Object',
+	#category : 'Quasar-Material-Rally',
+	#package : 'Quasar-Material',
+	#tag : 'Rally'
 }
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 RallyData class >> createRallyAccounts [
 
 	RallyAccount instanceList: nil.
@@ -18,7 +20,7 @@ RallyData class >> createRallyAccounts [
 		RallyAccount instanceListAdd: newObject ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 RallyData class >> createRallyAlerts [
 
 	RallyAlert instanceList: nil.
@@ -31,7 +33,7 @@ RallyData class >> createRallyAlerts [
 		RallyAlert instanceListAdd: newObject ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 RallyData class >> createRallyBills [
 	| today |
 
@@ -49,7 +51,7 @@ RallyData class >> createRallyBills [
 		RallyBill instanceListAdd: newObject ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 RallyData class >> createRallyBudgetItems [
 
 	RallyBudgetItem instanceList: nil.
@@ -66,7 +68,7 @@ RallyData class >> createRallyBudgetItems [
 		RallyBudgetItem instanceListAdd: newObject ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 RallyData class >> createRallyData [
 	"
 	self createRallyData
@@ -79,7 +81,7 @@ RallyData class >> createRallyData [
 
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 RallyData class >> initialize [
 
 	self createRallyData

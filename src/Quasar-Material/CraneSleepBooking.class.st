@@ -1,27 +1,29 @@
 Class {
-	#name : #CraneSleepBooking,
-	#superclass : #CraneObject,
+	#name : 'CraneSleepBooking',
+	#superclass : 'CraneObject',
 	#instVars : [
 		'id',
 		'travellers',
 		'lodging'
 	],
-	#category : #'Quasar-Material-Crane'
+	#category : 'Quasar-Material-Crane',
+	#package : 'Quasar-Material',
+	#tag : 'Crane'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneSleepBooking >> id [
 
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneSleepBooking >> id: anObject [
 
 	id := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneSleepBooking >> idDescription [
 	<magritteDescription>
 
@@ -33,19 +35,19 @@ CraneSleepBooking >> idDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneSleepBooking >> lodging [
 
 	^ lodging
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneSleepBooking >> lodging: anObject [
 
 	lodging := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneSleepBooking >> lodgingDescription [
 	<magritteDescription>
 
@@ -57,19 +59,19 @@ CraneSleepBooking >> lodgingDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneSleepBooking >> travellers [
 
 	^ travellers
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneSleepBooking >> travellers: anObject [
 
 	travellers := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneSleepBooking >> travellersDescription [
 	<magritteDescription>
 

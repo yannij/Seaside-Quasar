@@ -1,10 +1,12 @@
 Class {
-	#name : #QRallyAccountView,
-	#superclass : #QRallyView,
-	#category : #'Quasar-Material-Rally'
+	#name : 'QRallyAccountView',
+	#superclass : 'QRallyView',
+	#category : 'Quasar-Material-Rally',
+	#package : 'Quasar-Material',
+	#tag : 'Rally'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyAccountView >> instanceList [
 
 	^ RallyAccount instanceList

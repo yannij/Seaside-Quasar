@@ -1,28 +1,30 @@
 Class {
-	#name : #CraneRestaurant,
-	#superclass : #CraneObject,
+	#name : 'CraneRestaurant',
+	#superclass : 'CraneObject',
 	#instVars : [
 		'restaurantName',
 		'cuisine',
 		'address',
 		'city'
 	],
-	#category : #'Quasar-Material-Crane'
+	#category : 'Quasar-Material-Crane',
+	#package : 'Quasar-Material',
+	#tag : 'Crane'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneRestaurant >> address [
 
 	^ address
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneRestaurant >> address: anObject [
 
 	address := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneRestaurant >> addressDescription [
 	<magritteDescription>
 
@@ -33,19 +35,19 @@ CraneRestaurant >> addressDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneRestaurant >> city [
 
 	^ city
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneRestaurant >> city: anObject [
 
 	city := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneRestaurant >> cityDescription [
 	<magritteDescription>
 
@@ -57,19 +59,19 @@ CraneRestaurant >> cityDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneRestaurant >> cuisine [
 
 	^ cuisine
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneRestaurant >> cuisine: anObject [
 
 	cuisine := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneRestaurant >> cuisineDescription [
 	<magritteDescription>
 
@@ -80,19 +82,19 @@ CraneRestaurant >> cuisineDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneRestaurant >> restaurantName [
 
 	^ restaurantName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneRestaurant >> restaurantName: anObject [
 
 	restaurantName := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneRestaurant >> restaurantNameDescription [
 	<magritteDescription>
 

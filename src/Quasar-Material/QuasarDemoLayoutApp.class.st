@@ -2,18 +2,26 @@
 I am a demo application showing how to use the layout features of the Quasar Framework from Seaside.
 "
 Class {
-	#name : #QuasarDemoLayoutApp,
-	#superclass : #QuasarApplication,
-	#category : #'Quasar-Material-Basic'
+	#name : 'QuasarDemoLayoutApp',
+	#superclass : 'QuasarApplication',
+	#category : 'Quasar-Material-Basic',
+	#package : 'Quasar-Material',
+	#tag : 'Basic'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoLayoutApp class >> applicationPath [
 
 	^ 'quasar/layout-demo'
 ]
 
-{ #category : #initialization }
+{ #category : 'accessing' }
+QuasarDemoLayoutApp class >> categoryName [
+
+	^ #quasar
+]
+
+{ #category : 'initialization' }
 QuasarDemoLayoutApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -23,13 +31,13 @@ QuasarDemoLayoutApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoLayoutApp >> applicationTitle [
 
 	^ 'Layout'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoLayoutApp >> renderColorThemeOn: html [
 
 	html div class: 'q-pa-md'; class: 'q-gutter-sm'; with: [
@@ -58,7 +66,7 @@ QuasarDemoLayoutApp >> renderColorThemeOn: html [
 						html break ] ] ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoLayoutApp >> renderExampleOn: html [
 
 	html qLayout view: 'hHh lpR fFf'; vCloak; with: [
@@ -85,7 +93,7 @@ QuasarDemoLayoutApp >> renderExampleOn: html [
 					html text: 'Title' ] ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoLayoutApp >> renderLayoutOn: html [
 
 	self renderSetColorTheme: self colorTheme on: html.
@@ -94,7 +102,7 @@ QuasarDemoLayoutApp >> renderLayoutOn: html [
 		self renderExampleOn: html ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoLayoutApp >> renderPageOn: html [
 
 	self renderColorThemeOn: html

@@ -2,24 +2,32 @@
 I am a demo application showing how to use Quasar Utils from Seaside.
 "
 Class {
-	#name : #QuasarDemoUtilsApp,
-	#superclass : #QuasarApplication,
+	#name : 'QuasarDemoUtilsApp',
+	#superclass : 'QuasarApplication',
 	#instVars : [
 		'demoName',
 		'demoObjectA',
 		'experiment4',
 		'reactive1'
 	],
-	#category : #'Quasar-Demo-Basic'
+	#category : 'Quasar-Demo-Basic',
+	#package : 'Quasar-Demo',
+	#tag : 'Basic'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoUtilsApp class >> applicationPath [
 
 	^ 'quasar/utils-demo'
 ]
 
-{ #category : #initialization }
+{ #category : 'accessing' }
+QuasarDemoUtilsApp class >> categoryName [
+
+	^ #quasar
+]
+
+{ #category : 'initialization' }
 QuasarDemoUtilsApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -29,25 +37,25 @@ QuasarDemoUtilsApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoUtilsApp >> applicationTitle [
 
 	^ 'Quasar Utils'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoUtilsApp >> demoName [
 
 	^ demoName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoUtilsApp >> demoName: anObject [
 
 	demoName := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoUtilsApp >> demoNames [
 
 	^ #(
@@ -56,7 +64,7 @@ QuasarDemoUtilsApp >> demoNames [
 	)
 ]
 
-{ #category : #'rendering - quasar hooks' }
+{ #category : 'rendering - quasar hooks' }
 QuasarDemoUtilsApp >> quasarSetupContentOn: aJSStream with: html [
 
 	aJSStream nextPutAll: '
@@ -65,7 +73,7 @@ const dom1 = ref("dom1 initial value");
 '
 ]
 
-{ #category : #'rendering - quasar hooks' }
+{ #category : 'rendering - quasar hooks' }
 QuasarDemoUtilsApp >> quasarSetupReturnCustomList: aList with: anAjaxFactory [
 
 	aList
@@ -74,7 +82,7 @@ QuasarDemoUtilsApp >> quasarSetupReturnCustomList: aList with: anAjaxFactory [
 		add: 'dom1, utilDomOffset(){ console.log(this.$refs.dom1Chip) }'
 ]
 
-{ #category : #'demo - DOM' }
+{ #category : 'demo - DOM' }
 QuasarDemoUtilsApp >> renderDemoDOMOn: html [
 
 	html text: 'Click to generate UID: '.
@@ -85,13 +93,13 @@ QuasarDemoUtilsApp >> renderDemoDOMOn: html [
 		"label: 'foobar'"
 ]
 
-{ #category : #'demo - other' }
+{ #category : 'demo - other' }
 QuasarDemoUtilsApp >> renderDemoOtherOn: html [
 
 	self renderDemoOtherUIDOn: html
 ]
 
-{ #category : #'demo - other' }
+{ #category : 'demo - other' }
 QuasarDemoUtilsApp >> renderDemoOtherUIDOn: html [
 
 	html text: 'Click to generate UID: '.
@@ -102,7 +110,7 @@ QuasarDemoUtilsApp >> renderDemoOtherUIDOn: html [
 		"label: 'foobar'"
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoUtilsApp >> renderLayoutOn: html [
 
 	html html: '<style>
@@ -122,7 +130,7 @@ QuasarDemoUtilsApp >> renderLayoutOn: html [
 			self renderLayoutPageOn: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoUtilsApp >> renderLayoutPageOn: html [
 	| demoSelector |
 
@@ -137,7 +145,7 @@ QuasarDemoUtilsApp >> renderLayoutPageOn: html [
 					ifFalse: [ html text: 'Missing demo: ', demoSelector asString ] ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoUtilsApp >> renderLeftDrawerOn: html [
 
 	html qDrawer ref: 'leftDrawer'; showIfAbove; persistent; side: 'left';
@@ -148,7 +156,7 @@ QuasarDemoUtilsApp >> renderLeftDrawerOn: html [
 				self renderNavOn: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoUtilsApp >> renderNavOn: html [
 
 	html qList with: [

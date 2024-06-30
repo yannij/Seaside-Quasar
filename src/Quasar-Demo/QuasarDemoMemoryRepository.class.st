@@ -1,13 +1,15 @@
 Class {
-	#name : #QuasarDemoMemoryRepository,
-	#superclass : #QuasarDemoRepository,
+	#name : 'QuasarDemoMemoryRepository',
+	#superclass : 'QuasarDemoRepository',
 	#instVars : [
 		'objectMap'
 	],
-	#category : #'Quasar-Demo-Common'
+	#category : 'Quasar-Demo-Common',
+	#package : 'Quasar-Demo',
+	#tag : 'Common'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMemoryRepository class >> cleanup [
 	"
 	self cleanup.
@@ -16,31 +18,31 @@ QuasarDemoMemoryRepository class >> cleanup [
 	self mapReset
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 QuasarDemoMemoryRepository >> collectionNameFor: aClass [
 
 	^ aClass name
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoMemoryRepository >> commit: aBlock [
 
 	#todo
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoMemoryRepository >> count: aClass [
 
 	^ (self listOf: aClass) size
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoMemoryRepository >> count: aClass where: condition [
 
 	^ (self selectMany: aClass where: condition) size
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoMemoryRepository >> initialize [
 
 	super initialize.
@@ -48,7 +50,7 @@ QuasarDemoMemoryRepository >> initialize [
 	objectMap := Dictionary new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 QuasarDemoMemoryRepository >> list: aClass [
 
 	^ objectMap 
@@ -56,7 +58,7 @@ QuasarDemoMemoryRepository >> list: aClass [
 		ifAbsentPut: [ Set new ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 QuasarDemoMemoryRepository >> listOf: aClass [
 	| objectSet |
 
@@ -68,19 +70,19 @@ QuasarDemoMemoryRepository >> listOf: aClass [
 	^ objectSet
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMemoryRepository >> objectMap [
 
 	^ objectMap
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMemoryRepository >> objectMap: anObject [
 
 	objectMap := anObject
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoMemoryRepository >> remove: anObject [
 
 	^ (self list: anObject class)
@@ -88,13 +90,13 @@ QuasarDemoMemoryRepository >> remove: anObject [
 		ifAbsent: [ "Do nothing" ]
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoMemoryRepository >> removeAll: aClass [ 
 
 	self removeCollection: aClass
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoMemoryRepository >> removeCollection: aClass [ 
 
 	objectMap 
@@ -102,19 +104,19 @@ QuasarDemoMemoryRepository >> removeCollection: aClass [
 		ifAbsent: [ "Do nothing" ]	
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoMemoryRepository >> save: anObject [
 
 	(self list: anObject class) add: anObject
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoMemoryRepository >> selectAll: aClass [
 
 	^ self listOf: aClass
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoMemoryRepository >> selectAll: aClass sortBy: sortBlock [
 
 	^ sortBlock
@@ -122,14 +124,14 @@ QuasarDemoMemoryRepository >> selectAll: aClass sortBy: sortBlock [
 		ifNil: [ self listOf: aClass ]
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoMemoryRepository >> selectMany: aClass where: aBlock [
 
 	aBlock ifNil: [ ^ self selectAll: aClass ].
 	^ (self listOf: aClass) select: aBlock
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoMemoryRepository >> selectMany: aClass where: aBlock limit: aLimit offset: anOffset [
 	| list |
 
@@ -140,7 +142,7 @@ QuasarDemoMemoryRepository >> selectMany: aClass where: aBlock limit: aLimit off
 		to: (anOffset + aLimit min: list size)
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoMemoryRepository >> selectMany: aClass where: aBlock sortBy: sortBlock [
 
 	^ sortBlock
@@ -148,13 +150,13 @@ QuasarDemoMemoryRepository >> selectMany: aClass where: aBlock sortBy: sortBlock
 		ifNil: [ (self listOf: aClass) select: aBlock ]
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoMemoryRepository >> selectOne: aClass where: aBlock [
 
 	^ (self listOf: aClass) detect: aBlock ifNone: [ nil ]
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoMemoryRepository >> updateData: data class: aClass [
 	"Do nothing for memory persistence"
 ]

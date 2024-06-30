@@ -3,22 +3,30 @@ I am a demo application inspired by the Rally Material Design Study (https://mat
 
 "
 Class {
-	#name : #QRallyApp,
-	#superclass : #QuasarApplication,
+	#name : 'QRallyApp',
+	#superclass : 'QuasarApplication',
 	#instVars : [
 		'loginComponent',
 		'pageComponent'
 	],
-	#category : #'Quasar-Material-Rally'
+	#category : 'Quasar-Material-Rally',
+	#package : 'Quasar-Material',
+	#tag : 'Rally'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QRallyApp class >> applicationPath [
 
 	^ 'quasar/material-study-rally'
 ]
 
-{ #category : #initialization }
+{ #category : 'accessing' }
+QRallyApp class >> categoryName [
+
+	^ #studies
+]
+
+{ #category : 'initialization' }
 QRallyApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -28,19 +36,19 @@ QRallyApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QRallyApp >> applicationTitle [
 
 	^ 'Rally'
 ]
 
-{ #category : #'temp compat' }
+{ #category : 'temp compat' }
 QRallyApp >> bodyRegion [
 
 	^ self
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QRallyApp >> buildLoginComponent [
 
 	^ MDQLogin new
@@ -52,37 +60,37 @@ QRallyApp >> buildLoginComponent [
 		yourself
 ]
 
-{ #category : #'temp compat' }
+{ #category : 'temp compat' }
 QRallyApp >> component: ignored [
 
 	^ self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QRallyApp >> loginComponent [
 
 	^ loginComponent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QRallyApp >> loginComponent: anObject [
 
 	loginComponent := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QRallyApp >> pageComponent [
 
 	^ pageComponent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QRallyApp >> pageComponent: anObject [
 
 	pageComponent := anObject
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyApp >> renderLayoutOn: html [
 
 	html script: 'document.body.style.setProperty(''--q-primary'', ''#344955'')'.
@@ -114,7 +122,7 @@ QRallyApp >> renderLayoutOn: html [
 							html render: self loginComponent ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyApp >> renderLayoutPageOn: html [
 
 	html qPageContainer with: [
@@ -123,7 +131,7 @@ QRallyApp >> renderLayoutPageOn: html [
 			self renderPageContentOn: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyApp >> renderLayoutRallyOn: html [
 
 	html qApp id: self appId; with: [
@@ -139,7 +147,7 @@ QRallyApp >> renderLayoutRallyOn: html [
 			"self renderSettingsFabOn: html" ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyApp >> renderLeftDrawerOn: html [
 
 	html qDrawer ref: 'leftDrawer'; showIfAbove; mini; side: 'left';
@@ -150,7 +158,7 @@ QRallyApp >> renderLeftDrawerOn: html [
 				self renderNavOn: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyApp >> renderNavBrandingOn: html [
 
 	html div style: 'width: 100%'; with: [
@@ -159,7 +167,7 @@ QRallyApp >> renderNavBrandingOn: html [
 			with: self applicationTitle ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyApp >> renderNavOn: html [
 	| navList |
 
@@ -183,7 +191,7 @@ QRallyApp >> renderNavOn: html [
 					"html qItemSection with: eachItem key" ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyApp >> renderPageContentOn: html [
 
 	html div "class: 'no-padding';" with: [

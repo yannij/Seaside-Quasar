@@ -1,16 +1,18 @@
 Class {
-	#name : #QRallyAlertView,
-	#superclass : #QRallyView,
-	#category : #'Quasar-Material-Rally'
+	#name : 'QRallyAlertView',
+	#superclass : 'QRallyView',
+	#category : 'Quasar-Material-Rally',
+	#package : 'Quasar-Material',
+	#tag : 'Rally'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyAlertView >> instanceList [
 
 	^ RallyAlert instanceList
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QRallyAlertView >> renderInstancesOn: html [
 
 	self renderAsCards: self instanceList on: html

@@ -1,27 +1,29 @@
 Class {
-	#name : #RallyAccount,
-	#superclass : #RallyObject,
+	#name : 'RallyAccount',
+	#superclass : 'RallyObject',
 	#instVars : [
 		'id',
 		'description',
 		'balance'
 	],
-	#category : #'Quasar-Material-Rally'
+	#category : 'Quasar-Material-Rally',
+	#package : 'Quasar-Material',
+	#tag : 'Rally'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyAccount >> balance [
 
 	^ balance
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyAccount >> balance: anObject [
 
 	balance := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 RallyAccount >> balanceDescription [
 	<magritteDescription>
 
@@ -33,25 +35,25 @@ RallyAccount >> balanceDescription [
 		yourself
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 RallyAccount >> cardParameters [
 
 	^ Array with: self id with: self description
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyAccount >> description [
 
 	^ description
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyAccount >> description: anObject [
 
 	description := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 RallyAccount >> descriptionDescription [
 	<magritteDescription>
 
@@ -63,19 +65,19 @@ RallyAccount >> descriptionDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyAccount >> id [
 
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyAccount >> id: anObject [
 
 	id := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 RallyAccount >> idDescription [
 	<magritteDescription>
 
@@ -87,7 +89,7 @@ RallyAccount >> idDescription [
 		yourself
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 RallyAccount >> listItemParameters [
 	| amountString |
 

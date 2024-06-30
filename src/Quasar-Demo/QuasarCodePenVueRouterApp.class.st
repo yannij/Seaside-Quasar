@@ -2,18 +2,26 @@
 I am a demo application for CodePen example of Vue Router with Standalone/UMD Quasar.
 "
 Class {
-	#name : #QuasarCodePenVueRouterApp,
-	#superclass : #QuasarApplication,
-	#category : #'Quasar-Demo-Basic'
+	#name : 'QuasarCodePenVueRouterApp',
+	#superclass : 'QuasarApplication',
+	#category : 'Quasar-Demo-Basic',
+	#package : 'Quasar-Demo',
+	#tag : 'Basic'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarCodePenVueRouterApp class >> applicationPath [
 
 	^ 'quasar/vue-router-codepen'
 ]
 
-{ #category : #initialization }
+{ #category : 'accessing' }
+QuasarCodePenVueRouterApp class >> categoryName [
+
+	^ #misc
+]
+
+{ #category : 'initialization' }
 QuasarCodePenVueRouterApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -23,13 +31,13 @@ QuasarCodePenVueRouterApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarCodePenVueRouterApp >> applicationTitle [
 
 	^ 'Vue Route CodePen'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarCodePenVueRouterApp >> penJs [
 	"From: https://codepen.io/metalsadman/pen/MWrRgqQ"
 
@@ -87,7 +95,7 @@ app.use(Quasar, { config: {} });
 app.mount(''#q-app'');'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarCodePenVueRouterApp >> renderContentOn: html [
 	| jsStream |
 
@@ -103,7 +111,7 @@ QuasarCodePenVueRouterApp >> renderContentOn: html [
 	html document addLoadScript: jsStream."
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarCodePenVueRouterApp >> renderLayoutOn: html [
 
 	self renderRouterViewOn: html.
@@ -112,7 +120,7 @@ QuasarCodePenVueRouterApp >> renderLayoutOn: html [
 		self renderExampleOn: html ]"
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarCodePenVueRouterApp >> renderRouterViewOn: html [
 
 	html html: '<script type="text/x-template" id="home">

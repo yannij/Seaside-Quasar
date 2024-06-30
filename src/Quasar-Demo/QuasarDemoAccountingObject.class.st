@@ -1,28 +1,30 @@
 Class {
-	#name : #QuasarDemoAccountingObject,
-	#superclass : #Object,
-	#category : #'Quasar-Demo-Accounting'
+	#name : 'QuasarDemoAccountingObject',
+	#superclass : 'Object',
+	#category : 'Quasar-Demo-Accounting',
+	#package : 'Quasar-Demo',
+	#tag : 'Accounting'
 }
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoAccountingObject class >> attributeData [
 
 	^ #()
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoAccountingObject class >> modelName [
 
 	^ 'abstract'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingObject class >> viewClass [
 
 	self subclassResponsibility
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 QuasarDemoAccountingObject >> asMap [
 	| map |
 
@@ -34,25 +36,25 @@ QuasarDemoAccountingObject >> asMap [
 	^ map
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoAccountingObject >> attributeData [
 
 	^ self class attributeData
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoAccountingObject >> modelName [
 
 	^ self class modelName
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoAccountingObject >> summaryString [
 
 	^ self modelName, ': ', ('/' join: (self attributeData collect: [ :each | self perform: each ]))
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoAccountingObject >> viewClass [
 
 	^ self class viewClass

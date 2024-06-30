@@ -1,22 +1,24 @@
 Class {
-	#name : #QuasarDemoMovieListingApp,
-	#superclass : #QuasarDemoApp,
+	#name : 'QuasarDemoMovieListingApp',
+	#superclass : 'QuasarDemoApp',
 	#instVars : [
 		'repository',
 		'tab',
 		'model',
 		'modelView'
 	],
-	#category : #'Quasar-Demo-Movies'
+	#category : 'Quasar-Demo-Movies',
+	#package : 'Quasar-Demo',
+	#tag : 'Movies'
 }
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 QuasarDemoMovieListingApp class >> applicationPath [
 
 	^ 'quasar/movies'
 ]
 
-{ #category : #'demo data' }
+{ #category : 'demo data' }
 QuasarDemoMovieListingApp class >> createData [
 	"
 	self createData
@@ -32,7 +34,7 @@ QuasarDemoMovieListingApp class >> createData [
 	self createDemoShowTimeIn: repo
 ]
 
-{ #category : #'demo data' }
+{ #category : 'demo data' }
 QuasarDemoMovieListingApp class >> createDemoMovieIn: aRepository [
 	| modelClass |
 
@@ -56,7 +58,7 @@ QuasarDemoMovieListingApp class >> createDemoMovieIn: aRepository [
 		aRepository save: newObject ]
 ]
 
-{ #category : #'demo data' }
+{ #category : 'demo data' }
 QuasarDemoMovieListingApp class >> createDemoShowTimeIn: aRepository [
 	| modelClass |
 
@@ -96,7 +98,7 @@ QuasarDemoMovieListingApp class >> createDemoShowTimeIn: aRepository [
 		aRepository save: newObject ]
 ]
 
-{ #category : #'demo data' }
+{ #category : 'demo data' }
 QuasarDemoMovieListingApp class >> createDemoTheatreIn: aRepository [
 	| modelClass |
 
@@ -116,7 +118,7 @@ QuasarDemoMovieListingApp class >> createDemoTheatreIn: aRepository [
 		aRepository save: newObject ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 QuasarDemoMovieListingApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -126,7 +128,7 @@ QuasarDemoMovieListingApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
-{ #category : #'demo data' }
+{ #category : 'demo data' }
 QuasarDemoMovieListingApp class >> movieRepository [
 
 	^ self repositoryClass
@@ -134,13 +136,13 @@ QuasarDemoMovieListingApp class >> movieRepository [
 		ifAbsent: [ (self repositoryClass onPath: self soilPath) open; yourself ]
 ]
 
-{ #category : #'demo data' }
+{ #category : 'demo data' }
 QuasarDemoMovieListingApp class >> movieRepositoryCreate [
 
 	^ self repositoryClass mapCreateAt: self soilPath
 ]
 
-{ #category : #'demo data' }
+{ #category : 'demo data' }
 QuasarDemoMovieListingApp class >> repositoryClass [
 	"
 	self createData
@@ -149,13 +151,13 @@ QuasarDemoMovieListingApp class >> repositoryClass [
 	^ QuasarDemoSoilRepository
 ]
 
-{ #category : #'demo data' }
+{ #category : 'demo data' }
 QuasarDemoMovieListingApp class >> soilPath [
 
 	^ 'demo-movies'
 ]
 
-{ #category : #'rendering - table' }
+{ #category : 'rendering - table' }
 QuasarDemoMovieListingApp >> addCols: aList modelClass: aClass [
 	| refName data |
 
@@ -182,7 +184,7 @@ QuasarDemoMovieListingApp >> addCols: aList modelClass: aClass [
 	^ refName
 ]
 
-{ #category : #'rendering - table' }
+{ #category : 'rendering - table' }
 QuasarDemoMovieListingApp >> addRows: aList modelClass: aClass on: html [
 	| refName data |
 
@@ -201,13 +203,13 @@ QuasarDemoMovieListingApp >> addRows: aList modelClass: aClass on: html [
 	^ refName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMovieListingApp >> applicationTitle [
 
 	^ 'Movies'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoMovieListingApp >> initialize [
 
 	super initialize.
@@ -216,19 +218,19 @@ QuasarDemoMovieListingApp >> initialize [
 	self tab: self tabTheatre
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMovieListingApp >> model [
 
 	^ model
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMovieListingApp >> model: anObject [
 
 	model := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMovieListingApp >> modelSet: anObject [
 
 	self model: anObject.
@@ -237,19 +239,19 @@ QuasarDemoMovieListingApp >> modelSet: anObject [
 		ifNotNil: [ self modelView: (anObject viewClass on: anObject) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMovieListingApp >> modelView [
 
 	^ modelView
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMovieListingApp >> modelView: anObject [
 
 	modelView := anObject
 ]
 
-{ #category : #'rendering - quasar hooks' }
+{ #category : 'rendering - quasar hooks' }
 QuasarDemoMovieListingApp >> quasarConfigContentOn: aJSStream with: html [
 
 	aJSStream nextPutAll: '
@@ -269,7 +271,7 @@ brand: {
 }'"
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMovieListingApp >> renderItemChoiceOn: html [
 
 	html qTabs
@@ -280,7 +282,7 @@ QuasarDemoMovieListingApp >> renderItemChoiceOn: html [
 			html qRouteTab label: 'Show Time'; href: (html urlForAction: [ self tabSet: self tabShowTime ]) ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMovieListingApp >> renderItemListOn: html [
 
 	self tab = self tabTheatre ifTrue: [
@@ -293,7 +295,7 @@ QuasarDemoMovieListingApp >> renderItemListOn: html [
 		self renderShowTimeOn: html ].
 ]
 
-{ #category : #'rendering - quasar hooks' }
+{ #category : 'rendering - quasar hooks' }
 QuasarDemoMovieListingApp >> renderLayoutOn: html [
 
 	self model ifNil: [
@@ -307,7 +309,7 @@ QuasarDemoMovieListingApp >> renderLayoutOn: html [
 			self renderLayoutPageOn: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMovieListingApp >> renderLayoutPageOn: html [
 
 	html qPageContainer with: [
@@ -317,7 +319,7 @@ QuasarDemoMovieListingApp >> renderLayoutPageOn: html [
 			self renderItemListOn: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMovieListingApp >> renderModelList: aList on: html [
 
 	html qList style: 'background: white'; with: [
@@ -333,7 +335,7 @@ QuasarDemoMovieListingApp >> renderModelList: aList on: html [
 					html qItemLabel style: 'color: red'; with: eachObject price ]" ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMovieListingApp >> renderModelOn: html [
 
 	self modelView isNil ifTrue: [
@@ -342,7 +344,7 @@ QuasarDemoMovieListingApp >> renderModelOn: html [
 	html render: self modelView
 ]
 
-{ #category : #'rendering - table' }
+{ #category : 'rendering - table' }
 QuasarDemoMovieListingApp >> renderModelTable: aList modelClass: aClass title: aTitleString on: html [
 
 	html qTable
@@ -364,7 +366,7 @@ QuasarDemoMovieListingApp >> renderModelTable: aList modelClass: aClass title: a
 						vBind: 'href' with: 'actions.href' ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMovieListingApp >> renderMovieOn: html [
 
 	self tab = self tabMovie ifFalse: [ ^ self ].
@@ -374,7 +376,7 @@ QuasarDemoMovieListingApp >> renderMovieOn: html [
 		on: html
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMovieListingApp >> renderShowTimeOn: html [
 
 	self tab = self tabShowTime ifFalse: [ ^ self ].
@@ -384,7 +386,7 @@ QuasarDemoMovieListingApp >> renderShowTimeOn: html [
 		on: html
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMovieListingApp >> renderTheatreOn: html [
 
 	self tab = self tabTheatre ifFalse: [ ^ self ].
@@ -394,56 +396,56 @@ QuasarDemoMovieListingApp >> renderTheatreOn: html [
 		on: html
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMovieListingApp >> repository [
 
 	^ repository
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMovieListingApp >> repository: anObject [
 
 	repository := anObject
 ]
 
-{ #category : #'rendering - quasar hooks' }
+{ #category : 'rendering - quasar hooks' }
 QuasarDemoMovieListingApp >> repositorySetup [
 
 	self repository: self class movieRepository
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMovieListingApp >> tab [
 
 	^ tab
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMovieListingApp >> tab: anObject [
 
 	tab := anObject
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMovieListingApp >> tabMovie [
 
 	^ #movie
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMovieListingApp >> tabSet: anObject [
 
 	self tab: anObject.
 	"self modelSet: nil"
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMovieListingApp >> tabShowTime [
 
 	^ #showTime
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoMovieListingApp >> tabTheatre [
 
 	^ #theatre

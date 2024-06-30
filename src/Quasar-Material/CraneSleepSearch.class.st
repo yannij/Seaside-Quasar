@@ -1,6 +1,6 @@
 Class {
-	#name : #CraneSleepSearch,
-	#superclass : #CraneObject,
+	#name : 'CraneSleepSearch',
+	#superclass : 'CraneObject',
 	#instVars : [
 		'adultCount',
 		'childrenCount',
@@ -8,22 +8,24 @@ Class {
 		'checkOutDate',
 		'city'
 	],
-	#category : #'Quasar-Material-Crane'
+	#category : 'Quasar-Material-Crane',
+	#package : 'Quasar-Material',
+	#tag : 'Crane'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneSleepSearch >> adultCount [
 
 	^ adultCount
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneSleepSearch >> adultCount: anObject [
 
 	adultCount := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneSleepSearch >> adultCountDescription [
 	<magritteDescription>
 
@@ -36,19 +38,19 @@ CraneSleepSearch >> adultCountDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneSleepSearch >> checkInDate [
 
 	^ checkInDate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneSleepSearch >> checkInDate: anObject [
 
 	checkInDate := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneSleepSearch >> checkInDateDescription [
 	<magritteDescription>
 
@@ -59,19 +61,19 @@ CraneSleepSearch >> checkInDateDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneSleepSearch >> checkOutDate [
 
 	^ checkOutDate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneSleepSearch >> checkOutDate: anObject [
 
 	checkOutDate := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneSleepSearch >> checkOutDateDescription [
 	<magritteDescription>
 
@@ -82,19 +84,19 @@ CraneSleepSearch >> checkOutDateDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneSleepSearch >> childrenCount [
 
 	^ childrenCount
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneSleepSearch >> childrenCount: anObject [
 
 	childrenCount := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneSleepSearch >> childrenCountDescription [
 	<magritteDescription>
 
@@ -107,19 +109,19 @@ CraneSleepSearch >> childrenCountDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneSleepSearch >> city [
 
 	^ city
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneSleepSearch >> city: anObject [
 
 	city := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneSleepSearch >> cityDescription [
 	<magritteDescription>
 
@@ -131,7 +133,7 @@ CraneSleepSearch >> cityDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneSleepSearch >> guestsDisplay [
 	| adultsString childrenString summary |
 

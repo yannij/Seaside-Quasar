@@ -1,16 +1,18 @@
 Class {
-	#name : #QuasarDemoAccountingMemoryDbApp,
-	#superclass : #QuasarDemoAccountingApp,
-	#category : #'Quasar-Demo-Accounting'
+	#name : 'QuasarDemoAccountingMemoryDbApp',
+	#superclass : 'QuasarDemoAccountingApp',
+	#category : 'Quasar-Demo-Accounting',
+	#package : 'Quasar-Demo',
+	#tag : 'Accounting'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoAccountingMemoryDbApp class >> applicationPath [
 
 	^ 'quasar/accounting'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoAccountingMemoryDbApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -20,7 +22,7 @@ QuasarDemoAccountingMemoryDbApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoAccountingMemoryDbApp class >> repositoryClass [
 	"
 	self createData

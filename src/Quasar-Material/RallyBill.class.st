@@ -1,28 +1,30 @@
 Class {
-	#name : #RallyBill,
-	#superclass : #RallyObject,
+	#name : 'RallyBill',
+	#superclass : 'RallyObject',
 	#instVars : [
 		'id',
 		'description',
 		'amount',
 		'dueDate'
 	],
-	#category : #'Quasar-Material-Rally'
+	#category : 'Quasar-Material-Rally',
+	#package : 'Quasar-Material',
+	#tag : 'Rally'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyBill >> amount [
 
 	^ amount
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyBill >> amount: anObject [
 
 	amount := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 RallyBill >> amountDescription [
 	<magritteDescription>
 
@@ -34,25 +36,25 @@ RallyBill >> amountDescription [
 		yourself
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 RallyBill >> cardParameters [
 
 	^ Array with: self id with: self description
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyBill >> description [
 
 	^ description
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyBill >> description: anObject [
 
 	description := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 RallyBill >> descriptionDescription [
 	<magritteDescription>
 
@@ -64,19 +66,19 @@ RallyBill >> descriptionDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyBill >> dueDate [
 
 	^ dueDate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyBill >> dueDate: anObject [
 
 	dueDate := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 RallyBill >> dueDateDescription [
 	<magritteDescription>
 
@@ -87,19 +89,19 @@ RallyBill >> dueDateDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyBill >> id [
 
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyBill >> id: anObject [
 
 	id := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 RallyBill >> idDescription [
 	<magritteDescription>
 
@@ -111,7 +113,7 @@ RallyBill >> idDescription [
 		yourself
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 RallyBill >> listItemParameters [
 	| amountString dueString |
 

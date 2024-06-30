@@ -1,21 +1,23 @@
 Class {
-	#name : #KeycloakHelloBootstrapApp,
-	#superclass : #WAComponent,
-	#category : #'Quasar-Material-Keycloak'
+	#name : 'KeycloakHelloBootstrapApp',
+	#superclass : 'WAComponent',
+	#category : 'Quasar-Material-Keycloak',
+	#package : 'Quasar-Material',
+	#tag : 'Keycloak'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 KeycloakHelloBootstrapApp class >> applicationPath [
 
 	^ 'quasar/keycloak-hello-bootstrap'
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 KeycloakHelloBootstrapApp class >> canBeRoot [
 	^ true
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 KeycloakHelloBootstrapApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -30,7 +32,7 @@ KeycloakHelloBootstrapApp class >> initialize [
 	"app addLibrary: KeycloakHelloLibrary"
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 KeycloakHelloBootstrapApp >> appJsContent [
 	^ 'function init() {
     document.getElementById(''config-form'').onsubmit = function() {
@@ -114,13 +116,13 @@ window.onload = init;
 '
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 KeycloakHelloBootstrapApp >> applicationTitle [
 
 	^ 'Keycloak Hello Bootstrap'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 KeycloakHelloBootstrapApp >> renderContentOn: html [
 
 	html script url: 'https://cdn.jsdelivr.net/npm/keycloak-js@17.0.1/dist/keycloak.min.js'.
@@ -178,7 +180,7 @@ KeycloakHelloBootstrapApp >> renderContentOn: html [
 '
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 KeycloakHelloBootstrapApp >> updateRoot: anHtmlRoot [
 
 	super updateRoot: anHtmlRoot.

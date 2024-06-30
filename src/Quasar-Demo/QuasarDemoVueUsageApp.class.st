@@ -2,24 +2,32 @@
 I hold various code examples for utilizing Vue features from Seaside
 "
 Class {
-	#name : #QuasarDemoVueUsageApp,
-	#superclass : #QuasarApplication,
+	#name : 'QuasarDemoVueUsageApp',
+	#superclass : 'QuasarApplication',
 	#instVars : [
 		'demoName',
 		'demoObjectA',
 		'experiment4',
 		'reactive1'
 	],
-	#category : #'Quasar-Demo-Basic'
+	#category : 'Quasar-Demo-Basic',
+	#package : 'Quasar-Demo',
+	#tag : 'Basic'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoVueUsageApp class >> applicationPath [
 
 	^ 'quasar/vue-usage'
 ]
 
-{ #category : #initialization }
+{ #category : 'accessing' }
+QuasarDemoVueUsageApp class >> categoryName [
+
+	^ #misc
+]
+
+{ #category : 'initialization' }
 QuasarDemoVueUsageApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -29,25 +37,25 @@ QuasarDemoVueUsageApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoVueUsageApp >> applicationTitle [
 
 	^ 'Vue Usage'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoVueUsageApp >> demoName [
 
 	^ demoName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoVueUsageApp >> demoName: anObject [
 
 	demoName := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoVueUsageApp >> demoNames [
 
 	^ #(
@@ -55,14 +63,14 @@ QuasarDemoVueUsageApp >> demoNames [
 	)
 ]
 
-{ #category : #'rendering - quasar' }
+{ #category : 'rendering - quasar' }
 QuasarDemoVueUsageApp >> quasarAppMountOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPutAll: 'const { QBtn } = Quasar;'.
 	super quasarAppMountOn: aJSStream with: anAjaxFactory
 ]
 
-{ #category : #'rendering - quasar hooks' }
+{ #category : 'rendering - quasar hooks' }
 QuasarDemoVueUsageApp >> quasarSetupContentOn: aJSStream with: html [
 
 	aJSStream nextPutAll: '
@@ -70,13 +78,13 @@ const mybutton = ref(QBtn);
 '
 ]
 
-{ #category : #'rendering - quasar hooks' }
+{ #category : 'rendering - quasar hooks' }
 QuasarDemoVueUsageApp >> quasarSetupReturnCustomList: aList with: anAjaxFactory [
 
 	aList add: 'mybutton'
 ]
 
-{ #category : #'demo - scroll' }
+{ #category : 'demo - scroll' }
 QuasarDemoVueUsageApp >> renderDemoScrollOn: html [
 
 	self onMountedObjectsAdd: ((QuasarSetupOnMounted name: 'demoScrollOnMounted')
@@ -96,7 +104,7 @@ QuasarDemoVueUsageApp >> renderDemoScrollOn: html [
 		html qBtn ref: 'mybutton'; label: 'Scroll To Me!' ].
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoVueUsageApp >> renderLayoutOn: html [
 
 	html html: '<style>
@@ -116,7 +124,7 @@ QuasarDemoVueUsageApp >> renderLayoutOn: html [
 			self renderLayoutPageOn: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoVueUsageApp >> renderLayoutPageOn: html [
 	| demoSelector |
 
@@ -131,7 +139,7 @@ QuasarDemoVueUsageApp >> renderLayoutPageOn: html [
 					ifFalse: [ html text: 'Missing demo: ', demoSelector asString ] ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoVueUsageApp >> renderLeftDrawerOn: html [
 
 	html qDrawer ref: 'leftDrawer'; showIfAbove; persistent; side: 'left';
@@ -142,7 +150,7 @@ QuasarDemoVueUsageApp >> renderLeftDrawerOn: html [
 				self renderNavOn: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoVueUsageApp >> renderNavOn: html [
 
 	html qList with: [

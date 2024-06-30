@@ -1,6 +1,6 @@
 Class {
-	#name : #CraneFlySearch,
-	#superclass : #CraneObject,
+	#name : 'CraneFlySearch',
+	#superclass : 'CraneObject',
 	#instVars : [
 		'adultCount',
 		'childrenCount',
@@ -14,22 +14,24 @@ Class {
 		'durationMax',
 		'stops'
 	],
-	#category : #'Quasar-Material-Crane'
+	#category : 'Quasar-Material-Crane',
+	#package : 'Quasar-Material',
+	#tag : 'Crane'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> adultCount [
 
 	^ adultCount
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> adultCount: anObject [
 
 	adultCount := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneFlySearch >> adultCountDescription [
 	<magritteDescription>
 
@@ -42,19 +44,19 @@ CraneFlySearch >> adultCountDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> cabinType [
 
 	^ cabinType
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> cabinType: anObject [
 
 	cabinType := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneFlySearch >> cabinTypeDescription [
 	<magritteDescription>
 
@@ -66,19 +68,19 @@ CraneFlySearch >> cabinTypeDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> childrenCount [
 
 	^ childrenCount
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> childrenCount: anObject [
 
 	childrenCount := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneFlySearch >> childrenCountDescription [
 	<magritteDescription>
 
@@ -91,19 +93,19 @@ CraneFlySearch >> childrenCountDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> destination [
 
 	^ destination
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> destination: anObject [
 
 	destination := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneFlySearch >> destinationDescription [
 	<magritteDescription>
 
@@ -115,19 +117,19 @@ CraneFlySearch >> destinationDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> durationMax [
 
 	^ durationMax
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> durationMax: anObject [
 
 	durationMax := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneFlySearch >> durationMaxDescription [
 	<magritteDescription>
 
@@ -138,19 +140,19 @@ CraneFlySearch >> durationMaxDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> durationMin [
 
 	^ durationMin
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> durationMin: anObject [
 
 	durationMin := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneFlySearch >> durationMinDescription [
 	<magritteDescription>
 
@@ -161,19 +163,19 @@ CraneFlySearch >> durationMinDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> endDate [
 
 	^ endDate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> endDate: anObject [
 
 	endDate := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneFlySearch >> endDateDescription [
 	<magritteDescription>
 
@@ -184,19 +186,19 @@ CraneFlySearch >> endDateDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> origin [
 
 	^ origin
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> origin: anObject [
 
 	origin := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneFlySearch >> originDescription [
 	<magritteDescription>
 
@@ -208,19 +210,19 @@ CraneFlySearch >> originDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> priceMax [
 
 	^ priceMax
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> priceMax: anObject [
 
 	priceMax := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneFlySearch >> priceMaxDescription [
 	<magritteDescription>
 
@@ -231,19 +233,19 @@ CraneFlySearch >> priceMaxDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> startDate [
 
 	^ startDate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> startDate: anObject [
 
 	startDate := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneFlySearch >> startDateDescription [
 	<magritteDescription>
 
@@ -254,19 +256,19 @@ CraneFlySearch >> startDateDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> stops [
 
 	^ stops
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> stops: anObject [
 
 	stops := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneFlySearch >> stopsDescription [
 	<magritteDescription>
 
@@ -279,7 +281,7 @@ CraneFlySearch >> stopsDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneFlySearch >> travellerSummary [
 	| adultsString childrenString cabinString summary |
 

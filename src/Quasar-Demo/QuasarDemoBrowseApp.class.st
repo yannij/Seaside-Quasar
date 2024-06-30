@@ -1,16 +1,18 @@
 Class {
-	#name : #QuasarDemoBrowseApp,
-	#superclass : #QuasarApplication,
-	#category : #'Quasar-Demo-Basic'
+	#name : 'QuasarDemoBrowseApp',
+	#superclass : 'QuasarApplication',
+	#category : 'Quasar-Demo-Basic',
+	#package : 'Quasar-Demo',
+	#tag : 'Basic'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoBrowseApp class >> applicationPath [
 
 	^ 'quasar/browse'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoBrowseApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -20,14 +22,14 @@ QuasarDemoBrowseApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoBrowseApp >> applicationTitle [
 
 	^ 'Browse'
 ]
 
-{ #category : #rendering }
-QuasarDemoBrowseApp >> demoClasses [
+{ #category : 'rendering' }
+QuasarDemoBrowseApp >> demoClassNames [
 
 	^ #(
 	#QuasarDemoHelloWorldApp
@@ -57,10 +59,50 @@ QuasarDemoBrowseApp >> demoClasses [
 	#QuasarDemoUtilsApp
 	#QuasarDemoScaffoldApp
 	)
-	collect: [ :eachApp | eachApp asClassInEnvironment: Smalltalk globals ifAbsent: [ nil ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
+QuasarDemoBrowseApp >> demoClasses [
+
+	^ self demoClassNames
+		inject: OrderedCollection new
+		into: [ :list :each |
+			(each asClassInEnvironment: Smalltalk globals ifAbsent: [])
+				ifNotNil: [ :theClass | list add: theClass ].
+			list ]
+]
+
+{ #category : 'rendering' }
+QuasarDemoBrowseApp >> demoClassesOfCategory: categoryName [
+	"Answer classes belonging to categoryName.
+	If the class does not respond to #categoryName,
+	then include it in the #misc category"
+
+	^ self demoClasses select: [ :eachClass |
+		(eachClass respondsTo: #categoryName)
+			ifTrue:  [ eachClass categoryName = categoryName ]
+			ifFalse: [ #misc = categoryName ] ]
+]
+
+{ #category : 'rendering' }
+QuasarDemoBrowseApp >> demoTabData [
+
+	^ {
+		#demo -> 'Demo'.
+		#studies -> 'Material Studies'.
+		#quasar -> 'Quasar'.
+		#misc -> 'Misc'
+	}
+]
+
+{ #category : 'rendering - quasar hooks' }
+QuasarDemoBrowseApp >> quasarSetupReturnCustomList: aList with: anAjaxFactory [
+	
+	aList add: '
+tab: ref(''demo'')'
+]
+
+{ #category : 'rendering' }
 QuasarDemoBrowseApp >> renderDemoCard: anAppClass on: html [
 	| url comment |
 
@@ -87,16 +129,36 @@ QuasarDemoBrowseApp >> renderDemoCard: anAppClass on: html [
 				url: (anAppClass class soleInstance perform: #snapshotUrl) ] ]"
 ]
 
-{ #category : #rendering }
-QuasarDemoBrowseApp >> renderDemosOn: html [
+{ #category : 'rendering' }
+QuasarDemoBrowseApp >> renderDemoCategory: categoryName on: html [
 
 	html div class: 'row'; class: 'q-pa-md'; class: 'q-col-gutter-md'; with: [
-		(self demoClasses select: [ :eachClass | eachClass notNil ]) do: [ :eachClass |
+		(self demoClassesOfCategory: categoryName) do: [ :eachClass |
 			html div class: 'col-xs-6 col-sm-4 col-md-3 col-lg-2 col-xl-2'; with: [
-			self renderDemoCard: eachClass on: html ] ] ]
+				self renderDemoCard: eachClass on: html ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
+QuasarDemoBrowseApp >> renderDemoTabPanel: data on: html [
+
+	html qTabPanel name: data key; with: [
+		html div class: 'text-h6'; with: data value.
+		self renderDemoCategory: data key on: html ]
+]
+
+{ #category : 'rendering' }
+QuasarDemoBrowseApp >> renderDemosOn: html [
+
+	html qTabs vModel: 'tab'; dense; class: 'text-grey'; activeColor: 'primary'; indicatorColor: 'primary'; align: 'justify'; narrowIndicator; with: [
+		self demoTabData do: [ :data |
+			html qTab name: data key; label: data value ] ].
+	html qSeparator.
+	html qTabPanels vModel: 'tab'; animated; with: [
+		self demoTabData do: [ :data |
+			self renderDemoTabPanel: data on: html ] ]
+]
+
+{ #category : 'rendering' }
 QuasarDemoBrowseApp >> renderLayoutOn: html [
 
 	html qApp id: self appId; with: [

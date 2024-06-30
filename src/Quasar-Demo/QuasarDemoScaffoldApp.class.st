@@ -2,18 +2,20 @@
 I include the necessary scaffolding to quickly try out some code snippets. The code here is meant to be temporary.
 "
 Class {
-	#name : #QuasarDemoScaffoldApp,
-	#superclass : #QuasarApplication,
-	#category : #'Quasar-Demo-Basic'
+	#name : 'QuasarDemoScaffoldApp',
+	#superclass : 'QuasarApplication',
+	#category : 'Quasar-Demo-Basic',
+	#package : 'Quasar-Demo',
+	#tag : 'Basic'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoScaffoldApp class >> applicationPath [
 
 	^ 'quasar/scaffold'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoScaffoldApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -23,13 +25,13 @@ QuasarDemoScaffoldApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoScaffoldApp >> applicationTitle [
 
 	^ 'Scaffold'
 ]
 
-{ #category : #'rendering - quasar' }
+{ #category : 'rendering - quasar' }
 QuasarDemoScaffoldApp >> quasarAppMountOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPutAll: '
@@ -82,7 +84,7 @@ app.use(Quasar, { config: {} });
 app.mount("#q-app");'
 ]
 
-{ #category : #'rendering - quasar' }
+{ #category : 'rendering - quasar' }
 QuasarDemoScaffoldApp >> quasarOnLoad1On: aJSStream with: html [
 
 	aJSStream nextPutAll: '
@@ -138,7 +140,7 @@ app.use(Quasar, { config: {} });
 app.mount("#q-app");'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoScaffoldApp >> renderApp1On: html [
 
 	html html: '<div id="q-app">
@@ -154,7 +156,7 @@ QuasarDemoScaffoldApp >> renderApp1On: html [
 </div>'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoScaffoldApp >> renderAppOn: html [
 
 	html html: '<div id="q-app">
@@ -170,14 +172,14 @@ QuasarDemoScaffoldApp >> renderAppOn: html [
 </div>'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoScaffoldApp >> renderLayoutOn: html [
 
 	html qApp id: self appId; with: [
 		self renderAppOn: html ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoScaffoldApp >> xrenderAppOn: html [
 
 	html qLayout view: 'hHh lpR fFf'; with: [

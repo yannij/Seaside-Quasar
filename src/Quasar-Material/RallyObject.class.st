@@ -1,16 +1,18 @@
 Class {
-	#name : #RallyObject,
-	#superclass : #Object,
+	#name : 'RallyObject',
+	#superclass : 'Object',
 	#classVars : [
 		'DescriptionContainerClass'
 	],
 	#classInstVars : [
 		'instanceList'
 	],
-	#category : #'Quasar-Material-Rally'
+	#category : 'Quasar-Material-Rally',
+	#package : 'Quasar-Material',
+	#tag : 'Rally'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyObject class >> descriptionContainerClass [
 	"
 	self descriptionContainerClass: MCWPriorityContainer.
@@ -21,37 +23,37 @@ RallyObject class >> descriptionContainerClass [
 	^ DescriptionContainerClass ifNil: [ DescriptionContainerClass := MDQPriorityContainer ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyObject class >> descriptionContainerClass: anObject [
 
 	^ DescriptionContainerClass := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyObject class >> instanceList [
 
 	^ instanceList ifNil: [ instanceList := OrderedCollection new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyObject class >> instanceList: anObject [
 
 	instanceList := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RallyObject class >> instanceListAdd: anObject [
 
 	self instanceList add: anObject
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 RallyObject >> cardParameters [
 
 	self subclassResponsibility
 ]
 
-{ #category : #voyage }
+{ #category : 'voyage' }
 RallyObject >> descriptionContainer [
 	"Return the default description container."
 	<magritteContainer>
@@ -63,7 +65,7 @@ RallyObject >> descriptionContainer [
 		yourself
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 RallyObject >> listItemParameters [
 
 	self subclassResponsibility

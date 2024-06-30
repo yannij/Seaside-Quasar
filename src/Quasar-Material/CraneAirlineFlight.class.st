@@ -1,6 +1,6 @@
 Class {
-	#name : #CraneAirlineFlight,
-	#superclass : #CraneObject,
+	#name : 'CraneAirlineFlight',
+	#superclass : 'CraneObject',
 	#instVars : [
 		'id',
 		'airline',
@@ -10,22 +10,24 @@ Class {
 		'arrivalDateTimeUTC',
 		'price'
 	],
-	#category : #'Quasar-Material-Crane'
+	#category : 'Quasar-Material-Crane',
+	#package : 'Quasar-Material',
+	#tag : 'Crane'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirlineFlight >> airline [
 
 	^ airline
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirlineFlight >> airline: anObject [
 
 	airline := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneAirlineFlight >> airlineDescription [
 	<magritteDescription>
 
@@ -37,19 +39,19 @@ CraneAirlineFlight >> airlineDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirlineFlight >> arrivalDateTimeUTC [
 
 	^ arrivalDateTimeUTC
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirlineFlight >> arrivalDateTimeUTC: anObject [
 
 	arrivalDateTimeUTC := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneAirlineFlight >> arrivalDateTimeUTCDescription [
 	<magritteDescription>
 
@@ -60,19 +62,19 @@ CraneAirlineFlight >> arrivalDateTimeUTCDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirlineFlight >> departureDateTimeUTC [
 
 	^ departureDateTimeUTC
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirlineFlight >> departureDateTimeUTC: anObject [
 
 	departureDateTimeUTC := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneAirlineFlight >> departureDateTimeUTCDescription [
 	<magritteDescription>
 
@@ -83,19 +85,19 @@ CraneAirlineFlight >> departureDateTimeUTCDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirlineFlight >> destination [
 
 	^ destination
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirlineFlight >> destination: anObject [
 
 	destination := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneAirlineFlight >> destinationDescription [
 	<magritteDescription>
 
@@ -107,25 +109,25 @@ CraneAirlineFlight >> destinationDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirlineFlight >> flightDuration [
 
 	^ self arrivalDateTimeUTC - self departureDateTimeUTC
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirlineFlight >> id [
 
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirlineFlight >> id: anObject [
 
 	id := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneAirlineFlight >> idDescription [
 	<magritteDescription>
 
@@ -137,19 +139,19 @@ CraneAirlineFlight >> idDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirlineFlight >> origin [
 
 	^ origin
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirlineFlight >> origin: anObject [
 
 	origin := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneAirlineFlight >> originDescription [
 	<magritteDescription>
 
@@ -161,19 +163,19 @@ CraneAirlineFlight >> originDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirlineFlight >> price [
 
 	^ price
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirlineFlight >> price: anObject [
 
 	price := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneAirlineFlight >> priceDescription [
 	<magritteDescription>
 

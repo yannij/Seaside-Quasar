@@ -2,18 +2,26 @@
 I am a ""hello world"" application for the Quasar Framework in Seaside.
 "
 Class {
-	#name : #QuasarDemoHelloWorldApp,
-	#superclass : #QuasarApplication,
-	#category : #'Quasar-Demo-Basic'
+	#name : 'QuasarDemoHelloWorldApp',
+	#superclass : 'QuasarApplication',
+	#category : 'Quasar-Demo-Basic',
+	#package : 'Quasar-Demo',
+	#tag : 'Basic'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoHelloWorldApp class >> applicationPath [
 
 	^ 'quasar/hello-world'
 ]
 
-{ #category : #initialization }
+{ #category : 'accessing' }
+QuasarDemoHelloWorldApp class >> categoryName [
+
+	^ #demo
+]
+
+{ #category : 'initialization' }
 QuasarDemoHelloWorldApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -23,13 +31,13 @@ QuasarDemoHelloWorldApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoHelloWorldApp >> applicationTitle [
 
 	^ 'HelloWorld'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoHelloWorldApp >> renderAppOn: html [
 
 	html qLayout view: 'hHh lpR fFf'; with: [
@@ -41,7 +49,7 @@ QuasarDemoHelloWorldApp >> renderAppOn: html [
 			html span with: 'Start your application here, to use Quasar Framework directly' ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoHelloWorldApp >> renderLayoutOn: html [
 
 	html qApp id: self appId; with: [

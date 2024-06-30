@@ -1,15 +1,17 @@
 Class {
-	#name : #QuasarDemoSoilRepository,
-	#superclass : #QuasarDemoRepository,
+	#name : 'QuasarDemoSoilRepository',
+	#superclass : 'QuasarDemoRepository',
 	#instVars : [
 		'pathPrefix',
 		'path',
 		'soil'
 	],
-	#category : #'Quasar-Demo-Common'
+	#category : 'Quasar-Demo-Common',
+	#package : 'Quasar-Demo',
+	#tag : 'Common'
 }
 
-{ #category : #'demo data' }
+{ #category : 'demo data' }
 QuasarDemoSoilRepository class >> soilCleanup [
 	"
 	self soilCleanup.
@@ -24,7 +26,7 @@ QuasarDemoSoilRepository class >> soilCleanup [
 	Smalltalk garbageCollect; garbageCollect; garbageCollect
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 QuasarDemoSoilRepository >> close [
 
 	soil ifNotNil: [
@@ -32,13 +34,13 @@ QuasarDemoSoilRepository >> close [
 		soil := nil ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 QuasarDemoSoilRepository >> collectionNameFor: aClass [
 
 	^ aClass name
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 QuasarDemoSoilRepository >> collectionNewFor: aClass [
 
 	"^ Set new"
@@ -48,25 +50,25 @@ QuasarDemoSoilRepository >> collectionNewFor: aClass [
 		yourself
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoSoilRepository >> commit: aBlock [
 
 	#todo
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoSoilRepository >> count: aClass [
 
 	^ (self listOf: aClass) size
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoSoilRepository >> count: aClass where: condition [
 
 	^ (self selectMany: aClass where: condition) size
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 QuasarDemoSoilRepository >> create [
 	| tx dict |
 
@@ -84,14 +86,14 @@ QuasarDemoSoilRepository >> create [
 	soil close
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 QuasarDemoSoilRepository >> destroy [
 
 	soil ifNotNil: [
 		soil destroy ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoSoilRepository >> fullPath [
 
 	^ self pathPrefix
@@ -99,7 +101,7 @@ QuasarDemoSoilRepository >> fullPath [
 		ifNotNil: [ :value | value asPath / self path ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoSoilRepository >> initialize [
 
 	super initialize.
@@ -108,7 +110,7 @@ QuasarDemoSoilRepository >> initialize [
 	"objectMap := Dictionary new"
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 QuasarDemoSoilRepository >> list: aClass [
 	| tx list |
 
@@ -119,7 +121,7 @@ QuasarDemoSoilRepository >> list: aClass [
 	^ list
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 QuasarDemoSoilRepository >> list: aClass transaction: tx [
 	| list |
 
@@ -131,7 +133,7 @@ QuasarDemoSoilRepository >> list: aClass transaction: tx [
 	^ list
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 QuasarDemoSoilRepository >> listOf: aClass [
 	| objectSet |
 
@@ -143,37 +145,37 @@ QuasarDemoSoilRepository >> listOf: aClass [
 	^ objectSet values
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 QuasarDemoSoilRepository >> open [
 
 	soil := (Soil path: self fullPath) open; yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoSoilRepository >> path [
 
 	^ path
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoSoilRepository >> path: anObject [
 
 	path := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoSoilRepository >> pathPrefix [
 
 	^ pathPrefix
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoSoilRepository >> pathPrefix: anObject [
 
 	pathPrefix := anObject
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoSoilRepository >> remove: anObject [
 
 	^ (self list: anObject class)
@@ -181,13 +183,13 @@ QuasarDemoSoilRepository >> remove: anObject [
 		ifAbsent: [ "Do nothing" ]
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoSoilRepository >> removeAll: aClass [ 
 
 	self removeCollection: aClass
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoSoilRepository >> removeCollection: aClass [ 
 
 	#todo
@@ -196,7 +198,7 @@ QuasarDemoSoilRepository >> removeCollection: aClass [
 		ifAbsent: [ ""Do nothing"" ]"
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoSoilRepository >> save: anObject [
 	| tx |
 
@@ -205,7 +207,7 @@ QuasarDemoSoilRepository >> save: anObject [
 	tx commit
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoSoilRepository >> save: anObject transaction: tx [
 	| theRoot list id key |
 
@@ -228,13 +230,13 @@ QuasarDemoSoilRepository >> save: anObject transaction: tx [
 	list at: key put: anObject
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoSoilRepository >> selectAll: aClass [
 
 	^ self listOf: aClass
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoSoilRepository >> selectAll: aClass sortBy: sortBlock [
 
 	^ sortBlock
@@ -242,14 +244,14 @@ QuasarDemoSoilRepository >> selectAll: aClass sortBy: sortBlock [
 		ifNil: [ self listOf: aClass ]
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoSoilRepository >> selectMany: aClass where: aBlock [
 
 	aBlock ifNil: [ ^ self selectAll: aClass ].
 	^ (self listOf: aClass) select: aBlock
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoSoilRepository >> selectMany: aClass where: aBlock limit: aLimit offset: anOffset [
 	| list |
 
@@ -260,7 +262,7 @@ QuasarDemoSoilRepository >> selectMany: aClass where: aBlock limit: aLimit offse
 		to: (anOffset + aLimit min: list size)
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoSoilRepository >> selectMany: aClass where: aBlock sortBy: sortBlock [
 
 	^ sortBlock
@@ -268,25 +270,25 @@ QuasarDemoSoilRepository >> selectMany: aClass where: aBlock sortBy: sortBlock [
 		ifNil: [ (self listOf: aClass) select: aBlock ]
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoSoilRepository >> selectOne: aClass where: aBlock [
 
 	^ (self listOf: aClass) detect: aBlock ifNone: [ nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoSoilRepository >> soil [
 
 	^ soil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoSoilRepository >> soil: anObject [
 
 	soil := anObject
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoSoilRepository >> updateData: data class: aClass [
 	| tx modelObject |
 
@@ -296,7 +298,7 @@ QuasarDemoSoilRepository >> updateData: data class: aClass [
 	tx commit
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoSoilRepository >> updateData: data class: aClass transaction: tx [
 	| list modelId modelObject |
 

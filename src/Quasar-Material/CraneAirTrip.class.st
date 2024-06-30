@@ -1,27 +1,29 @@
 Class {
-	#name : #CraneAirTrip,
-	#superclass : #CraneObject,
+	#name : 'CraneAirTrip',
+	#superclass : 'CraneObject',
 	#instVars : [
 		'departFlight',
 		'returnFlight',
 		'price'
 	],
-	#category : #'Quasar-Material-Crane'
+	#category : 'Quasar-Material-Crane',
+	#package : 'Quasar-Material',
+	#tag : 'Crane'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirTrip >> departFlight [
 
 	^ departFlight
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirTrip >> departFlight: anObject [
 
 	departFlight := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneAirTrip >> departFlightDescription [
 	<magritteDescription>
 
@@ -33,19 +35,19 @@ CraneAirTrip >> departFlightDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirTrip >> price [
 
 	^ price
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirTrip >> price: anObject [
 
 	price := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneAirTrip >> priceDescription [
 	<magritteDescription>
 
@@ -56,19 +58,19 @@ CraneAirTrip >> priceDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirTrip >> returnFlight [
 
 	^ returnFlight
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneAirTrip >> returnFlight: anObject [
 
 	returnFlight := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneAirTrip >> returnFlightDescription [
 	<magritteDescription>
 

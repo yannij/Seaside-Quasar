@@ -1,16 +1,18 @@
 Class {
-	#name : #CraneObject,
-	#superclass : #Object,
+	#name : 'CraneObject',
+	#superclass : 'Object',
 	#classVars : [
 		'DescriptionContainerClass'
 	],
 	#classInstVars : [
 		'instanceList'
 	],
-	#category : #'Quasar-Material-Crane'
+	#category : 'Quasar-Material-Crane',
+	#package : 'Quasar-Material',
+	#tag : 'Crane'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneObject class >> descriptionContainerClass [
 	"
 	self descriptionContainerClass: MCWPriorityContainer.
@@ -21,31 +23,31 @@ CraneObject class >> descriptionContainerClass [
 	^ DescriptionContainerClass ifNil: [ DescriptionContainerClass := MDQPriorityContainer ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneObject class >> descriptionContainerClass: anObject [
 
 	^ DescriptionContainerClass := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneObject class >> instanceList [
 
 	^ instanceList ifNil: [ instanceList := OrderedCollection new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneObject class >> instanceList: anObject [
 
 	instanceList := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneObject class >> instanceListAdd: anObject [
 
 	self instanceList add: anObject
 ]
 
-{ #category : #voyage }
+{ #category : 'voyage' }
 CraneObject >> descriptionContainer [
 	"Return the default description container."
 	<magritteContainer>

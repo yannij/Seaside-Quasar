@@ -1,25 +1,27 @@
 Class {
-	#name : #QuasarDemoRepository,
-	#superclass : #Object,
+	#name : 'QuasarDemoRepository',
+	#superclass : 'Object',
 	#classInstVars : [
 		'map'
 	],
-	#category : #'Quasar-Demo-Common'
+	#category : 'Quasar-Demo-Common',
+	#package : 'Quasar-Demo',
+	#tag : 'Common'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoRepository class >> map [
 
 	^ map ifNil: [ map := Dictionary new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoRepository class >> mapAt: aKey ifAbsent: aBlock [
 
 	^ self map at: aKey ifAbsent: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoRepository class >> mapCreateAt: aKey [
 	| repo |
 
@@ -28,7 +30,7 @@ QuasarDemoRepository class >> mapCreateAt: aKey [
 	^ self map at: aKey put: repo
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoRepository class >> mapReset [
 	"
 	self mapReset
@@ -40,7 +42,7 @@ QuasarDemoRepository class >> mapReset [
 	map := nil
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 QuasarDemoRepository class >> onPath: aString [
 
 	^ self new
@@ -48,116 +50,116 @@ QuasarDemoRepository class >> onPath: aString [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoRepository class >> singletonKey [
 
 	^ 'current'
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 QuasarDemoRepository >> close [
 	"Do nothing. Subclasses may override"
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoRepository >> collectionNameFor: aClass [
 
 	self subclassResponsibility
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoRepository >> commit: aBlock [
 
 	self subclassResponsibility
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoRepository >> count: aClass [
 
 	self subclassResponsibility
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoRepository >> count: aClass where: aDictionary [
 
 	self subclassResponsibility
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 QuasarDemoRepository >> create [
 	"Do nothing. Subclasses may override"
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 QuasarDemoRepository >> destroy [
 	"Do nothing. Subclasses may override"
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 QuasarDemoRepository >> open [
 	"Do nothing. Subclasses may override"
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 QuasarDemoRepository >> path: anObject [
 	"Subclasses may override"
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoRepository >> remove: anObject [
 
 	self subclassResponsibility
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoRepository >> removeAll: aClass [
 
 	self subclassResponsibility
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoRepository >> selectAll: aClass [
 
 	^ self selectAll: aClass sortBy: nil
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoRepository >> selectAll: aClass sortBy: sortBlockOrSymbol [
 
 	self subclassResponsibility
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoRepository >> selectMany: aClass where: aDictionary [
 
 	^ self selectMany: aClass where: aDictionary limit: nil
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoRepository >> selectMany: aClass where: aDictionary limit: aLimit [
 
 	^ self selectMany: aClass where: aDictionary limit: aLimit offset: 0
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoRepository >> selectMany: aClass where: aDictionary limit: aLimit offset: anOffset [
 
 	self subclassResponsibility
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoRepository >> selectMany: aClass where: aBlock sortBy: sortBlockOrSymbol [
 
 	self subclassResponsibility
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoRepository >> selectOne: aClass where: aBlock [
 
 	self subclassResponsibility
 ]
 
-{ #category : #persistence }
+{ #category : 'persistence' }
 QuasarDemoRepository >> updateData: anId class: aClass [
 
 	self subclassResponsibility

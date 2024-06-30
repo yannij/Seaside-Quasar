@@ -1,6 +1,6 @@
-Extension { #name : #WAComponent }
+Extension { #name : 'WAComponent' }
 
-{ #category : #'*Quasar-Demo' }
+{ #category : '*Quasar-Demo' }
 WAComponent >> qdemoApp [
 
 	^ self session

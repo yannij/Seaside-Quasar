@@ -2,8 +2,8 @@
 I provide a Seaside implementation of the example at https://quasar.dev/vue-components/table#example--synchronizing-with-server
 "
 Class {
-	#name : #QuasarDemoServerSideTablePaginationApp,
-	#superclass : #QuasarApplication,
+	#name : 'QuasarDemoServerSideTablePaginationApp',
+	#superclass : 'QuasarApplication',
 	#instVars : [
 		'originalRows',
 		'rowCountRef',
@@ -15,16 +15,24 @@ Class {
 		'pagesNumber',
 		'onUpdatePage'
 	],
-	#category : #'Quasar-Demo-Basic'
+	#category : 'Quasar-Demo-Basic',
+	#package : 'Quasar-Demo',
+	#tag : 'Basic'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoServerSideTablePaginationApp class >> applicationPath [
 
 	^ 'quasar/sstable-pagination'
 ]
 
-{ #category : #initialization }
+{ #category : 'accessing' }
+QuasarDemoServerSideTablePaginationApp class >> categoryName [
+
+	^ #quasar
+]
+
+{ #category : 'initialization' }
 QuasarDemoServerSideTablePaginationApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -34,13 +42,13 @@ QuasarDemoServerSideTablePaginationApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> applicationTitle [
 
 	^ 'Server-side table pagination'
 ]
 
-{ #category : #'js-setup' }
+{ #category : 'js-setup' }
 QuasarDemoServerSideTablePaginationApp >> constColumnsJs [
 
 	^ '
@@ -84,7 +92,7 @@ const columns = [
 '
 ]
 
-{ #category : #'js-not-used' }
+{ #category : 'js-not-used' }
 QuasarDemoServerSideTablePaginationApp >> constOriginalRowsJs [
 
 	^ '
@@ -92,7 +100,7 @@ const originalRows = ', "self jsOriginalRowsArray" self originalRows asJson, ';
 '
 ]
 
-{ #category : #'js-setup' }
+{ #category : 'js-setup' }
 QuasarDemoServerSideTablePaginationApp >> constSetupJs [
 
 	^ '
@@ -101,7 +109,7 @@ QuasarDemoServerSideTablePaginationApp >> constSetupJs [
 '
 ]
 
-{ #category : #'js-not-used' }
+{ #category : 'js-not-used' }
 QuasarDemoServerSideTablePaginationApp >> fetchFromServerJs [
 
 	^ '
@@ -130,7 +138,7 @@ QuasarDemoServerSideTablePaginationApp >> fetchFromServerJs [
 '
 ]
 
-{ #category : #'js-not-used' }
+{ #category : 'js-not-used' }
 QuasarDemoServerSideTablePaginationApp >> getRowsNumberCountJs [
 
 	^ '
@@ -150,7 +158,7 @@ QuasarDemoServerSideTablePaginationApp >> getRowsNumberCountJs [
 '
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoServerSideTablePaginationApp >> initialize [
 
 	super initialize.
@@ -201,37 +209,37 @@ QuasarDemoServerSideTablePaginationApp >> initialize [
 	self reactiveObjectsAddIfAbsent: self rowCountRef
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> loading [
 
 	^ loading
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> loading: anObject [
 
 	loading := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> onMountedCode [
 
 	^ onMountedCode
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> onMountedCode: anObject [
 
 	onMountedCode := anObject
 ]
 
-{ #category : #'js-setup' }
+{ #category : 'js-setup' }
 QuasarDemoServerSideTablePaginationApp >> onMountedCodeBlock [
 
 	^ [ :stream :ajaxFactory | stream nextPutAll: self onMountedJs ]
 ]
 
-{ #category : #'js-setup' }
+{ #category : 'js-setup' }
 QuasarDemoServerSideTablePaginationApp >> onMountedJs [
 
 	^ '
@@ -243,7 +251,7 @@ onRequest({
 '
 ]
 
-{ #category : #'js-setup' }
+{ #category : 'js-setup' }
 QuasarDemoServerSideTablePaginationApp >> onMountedJsOriginal [
 
 	^ '
@@ -257,25 +265,25 @@ QuasarDemoServerSideTablePaginationApp >> onMountedJsOriginal [
 '
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> onRequest [
 
 	^ onRequest
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> onRequest: anObject [
 
 	onRequest := anObject
 ]
 
-{ #category : #'js-setup' }
+{ #category : 'js-setup' }
 QuasarDemoServerSideTablePaginationApp >> onRequestCodeBlock [
 
 	^ [ :stream :ajaxFactory | stream nextPutAll: self onRequestJs ]
 ]
 
-{ #category : #'js-setup' }
+{ #category : 'js-setup' }
 QuasarDemoServerSideTablePaginationApp >> onRequestJs [
 
 	^ '
@@ -319,25 +327,25 @@ async function onRequest(props) {
 '
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> onUpdatePage [
 
 	^ onUpdatePage
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> onUpdatePage: anObject [
 
 	onUpdatePage := anObject
 ]
 
-{ #category : #'js-setup' }
+{ #category : 'js-setup' }
 QuasarDemoServerSideTablePaginationApp >> onUpdatePageCodeBlock [
 
 	^ [ :stream :ajaxFactory | stream nextPutAll: self onUpdatePageJs ]
 ]
 
-{ #category : #'js-setup' }
+{ #category : 'js-setup' }
 QuasarDemoServerSideTablePaginationApp >> onUpdatePageJs [
 	"update to page indicated by pagination object"
 
@@ -355,19 +363,19 @@ async function ', self onUpdatePage functionName, '(page) {
 '
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> originalRows [
 
 	^ originalRows
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> originalRows: anObject [
 
 	originalRows := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> originalRowsFiltered: filter [
 	| result |
 
@@ -380,7 +388,7 @@ QuasarDemoServerSideTablePaginationApp >> originalRowsFiltered: filter [
 	 ^ result
 ]
 
-{ #category : #'js-setup' }
+{ #category : 'js-setup' }
 QuasarDemoServerSideTablePaginationApp >> originalRowsJson [
 
 	^ '[
@@ -427,43 +435,43 @@ QuasarDemoServerSideTablePaginationApp >> originalRowsJson [
 ]'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> pagesNumber [
 
 	^ pagesNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> pagesNumber: anObject [
 
 	pagesNumber := anObject
 ]
 
-{ #category : #'js-setup' }
+{ #category : 'js-setup' }
 QuasarDemoServerSideTablePaginationApp >> pagesNumberCodeBlock [
 
 	^ [ :stream :ajaxFactory | stream nextPutAll: self pagesNumberCodeBlockJs ]
 ]
 
-{ #category : #'js-setup' }
+{ #category : 'js-setup' }
 QuasarDemoServerSideTablePaginationApp >> pagesNumberCodeBlockJs [
 
 	^ 'Math.ceil(', self pagination refName, '.value.rowsNumber / ', self pagination refName,'.value.rowsPerPage)'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> pagination [
 
 	^ pagination
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> pagination: anObject [
 
 	pagination := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoServerSideTablePaginationApp >> paginationNew [
 
 	^ Dictionary new
@@ -475,7 +483,7 @@ QuasarDemoServerSideTablePaginationApp >> paginationNew [
 		yourself
 ]
 
-{ #category : #'rendering - quasar hooks' }
+{ #category : 'rendering - quasar hooks' }
 QuasarDemoServerSideTablePaginationApp >> quasarAppMountOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPutAll: self constColumnsJs.
@@ -484,7 +492,7 @@ QuasarDemoServerSideTablePaginationApp >> quasarAppMountOn: aJSStream with: anAj
 	super quasarAppMountOn: aJSStream with: anAjaxFactory
 ]
 
-{ #category : #'rendering - quasar hooks' }
+{ #category : 'rendering - quasar hooks' }
 QuasarDemoServerSideTablePaginationApp >> quasarSetupContentOn: aJSStream with: html [
 
 	aJSStream nextPutAll: self constSetupJs.
@@ -494,7 +502,7 @@ QuasarDemoServerSideTablePaginationApp >> quasarSetupContentOn: aJSStream with: 
 	"aJSStream nextPutAll: self onMountedJsOriginal."
 ]
 
-{ #category : #'rendering - quasar hooks' }
+{ #category : 'rendering - quasar hooks' }
 QuasarDemoServerSideTablePaginationApp >> quasarSetupReturnCustomList: aList with: anAjaxFactory [
 
 	aList
@@ -504,7 +512,7 @@ QuasarDemoServerSideTablePaginationApp >> quasarSetupReturnCustomList: aList wit
 		add: 'rows'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoServerSideTablePaginationApp >> renderAppOn: html [
 
 	html qLayout view: 'hHh lpR fFf'; with: [
@@ -517,14 +525,14 @@ QuasarDemoServerSideTablePaginationApp >> renderAppOn: html [
 			self renderPaginationOn: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoServerSideTablePaginationApp >> renderLayoutOn: html [
 
 	html qApp id: self appId; with: [
 		self renderAppOn: html ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoServerSideTablePaginationApp >> renderPaginationOn: html [
 
 	html div class: 'row justify-center q-mt-md'; with: [
@@ -536,7 +544,7 @@ QuasarDemoServerSideTablePaginationApp >> renderPaginationOn: html [
 			boundaryNumbers: false ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoServerSideTablePaginationApp >> renderTableExampleOn: html [
 	"From: https://quasar.dev/vue-components/table#example--synchronizing-with-server"
 
@@ -563,19 +571,19 @@ QuasarDemoServerSideTablePaginationApp >> renderTableExampleOn: html [
 								html qIcon name: 'search' ] ] ] ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> rowCountRef [
 
 	^ rowCountRef
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> rowCountRef: anObject [
 
 	rowCountRef := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> rowCountRefUpdate: filter [
 	| filteredRows |
 
@@ -583,19 +591,19 @@ QuasarDemoServerSideTablePaginationApp >> rowCountRefUpdate: filter [
 	self rowCountRef refValue: filteredRows size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> rowsRef [
 
 	^ rowsRef
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> rowsRef: anObject [
 
 	rowsRef := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoServerSideTablePaginationApp >> rowsRefUpdate: props [
 	| startRow fetchCount filter sortBy descending filteredRows slice sortedRows sortBlock fieldBlock |
 

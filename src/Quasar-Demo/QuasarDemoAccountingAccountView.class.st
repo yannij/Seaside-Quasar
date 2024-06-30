@@ -1,10 +1,12 @@
 Class {
-	#name : #QuasarDemoAccountingAccountView,
-	#superclass : #QuasarDemoAccountingView,
-	#category : #'Quasar-Demo-Accounting'
+	#name : 'QuasarDemoAccountingAccountView',
+	#superclass : 'QuasarDemoAccountingView',
+	#category : 'Quasar-Demo-Accounting',
+	#package : 'Quasar-Demo',
+	#tag : 'Accounting'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingAccountView >> renderDetailsOn: html [
 	| companies transactions |
 
@@ -18,7 +20,7 @@ QuasarDemoAccountingAccountView >> renderDetailsOn: html [
 	self renderDetail: transactions modelClass: QuasarDemoAccountingTransaction label: 'Transactions' on: html.
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoAccountingAccountView >> renderMakeTransactions: html [
 
 	html text: 'Make example transactions: '.

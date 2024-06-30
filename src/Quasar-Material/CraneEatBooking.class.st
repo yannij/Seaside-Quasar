@@ -1,6 +1,6 @@
 Class {
-	#name : #CraneEatBooking,
-	#superclass : #CraneObject,
+	#name : 'CraneEatBooking',
+	#superclass : 'CraneObject',
 	#instVars : [
 		'id',
 		'restaurant',
@@ -8,22 +8,24 @@ Class {
 		'diningDate',
 		'diningTime'
 	],
-	#category : #'Quasar-Material-Crane'
+	#category : 'Quasar-Material-Crane',
+	#package : 'Quasar-Material',
+	#tag : 'Crane'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatBooking >> dinerCount [
 
 	^ dinerCount
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatBooking >> dinerCount: anObject [
 
 	dinerCount := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneEatBooking >> dinerCountDescription [
 	<magritteDescription>
 
@@ -36,19 +38,19 @@ CraneEatBooking >> dinerCountDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatBooking >> diningDate [
 
 	^ diningDate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatBooking >> diningDate: anObject [
 
 	diningDate := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneEatBooking >> diningDateDescription [
 	<magritteDescription>
 
@@ -60,19 +62,19 @@ CraneEatBooking >> diningDateDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatBooking >> diningTime [
 
 	^ diningTime
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatBooking >> diningTime: anObject [
 
 	diningTime := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneEatBooking >> diningTimeDescription [
 	<magritteDescription>
 
@@ -83,19 +85,19 @@ CraneEatBooking >> diningTimeDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatBooking >> id [
 
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatBooking >> id: anObject [
 
 	id := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneEatBooking >> idDescription [
 	<magritteDescription>
 
@@ -107,19 +109,19 @@ CraneEatBooking >> idDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatBooking >> restaurant [
 
 	^ restaurant
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatBooking >> restaurant: anObject [
 
 	restaurant := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneEatBooking >> restaurantDescription [
 	<magritteDescription>
 

@@ -1,20 +1,22 @@
 Class {
-	#name : #QShrineCanvas,
-	#superclass : #QuasarComponent,
+	#name : 'QShrineCanvas',
+	#superclass : 'QuasarComponent',
 	#instVars : [
 		'products'
 	],
-	#category : #'Quasar-Material-Shrine'
+	#category : 'Quasar-Material-Shrine',
+	#package : 'Quasar-Material',
+	#tag : 'Shrine'
 }
 
-{ #category : #actions }
+{ #category : 'actions' }
 QShrineCanvas >> addToShoppingCart: aProduct [
 
 	self mdqApplicationGet ifNotNil: [ :app |
 		app stripeInterface shoppingCart: app shoppingCart addProduct: aProduct ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QShrineCanvas >> products [
 
 	products ifNil: [
@@ -23,13 +25,13 @@ QShrineCanvas >> products [
 	^ products
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QShrineCanvas >> products: anObject [
 
 	products := anObject
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QShrineCanvas >> productsBuild [
 
 	^ (WAJsonParser parse: self productsJson) collect: [ :each |
@@ -41,7 +43,7 @@ QShrineCanvas >> productsBuild [
 		each ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QShrineCanvas >> productsFiltered [
 	| categoryValue |
 
@@ -51,7 +53,7 @@ QShrineCanvas >> productsFiltered [
 		(eachProduct at: 'tags') includes: categoryValue ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QShrineCanvas >> productsJson [
 
 	^ '[
@@ -90,14 +92,14 @@ QShrineCanvas >> productsJson [
 ]'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QShrineCanvas >> renderContentOn: html [
 
 	self renderProductsOn: html
 
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QShrineCanvas >> renderProduct: aProduct on: html [
 	| imageUrl productName productPrice |
 
@@ -117,7 +119,7 @@ QShrineCanvas >> renderProduct: aProduct on: html [
 			html div class: 'text-subtitle2 text-center'; with: '$', productPrice greaseString ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QShrineCanvas >> renderProductsOn: html [
 
 	html div class: 'row'; class: 'q-pa-md'; class: 'q-col-gutter-md'; with: [

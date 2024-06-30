@@ -1,6 +1,6 @@
 Class {
-	#name : #CraneEatSearch,
-	#superclass : #CraneObject,
+	#name : 'CraneEatSearch',
+	#superclass : 'CraneObject',
 	#instVars : [
 		'dinerCount',
 		'diningDate',
@@ -8,22 +8,24 @@ Class {
 		'city',
 		'cuisine'
 	],
-	#category : #'Quasar-Material-Crane'
+	#category : 'Quasar-Material-Crane',
+	#package : 'Quasar-Material',
+	#tag : 'Crane'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatSearch >> city [
 
 	^ city
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatSearch >> city: anObject [
 
 	city := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneEatSearch >> cityDescription [
 	<magritteDescription>
 
@@ -35,19 +37,19 @@ CraneEatSearch >> cityDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatSearch >> cuisine [
 
 	^ cuisine
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatSearch >> cuisine: anObject [
 
 	cuisine := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneEatSearch >> cuisineDescription [
 	<magritteDescription>
 
@@ -58,19 +60,19 @@ CraneEatSearch >> cuisineDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatSearch >> dinerCount [
 
 	^ dinerCount
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatSearch >> dinerCount: anObject [
 
 	dinerCount := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneEatSearch >> dinerCountDescription [
 	<magritteDescription>
 
@@ -83,7 +85,7 @@ CraneEatSearch >> dinerCountDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatSearch >> dinersDisplay [
 
 	^ self dinerCount refValue
@@ -91,7 +93,7 @@ CraneEatSearch >> dinersDisplay [
 		ifNotNil: [ :value | value greaseString, ' Diners' ]
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneEatSearch >> dinersDisplayDescription [
 	<magritteDescription>
 
@@ -103,19 +105,19 @@ CraneEatSearch >> dinersDisplayDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatSearch >> diningDate [
 
 	^ diningDate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatSearch >> diningDate: anObject [
 
 	diningDate := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneEatSearch >> diningDateDescription [
 	<magritteDescription>
 
@@ -126,19 +128,19 @@ CraneEatSearch >> diningDateDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatSearch >> diningTime [
 
 	^ diningTime
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatSearch >> diningTime: anObject [
 
 	diningTime := anObject
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneEatSearch >> diningTimeDescription [
 	<magritteDescription>
 
@@ -149,7 +151,7 @@ CraneEatSearch >> diningTimeDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 CraneEatSearch >> location [
 
 	^ self city refValue
@@ -157,7 +159,7 @@ CraneEatSearch >> location [
 		ifNotNil: [ :value | value cityName, ', ', value countryName ]
 ]
 
-{ #category : #'accessing-magritte' }
+{ #category : 'accessing-magritte' }
 CraneEatSearch >> locationDescription [
 	<magritteDescription>
 

@@ -1,5 +1,7 @@
 Class {
-	#name : #QuasarDemoMoviesMovieView,
-	#superclass : #QuasarDemoMoviesView,
-	#category : #'Quasar-Demo-Movies'
+	#name : 'QuasarDemoMoviesMovieView',
+	#superclass : 'QuasarDemoMoviesView',
+	#category : 'Quasar-Demo-Movies',
+	#package : 'Quasar-Demo',
+	#tag : 'Movies'
 }

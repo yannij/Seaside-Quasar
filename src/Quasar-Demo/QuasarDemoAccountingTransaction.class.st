@@ -1,6 +1,6 @@
 Class {
-	#name : #QuasarDemoAccountingTransaction,
-	#superclass : #QuasarDemoAccountingObject,
+	#name : 'QuasarDemoAccountingTransaction',
+	#superclass : 'QuasarDemoAccountingObject',
 	#instVars : [
 		'id',
 		'companyId',
@@ -8,22 +8,24 @@ Class {
 		'accountId',
 		'amount'
 	],
-	#category : #'Quasar-Demo-Accounting'
+	#category : 'Quasar-Demo-Accounting',
+	#package : 'Quasar-Demo',
+	#tag : 'Accounting'
 }
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoAccountingTransaction class >> attributeData [
 
 	^ #(number amount id companyId accountId)
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoAccountingTransaction class >> modelName [
 
 	^ 'Transaction'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 QuasarDemoAccountingTransaction class >> randomOnAccount: anAccount in: aRepo [
 	| numberOfAccountTxns |
 
@@ -40,67 +42,67 @@ QuasarDemoAccountingTransaction class >> randomOnAccount: anAccount in: aRepo [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingTransaction class >> viewClass [
 
 	^ QuasarDemoAccountingTransactionView
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingTransaction >> accountId [
 
 	^ accountId
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingTransaction >> accountId: anObject [
 
 	accountId := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingTransaction >> amount [
 
 	^ amount
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingTransaction >> amount: anObject [
 
 	amount := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingTransaction >> companyId [
 
 	^ companyId
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingTransaction >> companyId: anObject [
 
 	companyId := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingTransaction >> id [
 
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingTransaction >> id: anObject [
 
 	id := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingTransaction >> number [
 
 	^ number
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingTransaction >> number: anObject [
 
 	number := anObject

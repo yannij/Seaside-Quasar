@@ -1,10 +1,12 @@
 Class {
-	#name : #CraneData,
-	#superclass : #Object,
-	#category : #'Quasar-Material-Crane'
+	#name : 'CraneData',
+	#superclass : 'Object',
+	#category : 'Quasar-Material-Crane',
+	#package : 'Quasar-Material',
+	#tag : 'Crane'
 }
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 CraneData class >> createCraneAirTrips [
 	| craneClass |
 
@@ -27,7 +29,7 @@ CraneData class >> createCraneAirTrips [
 		craneClass instanceListAdd: newObject ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 CraneData class >> createCraneAirlineFlights [
 	| craneClass today |
 
@@ -63,7 +65,7 @@ CraneData class >> createCraneAirlineFlights [
 		craneClass instanceListAdd: newObject ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 CraneData class >> createCraneAirports [
 	| craneClass |
 
@@ -84,7 +86,7 @@ CraneData class >> createCraneAirports [
 		craneClass instanceListAdd: newObject ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 CraneData class >> createCraneCities [
 	| craneClass |
 
@@ -113,7 +115,7 @@ CraneData class >> createCraneCities [
 		craneClass instanceListAdd: newObject ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 CraneData class >> createCraneLodgings [
 	| craneClass |
 
@@ -140,7 +142,7 @@ CraneData class >> createCraneLodgings [
 		craneClass instanceListAdd: newObject ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 CraneData class >> createCraneRestaurants [
 	| craneClass |
 
@@ -163,7 +165,7 @@ CraneData class >> createCraneRestaurants [
 		craneClass instanceListAdd: newObject ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 CraneData class >> createData [
 	"
 	self createData
@@ -177,7 +179,7 @@ CraneData class >> createData [
 	self createCraneAirTrips
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 CraneData class >> findAirlineFlight: aFlightId [
 
 	^ CraneAirlineFlight instanceList
@@ -185,7 +187,7 @@ CraneData class >> findAirlineFlight: aFlightId [
 		ifNone: [ nil ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 CraneData class >> findAirport: anAirportCode [
 
 	^ CraneAirport instanceList
@@ -193,7 +195,7 @@ CraneData class >> findAirport: anAirportCode [
 		ifNone: [ nil ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 CraneData class >> findCity: aCityName country: aCountryName [
 
 	^ CraneCity instanceList
@@ -201,7 +203,7 @@ CraneData class >> findCity: aCityName country: aCountryName [
 		ifNone: [ nil ]
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 CraneData class >> initialize [
 
 	self createData

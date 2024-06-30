@@ -1,19 +1,27 @@
 Class {
-	#name : #QuasarDemoHtmlTextApp,
-	#superclass : #QuasarApplication,
+	#name : 'QuasarDemoHtmlTextApp',
+	#superclass : 'QuasarApplication',
 	#instVars : [
 		'htmlText1'
 	],
-	#category : #'Quasar-Demo-Basic'
+	#category : 'Quasar-Demo-Basic',
+	#package : 'Quasar-Demo',
+	#tag : 'Basic'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoHtmlTextApp class >> applicationPath [
 
 	^ 'quasar/htmltext'
 ]
 
-{ #category : #initialization }
+{ #category : 'accessing' }
+QuasarDemoHtmlTextApp class >> categoryName [
+
+	^ #quasar
+]
+
+{ #category : 'initialization' }
 QuasarDemoHtmlTextApp class >> initialize [
 	"Register path with Seaside.
 	self initialize.
@@ -23,31 +31,31 @@ QuasarDemoHtmlTextApp class >> initialize [
 	^ self mdqRegisterDeployment: self applicationPath
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoHtmlTextApp >> applicationTitle [
 
 	^ 'Html text editor'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoHtmlTextApp >> htmlText1 [
 
 	^ htmlText1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoHtmlTextApp >> htmlText1: anObject [
 
 	htmlText1 := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoHtmlTextApp >> htmlText1Default [
 
 	^ '<b>The</b> <i>quick</i> <strike>brown</strike> <u>fox</u> jumps over the lazy dog'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarDemoHtmlTextApp >> initialize [
 
 	super initialize.
@@ -56,7 +64,7 @@ QuasarDemoHtmlTextApp >> initialize [
 	self reactiveObjectsAddIfAbsent: self htmlText1
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoHtmlTextApp >> renderAppOn: html [
 
 	html qLayout view: 'hHh lpR fFf'; with: [
@@ -68,7 +76,7 @@ QuasarDemoHtmlTextApp >> renderAppOn: html [
 			self renderHtmlTextOn: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoHtmlTextApp >> renderHtmlTextOn: html [
 	| app modelName |
 
@@ -86,14 +94,14 @@ QuasarDemoHtmlTextApp >> renderHtmlTextOn: html [
 						name: modelName; vModel: modelName ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoHtmlTextApp >> renderLayoutOn: html [
 
 	html qApp id: self appId; with: [
 		self renderAppOn: html ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarDemoHtmlTextApp >> toolbarItems [
 
 	^ '[

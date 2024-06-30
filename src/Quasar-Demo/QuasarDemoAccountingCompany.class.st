@@ -1,6 +1,6 @@
 Class {
-	#name : #QuasarDemoAccountingCompany,
-	#superclass : #QuasarDemoAccountingObject,
+	#name : 'QuasarDemoAccountingCompany',
+	#superclass : 'QuasarDemoAccountingObject',
 	#instVars : [
 		'id',
 		'name',
@@ -10,28 +10,30 @@ Class {
 		'country',
 		'currency'
 	],
-	#category : #'Quasar-Demo-Accounting'
+	#category : 'Quasar-Demo-Accounting',
+	#package : 'Quasar-Demo',
+	#tag : 'Accounting'
 }
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoAccountingCompany class >> attributeData [
 
 	^ #(id name website email taxNumber country currency)
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoAccountingCompany class >> modelName [
 
 	^ 'Company'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingCompany class >> viewClass [
 
 	^ QuasarDemoAccountingCompanyView
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingCompany >> accountsIn: aRepo [
 
 	^ aRepo
@@ -39,79 +41,79 @@ QuasarDemoAccountingCompany >> accountsIn: aRepo [
 		where: [ :each | each companyId = self id ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingCompany >> country [
 
 	^ country
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingCompany >> country: anObject [
 
 	country := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingCompany >> currency [
 
 	^ currency
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingCompany >> currency: anObject [
 
 	currency := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingCompany >> email [
 
 	^ email
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingCompany >> email: anObject [
 
 	email := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingCompany >> id [
 
 	^ id
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingCompany >> id: anObject [
 
 	id := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingCompany >> name [
 
 	^ name
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingCompany >> name: anObject [
 
 	name := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingCompany >> taxNumber [
 
 	^ taxNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingCompany >> taxNumber: anObject [
 
 	taxNumber := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingCompany >> usersIn: aRepo [
 	| userCompanyList userIdList |
 
@@ -126,13 +128,13 @@ QuasarDemoAccountingCompany >> usersIn: aRepo [
 		where: [ :each | userIdList includes: each id ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingCompany >> website [
 
 	^ website
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoAccountingCompany >> website: anObject [
 
 	website := anObject

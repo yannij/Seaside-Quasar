@@ -1,28 +1,30 @@
 Class {
-	#name : #QuasarDemoMoviesObject,
-	#superclass : #Object,
-	#category : #'Quasar-Demo-Movies'
+	#name : 'QuasarDemoMoviesObject',
+	#superclass : 'Object',
+	#category : 'Quasar-Demo-Movies',
+	#package : 'Quasar-Demo',
+	#tag : 'Movies'
 }
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoMoviesObject class >> attributeData [
 
 	^ #()
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoMoviesObject class >> modelName [
 
 	^ 'abstract'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarDemoMoviesObject class >> viewClass [
 
 	self subclassResponsibility
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 QuasarDemoMoviesObject >> asMap [
 	| map |
 
@@ -34,25 +36,25 @@ QuasarDemoMoviesObject >> asMap [
 	^ map
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoMoviesObject >> attributeData [
 
 	^ self class attributeData
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoMoviesObject >> modelName [
 
 	^ self class modelName
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoMoviesObject >> summaryString [
 
 	^ self modelName, ': ', ('/' join: (self attributeData collect: [ :each | self perform: each ]))
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 QuasarDemoMoviesObject >> updateFromMap: aMap [
 
 	self class attributeData do: [ :each |
@@ -63,7 +65,7 @@ QuasarDemoMoviesObject >> updateFromMap: aMap [
 					self perform: each asSymbol asMutator with: value ] ] ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarDemoMoviesObject >> viewClass [
 
 	^ self class viewClass
