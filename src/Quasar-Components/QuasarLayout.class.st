@@ -1,16 +1,17 @@
 Class {
-	#name : #QuasarLayout,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarLayout',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarLayout >> tag [
 
 	^ 'q-layout'
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarLayout >> view: aString [
 	
 	self attributes at: 'view' put: aString

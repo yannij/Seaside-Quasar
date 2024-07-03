@@ -1,52 +1,53 @@
 Class {
-	#name : #QuasarPopupProxy,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarPopupProxy',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarPopupProxy >> breakpoint: anObject [
 
 	self attributes at: 'breakpoint' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarPopupProxy >> contextMenu [
 	
 	self attributes at: 'context-menu' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarPopupProxy >> cover [
 	
 	self attributes at: 'cover' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarPopupProxy >> noParentEvent [
 	
 	self attributes at: 'no-parent-event' put: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarPopupProxy >> tag [
 
 	^ 'q-popup-proxy'
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarPopupProxy >> target: anObject [
 
 	self attributes at: 'target' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarPopupProxy >> transitionHide: anObject [
 
 	self attributes at: 'transition-hide' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarPopupProxy >> transitionShow: anObject [
 
 	self attributes at: 'transition-show' put: anObject

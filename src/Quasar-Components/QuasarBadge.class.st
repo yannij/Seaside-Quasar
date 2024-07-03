@@ -1,64 +1,65 @@
 Class {
-	#name : #QuasarBadge,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarBadge',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarBadge >> align: aString [
 	
 	self attributes at: 'align' put: aString
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarBadge >> color: aString [
 	
 	self attributes at: 'color' put: aString
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarBadge >> floating [
 	
 	self attributes at: 'floating' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarBadge >> label: aString [
 	
 	self attributes at: 'label' put: aString
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarBadge >> multiLine [
 	
 	self attributes at: 'multi-line' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarBadge >> outline [
 	
 	self attributes at: 'outline' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarBadge >> rounded [
 	
 	self attributes at: 'rounded' put: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarBadge >> tag [
 
 	^ 'q-badge'
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarBadge >> textColor: aString [
 	
 	self attributes at: 'text-color' put: aString
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarBadge >> transparent [
 	
 	self attributes at: 'transparent' put: true

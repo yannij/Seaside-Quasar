@@ -1,22 +1,23 @@
 Class {
-	#name : #QuasarMenu,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarMenu',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarMenu >> autoClose [
 	
 	self attributes at: 'auto-close' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarMenu >> cover [
 	
 	self attributes at: 'cover' put: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarMenu >> tag [
 
 	^ 'q-menu'

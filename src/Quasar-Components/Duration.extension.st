@@ -1,6 +1,6 @@
-Extension { #name : #Duration }
+Extension { #name : 'Duration' }
 
-{ #category : #'*Quasar-Components' }
+{ #category : '*Quasar-Components' }
 Duration >> jsonOn: aRenderer [
 
 	"aRenderer number: self asMilliSeconds"

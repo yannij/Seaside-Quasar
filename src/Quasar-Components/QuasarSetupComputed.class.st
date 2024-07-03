@@ -2,27 +2,28 @@
 I represent computed value code appearing in Quasar setup().
 "
 Class {
-	#name : #QuasarSetupComputed,
-	#superclass : #QuasarSetupObject,
+	#name : 'QuasarSetupComputed',
+	#superclass : 'QuasarSetupObject',
 	#instVars : [
 		'codeBlock'
 	],
-	#category : #'Quasar-Components'
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarSetupComputed >> codeBlock [
 
 	^ codeBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarSetupComputed >> codeBlock: anObject [
 
 	codeBlock := anObject
 ]
 
-{ #category : #'rendering - ajax' }
+{ #category : 'rendering - ajax' }
 QuasarSetupComputed >> quasarSetupReturnList: aList with: anAjaxFactory [
 	| stream |
 
@@ -34,7 +35,7 @@ QuasarSetupComputed >> quasarSetupReturnList: aList with: anAjaxFactory [
 	aList add: stream contents
 ]
 
-{ #category : #'rendering - ajax' }
+{ #category : 'rendering - ajax' }
 QuasarSetupComputed >> writeCodeOn: aJSStream with: anAjaxFactory [
 
 	self codeBlock ifNotNil: [ :block |

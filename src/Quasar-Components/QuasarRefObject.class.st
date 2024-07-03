@@ -2,17 +2,18 @@
 I am an abstract class holding common code for ""ref"" objects as utilized in the Quasar/Vue Framework.
 "
 Class {
-	#name : #QuasarRefObject,
-	#superclass : #QuasarSetupObject,
+	#name : 'QuasarRefObject',
+	#superclass : 'QuasarSetupObject',
 	#instVars : [
 		'refValue',
 		'callbackBlock',
 		'onBeforeSend'
 	],
-	#category : #'Quasar-Components'
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 QuasarRefObject class >> name: aString value: anObject [
 
 	^ self new
@@ -21,37 +22,37 @@ QuasarRefObject class >> name: aString value: anObject [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarRefObject class >> onErrorNotifyJs [
 
 	^ 'jsFetchOnError=(error)=>{$q.notify({position: "top", message: error.name, caption: error.message, closeBtn: true, color: "warning", textColor: "grey-10"})}'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarRefObject >> callbackBlock [
 
 	^ callbackBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarRefObject >> callbackBlock: anObject [
 
 	callbackBlock := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarRefObject >> onBeforeSend [
 
 	^ onBeforeSend
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarRefObject >> onBeforeSend: anObject [
 
 	onBeforeSend := anObject
 ]
 
-{ #category : #'rendering - ajax' }
+{ #category : 'rendering - ajax' }
 QuasarRefObject >> quasarSetupOn: aJSStream [
 
 	aJSStream
@@ -63,19 +64,19 @@ QuasarRefObject >> quasarSetupOn: aJSStream [
 		nextPutAll: ');'
 ]
 
-{ #category : #'rendering - ajax' }
+{ #category : 'rendering - ajax' }
 QuasarRefObject >> quasarSetupReturnList: aList with: anAjaxFactory [
 
 	aList add: refName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarRefObject >> refValue [
 
 	^ refValue
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarRefObject >> refValue: anObject [
 
 	traceLevel > 0 ifTrue: [
@@ -84,7 +85,7 @@ QuasarRefObject >> refValue: anObject [
 	refValue := anObject
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 QuasarRefObject >> runCallbackWith: anObject [
 	"If callback block is present, then invoke it.
 	The callback block is responsible for the ref value update"

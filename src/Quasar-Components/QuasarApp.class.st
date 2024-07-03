@@ -1,10 +1,11 @@
 Class {
-	#name : #QuasarApp,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarApp',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApp >> tag [
 
 	^ 'q-app'

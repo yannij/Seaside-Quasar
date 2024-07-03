@@ -1,82 +1,83 @@
 Class {
-	#name : #QuasarTabPanels,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarTabPanels',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarTabPanels >> align: anObject [
 
 	self attributes at: 'align' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarTabPanels >> animated [
 	
 	self attributes at: 'animated' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarTabPanels >> infinite [
 	
 	self attributes at: 'infinite' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarTabPanels >> keepAlive [
 	
 	self attributes at: 'keep-alive' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarTabPanels >> keepAliveExclude: anObject [
 
 	self attributes at: 'keep-alive-exclude' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarTabPanels >> keepAliveInclude: anObject [
 
 	self attributes at: 'keep-alive-include' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarTabPanels >> keepAliveMax: anObject [
 
 	self attributes at: 'keep-alive-max' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarTabPanels >> swipeable [
 	
 	self attributes at: 'swipeable' put: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarTabPanels >> tag [
 
 	^ 'q-tab-panels'
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarTabPanels >> transitionDuration: anObject [
 
 	self attributes at: 'transition-duration' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarTabPanels >> transitionNext: anObject [
 
 	self attributes at: 'transition-next' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarTabPanels >> transitionPrev: anObject [
 
 	self attributes at: 'transition-prev' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarTabPanels >> vertical [
 	
 	self attributes at: 'vertical' put: true

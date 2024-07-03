@@ -1,16 +1,17 @@
 Class {
-	#name : #QuasarTemplate,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarTemplate',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarTemplate >> tag [
 
 	^ 'template'
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarTemplate >> vSlot: aString [
 
 	self attributes at: 'v-slot:', aString put: true

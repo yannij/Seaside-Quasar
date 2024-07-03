@@ -1,10 +1,11 @@
 Class {
-	#name : #QuasarSpace,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarSpace',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarSpace >> tag [
 
 	^ 'q-space'

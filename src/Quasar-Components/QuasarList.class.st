@@ -1,46 +1,47 @@
 Class {
-	#name : #QuasarList,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarList',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarList >> bordered [
 	
 	self attributes at: 'bordered' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarList >> bordered: aBoolean [
 	
 	self attributes at: 'bordered' put: aBoolean
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarList >> dark [
 	
 	self attributes at: 'dark' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarList >> dense [
 	
 	self attributes at: 'dense' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarList >> padding [
 	
 	self attributes at: 'padding' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarList >> separator [
 	
 	self attributes at: 'separator' put: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarList >> tag [
 
 	^ 'q-list'

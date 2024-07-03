@@ -1,22 +1,23 @@
 Class {
-	#name : #QuasarHeader,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarHeader',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarHeader >> elevated [
 	
 	self attributes at: 'elevated' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarHeader >> heightHint: anObject [
 	
 	self attributes at: 'height-hint' put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarHeader >> tag [
 
 	^ 'q-header'

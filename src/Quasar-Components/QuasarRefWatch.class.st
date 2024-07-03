@@ -1,31 +1,32 @@
 Class {
-	#name : #QuasarRefWatch,
-	#superclass : #QuasarRefObject,
+	#name : 'QuasarRefWatch',
+	#superclass : 'QuasarRefObject',
 	#instVars : [
 		'condition'
 	],
-	#category : #'Quasar-Components'
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarRefWatch >> condition [
 
 	^ condition
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarRefWatch >> condition: anObject [
 
 	condition := anObject
 ]
 
-{ #category : #'rendering - ajax' }
+{ #category : 'rendering - ajax' }
 QuasarRefWatch >> functionName [
 
 	^ self refName, 'RefWatch'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarRefWatch >> initialize [
 
 	super initialize.
@@ -33,13 +34,13 @@ QuasarRefWatch >> initialize [
 	self callbackBlock: [ :ref :value | ref refValue: value ].
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 QuasarRefWatch >> isWatch [
 
 	^ true
 ]
 
-{ #category : #'rendering - ajax' }
+{ #category : 'rendering - ajax' }
 QuasarRefWatch >> quasarSetupReturnList: aList with: anAjaxFactory [
 
 	super quasarSetupReturnList: aList with: anAjaxFactory.
@@ -47,7 +48,7 @@ QuasarRefWatch >> quasarSetupReturnList: aList with: anAjaxFactory [
 	aList add: self functionName
 ]
 
-{ #category : #'rendering - ajax' }
+{ #category : 'rendering - ajax' }
 QuasarRefWatch >> writeCodeOn: aJSStream with: anAjaxFactory [
 	| ajax code |
 
@@ -71,7 +72,7 @@ QuasarRefWatch >> writeCodeOn: aJSStream with: anAjaxFactory [
 		nextPutAll: '}'.
 ]
 
-{ #category : #'rendering - ajax' }
+{ #category : 'rendering - ajax' }
 QuasarRefWatch >> writeWatchCodeOn: aJSStream [
 
 	aJSStream

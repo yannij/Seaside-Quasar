@@ -1,28 +1,29 @@
 Class {
-	#name : #QuasarToggle,
-	#superclass : #QuasarFormComponent,
-	#category : #'Quasar-Components'
+	#name : 'QuasarToggle',
+	#superclass : 'QuasarFormComponent',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarToggle >> align: anObject [
 
 	self attributes at: 'align' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarToggle >> label: anObject [
 
 	self attributes at: 'label' put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarToggle >> tag [
 
 	^ 'q-toggle'
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarToggle >> vertical [
 
 	self attributes at: 'vertical' put: true

@@ -1,76 +1,77 @@
 Class {
-	#name : #QuasarFormComponent,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarFormComponent',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #callbacks }
+{ #category : 'callbacks' }
 QuasarFormComponent >> callback: aBlock [
 
 	self name: (self storeCallback: (self callbackClass on: aBlock))
 ]
 
-{ #category : #callbacks }
+{ #category : 'callbacks' }
 QuasarFormComponent >> callbackClass [
 
 	^ WAValueCallback
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFormComponent >> dense [
 	
 	self attributes at: 'dense' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFormComponent >> dense: anObject [
 	
 	self attributes at: 'dense' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFormComponent >> disable [
 	
 	self attributes at: 'disable' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFormComponent >> disable: aBoolean [
 	
 	self attributes at: 'disable' put: aBoolean
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFormComponent >> errorMessage: anObject [
 	
 	self attributes at: 'error-message' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFormComponent >> filled [
 	
 	self attributes at: 'filled' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFormComponent >> label: anObject [
 	
 	self attributes at: 'label' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFormComponent >> label: anObject withAsteriskIfRequired: aBoolean [
 
 	self label: anObject, (aBoolean ifTrue: ['*'] ifFalse: [''])
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFormComponent >> name: anObject [
 	
 	self attributes at: 'name' put: anObject
 ]
 
-{ #category : #callbacks }
+{ #category : 'callbacks' }
 QuasarFormComponent >> on: aSelector of: anObject [
 
 	"self value: (anObject perform: aSelector)."
@@ -79,32 +80,32 @@ QuasarFormComponent >> on: aSelector of: anObject [
 			selector: aSelector asMutator)
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFormComponent >> outlined [
 	
 	self attributes at: 'outlined' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFormComponent >> qerror: aBoolean [
 	"Named #qerror: to avoid collision with #error: which signals Error"
 
 	self attributes at: 'error' put: aBoolean
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFormComponent >> readonly [
 	
 	self attributes at: 'readonly' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFormComponent >> readonly: aBoolean [
 	
 	self attributes at: 'readonly' put: aBoolean
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFormComponent >> stackLabel [
 	
 	self attributes at: 'stack-label' put: true

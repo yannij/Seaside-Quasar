@@ -1,6 +1,6 @@
-Extension { #name : #JSStream }
+Extension { #name : 'JSStream' }
 
-{ #category : #'*Quasar-Components' }
+{ #category : '*Quasar-Components' }
 JSStream >> jsonOn: aRenderer [
 
 	aRenderer document nextPutAll: self asJavascript

@@ -1,6 +1,6 @@
-Extension { #name : #JSFunction }
+Extension { #name : 'JSFunction' }
 
-{ #category : #'*Quasar-Components' }
+{ #category : '*Quasar-Components' }
 JSFunction >> jsonOn: aRenderer [
 
 	aRenderer document nextPutAll: self asJavascript

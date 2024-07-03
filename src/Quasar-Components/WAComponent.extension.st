@@ -1,6 +1,6 @@
-Extension { #name : #WAComponent }
+Extension { #name : 'WAComponent' }
 
-{ #category : #'*Quasar-Components' }
+{ #category : '*Quasar-Components' }
 WAComponent >> mdqApplicationGet [
 
 	^ self session
@@ -8,7 +8,7 @@ WAComponent >> mdqApplicationGet [
 		ifNotNil: [ :value | value presenter ]
 ]
 
-{ #category : #'*Quasar-Components' }
+{ #category : '*Quasar-Components' }
 WAComponent class >> mdqPublicServerUrl [
 	"Answer URL based on Seaside configuration of:
 		serverProtocol
@@ -27,13 +27,13 @@ WAComponent class >> mdqPublicServerUrl [
 		ifNotNil: [ :value | serverUrl ]
 ]
 
-{ #category : #'*Quasar-Components' }
+{ #category : '*Quasar-Components' }
 WAComponent >> mdqPublicServerUrl [
 
 	^ self class mdqPublicServerUrl
 ]
 
-{ #category : #'*Quasar-Components' }
+{ #category : '*Quasar-Components' }
 WAComponent class >> mdqPublicServerUrl: aUrlString [
 	"Set Seaside configuration of:
 		serverProtocol
@@ -56,7 +56,7 @@ WAComponent class >> mdqPublicServerUrl: aUrlString [
 	serverPath: newUrl pathStringUnencoded.
 ]
 
-{ #category : #'*Quasar-Components' }
+{ #category : '*Quasar-Components' }
 WAComponent class >> mdqPublicServerUrlInstallDockerConfig [
 	"
 	DockerDeploy current loadConfigNamed: DockerDeploy defaultConfigName.

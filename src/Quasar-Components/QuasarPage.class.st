@@ -1,16 +1,17 @@
 Class {
-	#name : #QuasarPage,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarPage',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarPage >> padding [
 	
 	self attributes at: 'padding' put: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarPage >> tag [
 
 	^ 'q-page'

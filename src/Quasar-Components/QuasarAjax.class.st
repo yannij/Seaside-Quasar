@@ -1,10 +1,11 @@
 Class {
-	#name : #QuasarAjax,
-	#superclass : #JSObject,
-	#category : #'Quasar-Components'
+	#name : 'QuasarAjax',
+	#superclass : 'JSObject',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #actions }
+{ #category : 'actions' }
 QuasarAjax >> javascript [
 
 	^ (JSScript context: self renderContext)
@@ -12,12 +13,12 @@ QuasarAjax >> javascript [
 		yourself
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 QuasarAjax >> javascriptContentOn: aStream [
 	"Do nothing. Use as factory only"
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 QuasarAjax >> jsFetch [
 
 	^ (JSFetch context: self renderContext)

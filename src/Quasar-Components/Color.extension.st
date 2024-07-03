@@ -1,6 +1,6 @@
-Extension { #name : #Color }
+Extension { #name : 'Color' }
 
-{ #category : #'*Quasar-Components' }
+{ #category : '*Quasar-Components' }
 Color >> jsonOn: aRenderer [
 
 	aRenderer string: self asHTMLColor

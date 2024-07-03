@@ -1,10 +1,11 @@
 Class {
-	#name : #QuasarErrorHandler,
-	#superclass : #WAErrorHandler,
-	#category : #'Quasar-Components'
+	#name : 'QuasarErrorHandler',
+	#superclass : 'WAErrorHandler',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #actions }
+{ #category : 'actions' }
 QuasarErrorHandler >> handleDefault: anException [
 
 	self requestContext respond: [ :response |

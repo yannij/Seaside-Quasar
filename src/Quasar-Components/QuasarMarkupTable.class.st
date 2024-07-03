@@ -1,22 +1,23 @@
 Class {
-	#name : #QuasarMarkupTable,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarMarkupTable',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarMarkupTable >> maximized [
 	
 	self attributes at: 'maximized' put: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarMarkupTable >> tag [
 
 	^ 'q-markup-table'
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarMarkupTable >> transitionHide: anObject [
 	
 	self attributes at: 'transition-hide' put: anObject

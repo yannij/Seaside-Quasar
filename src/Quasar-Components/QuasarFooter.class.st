@@ -1,22 +1,23 @@
 Class {
-	#name : #QuasarFooter,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarFooter',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFooter >> elevated [
 	
 	self attributes at: 'elevated' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFooter >> heightHint: anObject [
 	
 	self attributes at: 'height-hint' put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarFooter >> tag [
 
 	^ 'q-footer'

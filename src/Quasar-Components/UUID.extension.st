@@ -1,12 +1,12 @@
-Extension { #name : #UUID }
+Extension { #name : 'UUID' }
 
-{ #category : #'*Quasar-Components' }
+{ #category : '*Quasar-Components' }
 UUID >> jsonOn: aRenderer [
 
 	aRenderer string: self printString
 ]
 
-{ #category : #'*Quasar-Components' }
+{ #category : '*Quasar-Components' }
 UUID class >> versionSafeNew [
 	"Answer new UUID instance taking into account Pharo version"
 

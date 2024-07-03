@@ -1,22 +1,23 @@
 Class {
-	#name : #QuasarCardSection,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarCardSection',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarCardSection >> horizontal [
 	
 	self attributes at: 'horizontal' put: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarCardSection >> tag [
 
 	^ 'q-card-section'
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarCardSection >> tag: anObject [
 	
 	self attributes at: 'tag' put: anObject

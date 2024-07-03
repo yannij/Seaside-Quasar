@@ -21,10 +21,7 @@ TBApplicationRootComponent class >> initialize [
 
 	| app |
 	app := WAAdmin register: self asApplicationAt: 'TinyBlog'.
-	"app
-		addLibrary: JQDeploymentLibrary;
-		addLibrary: JQUiDeploymentLibrary;
-		addLibrary: TBSDeploymentLibrary"
+	app preferenceAt: #sessionClass put: TBSession
 ]
 
 { #category : 'accessing' }
@@ -50,6 +47,13 @@ TBApplicationRootComponent >> initialize [
 TBApplicationRootComponent >> main: aComponent [
 
 	main := aComponent
+]
+
+{ #category : 'rendering - quasar hooks' }
+TBApplicationRootComponent >> quasarSetupReturnCustomList: aList with: anAjaxFactory [
+	
+	aList add: '
+myAuthDialog: ref(false)'
 ]
 
 { #category : 'rendering' }

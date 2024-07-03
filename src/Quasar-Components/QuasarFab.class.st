@@ -1,64 +1,65 @@
 Class {
-	#name : #QuasarFab,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarFab',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFab >> color: anObject [
 
 	self attributes at: 'color' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFab >> externalLabel [
 
 	self attributes at: 'external-label' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFab >> flat [
 
 	self attributes at: 'flat' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFab >> icon: anObject [
 
 	self attributes at: 'icon' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFab >> label: anObject [
 
 	self attributes at: 'label' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFab >> labelPosition: anObject [
 
 	self attributes at: 'label-position' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFab >> outline [
 
 	self attributes at: 'outline' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFab >> push [
 
 	self attributes at: 'push' put: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarFab >> tag [
 
 	^ 'q-fab'
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarFab >> unelevated [
 
 	self attributes at: 'unelevated' put: true

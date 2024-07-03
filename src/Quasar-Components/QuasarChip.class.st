@@ -1,118 +1,119 @@
 Class {
-	#name : #QuasarChip,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarChip',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarChip >> clickable [
 	
 	self attributes at: 'clickable' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarChip >> color: anObject [
 	
 	self attributes at: 'color' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarChip >> dark [
 	
 	self attributes at: 'dark' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarChip >> dense [
 	
 	self attributes at: 'dense' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarChip >> disable [
 	
 	self attributes at: 'disable' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarChip >> icon: anObject [
 	
 	self attributes at: 'icon' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarChip >> iconRemove: anObject [
 	
 	self attributes at: 'icon-remove' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarChip >> iconRight: anObject [
 	
 	self attributes at: 'icon-right' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarChip >> iconSelected: anObject [
 	
 	self attributes at: 'icon-selected' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarChip >> label: anObject [
 	
 	self attributes at: 'label' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarChip >> outline [
 	
 	self attributes at: 'outline' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarChip >> removable [
 	
 	self attributes at: 'removable' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarChip >> ripple: anObject [
 	
 	self attributes at: 'ripple' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarChip >> selected [
 	
 	self attributes at: 'selected' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarChip >> size: anObject [
 	
 	self attributes at: 'size' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarChip >> square [
 	
 	self attributes at: 'square' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarChip >> tabindex: anObject [
 	
 	self attributes at: 'tabindex' put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarChip >> tag [
 
 	^ 'q-chip'
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarChip >> textColor: anObject [
 	
 	self attributes at: 'text-color' put: anObject

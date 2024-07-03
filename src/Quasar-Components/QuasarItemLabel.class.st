@@ -1,34 +1,35 @@
 Class {
-	#name : #QuasarItemLabel,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarItemLabel',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarItemLabel >> caption [
 	
 	self attributes at: 'caption' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarItemLabel >> header [
 	
 	self attributes at: 'header' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarItemLabel >> lines: aString [
 	
 	self attributes at: 'lines' put: aString
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarItemLabel >> overline [
 	
 	self attributes at: 'overline' put: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarItemLabel >> tag [
 
 	^ 'q-item-label'

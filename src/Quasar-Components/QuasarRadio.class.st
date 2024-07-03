@@ -1,70 +1,71 @@
 Class {
-	#name : #QuasarRadio,
-	#superclass : #QuasarFormComponent,
-	#category : #'Quasar-Components'
+	#name : 'QuasarRadio',
+	#superclass : 'QuasarFormComponent',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarRadio >> color: anObject [
 	
 	self attributes at: 'color' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarRadio >> dark: anObject [
 	
 	self attributes at: 'dark' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarRadio >> disable [
 	
 	self attributes at: 'disable' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarRadio >> disable: aBoolean [
 	
 	self attributes at: 'disable' put: aBoolean
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarRadio >> keepColor [
 	
 	self attributes at: 'keep-color' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarRadio >> leftLabel [
 	
 	self attributes at: 'left-label' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarRadio >> name: anObject [
 	
 	self attributes at: 'name' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarRadio >> size: anObject [
 	
 	self attributes at: 'size' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarRadio >> tabindex: anObject [
 	
 	self attributes at: 'tabindex' put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarRadio >> tag [
 
 	^ 'q-radio'
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarRadio >> val: anObject [
 	
 	self attributes at: 'val' put: anObject

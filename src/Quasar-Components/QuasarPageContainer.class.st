@@ -1,10 +1,11 @@
 Class {
-	#name : #QuasarPageContainer,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarPageContainer',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarPageContainer >> tag [
 
 	^ 'q-page-container'

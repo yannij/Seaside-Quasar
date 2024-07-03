@@ -4,40 +4,41 @@ I am a customized version of WASessionCookieProtectionFilter that still allows a
 Example Usage. In the Stripe API is a checkout call, which requires a success and a failure URL. The URLs should take the user back to their context in the application, after the callout to Stripe. However, the URL would be blocked because the session cookie is not present in the scenario. The alternative token will still permit the access though.
 "
 Class {
-	#name : #WATokenFallbackProtectionFilter,
-	#superclass : #WASessionCookieProtectionFilter,
+	#name : 'WATokenFallbackProtectionFilter',
+	#superclass : 'WASessionCookieProtectionFilter',
 	#instVars : [
 		'tokens',
 		'goodToken'
 	],
-	#category : #'Quasar-Components'
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #acccessing }
+{ #category : 'acccessing' }
 WATokenFallbackProtectionFilter class >> tokenQueryFieldName [
 
 	^ '_token'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 WATokenFallbackProtectionFilter >> createTokenCache [
 
 	^ Dictionary new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 WATokenFallbackProtectionFilter >> goodToken [
 
 	^ goodToken
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 WATokenFallbackProtectionFilter >> goodToken: anObject [
 
 	goodToken := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 WATokenFallbackProtectionFilter >> initialize [
 
 	super initialize.
@@ -45,7 +46,7 @@ WATokenFallbackProtectionFilter >> initialize [
 	self tokens: self createTokenCache
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 WATokenFallbackProtectionFilter >> newToken [
 	| newValue |
 
@@ -54,19 +55,19 @@ WATokenFallbackProtectionFilter >> newToken [
 	^ newValue
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 WATokenFallbackProtectionFilter >> tokens [
 
 	^ tokens
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 WATokenFallbackProtectionFilter >> tokens: anObject [
 
 	tokens := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 WATokenFallbackProtectionFilter >> verifyBrowserSessionIDFor: requestContext [
 
 	^ (super verifyBrowserSessionIDFor: requestContext)
@@ -74,7 +75,7 @@ WATokenFallbackProtectionFilter >> verifyBrowserSessionIDFor: requestContext [
 		ifFalse: [ self verifyTokenFor: requestContext ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 WATokenFallbackProtectionFilter >> verifyTokenFor: requestContext [
 	| tokenFromRequest tokenCreatedTimestamp |
 

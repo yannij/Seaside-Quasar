@@ -1,21 +1,22 @@
 Class {
-	#name : #QuasarApplication,
-	#superclass : #WAComponent,
+	#name : 'QuasarApplication',
+	#superclass : 'WAComponent',
 	#instVars : [
 		'quasarVersion',
 		'colorTheme',
 		'reactiveObjects',
 		'onMountedObjects'
 	],
-	#category : #'Quasar-Components'
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 QuasarApplication class >> canBeRoot [
 	^ true
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 QuasarApplication class >> mdqRegisterDeployment: aName [
 	| app |
 
@@ -27,38 +28,38 @@ QuasarApplication class >> mdqRegisterDeployment: aName [
 	^ app
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> appId [
 
 	^ 'qId'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> applicationTitle [
 
 	self subclassResponsibility
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> colorTheme [
 
 	^ colorTheme
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> colorTheme: anObject [
 
 	colorTheme := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> faviconUrl [
 	"Subclasses may override"
 
 	^ nil
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 QuasarApplication >> initialize [
 
 	super initialize.
@@ -66,55 +67,55 @@ QuasarApplication >> initialize [
 	self reactiveObjectsClear
 ]
 
-{ #category : #login }
+{ #category : 'login' }
 QuasarApplication >> isLoggedIn [
 
 	^ self loginComponent notNil and: [ self loginComponent isLoggedIn ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> jsdelivrUrlFragment [
 
 	^ 'https://cdn.jsdelivr.net/npm/quasar@<1s>/dist/' expandMacrosWith: self quasarVersionLazy
 ]
 
-{ #category : #logging }
+{ #category : 'logging' }
 QuasarApplication >> logFormat: aFormatString with: aValue [
 
 	self logString: (aFormatString format: (Array with: aValue))
 ]
 
-{ #category : #logging }
+{ #category : 'logging' }
 QuasarApplication >> logFormat: aFormatString with: aValue1 with: aValue2 [
 
 	self logString: (aFormatString format: (Array with: aValue1 with: aValue2))
 ]
 
-{ #category : #logging }
+{ #category : 'logging' }
 QuasarApplication >> logFormat: aFormatString with: aValue1 with: aValue2 with: aValue3 [
 
 	self logString: (aFormatString format: (Array with: aValue1 with: aValue2 with: aValue3))
 ]
 
-{ #category : #logging }
+{ #category : 'logging' }
 QuasarApplication >> logFormat: aFormatString with: aValue1 with: aValue2 with: aValue3 with: aValue4 [
 
 	self logString: (aFormatString format: (Array with: aValue1 with: aValue2 with: aValue3 with: aValue4))
 ]
 
-{ #category : #logging }
+{ #category : 'logging' }
 QuasarApplication >> logFormat: aFormatString with: aValue1 with: aValue2 with: aValue3 with: aValue4 with: aValue5 [
 
 	self logString: (aFormatString format: (Array with: aValue1 with: aValue2 with: aValue3 with: aValue4 with: aValue5))
 ]
 
-{ #category : #logging }
+{ #category : 'logging' }
 QuasarApplication >> logString: aString [
 
 	self crTrace: aString
 ]
 
-{ #category : #login }
+{ #category : 'login' }
 QuasarApplication >> logout [
 
 	self loginComponent
@@ -125,37 +126,37 @@ QuasarApplication >> logout [
 			self redirect ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 QuasarApplication >> needsMarkdown [
 
 	^ true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> onMountedObjects [
 
 	^ onMountedObjects
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> onMountedObjects: anObject [
 
 	onMountedObjects := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> onMountedObjectsAdd: anObject [
 
 	self onMountedObjects at: anObject refName put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> onMountedObjectsClear [
 
 	self onMountedObjects: OrderedDictionary new
 ]
 
-{ #category : #'rendering - quasar' }
+{ #category : 'rendering - quasar' }
 QuasarApplication >> quasarAppMountOn: aJSStream with: anAjaxFactory [
 
 	aJSStream
@@ -172,12 +173,12 @@ QuasarApplication >> quasarAppMountOn: aJSStream with: anAjaxFactory [
 	aJSStream nextPutAll: 'app.mount("#', self appId, '")'
 ]
 
-{ #category : #'rendering - quasar hooks' }
+{ #category : 'rendering - quasar hooks' }
 QuasarApplication >> quasarConfigContentOn: aJSStream with: html [
 	"Subclasses may override"
 ]
 
-{ #category : #'rendering - quasar' }
+{ #category : 'rendering - quasar' }
 QuasarApplication >> quasarConfigOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPutAll: 'config: {'.
@@ -185,42 +186,42 @@ QuasarApplication >> quasarConfigOn: aJSStream with: anAjaxFactory [
 	aJSStream nextPutAll: '}'.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> quasarCssUrl [
 
 	^ self jsdelivrUrlFragment, 'quasar.rtl.prod.css'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> quasarJsUrl [
 
 	^ self jsdelivrUrlFragment, 'quasar.umd.prod.js'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> quasarMarkdownCssUrl [
 
 	^ self quasarMarkdownUrlFragment, 'index.css'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> quasarMarkdownJsUrl [
 
 	^ self quasarMarkdownUrlFragment, 'index.umd.js'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> quasarMarkdownUrlFragment [
 
 	^ 'https://cdn.jsdelivr.net/npm/@quasar/quasar-ui-qmarkdown@next/dist/'
 ]
 
-{ #category : #'rendering - quasar hooks' }
+{ #category : 'rendering - quasar hooks' }
 QuasarApplication >> quasarSetupContentOn: aJSStream with: html [
 	"Subclasses may override"
 ]
 
-{ #category : #'rendering - quasar' }
+{ #category : 'rendering - quasar' }
 QuasarApplication >> quasarSetupFetchOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPutAll: JSFetch jsFetchOnErrorConsoleJs.
@@ -228,7 +229,7 @@ QuasarApplication >> quasarSetupFetchOn: aJSStream with: anAjaxFactory [
 	aJSStream nextPutAll: JSFetch jsFetchJs
 ]
 
-{ #category : #'rendering - quasar' }
+{ #category : 'rendering - quasar' }
 QuasarApplication >> quasarSetupOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPutAll: 'setup() {'.
@@ -242,12 +243,12 @@ QuasarApplication >> quasarSetupOn: aJSStream with: anAjaxFactory [
 	aJSStream nextPutAll: '}'.
 ]
 
-{ #category : #'rendering - quasar hooks' }
+{ #category : 'rendering - quasar hooks' }
 QuasarApplication >> quasarSetupOnMountedContentOn: aJSStream with: anAjaxFactory [
 	"Subclasses may override"
 ]
 
-{ #category : #'rendering - quasar' }
+{ #category : 'rendering - quasar' }
 QuasarApplication >> quasarSetupOnMountedOn: aJSStream with: anAjaxFactory [
 
 	aJSStream nextPutAll: '
@@ -258,12 +259,12 @@ onMounted(() => {'.
 	aJSStream nextPutAll: '});'
 ]
 
-{ #category : #'rendering - quasar hooks' }
+{ #category : 'rendering - quasar hooks' }
 QuasarApplication >> quasarSetupReturnCustomList: aList with: anAjaxFactory [
 	"Subclasses may override"
 ]
 
-{ #category : #'rendering - quasar' }
+{ #category : 'rendering - quasar' }
 QuasarApplication >> quasarSetupReturnList: aJSStream with: anAjaxFactory [
 	| list |
 
@@ -278,19 +279,19 @@ QuasarApplication >> quasarSetupReturnList: aJSStream with: anAjaxFactory [
 	aJSStream nextPutAll: '}'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> quasarVersion [
 
 	^ quasarVersion
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> quasarVersion: anObject [
 
 	quasarVersion := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> quasarVersionLazy [
 
 	self quasarVersion ifNil: [ self quasarVersion: '2.16.1' ].
@@ -298,43 +299,43 @@ QuasarApplication >> quasarVersionLazy [
 	^ self quasarVersion
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> reactiveObjects [
 
 	^ reactiveObjects
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> reactiveObjects: anObject [
 
 	reactiveObjects := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> reactiveObjectsAddIfAbsent: anObject [
 
 	self reactiveObjects at: anObject refName ifAbsentPut: [ anObject ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> reactiveObjectsAt: aRefName ifAbsentPut: aBlock [
 
 	^ self reactiveObjects at: aRefName ifAbsentPut: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> reactiveObjectsClear [
 
 	self reactiveObjects: OrderedDictionary new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> reactiveObjectsRemoveAt: aRefName [
 
 	^ self reactiveObjects removeKey: aRefName ifAbsent: []
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 QuasarApplication >> redirect [
 	"we need to build the url we redirect to because we just expired the session in this test"
 	| url |
@@ -343,20 +344,20 @@ QuasarApplication >> redirect [
 	^ self requestContext redirectTo: url
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarApplication >> renderContentOn: html [
 
 	self renderLayoutOn: html.
 	self renderQuasarScriptsOn: html
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarApplication >> renderLayoutOn: html [
 
 	self subclassResponsibility
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarApplication >> renderQuasarScriptsOn: html [
 	| jsStream |
 
@@ -375,7 +376,7 @@ QuasarApplication >> renderQuasarScriptsOn: html [
 	html script with: jsStream
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 QuasarApplication >> renderSetColorTheme: aColorTheme on: html [
 
 	aColorTheme ifNil: [ ^ self ].
@@ -392,7 +393,7 @@ QuasarApplication >> renderSetColorTheme: aColorTheme on: html [
 		html script: stream contents ]
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 QuasarApplication >> updateRoot: anHtmlRoot [
 
 	super updateRoot: anHtmlRoot.
@@ -409,14 +410,14 @@ QuasarApplication >> updateRoot: anHtmlRoot [
 	anHtmlRoot beHtml5
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 QuasarApplication >> updateRootFonts: anHtmlRoot [
 
 	anHtmlRoot stylesheet
 		url: 'https://fonts.googleapis.com/css?family=Roboto+Flex|Material+Icons|Material+Icons+Outlined'
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 QuasarApplication >> updateRootQuasarCss: anHtmlRoot [
 
 	anHtmlRoot stylesheet url: self quasarCssUrl.
@@ -424,31 +425,31 @@ QuasarApplication >> updateRootQuasarCss: anHtmlRoot [
 		anHtmlRoot stylesheet url: self quasarMarkdownCssUrl ]
 ]
 
-{ #category : #'accessing - view style' }
+{ #category : 'accessing - view style' }
 QuasarApplication >> viewStyleDense [
 
 	^ false
 ]
 
-{ #category : #'accessing - view style' }
+{ #category : 'accessing - view style' }
 QuasarApplication >> viewStyleFilled [
 
 	^ false
 ]
 
-{ #category : #'accessing - view style' }
+{ #category : 'accessing - view style' }
 QuasarApplication >> viewStyleOutlined [
 
 	^ false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> vueJsUrl [
 
 	^ 'https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarApplication >> vueRefsSet: anAssociation [
 	"Create a ref object at the association key, if none present.
 	Set the ref object's value to the association value."

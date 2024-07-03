@@ -1,10 +1,11 @@
 Class {
-	#name : #QuasarRouterView,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarRouterView',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarRouterView >> tag [
 
 	^ 'router-view'

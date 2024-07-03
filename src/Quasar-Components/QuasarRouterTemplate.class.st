@@ -1,16 +1,17 @@
 Class {
-	#name : #QuasarRouterTemplate,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarRouterTemplate',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarRouterTemplate >> tag [
 
 	^ 'script'
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarRouterTemplate >> vRouterTemplateType [
 
 	self attributeAt: 'type' put: 'text/x-template'

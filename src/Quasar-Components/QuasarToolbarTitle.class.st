@@ -1,16 +1,17 @@
 Class {
-	#name : #QuasarToolbarTitle,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarToolbarTitle',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarToolbarTitle >> shrink [
 	
 	self attributes at: 'shrink' put: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarToolbarTitle >> tag [
 
 	^ 'q-toolbar-title'

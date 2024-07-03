@@ -1,6 +1,6 @@
-Extension { #name : #WARenderer }
+Extension { #name : 'WARenderer' }
 
-{ #category : #'*Quasar-Components' }
+{ #category : '*Quasar-Components' }
 WARenderer >> urlForAction: aBlock absolute: aUrl [
 	"Similar to urlForAction:, but any absolute url that might be present,
 	is replaced with the url represented by aUrl. The feature is useful for

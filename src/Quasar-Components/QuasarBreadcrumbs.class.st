@@ -1,40 +1,41 @@
 Class {
-	#name : #QuasarBreadcrumbs,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarBreadcrumbs',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarBreadcrumbs >> activeColor: anObject [
 
 	self attributes at: 'active-color' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarBreadcrumbs >> align: anObject [
 
 	self attributes at: 'align' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarBreadcrumbs >> gutter: anObject [
 
 	self attributes at: 'gutter' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarBreadcrumbs >> separator: anObject [
 
 	self attributes at: 'separator' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarBreadcrumbs >> separatorColor: anObject [
 
 	self attributes at: 'separator-color' put: anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarBreadcrumbs >> tag [
 
 	^ 'q-breadcrumbs'

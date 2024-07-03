@@ -1,40 +1,41 @@
 Class {
-	#name : #QuasarCard,
-	#superclass : #QuasarTag,
-	#category : #'Quasar-Components'
+	#name : 'QuasarCard',
+	#superclass : 'QuasarTag',
+	#category : 'Quasar-Components',
+	#package : 'Quasar-Components'
 }
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarCard >> bordered [
 	
 	self attributes at: 'bordered' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarCard >> dark [
 	
 	self attributes at: 'dark' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarCard >> flat [
 	
 	self attributes at: 'flat' put: true
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarCard >> qTag: anObject [
 	
 	self attributes at: 'tag' put: anObject
 ]
 
-{ #category : #attributes }
+{ #category : 'attributes' }
 QuasarCard >> square [
 	
 	self attributes at: 'square' put: true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 QuasarCard >> tag [
 
 	^ 'q-card'
