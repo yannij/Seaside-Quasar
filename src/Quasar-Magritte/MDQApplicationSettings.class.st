@@ -1,16 +1,17 @@
 Class {
-	#name : #MDQApplicationSettings,
-	#superclass : #MDQModel,
+	#name : 'MDQApplicationSettings',
+	#superclass : 'MDQModel',
 	#instVars : [
 		'mdqDensity',
 		'mdqTheme',
 		'mdqTypography',
 		'fontFamily'
 	],
-	#category : #'Quasar-Magritte'
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #'accessing - magritte' }
+{ #category : 'accessing - magritte' }
 MDQApplicationSettings >> densityDescription [
 	<magritteDescription>
 
@@ -25,19 +26,19 @@ MDQApplicationSettings >> densityDescription [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQApplicationSettings >> fontFamily [
 
 	^ fontFamily
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQApplicationSettings >> fontFamily: anObject [
 
 	fontFamily := anObject
 ]
 
-{ #category : #'accessing - magritte' }
+{ #category : 'accessing - magritte' }
 MDQApplicationSettings >> fontFamilyDescription [
 	<magritteDescription>
 
@@ -50,7 +51,7 @@ MDQApplicationSettings >> fontFamilyDescription [
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MDQApplicationSettings >> initialize [
 
 	super initialize.
@@ -62,37 +63,37 @@ MDQApplicationSettings >> initialize [
 	self mdqTypography: MDQTypography new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQApplicationSettings >> mdqDensity [
 	^ mdqDensity
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQApplicationSettings >> mdqDensity: anObject [
 	mdqDensity := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQApplicationSettings >> mdqTheme [
 	^ mdqTheme
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQApplicationSettings >> mdqTheme: anObject [
 	mdqTheme := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQApplicationSettings >> mdqTypography [
 	^ mdqTypography
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQApplicationSettings >> mdqTypography: anObject [
 	mdqTypography := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQApplicationSettings >> toggleDenseView [
 
 	self mdqDensity density < 0

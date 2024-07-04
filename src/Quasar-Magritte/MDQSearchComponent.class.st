@@ -1,23 +1,24 @@
 Class {
-	#name : #MDQSearchComponent,
-	#superclass : #MDQTextInputComponent,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQSearchComponent',
+	#superclass : 'MDQTextInputComponent',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQSearchComponent >> inputType [
 
 	^ 'search'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQSearchComponent >> renderTemplateOn: html vModel: aName [
 
 	html qTemplate vSlot: 'append'; with: [
 		html qIcon name: 'search' ] 
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MDQSearchComponent >> setExtraOf: inputTag [
 
 	super setExtraOf: inputTag.

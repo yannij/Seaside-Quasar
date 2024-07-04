@@ -1,22 +1,23 @@
 Class {
-	#name : #MDQTimeComponent,
-	#superclass : #MDQTextInputComponent,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQTimeComponent',
+	#superclass : 'MDQTextInputComponent',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQTimeComponent >> inputAspect [
 
 	^ true "self isChrome" ifTrue: [ #time24 ] ifFalse: [ #timeHtml5 ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQTimeComponent >> inputType [
 
 	^ 'time'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQTimeComponent >> renderTemplateOn: html vModel: aName [
 
 	html qTemplate vSlot: 'append'; with: [
@@ -27,7 +28,7 @@ MDQTimeComponent >> renderTemplateOn: html vModel: aName [
 						html qBtn vClosePopUp; label: 'Close'; color: 'primary'; flat ] ] ] ] ] 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTimeComponent >> time24 [
 
 	^ self value
@@ -35,14 +36,14 @@ MDQTimeComponent >> time24 [
 		ifNotNil: [ :t | t print24 ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTimeComponent >> time24: aString [
 
 	aString isEmpty ifFalse: [
 		self value: (Time fromString: aString) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTimeComponent >> timeHtml5 [
 
 	^ self value
@@ -50,7 +51,7 @@ MDQTimeComponent >> timeHtml5 [
 		ifNotNil: [ :t | t printHtml5 ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTimeComponent >> timeHtml5: aString [
 
 	aString isEmpty ifFalse: [

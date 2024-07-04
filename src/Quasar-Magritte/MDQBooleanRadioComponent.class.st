@@ -1,28 +1,29 @@
 Class {
-	#name : #MDQBooleanRadioComponent,
-	#superclass : #MDQRadioGroupComponent,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQBooleanRadioComponent',
+	#superclass : 'MDQRadioGroupComponent',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQBooleanRadioComponent >> booleanValue [
 
 	^ self value
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQBooleanRadioComponent >> booleanValue: aString [
 
 	self value: (aString = self magritteDescription trueString)
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQBooleanRadioComponent >> inputAspect [
 
 	^ #booleanValue
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQBooleanRadioComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	| inputLabel modelName app fieldTag |
 
@@ -40,7 +41,7 @@ MDQBooleanRadioComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 		with: [ super renderFieldOn: html readonly: aReadonlyFlag ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQBooleanRadioComponent >> valForOption: anOption [
 
 	^ self labelForOption: anOption

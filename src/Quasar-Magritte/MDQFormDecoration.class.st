@@ -1,10 +1,11 @@
 Class {
-	#name : #MDQFormDecoration,
-	#superclass : #MAFormDecoration,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQFormDecoration',
+	#superclass : 'MAFormDecoration',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQFormDecoration >> renderButtonsOn: html [
 	| showDisabled denseFlag |
 
@@ -32,7 +33,7 @@ MDQFormDecoration >> renderButtonsOn: html [
 					icon: 'cancel' ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQFormDecoration >> renderContentOn: html [
 
 	html qForm

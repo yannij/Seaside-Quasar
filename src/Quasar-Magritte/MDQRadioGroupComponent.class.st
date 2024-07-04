@@ -1,43 +1,44 @@
 Class {
-	#name : #MDQRadioGroupComponent,
-	#superclass : #MARadioGroupComponent,
+	#name : 'MDQRadioGroupComponent',
+	#superclass : 'MARadioGroupComponent',
 	#instVars : [
 		'errorMessage'
 	],
-	#category : #'Quasar-Magritte'
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQRadioGroupComponent >> errorMessage [
 
 	^ errorMessage
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQRadioGroupComponent >> errorMessage: anObject [
 
 	errorMessage := anObject
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MDQRadioGroupComponent >> hasLabelId [
 
 	^ false
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQRadioGroupComponent >> inputAspect [
 
 	^ #value
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQRadioGroupComponent >> renderEditorOn: html [
 
 	self renderFieldOn: html readonly: false
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQRadioGroupComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	| inputLabel inputValue inputTag modelName app |
 
@@ -60,13 +61,13 @@ MDQRadioGroupComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 		separatedBy: [ html space; space ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQRadioGroupComponent >> renderViewerOn: html [
 
 	self renderFieldOn: html readonly: true
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQRadioGroupComponent >> valForOption: anOption [
 
 	^ anOption

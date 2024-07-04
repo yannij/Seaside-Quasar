@@ -1,6 +1,6 @@
-Extension { #name : #MAToOneRelationDescription }
+Extension { #name : 'MAToOneRelationDescription' }
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : '*Quasar-Magritte' }
 MAToOneRelationDescription class >> mdqDefaultComponentClasses [
 
 	^ Array with: MDQOneToOneComponent

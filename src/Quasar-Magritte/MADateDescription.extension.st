@@ -1,6 +1,6 @@
-Extension { #name : #MADateDescription }
+Extension { #name : 'MADateDescription' }
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : '*Quasar-Magritte' }
 MADateDescription class >> mdqDefaultComponentClasses [
 
 	^ Array with: MDQDateComponent

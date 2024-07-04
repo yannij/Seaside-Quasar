@@ -1,23 +1,24 @@
 Class {
-	#name : #MDQActionColumn,
-	#superclass : #MAActionColumn,
+	#name : 'MDQActionColumn',
+	#superclass : 'MAActionColumn',
 	#instVars : [
 		'commandBlock'
 	],
-	#category : #'Quasar-Magritte'
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQActionColumn >> commandBlock [
 	^ commandBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQActionColumn >> commandBlock: anObject [
 	commandBlock := anObject
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQActionColumn >> renderCellFormContent: anObject on: html [
 
 	html submitButton
@@ -25,7 +26,7 @@ MDQActionColumn >> renderCellFormContent: anObject on: html [
 		text: '>'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQActionColumn >> renderCellLinkContent: anObject on: html [
 
 	"html anchor

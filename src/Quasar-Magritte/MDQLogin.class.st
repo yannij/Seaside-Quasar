@@ -1,6 +1,6 @@
 Class {
-	#name : #MDQLogin,
-	#superclass : #QuasarComponent,
+	#name : 'MDQLogin',
+	#superclass : 'QuasarComponent',
 	#instVars : [
 		'loginState',
 		'loginTitle',
@@ -13,16 +13,17 @@ Class {
 		'registerBlock',
 		'sendTokenBlock'
 	],
-	#category : #'Quasar-Magritte'
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #'utility - password' }
+{ #category : 'utility - password' }
 MDQLogin class >> passwordHashFor: aPassword [
 
 	^ (Base64MimeConverter mimeEncode: (ReadStream on: (SHA1 hashMessage: aPassword))) contents
 ]
 
-{ #category : #'model - api' }
+{ #category : 'model - api' }
 MDQLogin >> attemptRecovery [
 	| userOrNil |
 
@@ -37,7 +38,7 @@ MDQLogin >> attemptRecovery [
 		ifNil: [ self transitionOnEvent: self eventTokenMismatch ]
 ]
 
-{ #category : #'model - api' }
+{ #category : 'model - api' }
 MDQLogin >> authenticate: aLoginId password: aPassword [
 
 	self authenticationBlock
@@ -49,36 +50,36 @@ MDQLogin >> authenticate: aLoginId password: aPassword [
 				ifNotNil: [ self transitionOnEvent: self eventPasswordMatch ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQLogin >> authenticationBlock [
 	^ authenticationBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQLogin >> authenticationBlock: anObject [
 	authenticationBlock := anObject
 ]
 
-{ #category : #'model - api' }
+{ #category : 'model - api' }
 MDQLogin >> beginLoggingIn [
 
 	self password: String new.
 	self transitionOnEvent: self eventLoginStart
 ]
 
-{ #category : #'model - api' }
+{ #category : 'model - api' }
 MDQLogin >> beginRecovering [
 
 	self transitionOnEvent: self eventRecover
 ]
 
-{ #category : #'model - api' }
+{ #category : 'model - api' }
 MDQLogin >> beginRegistration [
 
 	self transitionOnEvent: self eventRegister
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MDQLogin >> clearInputs [
 
 	self loginId: String new.
@@ -88,7 +89,7 @@ MDQLogin >> clearInputs [
 
 ]
 
-{ #category : #'model - api' }
+{ #category : 'model - api' }
 MDQLogin >> confirmRegistration [
 
 	self tokenTyped = self tokenSent
@@ -107,67 +108,67 @@ MDQLogin >> confirmRegistration [
 							self transitionOnEvent: self eventTokenMatch ] ] ]
 ]
 
-{ #category : #'model - events' }
+{ #category : 'model - events' }
 MDQLogin >> eventContinue [
 
 	^ #Continue
 ]
 
-{ #category : #'model - events' }
+{ #category : 'model - events' }
 MDQLogin >> eventLoginStart [
 
 	^ #LoginStart
 ]
 
-{ #category : #'model - events' }
+{ #category : 'model - events' }
 MDQLogin >> eventLogout [
 
 	^ #Logout
 ]
 
-{ #category : #'model - events' }
+{ #category : 'model - events' }
 MDQLogin >> eventPasswordMatch [
 
 	^ #PasswordMatch
 ]
 
-{ #category : #'model - events' }
+{ #category : 'model - events' }
 MDQLogin >> eventPasswordMismatch [
 
 	^ #PasswordMismatch
 ]
 
-{ #category : #'model - events' }
+{ #category : 'model - events' }
 MDQLogin >> eventRecover [
 
 	^ #Recover
 ]
 
-{ #category : #'model - events' }
+{ #category : 'model - events' }
 MDQLogin >> eventRegister [
 
 	^ #Register
 ]
 
-{ #category : #'model - events' }
+{ #category : 'model - events' }
 MDQLogin >> eventTokenMatch [
 
 	^ #TokenMatch
 ]
 
-{ #category : #'model - events' }
+{ #category : 'model - events' }
 MDQLogin >> eventTokenMismatch [
 
 	^ #TokenMismatch
 ]
 
-{ #category : #'model - events' }
+{ #category : 'model - events' }
 MDQLogin >> eventTokenSent [
 
 	^ #TokenSent
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MDQLogin >> initialize [
 
 	super initialize.
@@ -178,19 +179,19 @@ MDQLogin >> initialize [
 	self password: String new.
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MDQLogin >> isLoggedIn [
 
 	^ self loginState = self stateLoggedIn
 ]
 
-{ #category : #'model - api' }
+{ #category : 'model - api' }
 MDQLogin >> loggedIn [
 
 	self transitionOnEvent: self eventContinue
 ]
 
-{ #category : #'model - api' }
+{ #category : 'model - api' }
 MDQLogin >> loggedOut [
 
 	self transitionOnEvent: self eventLogout.
@@ -199,63 +200,63 @@ MDQLogin >> loggedOut [
 	self mdqApplicationGet redirect
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQLogin >> loginId [
 	^ loginId
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQLogin >> loginId: anObject [
 	loginId := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQLogin >> loginState [
 	^ loginState
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQLogin >> loginState: anObject [
 	loginState := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQLogin >> loginTitle [
 	^ loginTitle
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQLogin >> loginTitle: anObject [
 	loginTitle := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MDQLogin >> loginTitleDefault [
 
 	^ 'MDQ Seaside'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQLogin >> password [
 	^ password
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQLogin >> password: anObject [
 	password := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQLogin >> recoverBlock [
 	^ recoverBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQLogin >> recoverBlock: anObject [
 	recoverBlock := anObject
 ]
 
-{ #category : #'model - api' }
+{ #category : 'model - api' }
 MDQLogin >> register: aLoginId password: aPassword [
 
 	self registerBlock
@@ -269,17 +270,17 @@ MDQLogin >> register: aLoginId password: aPassword [
 					self transitionOnEvent: self eventTokenSent ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQLogin >> registerBlock [
 	^ registerBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQLogin >> registerBlock: anObject [
 	registerBlock := anObject
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQLogin >> renderButton: aButtonText callback: aBlock on: html [
 
 	html div class: 'q-py-sm'; with: [
@@ -295,7 +296,7 @@ MDQLogin >> renderButton: aButtonText callback: aBlock on: html [
 			with: aButtonText ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQLogin >> renderButtonInline: aButtonText caption: aCaptionText callback: aBlock on: html [
 
 	html div class: 'text-right'; class: 'q-pt-sm'; with: [
@@ -304,21 +305,21 @@ MDQLogin >> renderButtonInline: aButtonText caption: aCaptionText callback: aBlo
 		html qBtn unelevated; outline; "class: 'q-px-none';" type: 'a'; href: (html urlForAction: aBlock); with: aButtonText ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQLogin >> renderCaption: aString on: html [
 
 	html div style: 'margin: 4px auto 0px auto; width: 300px; text-align: left'; with: [
 		html span class: 'text-caption'; with: aString ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQLogin >> renderContentOn: html [
 
 	html qApp id: self mdqApplicationGet appId; with: [
 		self renderCurrentStateOn: html ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQLogin >> renderCurrentStateOn: html [
 	| renderMap |
 
@@ -339,7 +340,7 @@ MDQLogin >> renderCurrentStateOn: html [
 				self perform: value with: html ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQLogin >> renderField: aLabel type: anInputType for: anAspect on: html [
 	| fieldId |
 
@@ -354,25 +355,25 @@ MDQLogin >> renderField: aLabel type: anInputType for: anAspect on: html [
 			"html qInput filled; label: aLabel; type: anInputType; modelValue: (self perform: anAspect)" ]]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQLogin >> renderFieldPassword: aLabel for: anAspect on: html [
 
 	self renderField: aLabel type: 'password' for: anAspect on: html
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQLogin >> renderFieldText: aLabel for: anAspect on: html [
 
 	self renderField: aLabel type: 'text' for: anAspect on: html
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQLogin >> renderLineOn: html [
 
 	html horizontalRule style: 'border-top: 1px dashed black; margin: 12px auto 8px auto; width: 300px'
 ]
 
-{ #category : #'rendering - model' }
+{ #category : 'rendering - model' }
 MDQLogin >> renderLoggedInOn: html [
 
 	self renderLoginHeaderOn: html.
@@ -381,7 +382,7 @@ MDQLogin >> renderLoggedInOn: html [
 	self renderCaption: 'Welcome' on: html
 ]
 
-{ #category : #'rendering - model' }
+{ #category : 'rendering - model' }
 MDQLogin >> renderLoggingInOn: html [
 
 	self renderLoginHeaderOn: html.
@@ -403,25 +404,25 @@ MDQLogin >> renderLoggingInOn: html [
 
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQLogin >> renderLoginHeaderOn: html [
 
 	html div class: 'text-center text-uppercase'; style: 'font-size: 3rem'; with: self loginTitle
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQLogin >> renderLoginIdOn: html [
 
 	self renderFieldText: 'Your email or user ID' for: #loginId on: html
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQLogin >> renderPasswordOn: html [
 
 	self renderFieldPassword: 'Password' for: #password on: html
 ]
 
-{ #category : #'rendering - model' }
+{ #category : 'rendering - model' }
 MDQLogin >> renderRecoveredOn: html [
 
 	self renderLoginHeaderOn: html.
@@ -433,7 +434,7 @@ MDQLogin >> renderRecoveredOn: html [
 	self renderButtonInline: 'Continue' caption: '' callback: [ self loggedIn ] on: html.
 ]
 
-{ #category : #'rendering - model' }
+{ #category : 'rendering - model' }
 MDQLogin >> renderRecoveringOn: html [
 
 	self renderLoginHeaderOn: html.
@@ -449,7 +450,7 @@ MDQLogin >> renderRecoveringOn: html [
 	self renderButtonInline: 'Login here' caption: 'Already a member ?' callback: [ self beginLoggingIn ] on: html.
 ]
 
-{ #category : #'rendering - model' }
+{ #category : 'rendering - model' }
 MDQLogin >> renderRecoveryStartedOn: html [
 
 	self renderLoginHeaderOn: html.
@@ -465,7 +466,7 @@ MDQLogin >> renderRecoveryStartedOn: html [
 	self renderButtonInline: 'Login here' caption: 'Already a member ?' callback: [ self beginLoggingIn ] on: html.
 ]
 
-{ #category : #'rendering - model' }
+{ #category : 'rendering - model' }
 MDQLogin >> renderRegisteredOn: html [
 
 	self renderLoginHeaderOn: html.
@@ -477,7 +478,7 @@ MDQLogin >> renderRegisteredOn: html [
 	self renderButtonInline: 'Continue' caption: '' callback: [ self loggedIn ] on: html.
 ]
 
-{ #category : #'rendering - model' }
+{ #category : 'rendering - model' }
 MDQLogin >> renderRegisteringOn: html [
 
 	self renderLoginHeaderOn: html.
@@ -493,7 +494,7 @@ MDQLogin >> renderRegisteringOn: html [
 	self renderButtonInline: 'Login here' caption: 'Already a member ?' callback: [ self beginLoggingIn ] on: html.
 ]
 
-{ #category : #'rendering - model' }
+{ #category : 'rendering - model' }
 MDQLogin >> renderRegistrationStartedOn: html [
 
 	self renderLoginHeaderOn: html.
@@ -510,7 +511,7 @@ MDQLogin >> renderRegistrationStartedOn: html [
 	self renderButtonInline: 'Login here' caption: 'Already a member ?' callback: [ self beginLoggingIn ] on: html.
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQLogin >> renderSingleSignOnOn: html [
 
 	html div style: 'margin: 0px auto; width: 300px; text-align: left'; with: [
@@ -527,19 +528,19 @@ MDQLogin >> renderSingleSignOnOn: html [
 			with: 'Facebook' ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQLogin >> renderSpacerOn: html [
 
 	html break
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQLogin >> renderTokenTypedOn: html [
 
 	self renderFieldPassword: 'Token' for: #tokenTyped on: html
 ]
 
-{ #category : #'model - api' }
+{ #category : 'model - api' }
 MDQLogin >> sendToken [
 	| token |
 
@@ -549,17 +550,17 @@ MDQLogin >> sendToken [
 	self transitionOnEvent: self eventTokenSent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQLogin >> sendTokenBlock [
 	^ sendTokenBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQLogin >> sendTokenBlock: anObject [
 	sendTokenBlock := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MDQLogin >> sendTokenTo: aLoginId [
 
 	^ self sendTokenBlock
@@ -567,81 +568,81 @@ MDQLogin >> sendTokenTo: aLoginId [
 		ifNotNil: [ :block | block value: self loginId ]
 ]
 
-{ #category : #'model - states' }
+{ #category : 'model - states' }
 MDQLogin >> stateLoggedIn [
 
 	^ #Authenticated
 ]
 
-{ #category : #'model - states' }
+{ #category : 'model - states' }
 MDQLogin >> stateLoggedOut [
 
 	^ #LoggedOut
 ]
 
-{ #category : #'model - states' }
+{ #category : 'model - states' }
 MDQLogin >> stateLoggingIn [
 
 	^ #LoggingIn
 ]
 
-{ #category : #'model - states' }
+{ #category : 'model - states' }
 MDQLogin >> stateRecovered [
 
 	^ #Recovered
 ]
 
-{ #category : #'model - states' }
+{ #category : 'model - states' }
 MDQLogin >> stateRecovering [
 
 	^ #Recovering
 ]
 
-{ #category : #'model - states' }
+{ #category : 'model - states' }
 MDQLogin >> stateRecoveryStarted [
 
 	^ #RecoveryStarted
 ]
 
-{ #category : #'model - states' }
+{ #category : 'model - states' }
 MDQLogin >> stateRegistered [
 
 	^ #Registered
 ]
 
-{ #category : #'model - states' }
+{ #category : 'model - states' }
 MDQLogin >> stateRegistering [
 
 	^ #Registering
 ]
 
-{ #category : #'model - states' }
+{ #category : 'model - states' }
 MDQLogin >> stateRegistrationStarted [
 
 	^ #RegistrationStarted
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQLogin >> tokenSent [
 	^ tokenSent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQLogin >> tokenSent: anObject [
 	tokenSent := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQLogin >> tokenTyped [
 	^ tokenTyped
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQLogin >> tokenTyped: anObject [
 	tokenTyped := anObject
 ]
 
-{ #category : #'model - events' }
+{ #category : 'model - events' }
 MDQLogin >> transitionOnEvent: anEvent [
 	| currentState nextState |
 

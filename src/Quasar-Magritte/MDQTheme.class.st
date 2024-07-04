@@ -1,13 +1,14 @@
 Class {
-	#name : #MDQTheme,
-	#superclass : #MDQModel,
+	#name : 'MDQTheme',
+	#superclass : 'MDQModel',
 	#instVars : [
 		'data'
 	],
-	#category : #'Quasar-Magritte'
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTheme class >> colorThemeQuasar [
 	"self colorThemeQuasar"
 
@@ -30,7 +31,7 @@ MDQTheme class >> colorThemeQuasar [
 }'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTheme class >> colorThemeQuasarDark [
 	"self colorThemeQuasarDark"
 
@@ -53,7 +54,7 @@ MDQTheme class >> colorThemeQuasarDark [
 }'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTheme class >> colorThemeSynthwave [
 	"self colorThemeSynthwave"
 
@@ -76,7 +77,7 @@ MDQTheme class >> colorThemeSynthwave [
 }'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MDQTheme class >> fromString: aJsonString [
 
 	^ self new
@@ -84,43 +85,43 @@ MDQTheme class >> fromString: aJsonString [
 		yourself
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MDQTheme class >> materialize: aString [
 
 	^NeoJSONReader fromString: aString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTheme >> colors [
 
 	^ self data at: 'colors' ifAbsent: [ nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTheme >> data [
 
 	^ data ifNil: [ data := Dictionary new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTheme >> data: anObject [
 
 	data := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTheme >> isDark [
 
 	^ self data at: 'isDark' ifAbsent: [ nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTheme >> name [
 
 	^ self data at: 'name' ifAbsent: [ nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTheme >> themeItemsSet: list [
 	| themeData colorData |
 

@@ -1,16 +1,17 @@
 Class {
-	#name : #MDQContainerComponent,
-	#superclass : #MAContainerComponent,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQContainerComponent',
+	#superclass : 'MAContainerComponent',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #decorating }
+{ #category : 'decorating' }
 MDQContainerComponent >> addForm: aCollection [
 
 	self addDecoration: (MDQFormDecoration buttons: aCollection)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MDQContainerComponent >> buildChildren [
 	| map newChildren |
 
@@ -35,7 +36,7 @@ MDQContainerComponent >> buildChildren [
 	^ newChildren
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQContainerComponent >> renderContentOn: html [
 
 	"| width |
@@ -52,7 +53,7 @@ MDQContainerComponent >> renderContentOn: html [
 
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 MDQContainerComponent >> save [
 	self validate ifFalse: [ ^ self ].
 	self commit.

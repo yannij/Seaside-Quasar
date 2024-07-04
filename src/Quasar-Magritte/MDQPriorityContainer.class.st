@@ -1,22 +1,23 @@
 Class {
-	#name : #MDQPriorityContainer,
-	#superclass : #MAPriorityContainer,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQPriorityContainer',
+	#superclass : 'MAPriorityContainer',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQPriorityContainer class >> defaultComponentClass [
 
 	^ MDQContainerComponent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQPriorityContainer class >> defaultComponentRenderer [
 
 	^ MDQCssRenderer
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MDQPriorityContainer >> initialize [
 
 	super initialize.

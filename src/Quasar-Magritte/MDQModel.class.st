@@ -1,13 +1,14 @@
 Class {
-	#name : #MDQModel,
-	#superclass : #Object,
+	#name : 'MDQModel',
+	#superclass : 'Object',
 	#classVars : [
 		'DescriptionContainerClass'
 	],
-	#category : #'Quasar-Magritte'
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQModel class >> descriptionContainerClass [
 	"
 	self descriptionContainerClass: MCWPriorityContainer.
@@ -17,12 +18,12 @@ MDQModel class >> descriptionContainerClass [
 	^ DescriptionContainerClass ifNil: [ DescriptionContainerClass := MDQPriorityContainer ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQModel class >> descriptionContainerClass: anObject [
 	DescriptionContainerClass := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQModel >> descriptionContainer [
 	"Return the default description container."
 	<magritteContainer>

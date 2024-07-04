@@ -1,14 +1,15 @@
 Class {
-	#name : #MDQOneToOneComponent,
-	#superclass : #MAExternalEditorComponent,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQOneToOneComponent',
+	#superclass : 'MAExternalEditorComponent',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQOneToOneComponent >> renderButtonsOn: html [
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQOneToOneComponent >> renderCreateButtonOn: html [
 
 	html qBtn
@@ -16,7 +17,7 @@ MDQOneToOneComponent >> renderCreateButtonOn: html [
 		icon: 'create'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQOneToOneComponent >> renderEditButtonOn: html [
 
 	html qBtn
@@ -24,13 +25,13 @@ MDQOneToOneComponent >> renderEditButtonOn: html [
 		icon: 'edit'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQOneToOneComponent >> renderEditorOn: html [
 
 	self renderViewerOn: html
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQOneToOneComponent >> renderViewerOn: html [
 
 	html qCard "class: 'bg-secondary text-white';" with: [

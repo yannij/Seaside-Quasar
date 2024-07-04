@@ -1,6 +1,6 @@
-Extension { #name : #MAStringReader }
+Extension { #name : 'MAStringReader' }
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : '*Quasar-Magritte' }
 MAStringReader >> visitHexColorDescription: aDescription [
 
 	(self contents notEmpty and: [ self contents allSatisfy: [ :each | '#0123456789ABCDEFabcdef.' includes: each ] ])

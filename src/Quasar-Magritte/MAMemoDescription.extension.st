@@ -1,6 +1,6 @@
-Extension { #name : #MAMemoDescription }
+Extension { #name : 'MAMemoDescription' }
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : '*Quasar-Magritte' }
 MAMemoDescription class >> mdqDefaultComponentClasses [
 
 	^ Array with: MDQTextAreaComponent

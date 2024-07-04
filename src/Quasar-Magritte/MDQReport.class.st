@@ -1,10 +1,11 @@
 Class {
-	#name : #MDQReport,
-	#superclass : #MAReport,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQReport',
+	#superclass : 'MAReport',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #columns }
+{ #category : 'columns' }
 MDQReport >> addColumnDescription: aDescription [
 
 	^ self addColumn: (aDescription mdqReportColumnClass new
@@ -12,7 +13,7 @@ MDQReport >> addColumnDescription: aDescription [
 		yourself)
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQReport >> dataColumns [
 	
 	^ self visibleColumns collect: [ :col |
@@ -28,7 +29,7 @@ MDQReport >> dataColumns [
 			yourself ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQReport >> dataRows [
 	| reportColumns |
 
@@ -42,38 +43,38 @@ MDQReport >> dataRows [
 		dict ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MDQReport >> initialize [
 
 	super initialize.
 	self tableEmpty: '** NONE **'
 ]
 
-{ #category : #'accessing-settings' }
+{ #category : 'accessing-settings' }
 MDQReport >> refNameCols [
 
 	^ properties at: #refNameCols ifAbsent: [ '' ]
 ]
 
-{ #category : #'accessing-settings' }
+{ #category : 'accessing-settings' }
 MDQReport >> refNameCols: anObject [
 
 	properties at: #refNameCols put: anObject
 ]
 
-{ #category : #'accessing-settings' }
+{ #category : 'accessing-settings' }
 MDQReport >> refNameRows [
 
 	^ properties at: #refNameRows ifAbsent: [ '' ]
 ]
 
-{ #category : #'accessing-settings' }
+{ #category : 'accessing-settings' }
 MDQReport >> refNameRows: anObject [
 
 	properties at: #refNameRows put: anObject
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQReport >> renderContentOn: html [
 
 	html qTable

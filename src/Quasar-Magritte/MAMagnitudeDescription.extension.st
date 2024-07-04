@@ -1,6 +1,6 @@
-Extension { #name : #MAMagnitudeDescription }
+Extension { #name : 'MAMagnitudeDescription' }
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : '*Quasar-Magritte' }
 MAMagnitudeDescription class >> mdqDefaultComponentClasses [
 
 	^ Array with: MDQStringComponent

@@ -1,1 +1,1 @@
-Package { #name : #'Quasar-Magritte' }
+Package { #name : 'Quasar-Magritte' }

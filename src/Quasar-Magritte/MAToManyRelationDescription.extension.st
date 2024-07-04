@@ -1,12 +1,12 @@
-Extension { #name : #MAToManyRelationDescription }
+Extension { #name : 'MAToManyRelationDescription' }
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : '*Quasar-Magritte' }
 MAToManyRelationDescription class >> mdqDefaultComponentClasses [
 
 	^ Array with: MDQOneToManyComponent
 ]
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : '*Quasar-Magritte' }
 MAToManyRelationDescription >> mdqIsToMany [
 
 	^ true

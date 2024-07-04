@@ -1,6 +1,6 @@
-Extension { #name : #MAUrlDescription }
+Extension { #name : 'MAUrlDescription' }
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : '*Quasar-Magritte' }
 MAUrlDescription class >> mdqDefaultComponentClasses [
 
 	^ Array with: MDQUrlComponent

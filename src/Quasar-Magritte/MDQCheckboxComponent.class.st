@@ -1,22 +1,23 @@
 Class {
-	#name : #MDQCheckboxComponent,
-	#superclass : #MACheckboxComponent,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQCheckboxComponent',
+	#superclass : 'MACheckboxComponent',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQCheckboxComponent >> inputAspect [
 
 	^ #string
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQCheckboxComponent >> renderEditorOn: html [
 
 	self renderFieldOn: html readonly: false
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQCheckboxComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	| fieldTag inputTag inputLabel inputValue modelName app |
 
@@ -46,7 +47,7 @@ MDQCheckboxComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 			] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQCheckboxComponent >> renderViewerOn: html [
 
 	self renderFieldOn: html readonly: true

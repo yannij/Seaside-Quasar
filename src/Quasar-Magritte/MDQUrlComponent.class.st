@@ -1,16 +1,17 @@
 Class {
-	#name : #MDQUrlComponent,
-	#superclass : #MDQTextInputComponent,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQUrlComponent',
+	#superclass : 'MDQTextInputComponent',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQUrlComponent >> inputType [
 
 	^ 'url'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MDQUrlComponent >> setExtraOf: inputTag [
 
 	super setExtraOf: inputTag.

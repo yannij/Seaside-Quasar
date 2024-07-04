@@ -1,6 +1,6 @@
-Extension { #name : #MAStringWriter }
+Extension { #name : 'MAStringWriter' }
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : '*Quasar-Magritte' }
 MAStringWriter >> visitHexColorDescription: aDescription [
 
 	stream nextPutAll: self object

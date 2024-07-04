@@ -1,10 +1,11 @@
 Class {
-	#name : #MDQDateAndTimeComponent,
-	#superclass : #MDQTextInputComponent,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQDateAndTimeComponent',
+	#superclass : 'MDQTextInputComponent',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQDateAndTimeComponent >> datetimeHtml5 [
 
 	^ self value
@@ -12,27 +13,27 @@ MDQDateAndTimeComponent >> datetimeHtml5 [
 		ifNotNil: [ :t | t isString ifTrue: [ (DateAndTime fromString: t) printHtml5 ] ifFalse: [ t printHtml5 ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQDateAndTimeComponent >> datetimeHtml5: aString [
 
 	aString isEmpty ifFalse: [
 		self value: (DateAndTime fromString: aString) ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQDateAndTimeComponent >> inputAspect [
 
 	"^ true ""self isChrome"" ifTrue: [ #iso8601WithoutTZ ] ifFalse: [ #datetimeHtml5 ]"
 	^ #iso8601WithoutTZ
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQDateAndTimeComponent >> inputType [
 
 	^ nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQDateAndTimeComponent >> iso8601 [
 
 	^ self value
@@ -40,14 +41,14 @@ MDQDateAndTimeComponent >> iso8601 [
 		ifNotNil: [ :t | t isString ifTrue: [ (DateAndTime fromString: t) printString ] ifFalse: [ t printString ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQDateAndTimeComponent >> iso8601: aString [
 
 	aString isEmpty ifFalse: [
 		self value: (DateAndTime fromString: aString) ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQDateAndTimeComponent >> iso8601WithoutTZ [
 	| isoString |
 
@@ -59,14 +60,14 @@ MDQDateAndTimeComponent >> iso8601WithoutTZ [
 	^ isoString copyFrom: 1 to: 19
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQDateAndTimeComponent >> iso8601WithoutTZ: aString [
 
 	aString isEmpty ifFalse: [
 		self value: (DateAndTime fromString: aString) ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQDateAndTimeComponent >> renderTemplateOn: html vModel: aName [
 
 	html qTemplate vSlot: 'prepend'; with: [

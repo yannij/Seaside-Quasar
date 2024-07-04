@@ -1,10 +1,11 @@
 Class {
-	#name : #MDQMarkdownComponent,
-	#superclass : #MDQTextInputComponent,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQMarkdownComponent',
+	#superclass : 'MDQTextInputComponent',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQMarkdownComponent >> exampleHtml [
 
 	^ '
@@ -31,7 +32,7 @@ MDQMarkdownComponent >> exampleHtml [
 '
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQMarkdownComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	| inputTag inputValue app flag modelName splitterName |
 
@@ -61,7 +62,7 @@ MDQMarkdownComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 				self renderMarkdown: modelName splitter: splitterName readonly: flag on: html ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQMarkdownComponent >> renderMarkdown: modelName on: html [
 
 	html div class: 'q-py-sm fit'; with: [
@@ -72,7 +73,7 @@ MDQMarkdownComponent >> renderMarkdown: modelName on: html [
 				class: 'fit bordered q-pr-xs' ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQMarkdownComponent >> renderMarkdown: modelName splitter: splitterName readonly: flag on: html [
 
 	html div class: 'q-py-sm fit'; with: [

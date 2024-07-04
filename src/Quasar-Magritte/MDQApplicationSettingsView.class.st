@@ -1,15 +1,16 @@
 Class {
-	#name : #MDQApplicationSettingsView,
-	#superclass : #QuasarComponent,
+	#name : 'MDQApplicationSettingsView',
+	#superclass : 'QuasarComponent',
 	#instVars : [
 		'mdqDensityComponent',
 		'mdqThemeComponent',
 		'mdqTypographyComponent'
 	],
-	#category : #'Quasar-Magritte'
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MDQApplicationSettingsView >> initialize [
 
 	super initialize.
@@ -17,17 +18,17 @@ MDQApplicationSettingsView >> initialize [
 	"self beHidden"
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQApplicationSettingsView >> mdqDensityComponent [
 	^ mdqDensityComponent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQApplicationSettingsView >> mdqDensityComponent: anObject [
 	mdqDensityComponent := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQApplicationSettingsView >> mdqDensityComponentLazy [
 
 	self mdqDensityComponent ifNil: [
@@ -36,17 +37,17 @@ MDQApplicationSettingsView >> mdqDensityComponentLazy [
 	^ self mdqDensityComponent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQApplicationSettingsView >> mdqThemeComponent [
 	^ mdqThemeComponent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQApplicationSettingsView >> mdqThemeComponent: anObject [
 	mdqThemeComponent := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQApplicationSettingsView >> mdqThemeComponentLazy [
 
 	self mdqThemeComponent ifNil: [
@@ -55,17 +56,17 @@ MDQApplicationSettingsView >> mdqThemeComponentLazy [
 	^ self mdqThemeComponent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQApplicationSettingsView >> mdqTypographyComponent [
 	^ mdqTypographyComponent
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQApplicationSettingsView >> mdqTypographyComponent: anObject [
 	mdqTypographyComponent := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQApplicationSettingsView >> mdqTypographyComponentLazy [
 
 	self mdqTypographyComponent ifNil: [
@@ -74,7 +75,7 @@ MDQApplicationSettingsView >> mdqTypographyComponentLazy [
 	^ self mdqTypographyComponent
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQApplicationSettingsView >> renderContentOn: html [
 
 	"html div style: 'padding: 8px'; with: [

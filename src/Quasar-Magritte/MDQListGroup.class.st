@@ -1,30 +1,31 @@
 Class {
-	#name : #MDQListGroup,
-	#superclass : #QuasarComponent,
+	#name : 'MDQListGroup',
+	#superclass : 'QuasarComponent',
 	#instVars : [
 		'groupedLists'
 	],
-	#category : #'Quasar-Magritte'
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQListGroup >> addGroupedList: aList [
 
 	self groupedLists add: aList
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQListGroup >> groupedLists [
 	^ groupedLists
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQListGroup >> groupedLists: anObject [
 	groupedLists := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MDQListGroup >> initialize [
 
 	super initialize.
@@ -33,7 +34,7 @@ MDQListGroup >> initialize [
 
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQListGroup >> renderContentOn: html [
 
 	html div with: [

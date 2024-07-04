@@ -1,10 +1,11 @@
 Class {
-	#name : #MDQColorComponent,
-	#superclass : #MDQTextInputComponent,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQColorComponent',
+	#superclass : 'MDQTextInputComponent',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQColorComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	| inputTag inputLabel inputValue app |
 

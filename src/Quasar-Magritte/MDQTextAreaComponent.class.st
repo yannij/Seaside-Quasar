@@ -1,16 +1,17 @@
 Class {
-	#name : #MDQTextAreaComponent,
-	#superclass : #MDQTextInputComponent,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQTextAreaComponent',
+	#superclass : 'MDQTextInputComponent',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQTextAreaComponent >> inputType [
 
 	^ 'textarea'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQTextAreaComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	| inputTag inputLabel inputValue app |
 
@@ -38,7 +39,7 @@ MDQTextAreaComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 		]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQTextAreaComponent >> setExtraOf: inputTag [
 
 	super setExtraOf: inputTag.

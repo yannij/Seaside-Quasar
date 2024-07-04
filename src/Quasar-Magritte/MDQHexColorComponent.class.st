@@ -1,10 +1,11 @@
 Class {
-	#name : #MDQHexColorComponent,
-	#superclass : #MDQTextInputComponent,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQHexColorComponent',
+	#superclass : 'MDQTextInputComponent',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQHexColorComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	| inputTag inputLabel inputValue app |
 

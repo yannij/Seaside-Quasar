@@ -1,10 +1,11 @@
 Class {
-	#name : #MDQDescribedColumn,
-	#superclass : #MADescribedColumn,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQDescribedColumn',
+	#superclass : 'MADescribedColumn',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQDescribedColumn >> renderCell: anObject index: anInteger on: html [
 
 	html tableData scope: 'row'; with: [

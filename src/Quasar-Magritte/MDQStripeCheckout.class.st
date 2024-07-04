@@ -1,27 +1,28 @@
 Class {
-	#name : #MDQStripeCheckout,
-	#superclass : #QuasarComponent,
+	#name : 'MDQStripeCheckout',
+	#superclass : 'QuasarComponent',
 	#instVars : [
 		'cartVisible',
 		'cartState',
 		'cartItems'
 	],
-	#category : #'Quasar-Magritte'
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 MDQStripeCheckout class >> isVoyageRoot [
 
 	^ true
 ]
 
-{ #category : #stripe }
+{ #category : 'stripe' }
 MDQStripeCheckout >> actionCancel [
 
 	self mdqApplicationGet logString: 'Cancel'
 ]
 
-{ #category : #stripe }
+{ #category : 'stripe' }
 MDQStripeCheckout >> actionSuccess [
 
 	self mdqApplicationGet logString: 'Success'.
@@ -29,35 +30,35 @@ MDQStripeCheckout >> actionSuccess [
 	self cartState: self cartStatePaid
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQStripeCheckout >> addValidatedForm [
 
 	^ self
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQStripeCheckout >> asComponent [
 
 	^ self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQStripeCheckout >> cartItems [
 	^ cartItems
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQStripeCheckout >> cartItems: anObject [
 	cartItems := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQStripeCheckout >> cartItemsAdd: aProduct [
 
 	self cartItems add: aProduct
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQStripeCheckout >> cartItemsClear [
 
 	self cartState: self cartStateShopping.
@@ -66,35 +67,35 @@ MDQStripeCheckout >> cartItemsClear [
 	"self cartItems: (OrderedCollection with: Object new)"
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQStripeCheckout >> cartItemsRemove: aProduct [
 
 	self cartItems remove: aProduct ifAbsent: [ nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQStripeCheckout >> cartState [
 	^ cartState
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQStripeCheckout >> cartState: anObject [
 	cartState := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQStripeCheckout >> cartStatePaid [
 
 	^ #Paid
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQStripeCheckout >> cartStateShopping [
 
 	^ #Shopping
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQStripeCheckout >> cartValues [
 	| total |
 
@@ -105,7 +106,7 @@ MDQStripeCheckout >> cartValues [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQStripeCheckout >> cartValuesOLD [
 	| subtotal shipping tax |
 
@@ -121,17 +122,17 @@ MDQStripeCheckout >> cartValuesOLD [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQStripeCheckout >> cartVisible [
 	^ cartVisible
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQStripeCheckout >> cartVisible: anObject [
 	cartVisible := anObject
 ]
 
-{ #category : #stripe }
+{ #category : 'stripe' }
 MDQStripeCheckout >> deprecatedCreateCheckoutSessionRequest: arg1 json: arg2 [
 
 	| tmp1 tmp2 tmp3 tmp4 tmp5 tmp6 tmp7 |
@@ -165,7 +166,7 @@ MDQStripeCheckout >> deprecatedCreateCheckoutSessionRequest: arg1 json: arg2 [
 	^ arg2 string: tmp5
 ]
 
-{ #category : #stripe }
+{ #category : 'stripe' }
 MDQStripeCheckout >> getRedirectUrls: html [
 	| newToken serverString publicServerUrl successUrl cancelUrl |
 
@@ -193,7 +194,7 @@ self mdqApplicationGet logString: cancelUrl printString.
 	^ Array with: successUrl with: cancelUrl
 ]
 
-{ #category : #'rendering - collapsed' }
+{ #category : 'rendering - collapsed' }
 MDQStripeCheckout >> imageFor: aModel [
 	| value |
 
@@ -201,7 +202,7 @@ MDQStripeCheckout >> imageFor: aModel [
 	^ value isCollection ifTrue: [ value first ] ifFalse: [ value ]
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MDQStripeCheckout >> initialize [
 
 	super initialize.
@@ -210,7 +211,7 @@ MDQStripeCheckout >> initialize [
 	self cartItemsClear.
 ]
 
-{ #category : #utility }
+{ #category : 'utility' }
 MDQStripeCheckout >> printAsMoney: aValue [
 
 	^ aValue printString.
@@ -218,7 +219,7 @@ MDQStripeCheckout >> printAsMoney: aValue [
 	"^ '$', (aValue printShowingDecimalPlaces: 2)"
 ]
 
-{ #category : #'rendering - shopping' }
+{ #category : 'rendering - shopping' }
 MDQStripeCheckout >> renderCartHeaderOn: html [
 
 	html div: [
@@ -227,7 +228,7 @@ MDQStripeCheckout >> renderCartHeaderOn: html [
 		self renderCartSummaryOn: html ]
 ]
 
-{ #category : #'rendering - collapsed' }
+{ #category : 'rendering - collapsed' }
 MDQStripeCheckout >> renderCartItemImagesOn: html [
 
 	self cartItems do: [ :eachItem |			
@@ -238,7 +239,7 @@ MDQStripeCheckout >> renderCartItemImagesOn: html [
 			url: (self imageFor: eachItem) ]
 ]
 
-{ #category : #'rendering - shopping' }
+{ #category : 'rendering - shopping' }
 MDQStripeCheckout >> renderCartItemsOn: html [
 
 	html qList
@@ -264,7 +265,7 @@ MDQStripeCheckout >> renderCartItemsOn: html [
 					html qItemLabel class: 'text-right'; with: (eachItem at: 'price') ] ] ] ]
 ]
 
-{ #category : #'rendering - shopping' }
+{ #category : 'rendering - shopping' }
 MDQStripeCheckout >> renderCartOn: html [
 
 	self renderCartHeaderOn: html.
@@ -278,14 +279,14 @@ MDQStripeCheckout >> renderCartOn: html [
 	html text: 'Cart error'
 ]
 
-{ #category : #'rendering - paid' }
+{ #category : 'rendering - paid' }
 MDQStripeCheckout >> renderCartPaidOn: html [
 
 	self renderCartTotalsOn: html.
 	html span class: 'text-h6'; with: 'Payment successful !'
 ]
 
-{ #category : #'rendering - shopping' }
+{ #category : 'rendering - shopping' }
 MDQStripeCheckout >> renderCartShoppingOn: html [
 
 	html qSeparator spaced: 'md'.
@@ -295,7 +296,7 @@ MDQStripeCheckout >> renderCartShoppingOn: html [
 	self renderCheckoutButtonOn: html
 ]
 
-{ #category : #'rendering - shopping' }
+{ #category : 'rendering - shopping' }
 MDQStripeCheckout >> renderCartSummaryOn: html [
 
 	html span class: 'text-subtitle1'; with: [
@@ -304,7 +305,7 @@ MDQStripeCheckout >> renderCartSummaryOn: html [
 		html text: (self cartItems size = 1 ifTrue: [ ' ITEM' ] ifFalse: [ ' ITEMS' ]) ].
 ]
 
-{ #category : #'rendering - shopping' }
+{ #category : 'rendering - shopping' }
 MDQStripeCheckout >> renderCartTotalItem: lineItemName value: lineItemValue on: html [
 
 	html qItem class: 'no-padding'; class: 'no-margin'; with: [
@@ -314,7 +315,7 @@ MDQStripeCheckout >> renderCartTotalItem: lineItemName value: lineItemValue on: 
 			html qItemLabel class: 'text-right'; style: 'font-size: 2rem'; with: lineItemValue ] ]
 ]
 
-{ #category : #'rendering - shopping' }
+{ #category : 'rendering - shopping' }
 MDQStripeCheckout >> renderCartTotalsOn: html [
 	| cartValues |
 
@@ -327,7 +328,7 @@ MDQStripeCheckout >> renderCartTotalsOn: html [
 	]
 ]
 
-{ #category : #'rendering - shopping' }
+{ #category : 'rendering - shopping' }
 MDQStripeCheckout >> renderCheckoutButtonOn: html [
 	| button |
 
@@ -340,7 +341,7 @@ MDQStripeCheckout >> renderCheckoutButtonOn: html [
 		with: 'Proceed to checkout'
 ]
 
-{ #category : #'rendering - collapsed' }
+{ #category : 'rendering - collapsed' }
 MDQStripeCheckout >> renderCollapsedCartOn: html [
 
 	html qBtn round; "class: 'q-pa-xs';"
@@ -352,7 +353,7 @@ MDQStripeCheckout >> renderCollapsedCartOn: html [
 	self renderCartItemImagesOn: html
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQStripeCheckout >> renderContentOn: html [
 
 	html div with: [
@@ -361,7 +362,7 @@ MDQStripeCheckout >> renderContentOn: html [
 			ifFalse: [ self renderCollapsedCartOn: html ] ]
 ]
 
-{ #category : #'rendering - shopping' }
+{ #category : 'rendering - shopping' }
 MDQStripeCheckout >> renderDismissButtonOn: html [
 
 	html qBtn
@@ -372,7 +373,7 @@ MDQStripeCheckout >> renderDismissButtonOn: html [
 		icon: 'keyboard_arrow_up'
 ]
 
-{ #category : #stripe }
+{ #category : 'stripe' }
 MDQStripeCheckout >> serverUrl [
 
 	^ self mdqPublicServerUrl
@@ -380,7 +381,7 @@ MDQStripeCheckout >> serverUrl [
 		ifNil: [ self error: 'Public server URL not set' ]
 ]
 
-{ #category : #stripe }
+{ #category : 'stripe' }
 MDQStripeCheckout >> stripeRedirectScriptOn: html [
 
 	^ html qAjax jsFetch

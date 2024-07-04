@@ -1,12 +1,12 @@
-Extension { #name : #MAMultipleOptionDescription }
+Extension { #name : 'MAMultipleOptionDescription' }
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : '*Quasar-Magritte' }
 MAMultipleOptionDescription class >> mdqDefaultComponentClasses [
 
 	^ Array with: MDQMultiselectListComponent
 ]
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : '*Quasar-Magritte' }
 MAMultipleOptionDescription >> mdqIsToMany [
 
 	^ true

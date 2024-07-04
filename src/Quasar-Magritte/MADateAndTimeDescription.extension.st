@@ -1,6 +1,6 @@
-Extension { #name : #MADateAndTimeDescription }
+Extension { #name : 'MADateAndTimeDescription' }
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : '*Quasar-Magritte' }
 MADateAndTimeDescription class >> mdqDefaultComponentClasses [
 
 	^ Array with: MDQDateAndTimeComponent

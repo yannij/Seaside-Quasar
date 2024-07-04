@@ -1,6 +1,6 @@
 Class {
-	#name : #MDQTypography,
-	#superclass : #MDQModel,
+	#name : 'MDQTypography',
+	#superclass : 'MDQModel',
 	#instVars : [
 		'fontFamily',
 		'fontFamilies'
@@ -8,10 +8,11 @@ Class {
 	#classVars : [
 		'AvailableFonts'
 	],
-	#category : #'Quasar-Magritte'
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTypography class >> availableFonts [
 
 	AvailableFonts ifNil: [
@@ -24,13 +25,13 @@ MDQTypography class >> availableFonts [
 	^ AvailableFonts
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTypography class >> availableFontsClear [
 
 	AvailableFonts := nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTypography class >> defaultGoogleFontsJson [
 
 	^ '
@@ -69,39 +70,39 @@ MDQTypography class >> defaultGoogleFontsJson [
 }'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTypography class >> fontFamilyDefault [
 
 	^ 'Roboto Flex'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTypography >> fontFamilies [
 	^ fontFamilies
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTypography >> fontFamilies: anObject [
 	fontFamilies := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTypography >> fontFamiliesAdd: aFontFamilyName [
 
 	self fontFamilies add: aFontFamilyName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTypography >> fontFamily [
 	^ fontFamily
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTypography >> fontFamily: anObject [
 	fontFamily := anObject
 ]
 
-{ #category : #'accessing - magritte' }
+{ #category : 'accessing - magritte' }
 MDQTypography >> fontFamilyDescription [
 	<magritteDescription>
 
@@ -114,7 +115,7 @@ MDQTypography >> fontFamilyDescription [
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MDQTypography >> initialize [
 
 	super initialize.

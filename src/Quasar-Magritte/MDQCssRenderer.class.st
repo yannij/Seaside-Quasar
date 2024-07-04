@@ -1,10 +1,11 @@
 Class {
-	#name : #MDQCssRenderer,
-	#superclass : #MAComponentRenderer,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQCssRenderer',
+	#superclass : 'MAComponentRenderer',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQCssRenderer >> renderContainer: aDescription [ 
 
 	html div
@@ -14,7 +15,7 @@ MDQCssRenderer >> renderContainer: aDescription [
 			super renderContainer: aDescription ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQCssRenderer >> renderControl: aDescription [
 
 	html div
@@ -23,7 +24,7 @@ MDQCssRenderer >> renderControl: aDescription [
 			super renderControl: aDescription ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQCssRenderer >> renderLabel: aDescription [
 	"Do nothing. #renderElementOn: also does the label"
 ]

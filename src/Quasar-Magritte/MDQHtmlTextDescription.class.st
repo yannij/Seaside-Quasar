@@ -1,52 +1,53 @@
 Class {
-	#name : #MDQHtmlTextDescription,
-	#superclass : #MAStringDescription,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQHtmlTextDescription',
+	#superclass : 'MAStringDescription',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #'accessing-defaults' }
+{ #category : 'accessing-defaults' }
 MDQHtmlTextDescription class >> defaultMaxHeight [
 
 	^ '40rem'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQHtmlTextDescription class >> label [
 
 	^ 'Html Text'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQHtmlTextDescription class >> mdqDefaultComponentClasses [
 
 	^ Array with: MDQTextEditorComponent
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 MDQHtmlTextDescription >> acceptMagritte: aVisitor [
 
 	aVisitor visitHtmlTextDescription: self
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQHtmlTextDescription >> height [
 
 	^ self propertyAt: #height ifAbsent: [ nil ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQHtmlTextDescription >> maxHeight [
 
 	^ self propertyAt: #maxHeight ifAbsent: [ self class defaultMaxHeight ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQHtmlTextDescription >> maxHeight: aMagnitude [
 
 	self propertyAt: #maxHeight put: aMagnitude
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQHtmlTextDescription >> minHeight [
 
 	^ self propertyAt: #minHeight ifAbsent: [ nil ]

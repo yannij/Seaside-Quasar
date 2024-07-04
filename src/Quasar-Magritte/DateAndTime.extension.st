@@ -1,6 +1,6 @@
-Extension { #name : #DateAndTime }
+Extension { #name : 'DateAndTime' }
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : '*Quasar-Magritte' }
 DateAndTime >> printHtml5 [
 
 	^ String streamContents: [ :stream |

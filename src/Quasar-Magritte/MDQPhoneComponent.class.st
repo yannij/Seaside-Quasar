@@ -1,16 +1,17 @@
 Class {
-	#name : #MDQPhoneComponent,
-	#superclass : #MDQTextInputComponent,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQPhoneComponent',
+	#superclass : 'MDQTextInputComponent',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQPhoneComponent >> inputType [
 
 	^ 'tel'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MDQPhoneComponent >> setExtraOf: inputTag [
 
 	super setExtraOf: inputTag.

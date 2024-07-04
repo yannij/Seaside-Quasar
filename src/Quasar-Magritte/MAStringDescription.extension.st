@@ -1,6 +1,6 @@
-Extension { #name : #MAStringDescription }
+Extension { #name : 'MAStringDescription' }
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : '*Quasar-Magritte' }
 MAStringDescription class >> mdqDefaultComponentClasses [
 
 	^ Array with: MDQStringComponent

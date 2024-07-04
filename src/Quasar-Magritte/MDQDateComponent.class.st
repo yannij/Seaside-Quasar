@@ -1,10 +1,11 @@
 Class {
-	#name : #MDQDateComponent,
-	#superclass : #MDQTextInputComponent,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQDateComponent',
+	#superclass : 'MDQTextInputComponent',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQDateComponent >> dateHtml5 [
 
 	^ self value
@@ -13,26 +14,26 @@ MDQDateComponent >> dateHtml5 [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQDateComponent >> dateHtml5: aString [
 
 	aString isEmpty ifFalse: [
 		self value: (Date fromString: aString) ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQDateComponent >> inputAspect [
 
 	^ #dateHtml5
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQDateComponent >> inputType [
 
 	^ 'date'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQDateComponent >> renderTemplateOn: html vModel: aName [
 
 	html qTemplate vSlot: 'append'; with: [

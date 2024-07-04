@@ -1,22 +1,23 @@
 Class {
-	#name : #MDQMarkdownDescription,
-	#superclass : #MAStringDescription,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQMarkdownDescription',
+	#superclass : 'MAStringDescription',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQMarkdownDescription class >> label [
 
 	^ 'Markdown'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQMarkdownDescription class >> mdqDefaultComponentClasses [
 
 	^ Array with: MDQMarkdownComponent
 ]
 
-{ #category : #visiting }
+{ #category : 'visiting' }
 MDQMarkdownDescription >> acceptMagritte: aVisitor [
 
 	aVisitor visitMarkdownDescription: self

@@ -1,6 +1,6 @@
-Extension { #name : #Time }
+Extension { #name : 'Time' }
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : '*Quasar-Magritte' }
 Time >> printHtml5 [
  	"Return as string 'hh:mm'  "
  

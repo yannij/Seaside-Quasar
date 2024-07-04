@@ -1,22 +1,23 @@
 Class {
-	#name : #MDQFileUploadComponent,
-	#superclass : #MAFileUploadComponent,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQFileUploadComponent',
+	#superclass : 'MAFileUploadComponent',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQFileUploadComponent >> inputAspect [
 
 	^ #string
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQFileUploadComponent >> renderEditorOn: html [
 
 	self renderFieldOn: html readonly: false
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQFileUploadComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	| inputTag inputLabel inputValue app |
 
@@ -41,12 +42,12 @@ MDQFileUploadComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 		]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQFileUploadComponent >> renderTemplateOn: html vModel: aName [
 	"Subclasses may enhance"
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQFileUploadComponent >> renderViewerOn: html [
 
 	self renderFieldOn: html readonly: true

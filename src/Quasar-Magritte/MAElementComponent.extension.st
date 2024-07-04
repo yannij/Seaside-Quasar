@@ -1,16 +1,16 @@
-Extension { #name : #MAElementComponent }
+Extension { #name : 'MAElementComponent' }
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : '*Quasar-Magritte' }
 MAElementComponent >> errorMessage [
 
 	^ nil
 ]
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : '*Quasar-Magritte' }
 MAElementComponent >> errorMessage: anObject [
 ]
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : '*Quasar-Magritte' }
 MAElementComponent >> setErrorMessageOf: anInputTag [
 
 	"anInputTag hint: 'foobar'."
@@ -18,7 +18,7 @@ MAElementComponent >> setErrorMessageOf: anInputTag [
 		anInputTag qerror: true; errorMessage: value ]
 ]
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : '*Quasar-Magritte' }
 MAElementComponent >> setFieldStyleOf: aFieldTag [
 	| app |
 

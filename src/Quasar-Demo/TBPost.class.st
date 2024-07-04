@@ -66,6 +66,50 @@ TBPost >> date: anObject [
 	date := anObject
 ]
 
+{ #category : 'accessing-magritte' }
+TBPost >> descriptionCategory [
+	<magritteDescription>
+	^ MAStringDescription new
+		  accessor: #category;
+		  yourself
+]
+
+{ #category : 'accessing-magritte' }
+TBPost >> descriptionDate [
+	<magritteDescription>
+	^ MADateDescription new
+		  accessor: #date;
+		  beRequired;
+		  yourself
+]
+
+{ #category : 'accessing-magritte' }
+TBPost >> descriptionText [
+	<magritteDescription>
+	^ MAMemoDescription new
+		  accessor: #text;
+		  beRequired;
+		  yourself
+]
+
+{ #category : 'accessing-magritte' }
+TBPost >> descriptionTitle [
+	<magritteDescription>
+	^ MAStringDescription new
+		  accessor: #title;
+		  beRequired;
+		  yourself
+]
+
+{ #category : 'accessing-magritte' }
+TBPost >> descriptionVisible [
+	<magritteDescription>
+	^ MABooleanDescription new
+		  accessor: #visible;
+		  beRequired;
+		  yourself
+]
+
 { #category : 'initialization' }
 TBPost >> initialize [
 

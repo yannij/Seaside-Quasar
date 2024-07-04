@@ -1,23 +1,24 @@
 Class {
-	#name : #MDQOneToManyComponent,
-	#superclass : #MAOneToManyComponent,
+	#name : 'MDQOneToManyComponent',
+	#superclass : 'MAOneToManyComponent',
 	#instVars : [
 		'expanded'
 	],
-	#category : #'Quasar-Magritte'
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MDQOneToManyComponent >> associateToMany [
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 MDQOneToManyComponent >> beExpanded [
 
 	self expanded: true
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MDQOneToManyComponent >> buildReport [
 
 	^ (MDQReport rows: self value description: self reference)
@@ -26,17 +27,17 @@ MDQOneToManyComponent >> buildReport [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQOneToManyComponent >> expanded [
 	^ expanded
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQOneToManyComponent >> expanded: anObject [
 	expanded := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MDQOneToManyComponent >> initialize [
 
 	super initialize.
@@ -44,31 +45,31 @@ MDQOneToManyComponent >> initialize [
 	self expanded: false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQOneToManyComponent >> isExpanded [
 
 	^ self expanded
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MDQOneToManyComponent >> quasarDataBasename [
 
 	^ 'foobar'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MDQOneToManyComponent >> quasarDataColumnName [
 
 	^ self quasarDataBasename, 'Col'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MDQOneToManyComponent >> quasarDataRowName [
 
 	^ self quasarDataBasename, 'Row'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQOneToManyComponent >> renderAddButtonOn: html [
 
 	html qBtn
@@ -76,7 +77,7 @@ MDQOneToManyComponent >> renderAddButtonOn: html [
 		icon: 'add'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQOneToManyComponent >> renderAssociateManyButtonOn: html [
 
 	html qBtn
@@ -84,13 +85,13 @@ MDQOneToManyComponent >> renderAssociateManyButtonOn: html [
 		icon: 'ballot'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQOneToManyComponent >> renderLabelOn: html [
 
 	html text: self magritteDescription label
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQOneToManyComponent >> renderListAjaxOn: html [
 
 	self value
@@ -109,14 +110,14 @@ MDQOneToManyComponent >> renderListAjaxOn: html [
 							html qItemLabel caption; with: eachItem mdSecondaryString ] ] ] ]
 ]
 
-{ #category : #'rendering-buttons' }
+{ #category : 'rendering-buttons' }
 MDQOneToManyComponent >> renderSelectButtonOn: html [
 
 	"Place the add button elsewhere"
 	"html submitButton on: #add of: self"
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQOneToManyComponent >> renderViewerOn: html [
 
 	html qCard "class: 'bg-secondary text-white';" with: [

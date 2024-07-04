@@ -1,6 +1,6 @@
 Class {
-	#name : #MDQListItemLabel,
-	#superclass : #QuasarComponent,
+	#name : 'MDQListItemLabel',
+	#superclass : 'QuasarComponent',
 	#instVars : [
 		'content',
 		'caption',
@@ -8,46 +8,47 @@ Class {
 		'lines',
 		'overline'
 	],
-	#category : #'Quasar-Magritte'
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQListItemLabel >> caption [
 
 	^ caption
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQListItemLabel >> caption: anObject [
 
 	caption := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQListItemLabel >> content [
 
 	^ content
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQListItemLabel >> content: anObject [
 
 	content := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQListItemLabel >> header [
 
 	^ header
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQListItemLabel >> header: anObject [
 
 	header := anObject
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MDQListItemLabel >> initialize [
 
 	super initialize.
@@ -57,31 +58,31 @@ MDQListItemLabel >> initialize [
 	self overline: false
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQListItemLabel >> lines [
 
 	^ lines
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQListItemLabel >> lines: anObject [
 
 	lines := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQListItemLabel >> overline [
 
 	^ overline
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQListItemLabel >> overline: anObject [
 
 	overline := anObject
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQListItemLabel >> renderContentOn: html [
 	| tag |
 

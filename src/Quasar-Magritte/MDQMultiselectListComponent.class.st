@@ -1,32 +1,33 @@
 Class {
-	#name : #MDQMultiselectListComponent,
-	#superclass : #MAMultipleSelectionComponent,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQMultiselectListComponent',
+	#superclass : 'MAMultipleSelectionComponent',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #testing }
+{ #category : 'testing' }
 MDQMultiselectListComponent class >> isAbstract [
 	^ false
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MDQMultiselectListComponent >> isDistinct [
 	^ true
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQMultiselectListComponent >> renderEditorOn: html [
 
 	self renderFieldOn: html readonly: false
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQMultiselectListComponent >> renderFieldOn: html readonly: readonlyFlag [
 
 	self renderMultiselectOn: html readonly: readonlyFlag
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQMultiselectListComponent >> renderMultiselectOn: html readonly: aReadonlyFlag [
 	| inputTag inputLabel inputValue app modelName modelOptionsName listValues optionsList |
 
@@ -60,7 +61,7 @@ MDQMultiselectListComponent >> renderMultiselectOn: html readonly: aReadonlyFlag
 		inputTag readonly: true ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQMultiselectListComponent >> renderViewerOn: html [
 
 	self renderFieldOn: html readonly: true

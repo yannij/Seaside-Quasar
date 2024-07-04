@@ -1,23 +1,24 @@
 Class {
-	#name : #MDQDensity,
-	#superclass : #MDQModel,
+	#name : 'MDQDensity',
+	#superclass : 'MDQModel',
 	#instVars : [
 		'density'
 	],
-	#category : #'Quasar-Magritte'
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQDensity >> density [
 	^ density
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQDensity >> density: anObject [
 	density := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQDensity >> densityDescription [
 	<magritteDescription>
 
@@ -32,7 +33,7 @@ MDQDensity >> densityDescription [
 		yourself
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MDQDensity >> initialize [
 
 	super initialize.

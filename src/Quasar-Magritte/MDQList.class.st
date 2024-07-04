@@ -1,20 +1,21 @@
 Class {
-	#name : #MDQList,
-	#superclass : #QuasarComponent,
+	#name : 'MDQList',
+	#superclass : 'QuasarComponent',
 	#instVars : [
 		'items',
 		'subheader'
 	],
-	#category : #'Quasar-Magritte'
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQList >> do: aBlock [
 
 	self items do: aBlock
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 MDQList >> initialize [
 
 	super initialize.
@@ -22,37 +23,37 @@ MDQList >> initialize [
 	self items: OrderedCollection new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQList >> items [
 
 	^ items
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQList >> items: anObject [
 
 	items := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQList >> itemsAdd: aTab [
 
 	self items add: aTab
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQList >> itemsAddAll: aCollection [
 
 	aCollection do: [ :eachItem | self itemsAdd: eachItem ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQList >> renderContentOn: html [
 
 	self renderListOn: html
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQList >> renderListOn: html [
 
 	self subheader notNil ifTrue: [
@@ -62,13 +63,13 @@ MDQList >> renderListOn: html [
 		self items do: [ :eachItem | html render: eachItem ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQList >> subheader [
 
 	^ subheader
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQList >> subheader: anObject [
 
 	subheader := anObject

@@ -1,28 +1,29 @@
 Class {
-	#name : #MDQSelectListComponent,
-	#superclass : #MASelectListComponent,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQSelectListComponent',
+	#superclass : 'MASelectListComponent',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQSelectListComponent >> inputAspect [
 
 	^ #string
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQSelectListComponent >> renderEditorOn: html [
 
 	self renderFieldOn: html readonly: false
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQSelectListComponent >> renderFieldOn: html readonly: readonlyFlag [
 
 	self renderSelectOn: html readonly: readonlyFlag
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQSelectListComponent >> renderSelectOn: html readonly: aReadonlyFlag [
 	| inputTag inputLabel inputValue app modelName modelOptionsName |
 
@@ -50,7 +51,7 @@ MDQSelectListComponent >> renderSelectOn: html readonly: aReadonlyFlag [
 		inputTag readonly: true ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQSelectListComponent >> renderViewerOn: html [
 
 	self renderFieldOn: html readonly: true

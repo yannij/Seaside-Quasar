@@ -1,16 +1,17 @@
 Class {
-	#name : #MDQTextPasswordComponent,
-	#superclass : #MDQTextInputComponent,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQTextPasswordComponent',
+	#superclass : 'MDQTextInputComponent',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQTextPasswordComponent >> inputType [
 
 	^ 'password'
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQTextPasswordComponent >> setExtraOf: inputTag [
 
 	super setExtraOf: inputTag.

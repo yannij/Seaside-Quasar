@@ -1,10 +1,11 @@
 Class {
-	#name : #MDQTextEditorComponent,
-	#superclass : #MDQTextInputComponent,
-	#category : #'Quasar-Magritte'
+	#name : 'MDQTextEditorComponent',
+	#superclass : 'MDQTextInputComponent',
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQTextEditorComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	| theDescription inputTag inputLabel inputValue app flag toolbarItems modelName |
 
@@ -37,7 +38,7 @@ MDQTextEditorComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 						readonly: flag; "disable: flag;" name: modelName; vModel: modelName ] ] ]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQTextEditorComponent >> toolbarItemsForEdit [
 
 	^ '[

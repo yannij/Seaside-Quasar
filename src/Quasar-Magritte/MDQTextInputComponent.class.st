@@ -1,68 +1,69 @@
 Class {
-	#name : #MDQTextInputComponent,
-	#superclass : #MATextInputComponent,
+	#name : 'MDQTextInputComponent',
+	#superclass : 'MATextInputComponent',
 	#instVars : [
 		'isReadOnlyForced',
 		'errorMessage'
 	],
-	#category : #'Quasar-Magritte'
+	#category : 'Quasar-Magritte',
+	#package : 'Quasar-Magritte'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTextInputComponent >> errorMessage [
 
 	^ errorMessage
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTextInputComponent >> errorMessage: anObject [
 
 	errorMessage := anObject
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQTextInputComponent >> fieldPrefix [
 
 	^ nil
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQTextInputComponent >> fieldSuffix [
 
 	^ nil
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQTextInputComponent >> inputAspect [
 
 	^ #string
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQTextInputComponent >> inputType [
 
 	^ nil
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MDQTextInputComponent >> isReadOnlyForced [
 
 	^ isReadOnlyForced = true
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDQTextInputComponent >> isReadOnlyForced: anObject [
 
 	isReadOnlyForced := anObject
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQTextInputComponent >> renderEditorOn: html [
 
 	self renderFieldOn: html readonly: false
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQTextInputComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 	| inputTag inputLabel inputValue app |
 
@@ -90,18 +91,18 @@ MDQTextInputComponent >> renderFieldOn: html readonly: aReadonlyFlag [
 		]
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQTextInputComponent >> renderTemplateOn: html vModel: aName [
 	"Subclasses may enhance"
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQTextInputComponent >> renderViewerOn: html [
 
 	self renderFieldOn: html readonly: true
 ]
 
-{ #category : #rendering }
+{ #category : 'rendering' }
 MDQTextInputComponent >> setExtraOf: inputTag [
 	"Subclasses may enhance"
 ]

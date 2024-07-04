@@ -1,6 +1,6 @@
-Extension { #name : #MABooleanDescription }
+Extension { #name : 'MABooleanDescription' }
 
-{ #category : #'*Quasar-Magritte' }
+{ #category : '*Quasar-Magritte' }
 MABooleanDescription class >> mdqDefaultComponentClasses [
 
 	^ Array with: MDQBooleanRadioComponent with: MDQCheckboxComponent
