@@ -37,9 +37,10 @@ TBAdminComponent >> initialize [
 { #category : 'rendering' }
 TBAdminComponent >> renderScreenOn: html [
 
-	html heading: 'Blog Admin'.
-	html horizontalRule.
-	html render: self report
+	html div class: 'q-pa-md'; with: [
+		html div class: 'text-h3'; with: 'Blog Admin'.
+		html horizontalRule.
+		html render: self report ]
 ]
 
 { #category : 'accessing' }

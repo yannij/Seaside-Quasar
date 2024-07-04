@@ -128,6 +128,13 @@ TBBlog >> removeAllPosts [
 	posts := OrderedCollection new
 ]
 
+{ #category : 'removing' }
+TBBlog >> removeBlogPost: aPost [
+
+	posts remove: aPost ifAbsent: [  ].
+	"self save"
+]
+
 { #category : 'accessing' }
 TBBlog >> size [
 

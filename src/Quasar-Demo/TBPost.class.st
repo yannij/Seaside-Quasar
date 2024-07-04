@@ -70,6 +70,8 @@ TBPost >> date: anObject [
 TBPost >> descriptionCategory [
 	<magritteDescription>
 	^ MAStringDescription new
+		  label: 'Category';
+		  priority: 300;
 		  accessor: #category;
 		  yourself
 ]
@@ -78,6 +80,8 @@ TBPost >> descriptionCategory [
 TBPost >> descriptionDate [
 	<magritteDescription>
 	^ MADateDescription new
+		  label: 'Date';
+		  priority: 400;
 		  accessor: #date;
 		  beRequired;
 		  yourself
@@ -87,6 +91,8 @@ TBPost >> descriptionDate [
 TBPost >> descriptionText [
 	<magritteDescription>
 	^ MAMemoDescription new
+		  label: 'Text';
+		  priority: 200;
 		  accessor: #text;
 		  beRequired;
 		  yourself
@@ -96,6 +102,8 @@ TBPost >> descriptionText [
 TBPost >> descriptionTitle [
 	<magritteDescription>
 	^ MAStringDescription new
+		  label: 'Title';
+		  priority: 100;
 		  accessor: #title;
 		  beRequired;
 		  yourself
@@ -105,6 +113,8 @@ TBPost >> descriptionTitle [
 TBPost >> descriptionVisible [
 	<magritteDescription>
 	^ MABooleanDescription new
+		  label: 'Visible';
+		  priority: 500;
 		  accessor: #visible;
 		  beRequired;
 		  yourself

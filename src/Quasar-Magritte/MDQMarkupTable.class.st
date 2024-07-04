@@ -8,8 +8,7 @@ Class {
 { #category : 'rendering' }
 MDQMarkupTable >> renderContentOn: html [
 
-	html div class: 'q-pa-md'; with: [
-		html qMarkupTable id: self ajaxId; with: [
-			html qTemplate vSlot: 'default'; with: [
-				self renderTableOn: html ] ] ]
+	html qMarkupTable id: self ajaxId; with: [
+		html qTemplate vSlot: 'default'; with: [
+			self renderTableOn: html ] ]
 ]
