@@ -105,4 +105,7 @@ MDQTextInputComponent >> renderViewerOn: html [
 { #category : 'rendering' }
 MDQTextInputComponent >> setExtraOf: inputTag [
 	"Subclasses may enhance"
+
+	self magritteDescription comment ifNotNil: [ :value |
+		inputTag hint: value ]
 ]

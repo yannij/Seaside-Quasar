@@ -64,6 +64,7 @@ TBApplicationRootComponent >> renderLayoutOn: html [
 		with: [
 			html qLayout
 				view: 'hHh lpR fFf';
+				vCloak;
 				with: [ html render: main ] ]
 ]
 

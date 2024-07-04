@@ -73,6 +73,16 @@ TBPost >> descriptionCategory [
 		  label: 'Category';
 		  priority: 300;
 		  accessor: #category;
+		  comment: 'Unclassified if empty';
+		  componentClass: MDQTextInputComponent;
+		  yourself
+]
+
+{ #category : 'accessing-magritte' }
+TBPost >> descriptionContainer [
+	<magritteContainer>
+	^ super descriptionContainer
+		  componentRenderer: MDQCssRenderer;
 		  yourself
 ]
 
@@ -84,6 +94,7 @@ TBPost >> descriptionDate [
 		  priority: 400;
 		  accessor: #date;
 		  beRequired;
+		  componentClass: MDQDateComponent;
 		  yourself
 ]
 
@@ -95,6 +106,9 @@ TBPost >> descriptionText [
 		  priority: 200;
 		  accessor: #text;
 		  beRequired;
+		  requiredErrorMessage: 'A blog post must contain a text.';
+		  comment: 'Please enter a text';
+		  componentClass: MDQTextAreaComponent;
 		  yourself
 ]
 
@@ -105,6 +119,9 @@ TBPost >> descriptionTitle [
 		  label: 'Title';
 		  priority: 100;
 		  accessor: #title;
+		  requiredErrorMessage: 'A blog post must have a title.';
+		  comment: 'Please enter a title';
+		  componentClass: MDQTextInputComponent;
 		  beRequired;
 		  yourself
 ]
@@ -113,9 +130,10 @@ TBPost >> descriptionTitle [
 TBPost >> descriptionVisible [
 	<magritteDescription>
 	^ MABooleanDescription new
-		  label: 'Visible';
+		  checkboxLabel: 'Visible';
 		  priority: 500;
 		  accessor: #visible;
+		  componentClass: MDQCheckboxComponent;
 		  beRequired;
 		  yourself
 ]
