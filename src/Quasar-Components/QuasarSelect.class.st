@@ -151,7 +151,7 @@ QuasarSelect >> nextKey [
 { #category : 'attributes' }
 QuasarSelect >> options: anObject [
 
-	self attributes at: 'options' put: anObject
+	self vBind: 'options' with: anObject
 ]
 
 { #category : 'attributes' }

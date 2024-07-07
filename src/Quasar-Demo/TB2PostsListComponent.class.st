@@ -2,7 +2,6 @@ Class {
 	#name : 'TB2PostsListComponent',
 	#superclass : 'TB2ScreenComponent',
 	#instVars : [
-		'currentCategory',
 		'showLoginError'
 	],
 	#category : 'Quasar-Demo-TinyBlog2-Components',
@@ -10,29 +9,19 @@ Class {
 	#tag : 'TinyBlog2-Components'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'actions' }
 TB2PostsListComponent class >> createDemoPosts: aNumber [
+	| start |
 
-	1 to: aNumber do: [ :i | | newPost |
+	start := TBBlog current allBlogPosts size.
+	start + 1 to: start + aNumber do: [ :i | | newPost |
 		newPost := (TBPost
 			            title: 'Post', i printString
 			            text: 'Text of post ', i printString
-			            category: 'Category', (i \\ 5) printString)
+			            category: 'Category', (i \\ 10) printString)
 			           visible: true;
 			           yourself.
 		TBBlog current writeBlogPost: newPost ]
-]
-
-{ #category : 'accessing' }
-TB2PostsListComponent >> currentCategory [
-
-	^ currentCategory
-]
-
-{ #category : 'accessing' }
-TB2PostsListComponent >> currentCategory: anObject [
-
-	currentCategory := anObject
 ]
 
 { #category : 'actions' }
@@ -57,6 +46,24 @@ TB2PostsListComponent >> loginErrorMessage [
 TB2PostsListComponent >> loginErrorOccurred [
 
 	showLoginError := true
+]
+
+{ #category : 'accessing' }
+TB2PostsListComponent >> pageNumber [
+
+	^ self session pageNumberGet
+]
+
+{ #category : 'accessing' }
+TB2PostsListComponent >> postsPerPage [
+
+	^ self session postsPerPageGet
+]
+
+{ #category : 'accessing' }
+TB2PostsListComponent >> postsPerPageRefName [
+
+	^ self session postsPerPageRef refName
 ]
 
 { #category : 'accessing' }
@@ -100,22 +107,63 @@ TB2PostsListComponent >> renderLoginErrorMessageIfAnyOn: html [
 ]
 
 { #category : 'rendering' }
-TB2PostsListComponent >> renderPostsOn: html [
-	| posts postsOnPage postsPerPage offset |
+TB2PostsListComponent >> renderMakeDemoPostsOn: html with: postsCount [
+	| max |
 
-	postsPerPage := 3.
-	posts := self readSelectedPosts.
-	offset := (self session pageNumberRef refValue - 1) * postsPerPage + 1.
-	postsOnPage := posts copyFrom: offset to: ((offset + postsPerPage - 1) min: posts size).
+	"self session isLogged ifFalse: [ ^ self ]."
+
+	max := 5000.
+	html text: 'Add demo posts: '.
+	1 to: 6 do: [ :x | | n  flag hint |
+		n := 10 raisedTo: x.
+		flag := postsCount + n > max.
+		hint := flag
+			ifTrue: [ 'Disabled: max # posts is ', max printString ]
+			ifFalse: [ 'Add ', n asStringWithCommas, ' demo posts' ].
+		html qBtn
+			href: (html urlForAction: [ self class createDemoPosts: n ]);
+			disable: flag;
+			icon: 'add';
+			label: n asStringWithCommas;
+			with: [
+				html qTooltip with: hint ] ]
+]
+
+{ #category : 'rendering' }
+TB2PostsListComponent >> renderPaginationOf: posts on: html [
 
 	html qPagination
 		vModel: self session pageNumberRef refName;
-		max: ((posts size + postsPerPage) // postsPerPage);
-		vOnUpdateModelValue: self session pageNumberRef functionName, '(pageNumber)'.
+		max: ((posts size + self postsPerPage - 1) // self postsPerPage);
+		maxPages: 9; directionLinks; boundaryLinks;
+		vOnUpdateModelValue: self session pageNumberRef functionName, '(pageNumber)'
+]
 
+{ #category : 'rendering' }
+TB2PostsListComponent >> renderPostsOn: html [
+	| posts |
+
+	posts := self readSelectedPosts.
+	self renderMakeDemoPostsOn: html with: posts size.
+	self renderPostsPerPageSelectOn: html.
+	html break; text: 'Posts per page: ', self postsPerPage printString.
+	html break; text: 'Selected posts count: ', posts size asStringWithCommas.
+	html break; text: 'Total posts count: ', self blog allBlogPosts size asStringWithCommas.
+	html div class: 'q-pa-lg flex flex-center'; with: [
+		self renderPaginationOf: posts on: html ].
 	html div class: 'row'; class: 'items-start q-pa-md q-gutter-md'; with: [
-		postsOnPage do: [ :p |
-			html render: (TBPostComponent new post: p) ] ] 
+		self renderSelectedPosts: posts on: html ]
+]
+
+{ #category : 'rendering' }
+TB2PostsListComponent >> renderPostsPerPageSelectOn: html [
+
+	html qSelect
+		vModel: self postsPerPageRefName;
+		vOnUpdateModelValue: self session postsPerPageRef functionName, '(', self postsPerPageRefName, ')';
+		options: '[ 3, 5, 10, 25, 50 ]';
+		style: 'width: 250px';
+		label: 'Rows Per Page'
 ]
 
 { #category : 'rendering' }
@@ -128,6 +176,17 @@ TB2PostsListComponent >> renderScreenOn: html [
 		html div class: 'col-xs-12 col-sm-10 col-md-8'; with: [
 			self renderLoginErrorMessageIfAnyOn: html.
 			self renderPostsOn: html ] ]
+]
+
+{ #category : 'rendering' }
+TB2PostsListComponent >> renderSelectedPosts: posts on: html [
+	| postsOnPage offset end |
+
+	offset := (self pageNumber - 1) * self postsPerPage + 1.
+	end := (offset + self postsPerPage - 1) min: posts size.
+	postsOnPage := posts copyFrom: offset to: end.
+
+	postsOnPage do: [ :p | html render: (TBPostComponent new post: p) ]
 ]
 
 { #category : 'actions' }

@@ -3,8 +3,9 @@ Class {
 	#superclass : 'WASession',
 	#instVars : [
 		'currentAdmin',
+		'currentCategoryRef',
 		'pageNumberRef',
-		'currentCategoryRef'
+		'postsPerPageRef'
 	],
 	#category : 'Quasar-Demo-TinyBlog2-Components',
 	#package : 'Quasar-Demo',
@@ -53,13 +54,18 @@ TB2Session >> initialize [
 
 	super initialize.
 
+	self currentCategoryRef: ((QuasarRefCallback name: 'currentCategory' value: nil)
+		callbackBlock: [ :ref :value | self currentCategorySet: value ];
+		emitRefreshOn;
+		yourself).
+
 	self pageNumberRef: ((QuasarRefCallback name: 'pageNumber' value: 1)
 		callbackBlock: [ :ref :value | ref refValue: value ];
 		emitRefreshOn;
 		yourself).
 
-	self currentCategoryRef: ((QuasarRefCallback name: 'currentCategory' value: nil)
-		callbackBlock: [ :ref :value | self currentCategorySet: value ];
+	self postsPerPageRef: ((QuasarRefCallback name: 'postsPerPage' value: 7)
+		callbackBlock: [ :ref :value | ref refValue: value asNumber ];
 		emitRefreshOn;
 		yourself)
 ]
@@ -92,6 +98,30 @@ TB2Session >> pageNumberRef: anObject [
 TB2Session >> pageNumberSet: anObject [
 
 	self pageNumberRef refValue: anObject
+]
+
+{ #category : 'accessing' }
+TB2Session >> postsPerPageGet [
+
+	^ self postsPerPageRef refValue
+]
+
+{ #category : 'accessing' }
+TB2Session >> postsPerPageRef [
+
+	^ postsPerPageRef
+]
+
+{ #category : 'accessing' }
+TB2Session >> postsPerPageRef: anObject [
+
+	postsPerPageRef := anObject
+]
+
+{ #category : 'accessing' }
+TB2Session >> postsPerPageSet: anObject [
+
+	self postsPerPageRef refValue: anObject
 ]
 
 { #category : 'initialization' }

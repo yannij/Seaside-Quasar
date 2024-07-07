@@ -10,13 +10,13 @@ Class {
 	#tag : 'TinyBlog-Components'
 }
 
-{ #category : 'accessing' }
+{ #category : 'as yet unclassified' }
 TBPostsListComponent >> currentCategory [
 
 	^ currentCategory
 ]
 
-{ #category : 'accessing' }
+{ #category : 'as yet unclassified' }
 TBPostsListComponent >> currentCategory: anObject [
 
 	currentCategory := anObject

@@ -72,6 +72,12 @@ QuasarPagination >> ellipses [
 ]
 
 { #category : 'attributes' }
+QuasarPagination >> ellipses: anObject [
+	
+	self attributes at: 'ellipses' put: anObject
+]
+
+{ #category : 'attributes' }
 QuasarPagination >> flat [
 	
 	self attributes at: 'flat' put: true

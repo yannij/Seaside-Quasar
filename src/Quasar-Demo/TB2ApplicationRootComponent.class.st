@@ -58,6 +58,7 @@ TB2ApplicationRootComponent >> initialize [
 
 	self reactiveObjectsAddIfAbsent: self session currentCategoryRef.
 	self reactiveObjectsAddIfAbsent: self session pageNumberRef.
+	self reactiveObjectsAddIfAbsent: self session postsPerPageRef.
 
 	main := TB2PostsListComponent new
 ]
@@ -72,6 +73,8 @@ TB2ApplicationRootComponent >> main: aComponent [
 TB2ApplicationRootComponent >> quasarSetupReturnCustomList: aList with: anAjaxFactory [
 	
 	aList add: '
+account: ref(null),
+password: ref(null),
 myAuthDialog: ref(false)'
 ]
 
