@@ -1,16 +1,16 @@
 Class {
-	#name : 'TBHeaderComponent',
+	#name : 'TB2HeaderComponent',
 	#superclass : 'WAComponent',
 	#instVars : [
 		'component'
 	],
-	#category : 'Quasar-Demo-TinyBlog-Components',
+	#category : 'Quasar-Demo-TinyBlog2-Components',
 	#package : 'Quasar-Demo',
-	#tag : 'TinyBlog-Components'
+	#tag : 'TinyBlog2-Components'
 }
 
 { #category : 'instance creation' }
-TBHeaderComponent class >> from: aComponent [
+TB2HeaderComponent class >> from: aComponent [
 
 	^ self new
 		  component: aComponent;
@@ -18,19 +18,19 @@ TBHeaderComponent class >> from: aComponent [
 ]
 
 { #category : 'accessing' }
-TBHeaderComponent >> component [
+TB2HeaderComponent >> component [
 
 	^ component
 ]
 
 { #category : 'accessing' }
-TBHeaderComponent >> component: anObject [
+TB2HeaderComponent >> component: anObject [
 
 	component := anObject
 ]
 
 { #category : 'rendering' }
-TBHeaderComponent >> renderButtonsOn: html [
+TB2HeaderComponent >> renderButtonsOn: html [
 
 	self session isLogged
 		ifTrue: [ self renderSimpleAdminButtonOn: html ]
@@ -38,7 +38,7 @@ TBHeaderComponent >> renderButtonsOn: html [
 ]
 
 { #category : 'rendering' }
-TBHeaderComponent >> renderContentOn: html [
+TB2HeaderComponent >> renderContentOn: html [
 
 	html qHeader
 		elevated;
@@ -46,12 +46,12 @@ TBHeaderComponent >> renderContentOn: html [
 		class: 'bg-primary text-white';
 		with: [
 			html qToolbar with: [
-					html qToolbarTitle with: [ html text: 'TinyBlog' ].
+					html qToolbarTitle with: [ html text: 'Blog2' ].
 					self renderButtonsOn: html ] ]
 ]
 
 { #category : 'rendering' }
-TBHeaderComponent >> renderModalLoginButtonOn: html [
+TB2HeaderComponent >> renderModalLoginButtonOn: html [
 
 	html render: (TBAuthentificationComponent from: component).
 	html qBtn push
@@ -61,7 +61,7 @@ TBHeaderComponent >> renderModalLoginButtonOn: html [
 ]
 
 { #category : 'rendering' }
-TBHeaderComponent >> renderSimpleAdminButtonOn: html [
+TB2HeaderComponent >> renderSimpleAdminButtonOn: html [
 
 	html qBtn
 		href: (html urlForAction: [ component goToAdministrationView ]);

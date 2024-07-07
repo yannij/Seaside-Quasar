@@ -1,3 +1,6 @@
+"
+I am a demo application originating from the TinyBlog tutorial at  https://github.com/SquareBracketAssociates/TinyBlog-EN. This version has been adjusted to use Seaside-Quasar, instead of Bootstrap CSS.
+"
 Class {
 	#name : 'TBApplicationRootComponent',
 	#superclass : 'QuasarApplication',
@@ -9,10 +12,22 @@ Class {
 	#tag : 'TinyBlog-Components'
 }
 
+{ #category : 'class initialization' }
+TBApplicationRootComponent class >> applicationPath [
+
+	^ 'TinyBlog'
+]
+
 { #category : 'testing' }
 TBApplicationRootComponent class >> canBeRoot [
 
 	^ true
+]
+
+{ #category : 'accessing' }
+TBApplicationRootComponent class >> categoryName [
+
+	^ #demo
 ]
 
 { #category : 'class initialization' }
@@ -20,7 +35,7 @@ TBApplicationRootComponent class >> initialize [
 	"self initialize"
 
 	| app |
-	app := WAAdmin register: self asApplicationAt: 'TinyBlog'.
+	app := WAAdmin register: self asApplicationAt: self applicationPath.
 	app preferenceAt: #sessionClass put: TBSession
 ]
 
@@ -53,6 +68,8 @@ TBApplicationRootComponent >> main: aComponent [
 TBApplicationRootComponent >> quasarSetupReturnCustomList: aList with: anAjaxFactory [
 	
 	aList add: '
+account: ref(null),
+password: ref(null),
 myAuthDialog: ref(false)'
 ]
 

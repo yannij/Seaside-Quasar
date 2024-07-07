@@ -63,7 +63,7 @@ TBCategoriesComponent >> renderContentOn: html [
 		self renderCategoryLinkOn: html with: nil ]
 ]
 
-{ #category : 'actions' }
+{ #category : 'as yet unclassified' }
 TBCategoriesComponent >> selectCategory: aCategory [
 
 	postsList currentCategory: aCategory

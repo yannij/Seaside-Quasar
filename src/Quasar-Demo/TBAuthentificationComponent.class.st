@@ -61,18 +61,23 @@ TBAuthentificationComponent >> renderAccountFieldOn: html [
 	html qInput
 		label: 'Account';
 		name: 'account';
+		vModel: 'account';
 		on: #account of: self
 ]
 
 { #category : 'rendering' }
 TBAuthentificationComponent >> renderBodyOn: html [
 
-	html "qForm" form with: [
-		html qCardSection with: [
-			self renderAccountFieldOn: html.
-			self renderPasswordFieldOn: html ].
-		html qCardSection with: [
-			self renderButtonsOn: html ] ]
+	html qForm
+		vOnSubmit: '$event.target.submit()';
+		method: 'post';
+		action: (html urlForAction: [ self validate ]);
+		with: [
+			html qCardSection with: [
+				self renderAccountFieldOn: html.
+				self renderPasswordFieldOn: html ].
+			html qCardSection with: [
+				self renderButtonsOn: html ] ]
 ]
 
 { #category : 'rendering' }
@@ -83,8 +88,6 @@ TBAuthentificationComponent >> renderButtonsOn: html [
 		vOnClick: self vModelName, '=false'.
 
 	html qBtn noCaps typeSubmit
-		href: (html urlForAction: [ self validate ]);
-		typeSubmit;
 		label: 'SignIn'
 ]
 
@@ -94,22 +97,17 @@ TBAuthentificationComponent >> renderContentOn: html [
 	html qDialog
 		vModel: self vModelName;
 		with: [
-			html qCard with: [
+			html qCard class: 'q-pa-md'; with: [
 					self renderHeaderOn: html.
 					self renderBodyOn: html ].
-			html qCard with: [
+			"html qCard class: 'q-pa-md'; with: [
 					self renderHeaderOn: html.
-					self renderNativeBodyOn: html ] ]
+					self renderNativeBodyOn: html ]" ]
 ]
 
 { #category : 'rendering' }
 TBAuthentificationComponent >> renderHeaderOn: html [
 
-	"html tbsModalHeader: [
-		html tbsModalCloseIcon.
-		html tbsModalTitle
-			level: 4;
-			with: 'Authentication' ]"
 	html div class: 'text-h6'; with:'Authentication'
 ]
 
@@ -154,6 +152,7 @@ TBAuthentificationComponent >> renderPasswordFieldOn: html [
 	html qInput
 		label: 'Password';
 		name: 'password';
+		vModel: 'password';
 		on: #password of: self
 ]
 

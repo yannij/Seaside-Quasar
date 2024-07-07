@@ -53,6 +53,8 @@ QuasarDemoBrowseApp >> demoClassNames [
 	#LoanexApp
 	#KeycloakHelloApp
 	#KeycloakHelloBootstrapApp
+	#TBApplicationRootComponent
+	#TB2ApplicationRootComponent
 	#QuasarDemoVueUsageApp
 	#QuasarDemoVueRouterApp
 	#QuasarCodePenVueRouterApp
