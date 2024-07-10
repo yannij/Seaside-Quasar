@@ -14,7 +14,7 @@ TB2ScreenComponent >> blog [
 	"Return the current blog. In the future we will ask the
    session to return the blog of the currently logged in user."
 
-	^ TBBlog current
+	^ TB2Blog current
 ]
 
 { #category : 'hooks' }
@@ -26,7 +26,7 @@ TB2ScreenComponent >> children [
 { #category : 'initialization' }
 TB2ScreenComponent >> createHeaderComponent [
 
-	^ TB2HeaderComponent from: self
+	^ TB2PublicHeaderComponent from: self
 ]
 
 { #category : 'initialization' }

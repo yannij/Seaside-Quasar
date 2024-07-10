@@ -10,21 +10,6 @@ Class {
 }
 
 { #category : 'actions' }
-TB2PostsListComponent class >> createDemoPosts: aNumber [
-	| start |
-
-	start := TBBlog current allBlogPosts size.
-	start + 1 to: start + aNumber do: [ :i | | newPost |
-		newPost := (TBPost
-			            title: 'Post', i printString
-			            text: 'Text of post ', i printString
-			            category: 'Category', (i \\ 10) printString)
-			           visible: true;
-			           yourself.
-		TBBlog current writeBlogPost: newPost ]
-]
-
-{ #category : 'actions' }
 TB2PostsListComponent >> goToAdministrationView [
 
 	self call: TB2AdminComponent new
@@ -114,14 +99,14 @@ TB2PostsListComponent >> renderMakeDemoPostsOn: html with: postsCount [
 
 	max := 5000.
 	html text: 'Add demo posts: '.
-	1 to: 6 do: [ :x | | n  flag hint |
+	0 to: 6 do: [ :x | | n  flag hint |
 		n := 10 raisedTo: x.
 		flag := postsCount + n > max.
 		hint := flag
 			ifTrue: [ 'Disabled: max # posts is ', max printString ]
 			ifFalse: [ 'Add ', n asStringWithCommas, ' demo posts' ].
 		html qBtn
-			href: (html urlForAction: [ self class createDemoPosts: n ]);
+			href: (html urlForAction: [ TB2ApplicationRootComponent createTinyBlogPosts: n ]);
 			disable: flag;
 			icon: 'add';
 			label: n asStringWithCommas;
@@ -161,7 +146,7 @@ TB2PostsListComponent >> renderPostsPerPageSelectOn: html [
 	html qSelect
 		vModel: self postsPerPageRefName;
 		vOnUpdateModelValue: self session postsPerPageRef functionName, '(', self postsPerPageRefName, ')';
-		options: '[ 3, 5, 10, 25, 50 ]';
+		options: '[ 5, 10, 50, 100, 1000 ]';
 		style: 'width: 250px';
 		label: 'Rows Per Page'
 ]

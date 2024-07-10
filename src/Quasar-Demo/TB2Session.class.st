@@ -64,7 +64,7 @@ TB2Session >> initialize [
 		emitRefreshOn;
 		yourself).
 
-	self postsPerPageRef: ((QuasarRefCallback name: 'postsPerPage' value: 7)
+	self postsPerPageRef: ((QuasarRefCallback name: 'postsPerPage' value: 10)
 		callbackBlock: [ :ref :value | ref refValue: value asNumber ];
 		emitRefreshOn;
 		yourself)

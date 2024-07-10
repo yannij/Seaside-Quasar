@@ -72,7 +72,7 @@ TBPostsReport >> editPost: aPost [
 	post ifNotNil: [ "blog save" ]
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'actions' }
 TBPostsReport >> refreshReport [
 
 	self rows: blog allBlogPosts.
