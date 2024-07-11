@@ -31,7 +31,7 @@ TB2AdminComponent >> goToPostListView [
 TB2AdminComponent >> initialize [
 
 	super initialize.
-	self report: (TBPostsReport from: self blog)
+	self report: (TB2PostsReport from: self blog)
 ]
 
 { #category : 'rendering' }

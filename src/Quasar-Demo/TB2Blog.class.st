@@ -1,6 +1,6 @@
 Class {
 	#name : 'TB2Blog',
-	#superclass : 'Object',
+	#superclass : 'TB2Model',
 	#instVars : [
 		'adminUser'
 	],
@@ -128,9 +128,10 @@ TB2Blog >> removeAllPosts [
 
 { #category : 'removing' }
 TB2Blog >> removeBlogPost: aPost [
+	| repository |
 
-	"posts remove: aPost ifAbsent: [  ]."
-	"self save"
+	repository := TB2ApplicationRootComponent tinyBlogRepository.
+	repository remove: aPost atKey: aPost id
 ]
 
 { #category : 'accessing' }
@@ -142,6 +143,9 @@ TB2Blog >> size [
 { #category : 'writing' }
 TB2Blog >> writeBlogPost: aPost [
 	"Add the blog post to the list of posts."
+	| repository |
 
-	self posts add: aPost
+	repository := TB2ApplicationRootComponent tinyBlogRepository.
+	aPost id: (repository count: TB2Post) + 1.
+	repository save: aPost
 ]

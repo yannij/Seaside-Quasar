@@ -2,7 +2,8 @@ Class {
 	#name : 'TB2PostsListComponent',
 	#superclass : 'TB2ScreenComponent',
 	#instVars : [
-		'showLoginError'
+		'showLoginError',
+		'posts'
 	],
 	#category : 'Quasar-Demo-TinyBlog2-Components',
 	#package : 'Quasar-Demo',
@@ -95,10 +96,8 @@ TB2PostsListComponent >> renderLoginErrorMessageIfAnyOn: html [
 TB2PostsListComponent >> renderMakeDemoPostsOn: html with: postsCount [
 	| max |
 
-	"self session isLogged ifFalse: [ ^ self ]."
-
 	max := 5000.
-	html text: 'Add demo posts: '.
+	html div class: 'q-py-sm text-caption'; with: 'Add demo posts: '.
 	0 to: 6 do: [ :x | | n  flag hint |
 		n := 10 raisedTo: x.
 		flag := postsCount + n > max.
@@ -115,7 +114,7 @@ TB2PostsListComponent >> renderMakeDemoPostsOn: html with: postsCount [
 ]
 
 { #category : 'rendering' }
-TB2PostsListComponent >> renderPaginationOf: posts on: html [
+TB2PostsListComponent >> renderPaginationOn: html [
 
 	html qPagination
 		vModel: self session pageNumberRef refName;
@@ -125,19 +124,30 @@ TB2PostsListComponent >> renderPaginationOf: posts on: html [
 ]
 
 { #category : 'rendering' }
+TB2PostsListComponent >> renderPostsInfoOn: html [
+
+	html div class: 'text-caption';
+		with: 'Selected ', posts size asStringWithCommas, ' of ', self blog allBlogPosts size asStringWithCommas
+]
+
+{ #category : 'rendering' }
 TB2PostsListComponent >> renderPostsOn: html [
-	| posts |
 
 	posts := self readSelectedPosts.
-	self renderMakeDemoPostsOn: html with: posts size.
-	self renderPostsPerPageSelectOn: html.
-	html break; text: 'Posts per page: ', self postsPerPage printString.
-	html break; text: 'Selected posts count: ', posts size asStringWithCommas.
-	html break; text: 'Total posts count: ', self blog allBlogPosts size asStringWithCommas.
-	html div class: 'q-pa-lg flex flex-center'; with: [
-		self renderPaginationOf: posts on: html ].
+
+	self session isLogged ifTrue: [
+		html div class: 'q-pa-md'; with: [
+			self renderMakeDemoPostsOn: html with: posts size ] ].
+
+	html qToolbar with: [
+		self renderPaginationOn: html.
+		html qSpace.
+		self renderPostsPerPageSelectOn: html.
+		html qSpace.
+		self renderPostsInfoOn: html ].
+
 	html div class: 'row'; class: 'items-start q-pa-md q-gutter-md'; with: [
-		self renderSelectedPosts: posts on: html ]
+		self renderSelectedPostsOn: html ]
 ]
 
 { #category : 'rendering' }
@@ -147,8 +157,8 @@ TB2PostsListComponent >> renderPostsPerPageSelectOn: html [
 		vModel: self postsPerPageRefName;
 		vOnUpdateModelValue: self session postsPerPageRef functionName, '(', self postsPerPageRefName, ')';
 		options: '[ 5, 10, 50, 100, 1000 ]';
-		style: 'width: 250px';
-		label: 'Rows Per Page'
+		style: 'width: 160px';
+		label: 'Posts Per Page'
 ]
 
 { #category : 'rendering' }
@@ -164,7 +174,7 @@ TB2PostsListComponent >> renderScreenOn: html [
 ]
 
 { #category : 'rendering' }
-TB2PostsListComponent >> renderSelectedPosts: posts on: html [
+TB2PostsListComponent >> renderSelectedPostsOn: html [
 	| postsOnPage offset end |
 
 	offset := (self pageNumber - 1) * self postsPerPage + 1.

@@ -184,6 +184,27 @@ QuasarDemoSoilRepository >> remove: anObject [
 ]
 
 { #category : 'persistence' }
+QuasarDemoSoilRepository >> remove: anObject atKey: aKey [
+	| tx |
+
+	tx := soil newTransaction.
+	self remove: anObject atKey: aKey transaction: tx.
+	tx commit
+]
+
+{ #category : 'persistence' }
+QuasarDemoSoilRepository >> remove: anObject atKey: aKey transaction: tx [
+	| list |
+
+	list := tx root
+		at: (self collectionNameFor: anObject class)
+		ifAbsent: [ ^ self ].
+	tx markDirty: list.
+	tx makeRoot: anObject.
+	list removeKey: aKey
+]
+
+{ #category : 'persistence' }
 QuasarDemoSoilRepository >> removeAll: aClass [ 
 
 	self removeCollection: aClass

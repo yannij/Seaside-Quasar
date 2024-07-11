@@ -1,6 +1,6 @@
 Class {
 	#name : 'TB2Post',
-	#superclass : 'Object',
+	#superclass : 'TB2Model',
 	#instVars : [
 		'title',
 		'text',
@@ -76,14 +76,6 @@ TB2Post >> descriptionCategory [
 		  accessor: #category;
 		  comment: 'Unclassified if empty';
 		  componentClass: MDQTextInputComponent;
-		  yourself
-]
-
-{ #category : 'accessing-magritte' }
-TB2Post >> descriptionContainer [
-	<magritteContainer>
-	^ super descriptionContainer
-		  componentRenderer: MDQCssRenderer;
 		  yourself
 ]
 

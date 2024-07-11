@@ -78,7 +78,7 @@ TBPost >> descriptionCategory [
 		  yourself
 ]
 
-{ #category : 'accessing-magritte' }
+{ #category : 'as yet unclassified' }
 TBPost >> descriptionContainer [
 	<magritteContainer>
 	^ super descriptionContainer
