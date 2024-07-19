@@ -38,6 +38,14 @@ TB2Post class >> unclassifiedTag [
 ]
 
 { #category : 'actions' }
+TB2Post >> assignId [
+	| newId |
+
+	newId := true ifTrue: [ self class newUUID ] ifFalse: [ self class nextSequenceNumber ].
+	self id: newId
+]
+
+{ #category : 'actions' }
 TB2Post >> beVisible [
 
 	self visible: true

@@ -96,7 +96,8 @@ TB2Blog >> allCategories [
 { #category : 'accessing' }
 TB2Blog >> allVisibleBlogPosts [
 
-	^ self allBlogPosts select: [ :p | p isVisible ]
+	^ (self allBlogPosts select: [ :p | p isVisible ])
+		collect: [ :e | e theNonSoilProxy ]
 ]
 
 { #category : 'accessing' }
@@ -145,7 +146,7 @@ TB2Blog >> writeBlogPost: aPost [
 	"Add the blog post to the list of posts."
 	| repository |
 
+	aPost assignId.
 	repository := TB2ApplicationRootComponent tinyBlogRepository.
-	aPost id: (repository count: TB2Post) + 1.
 	repository save: aPost
 ]

@@ -35,13 +35,11 @@ TB2ApplicationRootComponent class >> createData [
 	"
 	self createData.
 	"
-	| repo |
 
 	self repositoryClass mapReset.
 	self repositoryClass mapCreateAt: self databasePath.
 
-	repo := self tinyBlogRepository.
-	self createTinyBlogPosts: 9 in: repo.
+	self createTinyBlogPosts: 9
 ]
 
 { #category : 'demo data' }
@@ -52,18 +50,18 @@ TB2ApplicationRootComponent class >> createTinyBlogPosts: aNumber [
 
 { #category : 'demo data' }
 TB2ApplicationRootComponent class >> createTinyBlogPosts: aNumber in: aRepository [
-	| start |
+	| start tmpBlog |
 
+	tmpBlog := TB2Blog new.
 	start := aRepository count: TB2Post.
 	start + 1 to: start + aNumber do: [ :i | | newPost |
 		newPost := TB2Post new
-			id: i;
 			title: 'Post', i printString;
 			text: 'Text of post ', i printString;
 			category: 'Category', (i \\ 10) printString;
 			visible: true;
 			yourself.
-		aRepository save: newPost ]
+		tmpBlog writeBlogPost: newPost ]
 ]
 
 { #category : 'demo data' }

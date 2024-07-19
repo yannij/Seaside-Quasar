@@ -65,7 +65,7 @@ TB2Session >> initialize [
 		yourself).
 
 	self postsPerPageRef: ((QuasarRefCallback name: 'postsPerPage' value: 10)
-		callbackBlock: [ :ref :value | ref refValue: value asNumber ];
+		callbackBlock: [ :ref :value | self postsPerPageSet: value ];
 		emitRefreshOn;
 		yourself)
 ]
@@ -121,7 +121,8 @@ TB2Session >> postsPerPageRef: anObject [
 { #category : 'accessing' }
 TB2Session >> postsPerPageSet: anObject [
 
-	self postsPerPageRef refValue: anObject
+	self postsPerPageRef refValue: anObject.
+	self pageNumberSet: 1.
 ]
 
 { #category : 'initialization' }
