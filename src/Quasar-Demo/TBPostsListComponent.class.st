@@ -46,7 +46,7 @@ TBPostsListComponent >> loginErrorOccurred [
 	showLoginError := true
 ]
 
-{ #category : 'accessing' }
+{ #category : 'rendering' }
 TBPostsListComponent >> readSelectedPosts [
 
 	^ self currentCategory

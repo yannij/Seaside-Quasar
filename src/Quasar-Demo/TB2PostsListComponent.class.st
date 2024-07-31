@@ -2,8 +2,7 @@ Class {
 	#name : 'TB2PostsListComponent',
 	#superclass : 'TB2ScreenComponent',
 	#instVars : [
-		'showLoginError',
-		'posts'
+		'showLoginError'
 	],
 	#category : 'Quasar-Demo-TinyBlog2-Components',
 	#package : 'Quasar-Demo',
@@ -41,6 +40,12 @@ TB2PostsListComponent >> pageNumber [
 ]
 
 { #category : 'accessing' }
+TB2PostsListComponent >> postsCount [
+
+	^ (TB2ApplicationRootComponent tinyBlogRepository count: TB2Post)
+]
+
+{ #category : 'accessing' }
 TB2PostsListComponent >> postsPerPage [
 
 	^ self session postsPerPageGet
@@ -52,7 +57,7 @@ TB2PostsListComponent >> postsPerPageRefName [
 	^ self session postsPerPageRef refName
 ]
 
-{ #category : 'accessing' }
+{ #category : 'rendering' }
 TB2PostsListComponent >> readSelectedPosts [
 
 	^ self session currentCategoryGet
@@ -114,40 +119,71 @@ TB2PostsListComponent >> renderMakeDemoPostsOn: html with: postsCount [
 ]
 
 { #category : 'rendering' }
-TB2PostsListComponent >> renderPaginationOn: html [
+TB2PostsListComponent >> renderPaginationOn: html with: postsCount [
 
 	html qPagination
 		vModel: self session pageNumberRef refName;
-		max: ((posts size + self postsPerPage - 1) // self postsPerPage);
+		max: ((postsCount + self postsPerPage - 1) // self postsPerPage);
 		maxPages: 9; directionLinks; boundaryLinks;
 		vOnUpdateModelValue: self session pageNumberRef functionName, '(pageNumber)'
 ]
 
 { #category : 'rendering' }
-TB2PostsListComponent >> renderPostsInfoOn: html [
+TB2PostsListComponent >> renderPostsInCategoryPageOn: html [
+	| postsOnPage offset end posts |
 
-	html div class: 'text-caption';
-		with: 'Selected ', posts size asStringWithCommas, ' of ', self blog allBlogPosts size asStringWithCommas
+	posts := self readSelectedPosts.
+	offset := (self pageNumber - 1) * self postsPerPage + 1.
+	end := (offset + self postsPerPage - 1) min: posts size.
+	postsOnPage := posts copyFrom: offset to: end.
+
+	postsOnPage do: [ :p | html render: (TBPostComponent new post: p) ]
+]
+
+{ #category : 'rendering' }
+TB2PostsListComponent >> renderPostsInfoOn: html with: postsCount [
+	| info |
+
+	info := 'Selected ', 'TODO' "posts size asStringWithCommas", ' of ', postsCount asStringWithCommas.
+
+	html div class: 'text-caption'; with: info
 ]
 
 { #category : 'rendering' }
 TB2PostsListComponent >> renderPostsOn: html [
+	| postsCount |
 
-	posts := self readSelectedPosts.
+	postsCount := self postsCount.
 
 	self session isLogged ifTrue: [
 		html div class: 'q-pa-md'; with: [
-			self renderMakeDemoPostsOn: html with: posts size ] ].
+			self renderMakeDemoPostsOn: html with: postsCount ] ].
 
 	html qToolbar with: [
-		self renderPaginationOn: html.
+		self renderPaginationOn: html with: postsCount.
 		html qSpace.
 		self renderPostsPerPageSelectOn: html.
 		html qSpace.
-		self renderPostsInfoOn: html ].
+		self renderPostsInfoOn: html with: postsCount ].
 
 	html div class: 'row'; class: 'items-start q-pa-md q-gutter-md'; with: [
-		self renderSelectedPostsOn: html ]
+		self session currentCategoryGet
+		ifNil: [ self renderPostsPageOn: html with: postsCount ]
+		ifNotNil: [ self renderPostsInCategoryPageOn: html ] ]
+]
+
+{ #category : 'rendering' }
+TB2PostsListComponent >> renderPostsPageOn: html with: postsCount [
+	| postsOnPage offset end list |
+
+	offset := (self pageNumber - 1) * self postsPerPage + 1.
+	end := (offset + self postsPerPage - 1) min: postsCount.
+
+	list := TB2ApplicationRootComponent tinyBlogRepository list: TB2Post.
+	postsOnPage := OrderedCollection new.
+	offset to: end do: [ :i | postsOnPage add: (list atIndex: i) ].
+
+	postsOnPage do: [ :p | html render: (TBPostComponent new post: p) ]
 ]
 
 { #category : 'rendering' }
@@ -171,17 +207,6 @@ TB2PostsListComponent >> renderScreenOn: html [
 		html div class: 'col-xs-12 col-sm-10 col-md-8'; with: [
 			self renderLoginErrorMessageIfAnyOn: html.
 			self renderPostsOn: html ] ]
-]
-
-{ #category : 'rendering' }
-TB2PostsListComponent >> renderSelectedPostsOn: html [
-	| postsOnPage offset end |
-
-	offset := (self pageNumber - 1) * self postsPerPage + 1.
-	end := (offset + self postsPerPage - 1) min: posts size.
-	postsOnPage := posts copyFrom: offset to: end.
-
-	postsOnPage do: [ :p | html render: (TBPostComponent new post: p) ]
 ]
 
 { #category : 'actions' }

@@ -50,15 +50,16 @@ TB2ApplicationRootComponent class >> createTinyBlogPosts: aNumber [
 
 { #category : 'demo data' }
 TB2ApplicationRootComponent class >> createTinyBlogPosts: aNumber in: aRepository [
-	| start tmpBlog |
+	| start tmpBlog tags |
 
+	tags := #('Cat A' 'Cat B' 'Cat C' 'Cat D' 'Cat E').
 	tmpBlog := TB2Blog new.
 	start := aRepository count: TB2Post.
 	start + 1 to: start + aNumber do: [ :i | | newPost |
 		newPost := TB2Post new
 			title: 'Post', i printString;
 			text: 'Text of post ', i printString;
-			category: 'Category', (i \\ 10) printString;
+			category: (tags at: (i \\ tags size) + 1);
 			visible: true;
 			yourself.
 		tmpBlog writeBlogPost: newPost ]
