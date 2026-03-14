@@ -1,6 +1,6 @@
 Class {
-	#name : #BrcMeasure,
-	#superclass : #Object,
+	#name : 'BrcMeasure',
+	#superclass : 'Object',
 	#instVars : [
 		'cityName',
 		'min',
@@ -8,46 +8,47 @@ Class {
 		'sum',
 		'count'
 	],
-	#category : #'Quasar-Extras'
+	#category : 'Quasar-Extras',
+	#package : 'Quasar-Extras'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BrcMeasure class >> city: aCityName [
 
 	^ self new cityName: aCityName; yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BrcMeasure >> cityName [
 
 	^ cityName
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BrcMeasure >> cityName: anObject [
 
 	cityName := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BrcMeasure >> count [
 
 	^ count
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BrcMeasure >> count: anObject [
 
 	count := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BrcMeasure >> countIncrement [
 
 	count := count + 1
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 BrcMeasure >> initialize [
 
 	super initialize.
@@ -59,43 +60,43 @@ BrcMeasure >> initialize [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BrcMeasure >> max [
 
 	^ max
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BrcMeasure >> max: anObject [
 
 	max := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BrcMeasure >> min [
 
 	^ min
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BrcMeasure >> min: anObject [
 
 	min := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BrcMeasure >> sum [
 
 	^ sum
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BrcMeasure >> sum: anObject [
 
 	sum := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BrcMeasure >> sumIncrementBy: anObject [
 
 	sum := sum + anObject

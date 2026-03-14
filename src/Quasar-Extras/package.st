@@ -1,1 +1,1 @@
-Package { #name : #'Quasar-Extras' }
+Package { #name : 'Quasar-Extras' }

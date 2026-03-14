@@ -1,18 +1,19 @@
 Class {
-	#name : #BrcSoilTest,
-	#superclass : #TestCase,
+	#name : 'BrcSoilTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'soil'
 	],
-	#category : #'Quasar-Extras'
+	#category : 'Quasar-Extras',
+	#package : 'Quasar-Extras'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 BrcSoilTest >> path [ 
 	^ 'soil-brc' asFileReference
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 BrcSoilTest >> processFile: fileName [
 	| tx stream character lf tenFloat buffer stringSize lineNumber cities result |
 
@@ -77,7 +78,7 @@ BrcSoilTest >> processFile: fileName [
 	^ result
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 BrcSoilTest >> readmePostgres [
 	"
 From: https://ftisiot.net/posts/1brows/
@@ -105,7 +106,7 @@ FROM AGG
 	"
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 BrcSoilTest >> setUp [ 
 	super setUp.
 	soil := Soil path: self path.
@@ -114,7 +115,7 @@ BrcSoilTest >> setUp [
 		initializeFilesystem 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 BrcSoilTest >> soilAddRoot [ 
 	| tx skipList |
 	tx := soil newTransaction.
@@ -125,14 +126,14 @@ BrcSoilTest >> soilAddRoot [
 	tx commit.
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 BrcSoilTest >> tearDown [ 
 	super tearDown.
 	soil ifNotNil: [ 
 		soil close ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 BrcSoilTest >> testMeasurements10 [
 	| inputFileName inputData expected |
 

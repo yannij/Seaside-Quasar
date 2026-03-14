@@ -1,17 +1,20 @@
 Class {
-	#name : #ExtraNeoConsoleMetrics,
-	#superclass : #Object,
-	#category : #'Quasar-Extras'
+	#name : 'ExtraNeoConsoleMetrics',
+	#superclass : 'Object',
+	#category : 'Quasar-Extras',
+	#package : 'Quasar-Extras'
 }
 
-{ #category : #metrics }
+{ #category : 'metrics' }
 ExtraNeoConsoleMetrics class >> appSessions [
 	"Answer size of session cache for the root application"
 
-	^ (WADispatcher default handlerAt: SsrRootApp applicationPath) cache size
+	(Smalltalk classNamed: #SsrRootApp) ifNotNil: [ :value |
+		^ (WADispatcher default handlerAt: value applicationPath) cache size ].
+	^ 0
 ]
 
-{ #category : #metrics }
+{ #category : 'metrics' }
 ExtraNeoConsoleMetrics class >> appSessionstInstall [
 
 	NeoConsoleMetric
@@ -20,13 +23,13 @@ ExtraNeoConsoleMetrics class >> appSessionstInstall [
 		reader: [ self appSessions ]
 ]
 
-{ #category : #metrics }
+{ #category : 'metrics' }
 ExtraNeoConsoleMetrics class >> fileCount [
 
 	^ File allInstances size
 ]
 
-{ #category : #metrics }
+{ #category : 'metrics' }
 ExtraNeoConsoleMetrics class >> fileCountInstall [
 
 	NeoConsoleMetric
@@ -35,13 +38,13 @@ ExtraNeoConsoleMetrics class >> fileCountInstall [
 		reader: [ self fileCount ]
 ]
 
-{ #category : #metrics }
+{ #category : 'metrics' }
 ExtraNeoConsoleMetrics class >> fileRegistrySize [
 
 	^ File registry size
 ]
 
-{ #category : #metrics }
+{ #category : 'metrics' }
 ExtraNeoConsoleMetrics class >> fileRegistrySizeInstall [
 
 	NeoConsoleMetric
@@ -50,13 +53,13 @@ ExtraNeoConsoleMetrics class >> fileRegistrySizeInstall [
 		reader: [ self fileRegistrySize ]
 ]
 
-{ #category : #metrics }
+{ #category : 'metrics' }
 ExtraNeoConsoleMetrics class >> imageExternalObjectsSize [
 
 	^ Smalltalk image externalObjects size
 ]
 
-{ #category : #metrics }
+{ #category : 'metrics' }
 ExtraNeoConsoleMetrics class >> imageExternalObjectsSizeInstall [
 
 	NeoConsoleMetric
@@ -65,14 +68,14 @@ ExtraNeoConsoleMetrics class >> imageExternalObjectsSizeInstall [
 		reader: [ self imageExternalObjectsSize ]
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 ExtraNeoConsoleMetrics class >> initialize [
 	"self initialize"
 
 	self install
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 ExtraNeoConsoleMetrics class >> install [
 	"ExtraNeoConsoleMetrics install"
 
@@ -86,13 +89,13 @@ ExtraNeoConsoleMetrics class >> install [
 		socketCountInstall
 ]
 
-{ #category : #metrics }
+{ #category : 'metrics' }
 ExtraNeoConsoleMetrics class >> processCount2 [
 
 	^ Process allInstances size
 ]
 
-{ #category : #metrics }
+{ #category : 'metrics' }
 ExtraNeoConsoleMetrics class >> processCount2Install [
 
 	NeoConsoleMetric
@@ -102,13 +105,13 @@ ExtraNeoConsoleMetrics class >> processCount2Install [
 		reader: [ self processCount2 ]
 ]
 
-{ #category : #metrics }
+{ #category : 'metrics' }
 ExtraNeoConsoleMetrics class >> semaphoreCount [
 
 	^ Semaphore allInstances size
 ]
 
-{ #category : #metrics }
+{ #category : 'metrics' }
 ExtraNeoConsoleMetrics class >> semaphoreCountInstall [
 
 	NeoConsoleMetric
@@ -117,13 +120,13 @@ ExtraNeoConsoleMetrics class >> semaphoreCountInstall [
 		reader: [ self semaphoreCount ]
 ]
 
-{ #category : #metrics }
+{ #category : 'metrics' }
 ExtraNeoConsoleMetrics class >> socketCount [
 
 	^ Socket allInstances size
 ]
 
-{ #category : #metrics }
+{ #category : 'metrics' }
 ExtraNeoConsoleMetrics class >> socketCountInstall [
 
 	NeoConsoleMetric

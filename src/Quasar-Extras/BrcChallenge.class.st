@@ -2,12 +2,13 @@
 I implement various approaches to the billion row challenge. See https://github.com/gunnarmorling/1brc
 "
 Class {
-	#name : #BrcChallenge,
-	#superclass : #Object,
-	#category : #'Quasar-Extras'
+	#name : 'BrcChallenge',
+	#superclass : 'Object',
+	#category : 'Quasar-Extras',
+	#package : 'Quasar-Extras'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 BrcChallenge class >> timeToRun: fileName using: method [
 	| start end |
 
@@ -17,14 +18,14 @@ BrcChallenge class >> timeToRun: fileName using: method [
 	(method asString, ' ', (end - start) humanReadablePrintString) traceCr
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 BrcChallenge class >> timeToRun: fileName usingAll: methods [
 
 	'====' traceCr.
 	methods do: [ :each | self timeToRun: fileName using: each ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 BrcChallenge class >> timeToRunExamples [
 
 	self timeToRun: 'measurements-1m.txt' using: #useMeasureObject:.
@@ -39,7 +40,7 @@ BrcChallenge class >> timeToRunExamples [
 
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 BrcChallenge class >> useHashInline: fileName [
 	"
 	self timeToRun: 'measurements-1m.txt' using: #useHashInline:.
@@ -105,7 +106,7 @@ BrcChallenge class >> useHashInline: fileName [
 	^ result
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 BrcChallenge class >> useHashNative: fileName [
 	"
 	self timeToRun: 'measurements-1m.txt' using: #useHashNative:.
@@ -162,7 +163,7 @@ BrcChallenge class >> useHashNative: fileName [
 	^ result
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 BrcChallenge class >> useJosaid: fileName [
 	"Code from https://discord.com/channels/223421264751099906/278558544146464778/1215795942943621250"
 	"
@@ -257,7 +258,7 @@ BrcChallenge class >> useJosaid: fileName [
 		^ result
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 BrcChallenge class >> useMeasureObject: fileName [
 	"
 	self timeToRun: 'measurements-1m.txt' using: #useMeasureObject:.
@@ -318,7 +319,7 @@ BrcChallenge class >> useMeasureObject: fileName [
 	^ result
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 BrcChallenge class >> useNull: fileName [
 	"
 	self timeToRun: 'measurements-1m.txt' using: #useNull:.

@@ -1,10 +1,11 @@
 Class {
-	#name : #BrcChallengeTest,
-	#superclass : #TestCase,
-	#category : #'Quasar-Extras'
+	#name : 'BrcChallengeTest',
+	#superclass : 'TestCase',
+	#category : 'Quasar-Extras',
+	#package : 'Quasar-Extras'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 BrcChallengeTest >> runMeasurements: list [
 	| urlPrefix inputData inputFileName expected |
 
@@ -20,7 +21,7 @@ BrcChallengeTest >> runMeasurements: list [
 
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 BrcChallengeTest >> testMeasurements [
 
 	self runMeasurements: #(
@@ -39,7 +40,7 @@ BrcChallengeTest >> testMeasurements [
 	)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 BrcChallengeTest >> testMeasurements10 [
 	| inputFileName inputData expected |
 
@@ -66,7 +67,7 @@ BrcChallengeTest >> testMeasurements10 [
 	self assert: (BrcChallenge useMeasureObject: inputFileName) equals: expected.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 BrcChallengeTest >> testMeasurementsRounding [
 
 	self runMeasurements: #(
